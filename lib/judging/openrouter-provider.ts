@@ -108,70 +108,38 @@ function tryParseJson(raw: string): Record<string, unknown> {
   // Attempt 3: remove trailing commas before } or ]
   const noTrailing = sanitized.replace(/,(\s*[}\]])/g, "$1");
   try { return JSON.parse(noTrailing) as Record<string, unknown>; } catch {}
-  // Attempt 4: regex-extract the scalar fields only, discard evidenceChecks
-  const winnerId = cleaned.match(/"winnerId"\s*:\s*"([^"]+)"/)?.[1] ?? null;
-  const explanation = cleaned.match(/"explanation"\s*:\s*"((?:[^"\\]|\\.)*)"/)?.[1]?.replace(/\\n/g, "\n") ?? "";
-  if (winnerId) {
-    return { winnerId, explanation,
-      privateFeedbackA: cleaned.match(/"privateFeedbackA"\s*:\s*"((?:[^"\\]|\\.)*)"/)?.[1]?.replace(/\\n/g, "\n") ?? "",
-      privateFeedbackB: cleaned.match(/"privateFeedbackB"\s*:\s*"((?:[^"\\]|\\.)*)"/)?.[1]?.replace(/\\n/g, "\n") ?? "",
-      evidenceChecks: [],
+  // Attempt 4: regex-extract basic fields for new format fallback
+  const winnerUsername = cleaned.match(/"winner_username"\s*:\s*"([^"]+)"/)?.[1] ?? null;
+  const summary = cleaned.match(/"summary"\s*:\s*"((?:[^"\\]|\\.)*)"/)?.[1]?.replace(/\\n/g, "\n") ?? "";
+  if (winnerUsername) {
+    return { 
+      winner_username: winnerUsername, 
+      public_result: { winner_username: winnerUsername, summary },
+      private_assessment: { key_claim_checks: [] }
     };
   }
   throw new Error(`Failed to parse judge JSON after all attempts. Raw (first 400): ${raw.slice(0, 400)}`);
-}
-
-function parseScores(raw: unknown): DebaterScores | undefined {
-  if (!raw || typeof raw !== "object") return undefined;
-  const r = raw as Record<string, unknown>;
-  const n = (k: string, fallback = 5): number => {
-    const v = r[k];
-    return typeof v === "number" ? Math.max(0, Math.min(10, v)) : fallback;
-  };
-  const factuality = n("factuality");
-  const evidence_quality = n("evidence_quality");
-  const argument_strength = n("argument_strength");
-  const rebuttal_quality = n("rebuttal_quality");
-  const clarity = n("clarity");
-  const persuasiveness = n("persuasiveness");
-  // Compute server-side — don't trust model's arithmetic
-  let final_score =
-    factuality * 0.35 +
-    evidence_quality * 0.25 +
-    argument_strength * 0.15 +
-    rebuttal_quality * 0.15 +
-    clarity * 0.05 +
-    persuasiveness * 0.05;
-  if (factuality < 3) final_score = Math.min(final_score, 3);
-  else if (factuality < 5) final_score = Math.min(final_score, 6);
-  return {
-    factuality,
-    evidence_quality,
-    argument_strength,
-    rebuttal_quality,
-    clarity,
-    persuasiveness,
-    final_score: Math.round(final_score * 10) / 10,
-  };
 }
 
 function parseVerdict(raw: string, input: JudgeInput): SingleJudgeVerdict {
   const parsed = tryParseJson(raw);
 
   // Map winner_username to winnerId
-  const winnerUsername = parsed.winner_username ?? parsed.public_result?.winner_username;
+  const publicResult = parsed.public_result as Record<string, unknown> | undefined;
+  const winnerUsername = parsed.winner_username ?? (publicResult?.winner_username as string | undefined);
   const winnerId: string | null = 
     winnerUsername === input.debaterA.username ? input.debaterA.id :
     winnerUsername === input.debaterB.username ? input.debaterB.id :
     input.debaterA.id; // fallback
 
   // Extract summary from new format
-  const explanation = String(parsed.public_result?.summary ?? parsed.summary ?? "");
+  const explanation = String((publicResult?.summary as string) ?? parsed.summary ?? "");
 
   // Extract evidence checks from new format
   const VALID_VERDICTS = new Set(["correct", "incorrect", "misleading", "disputed", "unsupported"]);
-  const evidenceChecks: EvidenceCheck[] = Array.isArray(parsed.private_assessment?.key_claim_checks)
-    ? (parsed.private_assessment.key_claim_checks as Array<Record<string, unknown>>)
+  const privateAssessment = parsed.private_assessment as Record<string, unknown> | undefined;
+  const evidenceChecks: EvidenceCheck[] = Array.isArray(privateAssessment?.key_claim_checks)
+    ? (privateAssessment.key_claim_checks as Array<Record<string, unknown>>)
         .filter((e) => e && typeof e.claim === "string" && typeof e.verdict === "string")
         .map((e) => ({
           debater: String(e.username ?? ""),
@@ -184,12 +152,12 @@ function parseVerdict(raw: string, input: JudgeInput): SingleJudgeVerdict {
     : [];
 
   // Extract scores from new nested format
-  const scores = parsed.private_assessment?.scores;
+  const scores = privateAssessment?.scores as Record<string, unknown> | undefined;
   const scoresA = parseScoresFromNew(scores?.[input.debaterA.username]);
   const scoresB = parseScoresFromNew(scores?.[input.debaterB.username]);
 
   // Generate simple private feedback from winner reason
-  const winnerReason = String(parsed.private_assessment?.winner_reason ?? "");
+  const winnerReason = String(privateAssessment?.winner_reason ?? "");
   const privateFeedbackA = winnerUsername === input.debaterA.username ? winnerReason : "";
   const privateFeedbackB = winnerUsername === input.debaterB.username ? winnerReason : "";
 
