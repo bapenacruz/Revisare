@@ -49,6 +49,7 @@ export default async function ResultsPage({ params }: Props) {
   const { id: challengeId } = await params;
   const session = await auth();
   const sessionUserId = (session?.user as { id?: string })?.id;
+  const sessionRole = (session?.user as { role?: string })?.role;
 
   const debate = await db.debate.findUnique({
     where: { challengeId },
@@ -137,6 +138,7 @@ export default async function ResultsPage({ params }: Props) {
   })();
 
   // Private feedback for the current user
+  const isAdmin = sessionRole === "admin";
   const isDebaterA = sessionUserId === debate.debaterAId;
   const isDebaterB = sessionUserId === debate.debaterBId;
   const myPrivateFeedback =
@@ -328,19 +330,44 @@ export default async function ResultsPage({ params }: Props) {
         </Card>
       </div>
 
-      {/* Private Feedback — only visible to the debater themselves */}
-      {(isDebaterA || isDebaterB) && (
+      {/* Private Feedback — visible to each debater (their own) and admins (both) */}
+      {(isDebaterA || isDebaterB || isAdmin) && (
         <div className="mb-8">
           <h2 className="text-lg font-bold text-foreground mb-3">Private Feedback</h2>
-          <Card>
-            <CardBody>
-              {myPrivateFeedback && myPrivateFeedback.trim().length > 0 ? (
-                <pre className="text-sm font-mono text-foreground whitespace-pre-wrap leading-relaxed">{myPrivateFeedback}</pre>
-              ) : (
-                <p className="text-sm text-foreground-muted italic">Private feedback has not been generated yet. An admin can regenerate it from the admin panel.</p>
-              )}
-            </CardBody>
-          </Card>
+          {isAdmin ? (
+            <div className="flex flex-col gap-3">
+              <Card>
+                <CardBody>
+                  <p className="text-xs font-semibold text-brand mb-1">{debate.debaterA.username}</p>
+                  {judgeResult?.privateFeedbackA ? (
+                    <pre className="text-sm font-mono text-foreground whitespace-pre-wrap leading-relaxed">{judgeResult.privateFeedbackA}</pre>
+                  ) : (
+                    <p className="text-sm text-foreground-muted italic">Not generated yet.</p>
+                  )}
+                </CardBody>
+              </Card>
+              <Card>
+                <CardBody>
+                  <p className="text-xs font-semibold text-danger mb-1">{debate.debaterB.username}</p>
+                  {judgeResult?.privateFeedbackB ? (
+                    <pre className="text-sm font-mono text-foreground whitespace-pre-wrap leading-relaxed">{judgeResult.privateFeedbackB}</pre>
+                  ) : (
+                    <p className="text-sm text-foreground-muted italic">Not generated yet.</p>
+                  )}
+                </CardBody>
+              </Card>
+            </div>
+          ) : (
+            <Card>
+              <CardBody>
+                {myPrivateFeedback && myPrivateFeedback.trim().length > 0 ? (
+                  <pre className="text-sm font-mono text-foreground whitespace-pre-wrap leading-relaxed">{myPrivateFeedback}</pre>
+                ) : (
+                  <p className="text-sm text-foreground-muted italic">Private feedback has not been generated yet. An admin can regenerate it from the admin panel.</p>
+                )}
+              </CardBody>
+            </Card>
+          )}
         </div>
       )}
 
