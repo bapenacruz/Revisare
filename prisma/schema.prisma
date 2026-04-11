@@ -1,0 +1,406 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma/client"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ============================================================
+// Auth models (required by @auth/prisma-adapter)
+// ============================================================
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+// ============================================================
+// User & Profile
+// ============================================================
+
+model User {
+  id                 String    @id @default(cuid())
+  email              String    @unique
+  emailVerified      DateTime?
+  username           String    @unique
+  hashedPassword     String?
+  bio                String?
+  avatarUrl          String?
+  country            String?
+  twitterHandle      String?
+  threadsHandle      String?
+  truthSocialHandle  String?
+  blueskyHandle      String?
+  mastodonHandle     String?
+  websiteUrl         String?
+  lastUsernameChange DateTime?
+  aiAssessment           String?
+  aiAssessmentUpdatedAt  DateTime?
+  role               String    @default("user")
+  isExhibition       Boolean   @default(false)
+  onboardingComplete Boolean   @default(false)
+  suspendedUntil     DateTime?
+  dob                DateTime?
+  gender             String?
+  region             String?
+  elo                  Int       @default(1000)
+  rankedDebatesPlayed  Int       @default(0)
+  wins                 Int       @default(0)
+  losses               Int       @default(0)
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+
+  accounts           Account[]
+  sessions           Session[]
+  favCategories      UserFavoriteCategory[]
+  debaterA           Debate[]  @relation("DebaterA")
+  debaterB           Debate[]  @relation("DebaterB")
+  challengesSent     Challenge[] @relation("ChallengeCreator")
+  challengesReceived Challenge[] @relation("ChallengeTarget")
+  notifications      Notification[]
+  joinRequests       JoinRequest[]
+  following          Follow[] @relation("Follower")
+  followers          Follow[] @relation("Following")
+  pushSubscriptions  PushSubscription[]
+}
+
+// ============================================================
+// Follows
+// ============================================================
+
+model Follow {
+  followerId  String
+  followingId String
+  createdAt   DateTime @default(now())
+
+  follower    User @relation("Follower", fields: [followerId], references: [id], onDelete: Cascade)
+  following   User @relation("Following", fields: [followingId], references: [id], onDelete: Cascade)
+
+  @@id([followerId, followingId])
+}
+
+// ============================================================
+// Favorite categories join table
+// ============================================================
+
+model UserFavoriteCategory {
+  userId     String
+  categoryId String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  @@id([userId, categoryId])
+}
+
+// ============================================================
+// Categories
+// ============================================================
+
+model Category {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  label       String
+  emoji       String
+  description String
+  order       Int      @default(0)
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+
+  favoritedBy UserFavoriteCategory[]
+  debates     Debate[]
+  challenges  Challenge[]
+}
+
+// ============================================================
+// Challenges
+// ============================================================
+
+model Challenge {
+  id               String    @id @default(cuid())
+  type             String
+  status           String    @default("pending")
+  motion           String
+  categoryId       String
+  format           String
+  ranked           Boolean   @default(true)
+  isPublic         Boolean   @default(true)
+  timerPreset      Int       @default(300)
+  creatorId        String
+  targetId         String?
+  creatorAccepted  Boolean   @default(false)
+  targetAccepted   Boolean   @default(false)
+  lockedAt         DateTime?
+  expiresAt        DateTime?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  category          Category  @relation(fields: [categoryId], references: [id])
+  creator           User      @relation("ChallengeCreator", fields: [creatorId], references: [id])
+  target            User?     @relation("ChallengeTarget", fields: [targetId], references: [id])
+  lobbyChatMessages LobbyChatMessage[]
+  debate            Debate?
+  joinRequests      JoinRequest[]
+}
+
+// ============================================================
+// Join requests (for open challenges)
+// ============================================================
+
+model JoinRequest {
+  id          String   @id @default(cuid())
+  challengeId String
+  userId      String
+  status      String   @default("pending") // pending | approved | rejected
+  createdAt   DateTime @default(now())
+
+  challenge   Challenge @relation(fields: [challengeId], references: [id], onDelete: Cascade)
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+// ============================================================
+// Lobby chat
+// ============================================================
+
+model LobbyChatMessage {
+  id          String   @id @default(cuid())
+  challengeId String
+  userId      String
+  content     String
+  createdAt   DateTime @default(now())
+
+  challenge   Challenge @relation(fields: [challengeId], references: [id], onDelete: Cascade)
+}
+
+// ============================================================
+// Debates
+// ============================================================
+
+model Debate {
+  id               String    @id @default(cuid())
+  challengeId      String    @unique
+  categoryId       String
+  motion           String
+  format           String
+  ranked           Boolean   @default(true)
+  isPublic         Boolean   @default(true)
+  timerPreset      Int       @default(300)
+  status           String    @default("pending")
+  phase            String    @default("prep")
+  debaterAId       String
+  debaterBId       String
+  winnerId         String?
+  coinFlipWinnerId String?
+  currentTurnIndex Int       @default(0)
+  currentUserId    String?
+  timerStartedAt   DateTime?
+  prepEndsAt       DateTime?
+  // Second-chance bookkeeping
+  secondChancePending     Boolean   @default(false)
+  secondChanceRequesterId String?
+  secondChanceUserId      String?
+  secondChanceExpiresAt   DateTime?
+  forfeitedBy             String?
+  startedAt        DateTime?
+  completedAt      DateTime?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  challenge         Challenge      @relation(fields: [challengeId], references: [id])
+  category          Category       @relation(fields: [categoryId], references: [id])
+  debaterA          User           @relation("DebaterA", fields: [debaterAId], references: [id])
+  debaterB          User           @relation("DebaterB", fields: [debaterBId], references: [id])
+  turns             DebateTurn[]
+  judgeResults      JudgeResult[]
+  spectatorMessages SpectatorMessage[]
+  audienceVotes     AudienceVote[]
+  debateComments    DebateComment[]
+}
+
+// ============================================================
+// Audience votes (cosmetic, separate from official judging)
+// ============================================================
+
+model AudienceVote {
+  id         String   @id @default(cuid())
+  debateId   String
+  voterToken String
+  votedForId String
+  createdAt  DateTime @default(now())
+
+  debate     Debate   @relation(fields: [debateId], references: [id], onDelete: Cascade)
+
+  @@unique([debateId, voterToken])
+}
+
+// ============================================================
+// Post-match debate comments
+// ============================================================
+
+model DebateComment {
+  id        String   @id @default(cuid())
+  debateId  String
+  userId    String
+  content   String
+  createdAt DateTime @default(now())
+
+  debate    Debate   @relation(fields: [debateId], references: [id], onDelete: Cascade)
+}
+
+// ============================================================
+// Debate turns
+// ============================================================
+
+model DebateTurn {
+  id           String   @id @default(cuid())
+  debateId     String
+  userId       String
+  roundName    String
+  content      String
+  isAutoSubmit Boolean  @default(false)
+  submittedAt  DateTime @default(now())
+
+  debate       Debate   @relation(fields: [debateId], references: [id], onDelete: Cascade)
+}
+
+// ============================================================
+// Judge results
+// ============================================================
+
+model JudgeResult {
+  id               String   @id @default(cuid())
+  debateId         String
+  judgeId          String
+  winnerId         String?
+  explanation      String
+  privateFeedbackA String?
+  privateFeedbackB String?
+  roundScores      String
+  evidenceChecks   String?
+  createdAt        DateTime @default(now())
+
+  debate           Debate   @relation(fields: [debateId], references: [id], onDelete: Cascade)
+}
+
+// ============================================================
+// Spectator messages
+// ============================================================
+
+model SpectatorMessage {
+  id        String   @id @default(cuid())
+  debateId  String
+  userId    String?
+  guestName String?
+  content   String
+  createdAt DateTime @default(now())
+
+  debate    Debate   @relation(fields: [debateId], references: [id], onDelete: Cascade)
+}
+
+// ============================================================
+// Notifications
+// ============================================================
+
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String
+  type      String
+  payload   String
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+// ============================================================
+// Integrity flags
+// ============================================================
+
+model IntegrityFlag {
+  id          String    @id @default(cuid())
+  debateId    String?
+  userId      String?
+  reporterId  String?
+  type        String
+  description String?
+  status      String    @default("pending")
+  resolution  String?
+  reviewedBy  String?
+  createdAt   DateTime  @default(now())
+  reviewedAt  DateTime?
+}
+
+// ============================================================
+// Suspicious turn signals (auto-detected integrity markers)
+// ============================================================
+
+model SuspiciousTurnSignal {
+  id        String   @id @default(cuid())
+  debateId  String
+  turnId    String?
+  userId    String
+  signal    String
+  detail    String?
+  createdAt DateTime @default(now())
+}
+
+// ============================================================
+// Web Push subscriptions
+// ============================================================
+
+model PushSubscription {
+  id        String   @id @default(cuid())
+  userId    String
+  endpoint  String   @unique
+  p256dh    String
+  auth      String
+  createdAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+// ============================================================
+// Admin action audit log
+// ============================================================
+
+model AdminAction {
+  id        String   @id @default(cuid())
+  adminId   String
+  targetId  String?
+  debateId  String?
+  flagId    String?
+  action    String
+  reason    String?
+  createdAt DateTime @default(now())
+}

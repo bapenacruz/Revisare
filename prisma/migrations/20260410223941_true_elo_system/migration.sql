@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "User" ADD COLUMN     "rankedDebatesPlayed" INTEGER NOT NULL DEFAULT 0,
+ALTER COLUMN "elo" SET DEFAULT 1000;

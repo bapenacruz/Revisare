@@ -1,0 +1,129 @@
+You are my senior full-stack engineer. Steps 1–4 are already complete. Do NOT rebuild prior work. Build Step 5 only, integrating into the existing codebase.
+
+MANDATORY STACK — DO NOT SUBSTITUTE:
+- Next.js App Router
+- TypeScript
+- Tailwind CSS
+- PostgreSQL on Neon
+- Prisma ORM
+- Clerk for auth
+- Pusher Channels for realtime/notification fanout where useful
+- Vercel-ready project structure
+
+PROJECT RULES ALREADY DECIDED:
+- Official winner is determined by AI judges, not audience
+- Audience vote is shown separately, for example:
+  Official winner: AI judges
+  Audience pick: 62% thought User B won
+- Ranked matches are public
+- Private matches are unranked
+- Setup lobby chat is stored privately for audit/admin
+- Integrity policy:
+  - 1st confirmed offense: result voided + warning
+  - 2nd confirmed offense: 30-day debate ban
+  - 3rd confirmed offense: permanent platform ban
+- Random quality/integrity review should be supported
+- House debaters / exhibition debaters are allowed as platform-run accounts, but they must not be presented as real humans
+- Notifications are required
+- UI must remain modular and easy to restyle
+
+BUILD ONLY STEP 5.
+
+STEP 5 SCOPE:
+1. Implement AI judging pipeline abstraction
+   - support judge packs
+   - support 3-judge result structure
+   - majority decision
+   - tie logic support
+   - store per-judge outputs
+   - store round-by-round results
+   - store public explanation
+   - store private player feedback
+2. Use a production-ready service boundary for AI judging providers
+3. Integrate at least one real AI provider if practical, otherwise provide a provider-ready implementation with mocks/fallbacks that is easy to activate with API keys
+4. Build notifications system
+   - in-app notifications at minimum
+   - structure with room for email notifications later
+   Suggested notifications:
+   - challenge received
+   - challenge accepted
+   - debate ready/starting
+   - result ready
+   - rematch request
+5. Build basic admin/moderation tools
+   - review flagged debates
+   - review setup lobby audit chat
+   - void result
+   - warn user
+   - suspend user
+   - ban user
+   - manage categories
+6. Build integrity review scaffolding
+   - store suspicious turn signals
+   - report queue
+   - review workflow
+   - penalty application
+7. Seed tasteful house debaters / exhibition content
+   - clearly labeled as platform-run or exhibition
+   - distinct personalities and styles
+   - do not present them as real humans
+8. Final polish pass across app
+   - mobile and desktop responsiveness
+   - navigation
+   - visual consistency
+   - loading/empty/error states
+
+AI PROVIDER REQUIREMENTS:
+- Isolate provider integration behind a judging service interface
+- Use environment variables for all secrets
+- Include clear fallback behavior when API keys are absent
+- If you select a real provider, document exactly what account to create and what keys are needed
+- Do not hardcode provider secrets
+- Make the result pipeline testable even in mock mode
+
+NOTIFICATION REQUIREMENTS:
+- Notifications should work in-app
+- Structure for future email delivery but do not require production email in this step unless trivial
+- If using Pusher for fanout, keep notification code isolated from domain logic
+
+THIRD-PARTY SETUP REQUIREMENTS:
+You must include:
+1. `.env.example` updates
+2. README/setup notes explaining:
+   - any AI provider account I must create
+   - which API key(s) to copy
+   - where to paste them
+   - how to run the app in mock judging mode if keys are missing
+3. If any additional provider is used for notifications or admin workflows, explain that too
+
+POSSIBLE ENV VARS FOR THIS STEP:
+- OPENAI_API_KEY or other chosen provider key
+- NEXT_PUBLIC_PUSHER_KEY
+- PUSHER_APP_ID
+- PUSHER_SECRET
+- PUSHER_CLUSTER
+
+ENGINEERING REQUIREMENTS:
+- Keep all judging/provider logic isolated from UI
+- Keep admin code separated from user-facing code
+- Keep future extensibility in mind
+- Preserve modular UI architecture
+
+DELIVERABLES:
+- Full code for Step 5
+- Prisma schema changes and migrations
+- Seed data for house debaters/exhibitions
+- `.env.example` updates
+- README/setup notes for AI provider and any new setup
+- Commands to run migrations, seed, and test judged flows
+
+TEST CHECKLIST:
+- Judged match flow works
+- In-app notifications work
+- Admin moderation flow works
+- Flagged debate review flow works
+- House debaters are clearly labeled
+- Final responsive QA passes
+- Mock mode works when AI keys are absent
+
+At the end, include a brief summary of what remains for a post-v1 roadmap.

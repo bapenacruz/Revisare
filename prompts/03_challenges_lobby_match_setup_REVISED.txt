@@ -1,0 +1,112 @@
+You are my senior full-stack engineer. Step 1 and Step 2 are already complete. Do NOT rebuild prior work. Build Step 3 only, integrating into the existing codebase.
+
+MANDATORY STACK — DO NOT SUBSTITUTE:
+- Next.js App Router
+- TypeScript
+- Tailwind CSS
+- PostgreSQL on Neon
+- Prisma ORM
+- Clerk for authentication
+- Pusher Channels for future/current realtime architecture where appropriate
+- Vercel-ready project structure
+
+PROJECT RULES ALREADY DECIDED:
+- Website only
+- Modern UI
+- Must work well on mobile and desktop
+- UI must stay compartmentalized
+- Email and Google signup via Clerk
+- Ranked matches must be public
+- Private matches are unranked
+- Open lobby expires after 15 minutes of inactivity
+- Direct challenge expires after 24 hours if not accepted
+- Once both users accept terms, it locks immediately
+- Setup lobby chat is stored privately for audit/admin
+- Quick Duel = openings + rebuttals only
+- Standard = openings + rebuttals + closings
+- Longform comes later
+- User identity shown publicly by username
+
+BUILD ONLY STEP 3.
+
+STEP 3 SCOPE:
+1. Create debate challenge creation flow
+2. Support two challenge types:
+   - open challenge
+   - direct challenge
+3. Debate settings at creation:
+   - category
+   - motion/topic
+   - format
+   - ranked/unranked
+   - public/private with enforcement: ranked => public
+   - timer preset
+   - judge pack scaffold for later
+4. Build setup lobby page/screen
+5. Setup lobby includes:
+   - private participant chat
+   - pinned agreed-terms panel
+   - accept terms actions for both users
+6. Once both accept:
+   - lock the challenge
+   - prevent further edits
+7. Implement expiration logic scaffolding/data model:
+   - open challenge inactivity 15 min
+   - direct challenge 24 hr
+8. Save setup chat privately in Prisma schema
+9. Add challenge list views under category pages:
+   - open challenges
+   - relevant direct challenge summary views if helpful
+10. Add topic quality validation structure
+
+TOPIC QUALITY RULES:
+- Motion/topic must be real and debate-worthy
+- Must reject obviously invalid or troll topics
+- Keep validator simple but extensible
+- Categories are fixed, but topics are user-created and validated
+
+PUSHER REQUIREMENT FOR THIS STEP:
+- Do not fully build production realtime behavior unless needed
+- But structure the challenge lobby so it can cleanly support Pusher in Step 4
+- If you wire any live updates, use Pusher Channels and isolate the integration behind a service/helper layer
+
+THIRD-PARTY SETUP REQUIREMENTS:
+You must include:
+1. `.env.example` updates for this step
+2. Setup notes explaining:
+   - whether Pusher account/app creation is needed now or deferred
+   - which keys will be needed if any Pusher integration is added now
+3. Clear fallback behavior if Pusher env vars are absent
+
+POSSIBLE ENV VARS FOR THIS STEP:
+- NEXT_PUBLIC_PUSHER_KEY
+- PUSHER_APP_ID
+- PUSHER_SECRET
+- PUSHER_CLUSTER
+
+ENGINEERING REQUIREMENTS:
+- Keep Prisma models clean and future-proof
+- Keep feature modules organized
+- Keep lobby UI modern, serious, energetic, and not overwhelming
+- Mobile and desktop layouts must both feel intentional
+- Preserve prior work and extend it cleanly
+
+DELIVERABLES:
+- Full code for Step 3
+- Prisma schema changes and migrations
+- Any optional Pusher scaffolding
+- `.env.example` updates
+- README/setup notes for any new provider setup
+- Commands to run migrations and start app
+
+TEST CHECKLIST:
+- Create open challenge
+- Create direct challenge
+- Ranked/public rule enforcement works
+- Private/unranked rule enforcement works
+- Accept terms locks challenge immediately
+- Lobby chat is stored privately
+- Expiration fields/logic are present and testable
+- Mobile and desktop lobby UI looks good
+
+Do not build live debate arena yet.

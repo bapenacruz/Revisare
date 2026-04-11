@@ -1,0 +1,116 @@
+You are my senior full-stack engineer. Steps 1–3 are already complete. Do NOT rebuild prior work. Build Step 4 only, integrating into the existing codebase.
+
+MANDATORY STACK — DO NOT SUBSTITUTE:
+- Next.js App Router
+- TypeScript
+- Tailwind CSS
+- PostgreSQL on Neon
+- Prisma ORM
+- Clerk for auth
+- Pusher Channels for realtime
+- Vercel-ready project structure
+
+PROJECT RULES ALREADY DECIDED:
+- Website only
+- Modern UI, desktop + mobile friendly
+- Quick Duel = openings + rebuttals only
+- Standard = openings + rebuttals + closings
+- Turn order is random, with coin-flip style visualization
+- 30-second read/think phase before typing timer starts
+- Users can submit early
+- When timer ends, unfinished text auto-submits exactly as written
+- Minimum character count exists
+- Backend hard cap should exist for safety
+- Spectators can watch public debates live
+- Guests can watch limited access before signup prompt
+- Arena is chat-bubble style
+- Rounds visually separated
+- Show typing indicators
+- Spectator live chat exists
+- Post-match comments exist
+- Participants cannot post in spectator chat while debating
+- Live spectator chat disappears after the event
+- Audience voting is separate from official winner
+- Official winner comes from AI judges, but if judging is not fully live yet, use a clean stubbed interface
+- Scoring/judging shown only at the end
+- If a user submits nothing, they may request one second chance in that debate within 30 seconds
+- Opponent can approve or deny second chance
+- If denied, match ends by forfeit
+- If approved and user fails again, auto-loss
+
+BUILD ONLY STEP 4.
+
+STEP 4 SCOPE:
+1. Build live debate arena UI and flow
+2. Use Pusher Channels for realtime updates
+3. Support public debate spectators
+4. Support turn/round state machine for:
+   - prep phase
+   - active typing phase
+   - submitted
+   - next turn
+   - completed
+5. Implement Quick Duel and Standard turn order
+6. Implement coin-flip style visualization for who goes first
+7. Implement autosubmit on timer end
+8. Implement minimum character validation and backend safety cap
+9. Implement second-chance flow
+10. Implement spectator live chat
+11. Implement audience voting flow
+   - cosmetic only
+   - separate from official results
+12. Build results page with:
+   - official winner area
+   - audience pick area
+   - round-by-round summary
+   - transcript view
+   - post-match comments
+13. If AI judging is not fully integrated yet, create a clean judge-result interface with mock/stubbed data shaped exactly how Step 5 will use it
+
+REALTIME REQUIREMENTS:
+- Use Pusher only through isolated service modules/helpers
+- Keep timer logic server-authoritative as much as practical in this step
+- Do not scatter realtime logic through UI components
+- Keep event names, channels, and payload types well-structured
+
+THIRD-PARTY SETUP REQUIREMENTS:
+You must include:
+1. `.env.example` updates for Pusher
+2. README/setup notes for:
+   - creating a Pusher Channels app
+   - copying app ID, key, secret, cluster
+   - where to paste env vars
+3. Clear fallback behavior if realtime keys are absent
+   - local/mock or clearly explained limited mode
+
+ENV VARS FOR THIS STEP:
+- NEXT_PUBLIC_PUSHER_KEY
+- PUSHER_APP_ID
+- PUSHER_SECRET
+- PUSHER_CLUSTER
+
+ENGINEERING REQUIREMENTS:
+- Use a robust state model, not scattered booleans
+- Preserve modular UI architecture
+- Mobile and desktop layouts must both feel intentional
+- Do not compromise prior structure
+
+DELIVERABLES:
+- Full code for Step 4
+- Prisma schema changes and migrations
+- Pusher integration code
+- `.env.example` updates
+- README/setup notes for Pusher
+- Commands to run app and test realtime behavior
+
+TEST CHECKLIST:
+- Public live debate updates in realtime
+- Mobile vs desktop arena UI
+- Timer/autosubmit flow works
+- Second chance behavior works
+- Spectator chat works
+- Audience voting works
+- Transcript/results page works
+- Graceful behavior when Pusher keys are missing
+
+Do not fully implement production AI judging yet unless it is isolated cleanly.

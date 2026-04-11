@@ -1,0 +1,71 @@
+You are my senior full-stack engineer. Build Step 1 of a website-based debate platform MVP.
+
+High-level product goals:
+- Website only, no mobile apps
+- Must look good on both desktop and mobile
+- Modern UI
+- UI must be compartmentalized and easy to restyle later
+- Email signup and Google signup
+- Notifications will exist later, so architect with room for them
+- Code should be production-minded, clean, modular, and easy to build upon
+
+Tech direction:
+- Use Next.js App Router with TypeScript
+- Use a modern component approach with reusable UI components
+- Use Tailwind CSS
+- Keep UI styling centralized and easy to change later
+- Organize code so screens, components, and domain features are clearly separated
+- Prepare for future realtime features, but do not build them yet
+- Use a clean folder structure
+
+Build ONLY Step 1 in this prompt.
+
+STEP 1 SCOPE:
+1. Initialize the app structure
+2. Create a modern responsive shell/layout
+3. Create placeholder pages:
+   - Home
+   - Categories
+   - Leaderboard
+   - Profile
+   - Login / Signup
+4. Create a reusable design system foundation:
+   - buttons
+   - inputs
+   - cards
+   - badges
+   - tabs
+   - modal/sheet placeholder if useful
+5. Create a shared theme/config approach so changing UI later is easy
+6. Add top navigation and mobile navigation
+7. Add basic homepage sections with mock content:
+   - hero
+   - featured debates
+   - live debates
+   - categories preview
+8. Add login/signup UI with:
+   - email signup form
+   - Google signup button placeholder
+9. Make the UI feel polished and modern, but not overdesigned
+10. Use mock data only for now
+
+IMPORTANT ARCHITECTURE RULES:
+- Keep components small and reusable
+- Keep feature code compartmentalized
+- Do not hardcode UI everywhere; create reusable components
+- Make sure mobile and desktop both look intentional
+- Use sensible naming and folder organization
+- Include comments only where helpful
+- Avoid unnecessary complexity
+
+DELIVERABLES:
+- Full file/folder structure for Step 1
+- All code needed for Step 1
+- Any install commands needed
+- Any environment/setup notes
+- A short test checklist at the end:
+  - how to run
+  - what pages to inspect
+  - what responsiveness to verify
+
+Do not start Step 2 or beyond. Keep this step complete and testable by itself.

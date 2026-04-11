@@ -1,0 +1,2502 @@
+[
+  {
+    "id": 1,
+    "category": "Politics",
+    "motion": "Governments should adopt compulsory voting in national elections."
+  },
+  {
+    "id": 2,
+    "category": "Politics",
+    "motion": "Term limits should be imposed on members of Congress."
+  },
+  {
+    "id": 3,
+    "category": "Politics",
+    "motion": "The Electoral College should be abolished in the United States."
+  },
+  {
+    "id": 4,
+    "category": "Politics",
+    "motion": "Campaign donations from corporations should be banned."
+  },
+  {
+    "id": 5,
+    "category": "Politics",
+    "motion": "Political debates should require real-time fact-checking on screen."
+  },
+  {
+    "id": 6,
+    "category": "Politics",
+    "motion": "Independent redistricting commissions should replace partisan map drawing."
+  },
+  {
+    "id": 7,
+    "category": "Politics",
+    "motion": "Voting should be mandatory for citizens under 70 unless they opt out with cause."
+  },
+  {
+    "id": 8,
+    "category": "Politics",
+    "motion": "Social media companies should be treated as political publishers during election season."
+  },
+  {
+    "id": 9,
+    "category": "Politics",
+    "motion": "National referendums should be binding rather than advisory."
+  },
+  {
+    "id": 10,
+    "category": "Politics",
+    "motion": "Public campaign financing should replace most private fundraising."
+  },
+  {
+    "id": 11,
+    "category": "Politics",
+    "motion": "Lowering the voting age to 16 would strengthen democracy."
+  },
+  {
+    "id": 12,
+    "category": "Politics",
+    "motion": "Legislators should be prohibited from trading individual stocks while in office."
+  },
+  {
+    "id": 13,
+    "category": "Politics",
+    "motion": "Coalition governments produce better outcomes than two-party dominance."
+  },
+  {
+    "id": 14,
+    "category": "Politics",
+    "motion": "National service should be encouraged through tax incentives rather than mandates."
+  },
+  {
+    "id": 15,
+    "category": "Politics",
+    "motion": "Populism is a necessary corrective to elite-driven politics."
+  },
+  {
+    "id": 16,
+    "category": "Politics",
+    "motion": "Debates between political candidates should include citizen juries asking questions."
+  },
+  {
+    "id": 17,
+    "category": "Politics",
+    "motion": "Parliamentary systems are superior to presidential systems."
+  },
+  {
+    "id": 18,
+    "category": "Politics",
+    "motion": "States should rank-choice vote all federal elections."
+  },
+  {
+    "id": 19,
+    "category": "Politics",
+    "motion": "The filibuster does more harm than good."
+  },
+  {
+    "id": 20,
+    "category": "Politics",
+    "motion": "Local governments should have greater autonomy from federal control."
+  },
+  {
+    "id": 21,
+    "category": "Politics",
+    "motion": "Political parties should be required to hold open primaries."
+  },
+  {
+    "id": 22,
+    "category": "Politics",
+    "motion": "Direct democracy tools are overused in modern politics."
+  },
+  {
+    "id": 23,
+    "category": "Politics",
+    "motion": "National IDs would improve democratic participation."
+  },
+  {
+    "id": 24,
+    "category": "Politics",
+    "motion": "Constitutional amendments should require simpler ratification thresholds."
+  },
+  {
+    "id": 25,
+    "category": "Politics",
+    "motion": "Cabinet positions should require relevant professional experience."
+  },
+  {
+    "id": 26,
+    "category": "Politics",
+    "motion": "Elected officials should face maximum age limits for holding office."
+  },
+  {
+    "id": 27,
+    "category": "Politics",
+    "motion": "National elections should be public holidays."
+  },
+  {
+    "id": 28,
+    "category": "Politics",
+    "motion": "Political advertisements should be banned in the final week before an election."
+  },
+  {
+    "id": 29,
+    "category": "Politics",
+    "motion": "Constitutions should explicitly protect digital rights."
+  },
+  {
+    "id": 30,
+    "category": "Politics",
+    "motion": "Coalition-building is a better sign of leadership than ideological purity."
+  },
+  {
+    "id": 31,
+    "category": "Politics",
+    "motion": "Mayors should have more influence over regional economic policy."
+  },
+  {
+    "id": 32,
+    "category": "Politics",
+    "motion": "Foreign lobbying should be prohibited entirely."
+  },
+  {
+    "id": 33,
+    "category": "Politics",
+    "motion": "Supreme court justices should serve fixed terms."
+  },
+  {
+    "id": 34,
+    "category": "Politics",
+    "motion": "Emergency executive powers are too broad in most democracies."
+  },
+  {
+    "id": 35,
+    "category": "Politics",
+    "motion": "Presidential debates should include fact-check penalties for repeat falsehoods."
+  },
+  {
+    "id": 36,
+    "category": "Politics",
+    "motion": "Democracies should ban parties that openly reject democratic norms."
+  },
+  {
+    "id": 37,
+    "category": "Politics",
+    "motion": "Local elections should be nonpartisan by default."
+  },
+  {
+    "id": 38,
+    "category": "Politics",
+    "motion": "Public opinion polls do more harm than good during campaigns."
+  },
+  {
+    "id": 39,
+    "category": "Politics",
+    "motion": "Cabinets should reflect ideological diversity rather than strict party loyalty."
+  },
+  {
+    "id": 40,
+    "category": "Politics",
+    "motion": "Political dynasties weaken democracy."
+  },
+  {
+    "id": 41,
+    "category": "Politics",
+    "motion": "Protest movements are more effective than party politics at driving change."
+  },
+  {
+    "id": 42,
+    "category": "Science & Technology",
+    "motion": "Artificial general intelligence research should be globally regulated."
+  },
+  {
+    "id": 43,
+    "category": "Science & Technology",
+    "motion": "Gene editing in human embryos should be permitted for disease prevention."
+  },
+  {
+    "id": 44,
+    "category": "Science & Technology",
+    "motion": "Private space exploration benefits humanity more than it harms it."
+  },
+  {
+    "id": 45,
+    "category": "Science & Technology",
+    "motion": "Social media algorithms should be open to public audit."
+  },
+  {
+    "id": 46,
+    "category": "Science & Technology",
+    "motion": "The benefits of facial recognition technology outweigh the risks."
+  },
+  {
+    "id": 47,
+    "category": "Science & Technology",
+    "motion": "Autonomous vehicles should be allowed on public roads before they are perfect."
+  },
+  {
+    "id": 48,
+    "category": "Science & Technology",
+    "motion": "Nuclear energy should be central to climate strategy."
+  },
+  {
+    "id": 49,
+    "category": "Science & Technology",
+    "motion": "Scientific journals should make all publicly funded research free to access."
+  },
+  {
+    "id": 50,
+    "category": "Science & Technology",
+    "motion": "Children under 16 should be banned from using generative AI companions."
+  },
+  {
+    "id": 51,
+    "category": "Science & Technology",
+    "motion": "Space colonization should be prioritized over deep-ocean exploration."
+  },
+  {
+    "id": 52,
+    "category": "Science & Technology",
+    "motion": "Tech companies should be legally liable for foreseeable harms caused by their AI tools."
+  },
+  {
+    "id": 53,
+    "category": "Science & Technology",
+    "motion": "Human enhancement technology should be embraced rather than feared."
+  },
+  {
+    "id": 54,
+    "category": "Science & Technology",
+    "motion": "There should be a global moratorium on lethal autonomous weapons."
+  },
+  {
+    "id": 55,
+    "category": "Science & Technology",
+    "motion": "Open-source AI models create more good than harm."
+  },
+  {
+    "id": 56,
+    "category": "Science & Technology",
+    "motion": "Governments should fund moon and Mars missions even during economic downturns."
+  },
+  {
+    "id": 57,
+    "category": "Science & Technology",
+    "motion": "Consumer DNA databases should be tightly restricted by law."
+  },
+  {
+    "id": 58,
+    "category": "Science & Technology",
+    "motion": "Online anonymity does more harm than good."
+  },
+  {
+    "id": 59,
+    "category": "Science & Technology",
+    "motion": "Data privacy should take priority over personalized convenience."
+  },
+  {
+    "id": 60,
+    "category": "Science & Technology",
+    "motion": "Quantum computing research deserves massive public investment."
+  },
+  {
+    "id": 61,
+    "category": "Science & Technology",
+    "motion": "School systems should teach AI literacy as early as middle school."
+  },
+  {
+    "id": 62,
+    "category": "Science & Technology",
+    "motion": "Biohacking should be regulated like medicine."
+  },
+  {
+    "id": 63,
+    "category": "Science & Technology",
+    "motion": "The precautionary principle slows scientific progress too much."
+  },
+  {
+    "id": 64,
+    "category": "Science & Technology",
+    "motion": "Internet access should be treated as a public utility."
+  },
+  {
+    "id": 65,
+    "category": "Science & Technology",
+    "motion": "The right to repair should override most manufacturer restrictions."
+  },
+  {
+    "id": 66,
+    "category": "Science & Technology",
+    "motion": "Brain-computer interfaces should be legal for non-medical use."
+  },
+  {
+    "id": 67,
+    "category": "Science & Technology",
+    "motion": "Researchers should be allowed to clone extinct species where feasible."
+  },
+  {
+    "id": 68,
+    "category": "Science & Technology",
+    "motion": "Robots should be granted limited legal personhood if they become conscious."
+  },
+  {
+    "id": 69,
+    "category": "Science & Technology",
+    "motion": "Governments should ban deepfake political ads."
+  },
+  {
+    "id": 70,
+    "category": "Science & Technology",
+    "motion": "Medical AI should be allowed to overrule physicians in some narrow cases."
+  },
+  {
+    "id": 71,
+    "category": "Science & Technology",
+    "motion": "Crypto should be regulated like securities by default."
+  },
+  {
+    "id": 72,
+    "category": "Science & Technology",
+    "motion": "Digital platforms should compensate users for monetizing their data."
+  },
+  {
+    "id": 73,
+    "category": "Science & Technology",
+    "motion": "Humanity should build a planetary defense system against asteroids."
+  },
+  {
+    "id": 74,
+    "category": "Science & Technology",
+    "motion": "The metaverse was a distraction rather than a genuine technological frontier."
+  },
+  {
+    "id": 75,
+    "category": "Science & Technology",
+    "motion": "Lab-grown meat should receive major public subsidies."
+  },
+  {
+    "id": 76,
+    "category": "Science & Technology",
+    "motion": "Smartphones should be banned in elementary schools."
+  },
+  {
+    "id": 77,
+    "category": "Science & Technology",
+    "motion": "AI-generated research papers should be prohibited from academic publication."
+  },
+  {
+    "id": 78,
+    "category": "Science & Technology",
+    "motion": "Technological unemployment is a bigger threat than inflation."
+  },
+  {
+    "id": 79,
+    "category": "Science & Technology",
+    "motion": "Internet platforms should verify the identity of all users behind the scenes."
+  },
+  {
+    "id": 80,
+    "category": "Science & Technology",
+    "motion": "Consumer tech design intentionally exploits human weakness."
+  },
+  {
+    "id": 81,
+    "category": "Science & Technology",
+    "motion": "Governments should require interoperability between major messaging platforms."
+  },
+  {
+    "id": 82,
+    "category": "Science & Technology",
+    "motion": "The race to build smarter AI is structurally unsafe."
+  },
+  {
+    "id": 83,
+    "category": "Philosophy",
+    "motion": "Free will is an illusion."
+  },
+  {
+    "id": 84,
+    "category": "Philosophy",
+    "motion": "A meaningful life matters more than a happy life."
+  },
+  {
+    "id": 85,
+    "category": "Philosophy",
+    "motion": "Utilitarianism is the best basis for public policy."
+  },
+  {
+    "id": 86,
+    "category": "Philosophy",
+    "motion": "Moral relativism is more dangerous than moral absolutism."
+  },
+  {
+    "id": 87,
+    "category": "Philosophy",
+    "motion": "People have a duty to seek truth even when it is uncomfortable."
+  },
+  {
+    "id": 88,
+    "category": "Philosophy",
+    "motion": "The pursuit of authenticity is overrated."
+  },
+  {
+    "id": 89,
+    "category": "Philosophy",
+    "motion": "Personal identity persists even if memory does not."
+  },
+  {
+    "id": 90,
+    "category": "Philosophy",
+    "motion": "Ends can justify means in extreme cases."
+  },
+  {
+    "id": 91,
+    "category": "Philosophy",
+    "motion": "Suffering is more morally urgent than happiness."
+  },
+  {
+    "id": 92,
+    "category": "Philosophy",
+    "motion": "Stoicism is the best philosophy for modern life."
+  },
+  {
+    "id": 93,
+    "category": "Philosophy",
+    "motion": "Humans are naturally cooperative rather than selfish."
+  },
+  {
+    "id": 94,
+    "category": "Philosophy",
+    "motion": "Revenge can be morally justified."
+  },
+  {
+    "id": 95,
+    "category": "Philosophy",
+    "motion": "There is no ethical consumption under capitalism."
+  },
+  {
+    "id": 96,
+    "category": "Philosophy",
+    "motion": "Moral progress is real."
+  },
+  {
+    "id": 97,
+    "category": "Philosophy",
+    "motion": "Individual freedom should outweigh social harmony."
+  },
+  {
+    "id": 98,
+    "category": "Philosophy",
+    "motion": "Death gives life meaning."
+  },
+  {
+    "id": 99,
+    "category": "Philosophy",
+    "motion": "Consciousness cannot be fully explained by physical processes alone."
+  },
+  {
+    "id": 100,
+    "category": "Philosophy",
+    "motion": "The self is a social construct."
+  },
+  {
+    "id": 101,
+    "category": "Philosophy",
+    "motion": "Justice matters more than mercy."
+  },
+  {
+    "id": 102,
+    "category": "Philosophy",
+    "motion": "Radical honesty is ethically preferable to tact."
+  },
+  {
+    "id": 103,
+    "category": "Philosophy",
+    "motion": "Nihilism is a rational response to modern life."
+  },
+  {
+    "id": 104,
+    "category": "Philosophy",
+    "motion": "The search for objective morality is misguided."
+  },
+  {
+    "id": 105,
+    "category": "Philosophy",
+    "motion": "Virtue ethics is more practical than deontology."
+  },
+  {
+    "id": 106,
+    "category": "Philosophy",
+    "motion": "A society should prioritize dignity over equality."
+  },
+  {
+    "id": 107,
+    "category": "Philosophy",
+    "motion": "Humans are bad by nature."
+  },
+  {
+    "id": 108,
+    "category": "Philosophy",
+    "motion": "People owe more moral duty to strangers than they usually admit."
+  },
+  {
+    "id": 109,
+    "category": "Philosophy",
+    "motion": "Ignorance can sometimes be morally innocent."
+  },
+  {
+    "id": 110,
+    "category": "Philosophy",
+    "motion": "Justice requires unequal treatment in unequal circumstances."
+  },
+  {
+    "id": 111,
+    "category": "Philosophy",
+    "motion": "Forgiveness is morally superior to revenge."
+  },
+  {
+    "id": 112,
+    "category": "Philosophy",
+    "motion": "Pleasure is not the highest human good."
+  },
+  {
+    "id": 113,
+    "category": "Philosophy",
+    "motion": "A lie that prevents harm can be virtuous."
+  },
+  {
+    "id": 114,
+    "category": "Philosophy",
+    "motion": "There is a moral duty to improve oneself."
+  },
+  {
+    "id": 115,
+    "category": "Philosophy",
+    "motion": "Humility is more important than confidence."
+  },
+  {
+    "id": 116,
+    "category": "Philosophy",
+    "motion": "Most people value certainty more than truth."
+  },
+  {
+    "id": 117,
+    "category": "Philosophy",
+    "motion": "Meaning can exist without any grand purpose."
+  },
+  {
+    "id": 118,
+    "category": "Philosophy",
+    "motion": "Moral luck makes true justice impossible."
+  },
+  {
+    "id": 119,
+    "category": "Philosophy",
+    "motion": "Love is partly a choice rather than merely a feeling."
+  },
+  {
+    "id": 120,
+    "category": "Philosophy",
+    "motion": "People should be judged more by intention than outcome."
+  },
+  {
+    "id": 121,
+    "category": "Philosophy",
+    "motion": "Civilization depends more on restraint than creativity."
+  },
+  {
+    "id": 122,
+    "category": "Philosophy",
+    "motion": "Pessimism is underrated as a worldview."
+  },
+  {
+    "id": 123,
+    "category": "Philosophy",
+    "motion": "Hope is a rational virtue."
+  },
+  {
+    "id": 124,
+    "category": "Religion",
+    "motion": "Religion remains essential for moral formation."
+  },
+  {
+    "id": 125,
+    "category": "Religion",
+    "motion": "Secular societies are better equipped to protect freedom of belief."
+  },
+  {
+    "id": 126,
+    "category": "Religion",
+    "motion": "Faith-based schools should receive public funding."
+  },
+  {
+    "id": 127,
+    "category": "Religion",
+    "motion": "Religious exemptions from general laws should be narrowly limited."
+  },
+  {
+    "id": 128,
+    "category": "Religion",
+    "motion": "Science and religion are fundamentally compatible."
+  },
+  {
+    "id": 129,
+    "category": "Religion",
+    "motion": "Public officials should keep personal religious reasoning out of policy decisions."
+  },
+  {
+    "id": 130,
+    "category": "Religion",
+    "motion": "Religious traditions should evolve rapidly to reflect modern values."
+  },
+  {
+    "id": 131,
+    "category": "Religion",
+    "motion": "Atheism provides a stronger foundation for ethics than organized religion."
+  },
+  {
+    "id": 132,
+    "category": "Religion",
+    "motion": "Interfaith dialogue does more to reduce conflict than secular activism."
+  },
+  {
+    "id": 133,
+    "category": "Religion",
+    "motion": "Missionary work is ethically defensible."
+  },
+  {
+    "id": 134,
+    "category": "Religion",
+    "motion": "Places of worship should pay taxes on non-charitable income."
+  },
+  {
+    "id": 135,
+    "category": "Religion",
+    "motion": "Religious symbols should be allowed in all public institutions."
+  },
+  {
+    "id": 136,
+    "category": "Religion",
+    "motion": "Ancient scriptures should not be treated as moral authorities today."
+  },
+  {
+    "id": 137,
+    "category": "Religion",
+    "motion": "Spirituality without organized religion is superior to formal religion."
+  },
+  {
+    "id": 138,
+    "category": "Religion",
+    "motion": "States should protect religious dress in all public spaces."
+  },
+  {
+    "id": 139,
+    "category": "Religion",
+    "motion": "Blasphemy should never be criminalized."
+  },
+  {
+    "id": 140,
+    "category": "Religion",
+    "motion": "Religious leaders should be held to higher moral standards than public officials."
+  },
+  {
+    "id": 141,
+    "category": "Religion",
+    "motion": "Religious revival would improve social cohesion."
+  },
+  {
+    "id": 142,
+    "category": "Religion",
+    "motion": "Miracles should be taken seriously as evidence by believers."
+  },
+  {
+    "id": 143,
+    "category": "Religion",
+    "motion": "Children should not be formally initiated into religions before adolescence."
+  },
+  {
+    "id": 144,
+    "category": "Religion",
+    "motion": "Secular holidays have replaced religion for many communities."
+  },
+  {
+    "id": 145,
+    "category": "Religion",
+    "motion": "The separation of church and state is often interpreted too broadly."
+  },
+  {
+    "id": 146,
+    "category": "Religion",
+    "motion": "Religious charities should be barred from discrimination exemptions."
+  },
+  {
+    "id": 147,
+    "category": "Religion",
+    "motion": "Public prayer has no place at government events."
+  },
+  {
+    "id": 148,
+    "category": "Religion",
+    "motion": "Religion does more good than harm in the modern world."
+  },
+  {
+    "id": 149,
+    "category": "Religion",
+    "motion": "Religious institutions should disclose their finances publicly."
+  },
+  {
+    "id": 150,
+    "category": "Religion",
+    "motion": "Organized religion provides community in a way secular life struggles to replace."
+  },
+  {
+    "id": 151,
+    "category": "Religion",
+    "motion": "Religious texts should be reinterpreted rather than discarded when values change."
+  },
+  {
+    "id": 152,
+    "category": "Religion",
+    "motion": "Clergy should be trained in mental health first response."
+  },
+  {
+    "id": 153,
+    "category": "Religion",
+    "motion": "States should offer the same public accommodations to minority faiths as majority faiths."
+  },
+  {
+    "id": 154,
+    "category": "Religion",
+    "motion": "Religious freedom includes the right to refuse participation in sacred rituals."
+  },
+  {
+    "id": 155,
+    "category": "Religion",
+    "motion": "Most religious conflict is driven more by politics than doctrine."
+  },
+  {
+    "id": 156,
+    "category": "Religion",
+    "motion": "Pilgrimage remains valuable in the digital age."
+  },
+  {
+    "id": 157,
+    "category": "Religion",
+    "motion": "Public schools should teach comparative religion."
+  },
+  {
+    "id": 158,
+    "category": "Religion",
+    "motion": "Belief without evidence can still be rational."
+  },
+  {
+    "id": 159,
+    "category": "Religion",
+    "motion": "Religious conversion efforts toward vulnerable populations are unethical."
+  },
+  {
+    "id": 160,
+    "category": "Religion",
+    "motion": "Sacred art and architecture matter even in secular societies."
+  },
+  {
+    "id": 161,
+    "category": "Religion",
+    "motion": "Confession and repentance are healthier social practices than public apology culture."
+  },
+  {
+    "id": 162,
+    "category": "Religion",
+    "motion": "Religious identity is becoming more cultural than theological."
+  },
+  {
+    "id": 163,
+    "category": "Religion",
+    "motion": "The decline of organized religion has left a moral vacuum."
+  },
+  {
+    "id": 164,
+    "category": "Religion",
+    "motion": "Governments should mediate more actively when religious communities clash."
+  },
+  {
+    "id": 165,
+    "category": "Economics",
+    "motion": "A universal basic income would improve society."
+  },
+  {
+    "id": 166,
+    "category": "Economics",
+    "motion": "Wealth taxes are justified in highly unequal societies."
+  },
+  {
+    "id": 167,
+    "category": "Economics",
+    "motion": "The minimum wage should be indexed automatically to inflation."
+  },
+  {
+    "id": 168,
+    "category": "Economics",
+    "motion": "Free trade benefits ordinary workers more than protectionism does."
+  },
+  {
+    "id": 169,
+    "category": "Economics",
+    "motion": "Student debt should be widely forgiven by governments."
+  },
+  {
+    "id": 170,
+    "category": "Economics",
+    "motion": "Housing should be treated primarily as a social good rather than an investment."
+  },
+  {
+    "id": 171,
+    "category": "Economics",
+    "motion": "Central banks should target employment more aggressively than inflation."
+  },
+  {
+    "id": 172,
+    "category": "Economics",
+    "motion": "Gig workers should be classified as employees."
+  },
+  {
+    "id": 173,
+    "category": "Economics",
+    "motion": "Inheritance taxes should be substantially higher."
+  },
+  {
+    "id": 174,
+    "category": "Economics",
+    "motion": "The four-day workweek is economically viable at scale."
+  },
+  {
+    "id": 175,
+    "category": "Economics",
+    "motion": "Price controls are justified during national emergencies."
+  },
+  {
+    "id": 176,
+    "category": "Economics",
+    "motion": "Automation should be taxed when it replaces human labor."
+  },
+  {
+    "id": 177,
+    "category": "Economics",
+    "motion": "Monopolies are the biggest threat to innovation."
+  },
+  {
+    "id": 178,
+    "category": "Economics",
+    "motion": "Governments should subsidize domestic manufacturing even at higher cost."
+  },
+  {
+    "id": 179,
+    "category": "Economics",
+    "motion": "Billionaires should not exist."
+  },
+  {
+    "id": 180,
+    "category": "Economics",
+    "motion": "Capital gains should be taxed at the same rate as labor income."
+  },
+  {
+    "id": 181,
+    "category": "Economics",
+    "motion": "Economic growth is overvalued as a measure of national success."
+  },
+  {
+    "id": 182,
+    "category": "Economics",
+    "motion": "Rent control does more harm than good."
+  },
+  {
+    "id": 183,
+    "category": "Economics",
+    "motion": "Public ownership of utilities is preferable to privatization."
+  },
+  {
+    "id": 184,
+    "category": "Economics",
+    "motion": "Crypto assets have failed as an economic revolution."
+  },
+  {
+    "id": 185,
+    "category": "Economics",
+    "motion": "Governments should guarantee a job to anyone willing to work."
+  },
+  {
+    "id": 186,
+    "category": "Economics",
+    "motion": "Offshoring has weakened the middle class."
+  },
+  {
+    "id": 187,
+    "category": "Economics",
+    "motion": "Luxury taxes are better than broad consumption taxes."
+  },
+  {
+    "id": 188,
+    "category": "Economics",
+    "motion": "Antitrust enforcement should break up dominant digital platforms."
+  },
+  {
+    "id": 189,
+    "category": "Economics",
+    "motion": "A recession is sometimes the necessary cost of restoring economic stability."
+  },
+  {
+    "id": 190,
+    "category": "Economics",
+    "motion": "Stock buybacks should be heavily restricted."
+  },
+  {
+    "id": 191,
+    "category": "Economics",
+    "motion": "A society can be prosperous without constant GDP growth."
+  },
+  {
+    "id": 192,
+    "category": "Economics",
+    "motion": "Land value taxes are better than property taxes."
+  },
+  {
+    "id": 193,
+    "category": "Economics",
+    "motion": "Governments should cap executive compensation ratios in publicly traded firms."
+  },
+  {
+    "id": 194,
+    "category": "Economics",
+    "motion": "Inflation hurts social trust more than unemployment does."
+  },
+  {
+    "id": 195,
+    "category": "Economics",
+    "motion": "The housing market should favor residents over investors."
+  },
+  {
+    "id": 196,
+    "category": "Economics",
+    "motion": "Worker cooperatives deserve more public support than startups."
+  },
+  {
+    "id": 197,
+    "category": "Economics",
+    "motion": "Economic inequality is a greater threat than public debt."
+  },
+  {
+    "id": 198,
+    "category": "Economics",
+    "motion": "Sovereign wealth funds should be more common in advanced economies."
+  },
+  {
+    "id": 199,
+    "category": "Economics",
+    "motion": "Consumer debt is the hidden engine of modern economies."
+  },
+  {
+    "id": 200,
+    "category": "Economics",
+    "motion": "Tourism-heavy cities should tax short-term rentals more aggressively."
+  },
+  {
+    "id": 201,
+    "category": "Economics",
+    "motion": "Shareholder primacy has damaged capitalism."
+  },
+  {
+    "id": 202,
+    "category": "Economics",
+    "motion": "Apprenticeships deserve as much prestige as university degrees."
+  },
+  {
+    "id": 203,
+    "category": "Economics",
+    "motion": "Economic policy should prioritize resilience over efficiency."
+  },
+  {
+    "id": 204,
+    "category": "Economics",
+    "motion": "Luxury housing development does not meaningfully solve affordability."
+  },
+  {
+    "id": 205,
+    "category": "Economics",
+    "motion": "Advertising adds less economic value than its defenders claim."
+  },
+  {
+    "id": 206,
+    "category": "Economics",
+    "motion": "Retirement savings should default into public low-fee index funds."
+  },
+  {
+    "id": 207,
+    "category": "Society",
+    "motion": "Social media has made society less empathetic."
+  },
+  {
+    "id": 208,
+    "category": "Society",
+    "motion": "Public shaming is sometimes a legitimate tool for accountability."
+  },
+  {
+    "id": 209,
+    "category": "Society",
+    "motion": "Marriage is becoming less necessary as a social institution."
+  },
+  {
+    "id": 210,
+    "category": "Society",
+    "motion": "Schools should enforce uniforms to reduce inequality."
+  },
+  {
+    "id": 211,
+    "category": "Society",
+    "motion": "Cancel culture is more myth than reality."
+  },
+  {
+    "id": 212,
+    "category": "Society",
+    "motion": "Parents should limit smartphone access until high school."
+  },
+  {
+    "id": 213,
+    "category": "Society",
+    "motion": "The decline of local communities is the biggest modern social problem."
+  },
+  {
+    "id": 214,
+    "category": "Society",
+    "motion": "Children benefit more from structured activities than free play."
+  },
+  {
+    "id": 215,
+    "category": "Society",
+    "motion": "Beauty standards do more harm than good."
+  },
+  {
+    "id": 216,
+    "category": "Society",
+    "motion": "Society should take loneliness as seriously as unemployment."
+  },
+  {
+    "id": 217,
+    "category": "Society",
+    "motion": "Single-sex schools offer advantages that co-ed schools cannot."
+  },
+  {
+    "id": 218,
+    "category": "Society",
+    "motion": "People are too quick to cut off friends and family over politics."
+  },
+  {
+    "id": 219,
+    "category": "Society",
+    "motion": "Public spaces should discourage car use in favor of community life."
+  },
+  {
+    "id": 220,
+    "category": "Society",
+    "motion": "Meritocracy is largely a myth."
+  },
+  {
+    "id": 221,
+    "category": "Society",
+    "motion": "The idea of being 'self-made' is socially harmful."
+  },
+  {
+    "id": 222,
+    "category": "Society",
+    "motion": "Traditional gender roles still benefit some families."
+  },
+  {
+    "id": 223,
+    "category": "Society",
+    "motion": "Online dating has made relationships worse."
+  },
+  {
+    "id": 224,
+    "category": "Society",
+    "motion": "The nuclear family model is overrated."
+  },
+  {
+    "id": 225,
+    "category": "Society",
+    "motion": "Adults should be expected to care for aging parents whenever possible."
+  },
+  {
+    "id": 226,
+    "category": "Society",
+    "motion": "Fame is a net negative for society."
+  },
+  {
+    "id": 227,
+    "category": "Society",
+    "motion": "Anonymity online weakens social trust."
+  },
+  {
+    "id": 228,
+    "category": "Society",
+    "motion": "Modern society overvalues productivity."
+  },
+  {
+    "id": 229,
+    "category": "Society",
+    "motion": "Remote work is eroding community bonds."
+  },
+  {
+    "id": 230,
+    "category": "Society",
+    "motion": "Strict school discipline would improve youth outcomes."
+  },
+  {
+    "id": 231,
+    "category": "Society",
+    "motion": "Friendship is undervalued compared with romance."
+  },
+  {
+    "id": 232,
+    "category": "Society",
+    "motion": "People should delay having children until they are financially stable."
+  },
+  {
+    "id": 233,
+    "category": "Society",
+    "motion": "Mass migration reshapes national identity more than governments admit."
+  },
+  {
+    "id": 234,
+    "category": "Society",
+    "motion": "Neighborhood design affects happiness more than income does."
+  },
+  {
+    "id": 235,
+    "category": "Society",
+    "motion": "Schools should do more to teach practical adulthood."
+  },
+  {
+    "id": 236,
+    "category": "Society",
+    "motion": "Public etiquette has declined in the smartphone era."
+  },
+  {
+    "id": 237,
+    "category": "Society",
+    "motion": "People owe more to their local communities than to abstract global causes."
+  },
+  {
+    "id": 238,
+    "category": "Society",
+    "motion": "Being constantly reachable has weakened personal boundaries."
+  },
+  {
+    "id": 239,
+    "category": "Society",
+    "motion": "Shared national rituals are still socially important."
+  },
+  {
+    "id": 240,
+    "category": "Society",
+    "motion": "Adults should normalize having fewer but deeper friendships."
+  },
+  {
+    "id": 241,
+    "category": "Society",
+    "motion": "Society is too tolerant of chronic lateness and flakiness."
+  },
+  {
+    "id": 242,
+    "category": "Society",
+    "motion": "Children should have more household responsibilities."
+  },
+  {
+    "id": 243,
+    "category": "Society",
+    "motion": "Modern parenting is too child-centered."
+  },
+  {
+    "id": 244,
+    "category": "Society",
+    "motion": "The idea of following your passion is bad advice for most people."
+  },
+  {
+    "id": 245,
+    "category": "Society",
+    "motion": "Privacy is becoming a class privilege."
+  },
+  {
+    "id": 246,
+    "category": "Society",
+    "motion": "Urban living creates stronger citizens than suburban living."
+  },
+  {
+    "id": 247,
+    "category": "Society",
+    "motion": "Status competition drives more behavior than people admit."
+  },
+  {
+    "id": 248,
+    "category": "Society",
+    "motion": "Communities should shame blatant antisocial behavior more openly."
+  },
+  {
+    "id": 249,
+    "category": "Sports",
+    "motion": "College athletes should be treated as employees."
+  },
+  {
+    "id": 250,
+    "category": "Sports",
+    "motion": "Instant replay improves sports more than it hurts them."
+  },
+  {
+    "id": 251,
+    "category": "Sports",
+    "motion": "Transnational salary caps would make global sports more fair."
+  },
+  {
+    "id": 252,
+    "category": "Sports",
+    "motion": "The Olympics should permanently remove judged events."
+  },
+  {
+    "id": 253,
+    "category": "Sports",
+    "motion": "Sports betting sponsorships should be banned."
+  },
+  {
+    "id": 254,
+    "category": "Sports",
+    "motion": "Fighting should be penalized more harshly in hockey."
+  },
+  {
+    "id": 255,
+    "category": "Sports",
+    "motion": "Athletes should be required to speak to the media after games."
+  },
+  {
+    "id": 256,
+    "category": "Sports",
+    "motion": "Teams should be relegated for sustained poor performance in major U.S. leagues."
+  },
+  {
+    "id": 257,
+    "category": "Sports",
+    "motion": "The use of performance-enhancing drugs should be medically supervised rather than banned."
+  },
+  {
+    "id": 258,
+    "category": "Sports",
+    "motion": "Youth sports have become too professionalized."
+  },
+  {
+    "id": 259,
+    "category": "Sports",
+    "motion": "College football players should be allowed unlimited transfer freedom."
+  },
+  {
+    "id": 260,
+    "category": "Sports",
+    "motion": "Traditional rivalries matter more than championships."
+  },
+  {
+    "id": 261,
+    "category": "Sports",
+    "motion": "Referees should explain controversial calls live to the crowd."
+  },
+  {
+    "id": 262,
+    "category": "Sports",
+    "motion": "Professional athletes have a duty to use their platforms politically."
+  },
+  {
+    "id": 263,
+    "category": "Sports",
+    "motion": "Championship playoffs are better than season-long league tables."
+  },
+  {
+    "id": 264,
+    "category": "Sports",
+    "motion": "Contact sports should be restricted for children under 14."
+  },
+  {
+    "id": 265,
+    "category": "Sports",
+    "motion": "Salary transparency should be mandatory in professional sports."
+  },
+  {
+    "id": 266,
+    "category": "Sports",
+    "motion": "The designated hitter improved baseball."
+  },
+  {
+    "id": 267,
+    "category": "Sports",
+    "motion": "Tanking should be punished by league sanctions."
+  },
+  {
+    "id": 268,
+    "category": "Sports",
+    "motion": "International competitions matter more than club competitions."
+  },
+  {
+    "id": 269,
+    "category": "Sports",
+    "motion": "Sportswashing is impossible to separate from modern global sport."
+  },
+  {
+    "id": 270,
+    "category": "Sports",
+    "motion": "Analytics has made sports less entertaining."
+  },
+  {
+    "id": 271,
+    "category": "Sports",
+    "motion": "The Hall of Fame should exclude players linked to serious misconduct off the field."
+  },
+  {
+    "id": 272,
+    "category": "Sports",
+    "motion": "Boxing should be banned."
+  },
+  {
+    "id": 273,
+    "category": "Sports",
+    "motion": "The best athlete of all time is more a matter of era than achievement."
+  },
+  {
+    "id": 274,
+    "category": "Sports",
+    "motion": "Women’s sports should receive equal media coverage mandates."
+  },
+  {
+    "id": 275,
+    "category": "Sports",
+    "motion": "The transfer market hurts competitive balance more than it helps."
+  },
+  {
+    "id": 276,
+    "category": "Sports",
+    "motion": "Professional leagues should use promotion and relegation systems."
+  },
+  {
+    "id": 277,
+    "category": "Sports",
+    "motion": "Retired jerseys are overused in modern sports."
+  },
+  {
+    "id": 278,
+    "category": "Sports",
+    "motion": "The best teams should not be rewarded with favorable playoff seeding advantages."
+  },
+  {
+    "id": 279,
+    "category": "Sports",
+    "motion": "Athletes should be suspended for gambling on any sport, not just their own."
+  },
+  {
+    "id": 280,
+    "category": "Sports",
+    "motion": "National team duty should override club obligations."
+  },
+  {
+    "id": 281,
+    "category": "Sports",
+    "motion": "Sports leagues should shorten seasons to improve quality."
+  },
+  {
+    "id": 282,
+    "category": "Sports",
+    "motion": "Trash talk is good for sports."
+  },
+  {
+    "id": 283,
+    "category": "Sports",
+    "motion": "Data tracking has gone too far in athlete monitoring."
+  },
+  {
+    "id": 284,
+    "category": "Sports",
+    "motion": "Mixed-gender competition should be expanded in selected sports."
+  },
+  {
+    "id": 285,
+    "category": "Sports",
+    "motion": "Professional sports owners have too much public leverage over cities."
+  },
+  {
+    "id": 286,
+    "category": "Sports",
+    "motion": "Refs should face postgame press conferences."
+  },
+  {
+    "id": 287,
+    "category": "Sports",
+    "motion": "Olympic amateurism was always a myth."
+  },
+  {
+    "id": 288,
+    "category": "Sports",
+    "motion": "Salary caps suppress player power."
+  },
+  {
+    "id": 289,
+    "category": "Sports",
+    "motion": "Franchise relocation should require league and community approval."
+  },
+  {
+    "id": 290,
+    "category": "Sports",
+    "motion": "Team loyalty is irrational but valuable."
+  },
+  {
+    "id": 291,
+    "category": "History",
+    "motion": "History education should focus more on failures than triumphs."
+  },
+  {
+    "id": 292,
+    "category": "History",
+    "motion": "The atomic bombings were unjustified."
+  },
+  {
+    "id": 293,
+    "category": "History",
+    "motion": "The Roman Empire's legacy is overstated."
+  },
+  {
+    "id": 294,
+    "category": "History",
+    "motion": "Colonialism shaped the modern world more than the Industrial Revolution did."
+  },
+  {
+    "id": 295,
+    "category": "History",
+    "motion": "Historical figures should be judged primarily by the standards of their own time."
+  },
+  {
+    "id": 296,
+    "category": "History",
+    "motion": "The French Revolution did more harm than good."
+  },
+  {
+    "id": 297,
+    "category": "History",
+    "motion": "The American Civil War was inevitable by 1860."
+  },
+  {
+    "id": 298,
+    "category": "History",
+    "motion": "Great man theory is bad history."
+  },
+  {
+    "id": 299,
+    "category": "History",
+    "motion": "Historical monuments should be removed when they glorify oppression."
+  },
+  {
+    "id": 300,
+    "category": "History",
+    "motion": "The Cold War brought more stability than chaos."
+  },
+  {
+    "id": 301,
+    "category": "History",
+    "motion": "Ancient history deserves more space in modern education."
+  },
+  {
+    "id": 302,
+    "category": "History",
+    "motion": "The Renaissance is romanticized."
+  },
+  {
+    "id": 303,
+    "category": "History",
+    "motion": "History classes should prioritize primary sources over textbooks."
+  },
+  {
+    "id": 304,
+    "category": "History",
+    "motion": "Empires are remembered too kindly."
+  },
+  {
+    "id": 305,
+    "category": "History",
+    "motion": "The fall of the Soviet Union was a net positive for the world."
+  },
+  {
+    "id": 306,
+    "category": "History",
+    "motion": "World War I matters more than World War II for understanding the modern era."
+  },
+  {
+    "id": 307,
+    "category": "History",
+    "motion": "Industrialization improved life despite its early cruelty."
+  },
+  {
+    "id": 308,
+    "category": "History",
+    "motion": "National myths are necessary even when historically inaccurate."
+  },
+  {
+    "id": 309,
+    "category": "History",
+    "motion": "Public apologies for historical wrongs are meaningful."
+  },
+  {
+    "id": 310,
+    "category": "History",
+    "motion": "History should be taught thematically rather than chronologically."
+  },
+  {
+    "id": 311,
+    "category": "History",
+    "motion": "The concept of progress distorts historical understanding."
+  },
+  {
+    "id": 312,
+    "category": "History",
+    "motion": "Revolutions usually betray their original ideals."
+  },
+  {
+    "id": 313,
+    "category": "History",
+    "motion": "Historical reenactments trivialize suffering."
+  },
+  {
+    "id": 314,
+    "category": "History",
+    "motion": "Museums should return most contested artifacts."
+  },
+  {
+    "id": 315,
+    "category": "History",
+    "motion": "History is too often written from the viewpoint of states rather than ordinary people."
+  },
+  {
+    "id": 316,
+    "category": "History",
+    "motion": "History is best understood through material conditions rather than ideas."
+  },
+  {
+    "id": 317,
+    "category": "History",
+    "motion": "Historical fiction shapes public memory more than textbooks do."
+  },
+  {
+    "id": 318,
+    "category": "History",
+    "motion": "The British Empire should be remembered primarily as a system of extraction."
+  },
+  {
+    "id": 319,
+    "category": "History",
+    "motion": "National holidays usually tell a simplified version of history."
+  },
+  {
+    "id": 320,
+    "category": "History",
+    "motion": "Counterfactual history is a useful academic tool."
+  },
+  {
+    "id": 321,
+    "category": "History",
+    "motion": "The Industrial Revolution's winners are remembered more than its victims."
+  },
+  {
+    "id": 322,
+    "category": "History",
+    "motion": "Ancient democracies deserve less romantic treatment."
+  },
+  {
+    "id": 323,
+    "category": "History",
+    "motion": "Archives should be opened more quickly after major state decisions."
+  },
+  {
+    "id": 324,
+    "category": "History",
+    "motion": "War accelerates social change more than peace does."
+  },
+  {
+    "id": 325,
+    "category": "History",
+    "motion": "Most civilizations collapse gradually rather than suddenly."
+  },
+  {
+    "id": 326,
+    "category": "History",
+    "motion": "History education should spend more time on everyday life than on rulers."
+  },
+  {
+    "id": 327,
+    "category": "History",
+    "motion": "The postwar era is misunderstood as more stable than it really was."
+  },
+  {
+    "id": 328,
+    "category": "History",
+    "motion": "National borders often reflect historical accidents rather than justice."
+  },
+  {
+    "id": 329,
+    "category": "History",
+    "motion": "Historical memory should be treated as a public responsibility."
+  },
+  {
+    "id": 330,
+    "category": "History",
+    "motion": "Some myths are too deeply embedded in nationhood to be fully corrected."
+  },
+  {
+    "id": 331,
+    "category": "History",
+    "motion": "Decolonizing museums is a historical necessity."
+  },
+  {
+    "id": 332,
+    "category": "History",
+    "motion": "The twentieth century was more transformative than any century before it."
+  },
+  {
+    "id": 333,
+    "category": "Environment",
+    "motion": "Climate change policy should prioritize adaptation over mitigation."
+  },
+  {
+    "id": 334,
+    "category": "Environment",
+    "motion": "Nuclear power is essential for a low-carbon future."
+  },
+  {
+    "id": 335,
+    "category": "Environment",
+    "motion": "Meat consumption should be heavily discouraged through taxation."
+  },
+  {
+    "id": 336,
+    "category": "Environment",
+    "motion": "Rich countries should pay climate reparations to poorer countries."
+  },
+  {
+    "id": 337,
+    "category": "Environment",
+    "motion": "Geoengineering research should be accelerated."
+  },
+  {
+    "id": 338,
+    "category": "Environment",
+    "motion": "Plastic bans are largely symbolic rather than transformative."
+  },
+  {
+    "id": 339,
+    "category": "Environment",
+    "motion": "Cities should eliminate most private cars from downtown areas."
+  },
+  {
+    "id": 340,
+    "category": "Environment",
+    "motion": "Environmental activism is justified even when it disrupts daily life."
+  },
+  {
+    "id": 341,
+    "category": "Environment",
+    "motion": "Conservation should prioritize ecosystems over individual animal welfare."
+  },
+  {
+    "id": 342,
+    "category": "Environment",
+    "motion": "Fast fashion should face strict environmental penalties."
+  },
+  {
+    "id": 343,
+    "category": "Environment",
+    "motion": "Carbon offsets do more harm than good."
+  },
+  {
+    "id": 344,
+    "category": "Environment",
+    "motion": "Economic degrowth is necessary to prevent ecological collapse."
+  },
+  {
+    "id": 345,
+    "category": "Environment",
+    "motion": "Governments should ban the sale of new gas-powered cars within the next decade."
+  },
+  {
+    "id": 346,
+    "category": "Environment",
+    "motion": "Rewilding projects should take priority over manicured urban green spaces."
+  },
+  {
+    "id": 347,
+    "category": "Environment",
+    "motion": "Water should never be privatized."
+  },
+  {
+    "id": 348,
+    "category": "Environment",
+    "motion": "Climate messaging should focus on sacrifice rather than green consumerism."
+  },
+  {
+    "id": 349,
+    "category": "Environment",
+    "motion": "Tourism taxes should fund environmental repair in fragile destinations."
+  },
+  {
+    "id": 350,
+    "category": "Environment",
+    "motion": "Captive breeding is a valid conservation strategy."
+  },
+  {
+    "id": 351,
+    "category": "Environment",
+    "motion": "Developed countries should ban single-use plastics entirely."
+  },
+  {
+    "id": 352,
+    "category": "Environment",
+    "motion": "Factory farming is incompatible with environmental sustainability."
+  },
+  {
+    "id": 353,
+    "category": "Environment",
+    "motion": "Renewable energy infrastructure should override local aesthetic objections."
+  },
+  {
+    "id": 354,
+    "category": "Environment",
+    "motion": "Environmental education should be mandatory through high school."
+  },
+  {
+    "id": 355,
+    "category": "Environment",
+    "motion": "Air travel should be significantly more expensive."
+  },
+  {
+    "id": 356,
+    "category": "Environment",
+    "motion": "Nations should count biodiversity loss alongside GDP."
+  },
+  {
+    "id": 357,
+    "category": "Environment",
+    "motion": "Individual lifestyle changes matter less than corporate regulation."
+  },
+  {
+    "id": 358,
+    "category": "Environment",
+    "motion": "Environmental policy should focus first on heavy industry rather than households."
+  },
+  {
+    "id": 359,
+    "category": "Environment",
+    "motion": "Public transit should be free in major cities."
+  },
+  {
+    "id": 360,
+    "category": "Environment",
+    "motion": "Suburban sprawl is an environmental failure."
+  },
+  {
+    "id": 361,
+    "category": "Environment",
+    "motion": "National parks should limit tourism more aggressively."
+  },
+  {
+    "id": 362,
+    "category": "Environment",
+    "motion": "Climate activists should target pension funds as much as oil companies."
+  },
+  {
+    "id": 363,
+    "category": "Environment",
+    "motion": "Tree planting is too often used as a climate distraction."
+  },
+  {
+    "id": 364,
+    "category": "Environment",
+    "motion": "Desalination will become essential for many regions."
+  },
+  {
+    "id": 365,
+    "category": "Environment",
+    "motion": "Wildlife corridors deserve more funding than zoos."
+  },
+  {
+    "id": 366,
+    "category": "Environment",
+    "motion": "Cities should mandate reflective and cooling roofs."
+  },
+  {
+    "id": 367,
+    "category": "Environment",
+    "motion": "Environmental law should grant legal rights to rivers and ecosystems."
+  },
+  {
+    "id": 368,
+    "category": "Environment",
+    "motion": "Carbon labeling should be required on consumer goods."
+  },
+  {
+    "id": 369,
+    "category": "Environment",
+    "motion": "Renewables alone cannot solve climate change fast enough."
+  },
+  {
+    "id": 370,
+    "category": "Environment",
+    "motion": "Recycling has been oversold as a solution."
+  },
+  {
+    "id": 371,
+    "category": "Environment",
+    "motion": "Affluent consumers should face higher environmental taxes than poorer consumers."
+  },
+  {
+    "id": 372,
+    "category": "Environment",
+    "motion": "Environmental review processes are often too slow for urgent infrastructure."
+  },
+  {
+    "id": 373,
+    "category": "Environment",
+    "motion": "The greenest building is usually the one already standing."
+  },
+  {
+    "id": 374,
+    "category": "Environment",
+    "motion": "Climate migration should be recognized in refugee law."
+  },
+  {
+    "id": 375,
+    "category": "Culture & Entertainment",
+    "motion": "Streaming has made film culture worse."
+  },
+  {
+    "id": 376,
+    "category": "Culture & Entertainment",
+    "motion": "Award shows no longer reflect artistic excellence."
+  },
+  {
+    "id": 377,
+    "category": "Culture & Entertainment",
+    "motion": "Fan service weakens storytelling."
+  },
+  {
+    "id": 378,
+    "category": "Culture & Entertainment",
+    "motion": "Remakes are crowding out original creativity."
+  },
+  {
+    "id": 379,
+    "category": "Culture & Entertainment",
+    "motion": "Artists should be separated from their personal misconduct."
+  },
+  {
+    "id": 380,
+    "category": "Culture & Entertainment",
+    "motion": "Video games deserve the same cultural respect as literature and film."
+  },
+  {
+    "id": 381,
+    "category": "Culture & Entertainment",
+    "motion": "Spoiler culture has gone too far."
+  },
+  {
+    "id": 382,
+    "category": "Culture & Entertainment",
+    "motion": "Critics matter more than audience scores for judging art."
+  },
+  {
+    "id": 383,
+    "category": "Culture & Entertainment",
+    "motion": "Franchises have damaged modern cinema."
+  },
+  {
+    "id": 384,
+    "category": "Culture & Entertainment",
+    "motion": "Censorship in entertainment is sometimes justified."
+  },
+  {
+    "id": 385,
+    "category": "Culture & Entertainment",
+    "motion": "Reality television harms public culture."
+  },
+  {
+    "id": 386,
+    "category": "Culture & Entertainment",
+    "motion": "Pop music is unfairly dismissed as less artistic than other genres."
+  },
+  {
+    "id": 387,
+    "category": "Culture & Entertainment",
+    "motion": "Comedy should be allowed to offend without apology."
+  },
+  {
+    "id": 388,
+    "category": "Culture & Entertainment",
+    "motion": "Sports are a form of entertainment first and culture second."
+  },
+  {
+    "id": 389,
+    "category": "Culture & Entertainment",
+    "motion": "Theaters and live venues deserve public subsidy."
+  },
+  {
+    "id": 390,
+    "category": "Culture & Entertainment",
+    "motion": "BookTok and similar trends have improved reading culture."
+  },
+  {
+    "id": 391,
+    "category": "Culture & Entertainment",
+    "motion": "Celebrity culture is socially corrosive."
+  },
+  {
+    "id": 392,
+    "category": "Culture & Entertainment",
+    "motion": "Adaptations should be faithful to their source material."
+  },
+  {
+    "id": 393,
+    "category": "Culture & Entertainment",
+    "motion": "Prestige television has surpassed film as the dominant storytelling form."
+  },
+  {
+    "id": 394,
+    "category": "Culture & Entertainment",
+    "motion": "Generative AI should not be used in commercial art."
+  },
+  {
+    "id": 395,
+    "category": "Culture & Entertainment",
+    "motion": "Piracy can be ethically justified when media is inaccessible."
+  },
+  {
+    "id": 396,
+    "category": "Culture & Entertainment",
+    "motion": "Animation is not taken seriously enough by adult audiences."
+  },
+  {
+    "id": 397,
+    "category": "Culture & Entertainment",
+    "motion": "Professional critics have lost touch with mainstream audiences."
+  },
+  {
+    "id": 398,
+    "category": "Culture & Entertainment",
+    "motion": "Cult classics matter more than box-office hits."
+  },
+  {
+    "id": 399,
+    "category": "Culture & Entertainment",
+    "motion": "The internet has fragmented culture beyond repair."
+  },
+  {
+    "id": 400,
+    "category": "Culture & Entertainment",
+    "motion": "Superhero fatigue is a symptom of broader creative stagnation."
+  },
+  {
+    "id": 401,
+    "category": "Culture & Entertainment",
+    "motion": "Books should not be rewritten to match contemporary sensitivities."
+  },
+  {
+    "id": 402,
+    "category": "Culture & Entertainment",
+    "motion": "Sports documentaries are replacing journalism for many fans."
+  },
+  {
+    "id": 403,
+    "category": "Culture & Entertainment",
+    "motion": "Celebrity apologies are mostly performance."
+  },
+  {
+    "id": 404,
+    "category": "Culture & Entertainment",
+    "motion": "Musicians should allow more audience phone restrictions at concerts."
+  },
+  {
+    "id": 405,
+    "category": "Culture & Entertainment",
+    "motion": "Memes are a legitimate cultural art form."
+  },
+  {
+    "id": 406,
+    "category": "Culture & Entertainment",
+    "motion": "Cinema is best experienced in theaters rather than at home."
+  },
+  {
+    "id": 407,
+    "category": "Culture & Entertainment",
+    "motion": "Binge release models hurt television storytelling."
+  },
+  {
+    "id": 408,
+    "category": "Culture & Entertainment",
+    "motion": "Award season campaigning distorts artistic recognition."
+  },
+  {
+    "id": 409,
+    "category": "Culture & Entertainment",
+    "motion": "Fan communities often become hostile to experimentation."
+  },
+  {
+    "id": 410,
+    "category": "Culture & Entertainment",
+    "motion": "Nostalgia is the dominant force in pop culture."
+  },
+  {
+    "id": 411,
+    "category": "Culture & Entertainment",
+    "motion": "Short-form video is weakening attention for long-form art."
+  },
+  {
+    "id": 412,
+    "category": "Culture & Entertainment",
+    "motion": "Public funding for the arts is socially worthwhile."
+  },
+  {
+    "id": 413,
+    "category": "Culture & Entertainment",
+    "motion": "Adaptations should be judged independently from the source material."
+  },
+  {
+    "id": 414,
+    "category": "Culture & Entertainment",
+    "motion": "The distinction between high culture and low culture is mostly posturing."
+  },
+  {
+    "id": 415,
+    "category": "Culture & Entertainment",
+    "motion": "Celebrities should not be treated as moral leaders."
+  },
+  {
+    "id": 416,
+    "category": "Culture & Entertainment",
+    "motion": "Cultural criticism is healthier when it is less moralized."
+  },
+  {
+    "id": 417,
+    "category": "Law & Justice",
+    "motion": "The death penalty should be abolished everywhere."
+  },
+  {
+    "id": 418,
+    "category": "Law & Justice",
+    "motion": "Cash bail is fundamentally unjust."
+  },
+  {
+    "id": 419,
+    "category": "Law & Justice",
+    "motion": "Police should be required to carry personal liability insurance."
+  },
+  {
+    "id": 420,
+    "category": "Law & Justice",
+    "motion": "Restorative justice is preferable to punitive justice for most crimes."
+  },
+  {
+    "id": 421,
+    "category": "Law & Justice",
+    "motion": "Juveniles should almost never be tried as adults."
+  },
+  {
+    "id": 422,
+    "category": "Law & Justice",
+    "motion": "Nonviolent drug offenses should not carry prison sentences."
+  },
+  {
+    "id": 423,
+    "category": "Law & Justice",
+    "motion": "Mandatory minimum sentencing should end."
+  },
+  {
+    "id": 424,
+    "category": "Law & Justice",
+    "motion": "Judges should be appointed rather than elected."
+  },
+  {
+    "id": 425,
+    "category": "Law & Justice",
+    "motion": "Prisons should prioritize rehabilitation over punishment."
+  },
+  {
+    "id": 426,
+    "category": "Law & Justice",
+    "motion": "Free speech protections should cover deeply offensive expression."
+  },
+  {
+    "id": 427,
+    "category": "Law & Justice",
+    "motion": "Civil asset forfeiture should be banned."
+  },
+  {
+    "id": 428,
+    "category": "Law & Justice",
+    "motion": "Body camera footage should be public by default after critical incidents."
+  },
+  {
+    "id": 429,
+    "category": "Law & Justice",
+    "motion": "Victim impact statements distort sentencing."
+  },
+  {
+    "id": 430,
+    "category": "Law & Justice",
+    "motion": "Laws should treat cybercrime as seriously as physical theft."
+  },
+  {
+    "id": 431,
+    "category": "Law & Justice",
+    "motion": "Life without parole is a cruel punishment."
+  },
+  {
+    "id": 432,
+    "category": "Law & Justice",
+    "motion": "Plea bargaining undermines justice."
+  },
+  {
+    "id": 433,
+    "category": "Law & Justice",
+    "motion": "Police unions should have less legal protection."
+  },
+  {
+    "id": 434,
+    "category": "Law & Justice",
+    "motion": "Voting rights should be automatically restored after prison release."
+  },
+  {
+    "id": 435,
+    "category": "Law & Justice",
+    "motion": "Prison labor is exploitative."
+  },
+  {
+    "id": 436,
+    "category": "Law & Justice",
+    "motion": "Defamation law should be strengthened against viral misinformation."
+  },
+  {
+    "id": 437,
+    "category": "Law & Justice",
+    "motion": "Whistleblowers deserve stronger legal protection than national secrecy laws allow."
+  },
+  {
+    "id": 438,
+    "category": "Law & Justice",
+    "motion": "Prosecutors should face sanctions for withholding exculpatory evidence."
+  },
+  {
+    "id": 439,
+    "category": "Law & Justice",
+    "motion": "Hate crime laws are necessary."
+  },
+  {
+    "id": 440,
+    "category": "Law & Justice",
+    "motion": "Juries should be allowed to ask questions during trials."
+  },
+  {
+    "id": 441,
+    "category": "Law & Justice",
+    "motion": "The legal system favors the wealthy too heavily to be called fair."
+  },
+  {
+    "id": 442,
+    "category": "Law & Justice",
+    "motion": "Police should require a college degree or equivalent training standard."
+  },
+  {
+    "id": 443,
+    "category": "Law & Justice",
+    "motion": "Drug legalization would reduce organized crime more than harsher enforcement."
+  },
+  {
+    "id": 444,
+    "category": "Law & Justice",
+    "motion": "Courts should move faster even at the cost of some procedural complexity."
+  },
+  {
+    "id": 445,
+    "category": "Law & Justice",
+    "motion": "Victim-centered justice can conflict with fair trials."
+  },
+  {
+    "id": 446,
+    "category": "Law & Justice",
+    "motion": "Prison sentences should be capped more strictly for all but the gravest crimes."
+  },
+  {
+    "id": 447,
+    "category": "Law & Justice",
+    "motion": "Every defendant should have access to publicly funded expert witnesses."
+  },
+  {
+    "id": 448,
+    "category": "Law & Justice",
+    "motion": "Body cameras without strong disclosure laws create false accountability."
+  },
+  {
+    "id": 449,
+    "category": "Law & Justice",
+    "motion": "Sex offender registries are too broad to be just."
+  },
+  {
+    "id": 450,
+    "category": "Law & Justice",
+    "motion": "Community policing works better than militarized policing."
+  },
+  {
+    "id": 451,
+    "category": "Law & Justice",
+    "motion": "Online harassment should carry clearer criminal penalties."
+  },
+  {
+    "id": 452,
+    "category": "Law & Justice",
+    "motion": "Judicial elections undermine impartiality."
+  },
+  {
+    "id": 453,
+    "category": "Law & Justice",
+    "motion": "Truth commissions can be better than criminal trials after mass atrocities."
+  },
+  {
+    "id": 454,
+    "category": "Law & Justice",
+    "motion": "Punishment should aim first at public safety rather than moral condemnation."
+  },
+  {
+    "id": 455,
+    "category": "Law & Justice",
+    "motion": "International law is too weak to deter powerful states."
+  },
+  {
+    "id": 456,
+    "category": "Law & Justice",
+    "motion": "Surveillance warrants should face much stricter limits."
+  },
+  {
+    "id": 457,
+    "category": "Law & Justice",
+    "motion": "Most legal language is unnecessarily inaccessible."
+  },
+  {
+    "id": 458,
+    "category": "Law & Justice",
+    "motion": "A fair justice system must tolerate some guilty people going free."
+  },
+  {
+    "id": 459,
+    "category": "Health & Lifestyle",
+    "motion": "Governments should regulate ultra-processed foods more aggressively."
+  },
+  {
+    "id": 460,
+    "category": "Health & Lifestyle",
+    "motion": "Mental health care should be treated as essential primary care."
+  },
+  {
+    "id": 461,
+    "category": "Health & Lifestyle",
+    "motion": "Work-life balance matters more than career ambition."
+  },
+  {
+    "id": 462,
+    "category": "Health & Lifestyle",
+    "motion": "Aging should be treated as a medical condition to be slowed."
+  },
+  {
+    "id": 463,
+    "category": "Health & Lifestyle",
+    "motion": "Schools should teach nutrition and cooking as core subjects."
+  },
+  {
+    "id": 464,
+    "category": "Health & Lifestyle",
+    "motion": "Fitness culture is often unhealthy in disguise."
+  },
+  {
+    "id": 465,
+    "category": "Health & Lifestyle",
+    "motion": "Employers should have no access to employees' health data from wearables."
+  },
+  {
+    "id": 466,
+    "category": "Health & Lifestyle",
+    "motion": "Sleep is the most underrated pillar of health."
+  },
+  {
+    "id": 467,
+    "category": "Health & Lifestyle",
+    "motion": "Alcohol should face warning labels similar to tobacco."
+  },
+  {
+    "id": 468,
+    "category": "Health & Lifestyle",
+    "motion": "People should prioritize strength training over cardio for long-term health."
+  },
+  {
+    "id": 469,
+    "category": "Health & Lifestyle",
+    "motion": "Cosmetic surgery is becoming too normalized."
+  },
+  {
+    "id": 470,
+    "category": "Health & Lifestyle",
+    "motion": "Assisted dying should be legal for terminal illness."
+  },
+  {
+    "id": 471,
+    "category": "Health & Lifestyle",
+    "motion": "Healthcare should be a universal public service."
+  },
+  {
+    "id": 472,
+    "category": "Health & Lifestyle",
+    "motion": "Traditional office work is bad for physical health."
+  },
+  {
+    "id": 473,
+    "category": "Health & Lifestyle",
+    "motion": "Calorie labeling on menus does more good than harm."
+  },
+  {
+    "id": 474,
+    "category": "Health & Lifestyle",
+    "motion": "Parents should face more limits on posting children online."
+  },
+  {
+    "id": 475,
+    "category": "Health & Lifestyle",
+    "motion": "Supplements are more marketing than medicine for most people."
+  },
+  {
+    "id": 476,
+    "category": "Health & Lifestyle",
+    "motion": "Processed meat should carry stronger cancer warnings."
+  },
+  {
+    "id": 477,
+    "category": "Health & Lifestyle",
+    "motion": "Digital detoxes are overrated as a wellness solution."
+  },
+  {
+    "id": 478,
+    "category": "Health & Lifestyle",
+    "motion": "Morning routines are overhyped."
+  },
+  {
+    "id": 479,
+    "category": "Health & Lifestyle",
+    "motion": "Personal health is more shaped by environment than discipline."
+  },
+  {
+    "id": 480,
+    "category": "Health & Lifestyle",
+    "motion": "Obesity should be approached primarily as a public health issue rather than a personal failing."
+  },
+  {
+    "id": 481,
+    "category": "Health & Lifestyle",
+    "motion": "Longevity science deserves more investment than elite sports medicine."
+  },
+  {
+    "id": 482,
+    "category": "Health & Lifestyle",
+    "motion": "Society glamorizes busyness in a way that damages health."
+  },
+  {
+    "id": 483,
+    "category": "Health & Lifestyle",
+    "motion": "Wellness influencers do more harm than good."
+  },
+  {
+    "id": 484,
+    "category": "Health & Lifestyle",
+    "motion": "Governments should tax sugary drinks more aggressively."
+  },
+  {
+    "id": 485,
+    "category": "Health & Lifestyle",
+    "motion": "Remote work can be healthier than commuting-heavy office life."
+  },
+  {
+    "id": 486,
+    "category": "Health & Lifestyle",
+    "motion": "Personal trainers and coaches are worth it for most beginners."
+  },
+  {
+    "id": 487,
+    "category": "Health & Lifestyle",
+    "motion": "Loneliness should be screened for in routine health care."
+  },
+  {
+    "id": 488,
+    "category": "Health & Lifestyle",
+    "motion": "Sitting all day should be treated as a serious occupational hazard."
+  },
+  {
+    "id": 489,
+    "category": "Health & Lifestyle",
+    "motion": "People should walk more and drive less for routine errands."
+  },
+  {
+    "id": 490,
+    "category": "Health & Lifestyle",
+    "motion": "Food marketing to children should be heavily restricted."
+  },
+  {
+    "id": 491,
+    "category": "Health & Lifestyle",
+    "motion": "A culture obsessed with optimization is bad for mental health."
+  },
+  {
+    "id": 492,
+    "category": "Health & Lifestyle",
+    "motion": "Smartwatches improve health awareness more than they increase anxiety."
+  },
+  {
+    "id": 493,
+    "category": "Health & Lifestyle",
+    "motion": "Preventive care deserves more funding than late-stage treatment."
+  },
+  {
+    "id": 494,
+    "category": "Health & Lifestyle",
+    "motion": "People should spend more on mattresses and less on gadgets."
+  },
+  {
+    "id": 495,
+    "category": "Health & Lifestyle",
+    "motion": "Therapy is overprescribed as a solution to structural problems."
+  },
+  {
+    "id": 496,
+    "category": "Health & Lifestyle",
+    "motion": "Sunlight and outdoor time are undervalued in modern health advice."
+  },
+  {
+    "id": 497,
+    "category": "Health & Lifestyle",
+    "motion": "Society should normalize rest more than hustle."
+  },
+  {
+    "id": 498,
+    "category": "Health & Lifestyle",
+    "motion": "Weight loss advice should focus more on habits than on numbers."
+  },
+  {
+    "id": 499,
+    "category": "Health & Lifestyle",
+    "motion": "Healthy living is often made unnecessarily expensive."
+  },
+  {
+    "id": 500,
+    "category": "Health & Lifestyle",
+    "motion": "Routine alcohol consumption is too normalized in adult life."
+  }
+]

@@ -1,0 +1,111 @@
+You are my senior full-stack engineer. Step 1 of this project is already complete. Do NOT rebuild the app shell from scratch. Build Step 2 only, and integrate cleanly into the existing codebase.
+
+MANDATORY STACK — DO NOT SUBSTITUTE:
+- Next.js App Router
+- TypeScript
+- Tailwind CSS
+- PostgreSQL on Neon
+- Prisma ORM
+- Clerk for authentication
+- Vercel-ready project structure
+- Pusher may be used later, but do not fully implement realtime in this step
+
+PROJECT CONSTRAINTS:
+- Website only, no mobile apps
+- Must look good on desktop and mobile
+- Modern UI
+- UI must remain compartmentalized and easy to restyle later
+- Email signup and Google signup are required
+- Notifications will exist later, so keep architecture extensible
+- Public identity is username-based
+
+IMPORTANT:
+- Preserve the existing Step 1 UI foundation, layout, and reusable component system
+- Extend the existing codebase instead of replacing it
+- If Step 1 naming differs slightly, adapt cleanly rather than rewriting everything
+
+BUILD ONLY STEP 2.
+
+STEP 2 SCOPE:
+1. Integrate Clerk auth into the existing app
+   - email signup/login
+   - Google signup/login
+   - session handling
+   - route protection where appropriate
+2. Integrate Neon PostgreSQL with Prisma
+3. Create initial Prisma schema and migrations
+4. Create user/profile data model aligned with Clerk
+5. Build profile page with responsive modern UI
+6. Support profile fields:
+   - username
+   - bio
+   - avatar
+   - country/region
+   - favorite categories
+   - links/socials
+7. Public debate identity must show username only
+8. Add support for username changes only once per year
+   - enforce clearly in server logic
+   - store last username change timestamp
+9. Create fixed categories system
+   - seed initial categories
+   - category listing page
+   - category detail page shell
+10. Add browsing for categories with starter/mock data for:
+   - live debates
+   - open challenges
+   - past debates
+11. Keep code modular and easy to extend for debates, rankings, notifications, moderation
+
+REQUIRED IMPLEMENTATION DETAILS:
+- Use Clerk official Next.js App Router patterns
+- Use Prisma with Neon-compatible Postgres connection string
+- Add a clean data access layer or server-side feature modules
+- Keep UI concerns separate from DB/auth concerns
+- Add loading, empty, and error states where relevant
+
+THIRD-PARTY SETUP REQUIREMENTS:
+You must include:
+1. `.env.example` with all required variables for this step
+2. A "Third-party setup" section in README or step notes that clearly tells me:
+   - what account to create on Clerk
+   - what account/project to create on Neon
+   - exactly which keys/connection strings to copy
+   - where to paste them
+3. Clear fallback behavior when env vars are missing
+   - app should fail clearly and explain what is missing
+   - use mocks only where truly reasonable
+
+ENV VARS TO EXPECT FOR THIS STEP:
+- DATABASE_URL
+- DIRECT_URL (if you choose to use it for Prisma/Neon)
+- NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
+- CLERK_SECRET_KEY
+- NEXT_PUBLIC_CLERK_SIGN_IN_URL
+- NEXT_PUBLIC_CLERK_SIGN_UP_URL
+- NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL
+- NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL
+
+DELIVERABLES:
+- Full code changes for Step 2
+- Prisma schema, migration, and seed files
+- Clerk integration code
+- `.env.example`
+- README/setup notes for Clerk + Neon
+- Commands to run:
+  - install dependencies
+  - prisma generate
+  - prisma migrate
+  - seed database
+  - run dev server
+
+TEST CHECKLIST:
+- Email signup works
+- Google signup button and flow works when keys are configured
+- Protected routes behave correctly
+- Profile data loads and saves
+- Username yearly change rule works
+- Categories are seeded and browseable
+- Mobile and desktop layouts still look good
+
+Do not build Step 3 yet.
