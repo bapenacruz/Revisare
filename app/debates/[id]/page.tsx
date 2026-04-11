@@ -961,7 +961,7 @@ function AudienceVotePanel({
   }, [debate.id]);
 
   async function castVote(userId: string) {
-    if (voteLoading || voted === userId) return; // block clicking already-voted person
+    if (voteLoading) return;
     setVoteLoading(true);
     let voterToken = me;
     if (!voterToken) {
@@ -972,13 +972,20 @@ function AudienceVotePanel({
       }
     }
     try {
-      await fetch(`/api/debates/${challengeId}/vote`, {
+      const res = await fetch(`/api/debates/${challengeId}/vote`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ votedForId: userId, voterToken }),
       });
-      setVoted(userId);
-      localStorage.setItem(`vote-${debate.id}`, userId);
+      const json = await res.json();
+      if (json.removed) {
+        // Vote was toggled off
+        setVoted(null);
+        localStorage.removeItem(`vote-${debate.id}`);
+      } else {
+        setVoted(userId);
+        localStorage.setItem(`vote-${debate.id}`, userId);
+      }
       onVote();
     } finally {
       setVoteLoading(false);
@@ -1010,11 +1017,11 @@ function AudienceVotePanel({
             <button
               key={d.id}
               onClick={() => castVote(d.id)}
-              disabled={isMyVote || voteLoading}
-              title={isOtherVote ? "Transfer your vote here" : undefined}
+              disabled={voteLoading}
+              title={isMyVote ? "Click again to remove your vote" : isOtherVote ? "Transfer your vote here" : undefined}
               className={`w-full flex items-center gap-2 mb-2 p-2 rounded-[--radius] border transition-colors text-left ${
                 isMyVote
-                  ? "border-accent bg-accent/10 cursor-default opacity-80"
+                  ? "border-accent bg-accent/10 hover:bg-danger/10 hover:border-danger/40 cursor-pointer"
                   : isOtherVote
                     ? "border-border hover:border-brand/60 hover:bg-brand/5 bg-surface-raised cursor-pointer"
                     : "border-border hover:border-brand/40 bg-surface-raised"
@@ -1047,7 +1054,7 @@ function AudienceVotePanel({
           <p className="text-xs text-foreground-muted text-center mt-1">Click to cast your vote</p>
         )}
         {!isDebater && voted && (
-          <p className="text-xs text-foreground-muted text-center mt-1">Click the other debater to transfer your vote</p>
+          <p className="text-xs text-foreground-muted text-center mt-1">Click your pick again to remove · click the other to transfer</p>
         )}
       </CardBody>
     </Card>

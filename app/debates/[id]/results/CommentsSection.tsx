@@ -6,7 +6,7 @@ import Link from "next/link";
 import { Card, CardBody } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { Avatar } from "@/components/ui/Avatar";
-import { MessageSquare, Send } from "lucide-react";
+import { MessageSquare, Send, Trash2 } from "lucide-react";
 
 interface Comment {
   id: string;
@@ -23,6 +23,7 @@ export function CommentsSection({ challengeId }: { challengeId: string }) {
   const [draft, setDraft] = useState("");
   const [posting, setPosting] = useState(false);
   const [error, setError] = useState("");
+  const [deletingId, setDeletingId] = useState<string | null>(null);
   const prevCountRef = useRef(-1);
   const endRef = useRef<HTMLDivElement>(null);
 
@@ -70,6 +71,17 @@ export function CommentsSection({ challengeId }: { challengeId: string }) {
     }
   }
 
+  async function deleteComment(commentId: string) {
+    if (deletingId) return;
+    setDeletingId(commentId);
+    try {
+      await fetch(`/api/debates/${challengeId}/comments/${commentId}`, { method: "DELETE" });
+      await fetchComments();
+    } finally {
+      setDeletingId(null);
+    }
+  }
+
   return (
     <div>
       <div className="flex items-center gap-2 mb-4">
@@ -83,14 +95,24 @@ export function CommentsSection({ challengeId }: { challengeId: string }) {
       ) : (
         <div className="flex flex-col gap-4 mb-6">
           {comments.map((c) => (
-            <div key={c.id} className="flex gap-3">
+            <div key={c.id} className="flex gap-3 group">
               <Avatar initial={c.username[0]} size="sm" />
-              <div>
+              <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 mb-0.5">
                   <span className="text-sm font-semibold text-foreground">{c.username}</span>
                   <span className="text-xs text-foreground-muted">
                     {new Date(c.createdAt).toLocaleDateString()}
                   </span>
+                  {session?.user?.id === c.userId && (
+                    <button
+                      onClick={() => deleteComment(c.id)}
+                      disabled={deletingId === c.id}
+                      title="Delete comment"
+                      className="ml-auto opacity-0 group-hover:opacity-100 transition-opacity p-1 rounded hover:bg-danger/10 text-foreground-subtle hover:text-danger disabled:opacity-40"
+                    >
+                      <Trash2 size={12} />
+                    </button>
+                  )}
                 </div>
                 <p className="text-sm text-foreground-muted leading-relaxed">{c.content}</p>
               </div>

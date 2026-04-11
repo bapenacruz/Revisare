@@ -37,16 +37,19 @@ export async function POST(req: NextRequest, { params }: RouteParams) {
   const resolvedToken =
     session?.user?.id ? session.user.id : voterToken.slice(0, 64);
 
-  // Prevent voting for the same person twice (transfer to the other person is allowed)
   const existing = await db.audienceVote.findUnique({
     where: { debateId_voterToken: { debateId: debate.id, voterToken: resolvedToken } },
   });
+
   if (existing?.votedForId === votedForId) {
-    // Clicking the same debater again — no-op, return current tally
+    // Clicking the same debater again — remove vote (toggle off)
+    await db.audienceVote.delete({
+      where: { debateId_voterToken: { debateId: debate.id, voterToken: resolvedToken } },
+    });
     const votes = await db.audienceVote.findMany({ where: { debateId: debate.id }, select: { votedForId: true } });
     const tally: Record<string, number> = {};
     for (const v of votes) tally[v.votedForId] = (tally[v.votedForId] ?? 0) + 1;
-    return NextResponse.json({ tally });
+    return NextResponse.json({ tally, removed: true });
   }
 
   try {
