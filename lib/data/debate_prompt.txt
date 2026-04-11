@@ -120,6 +120,7 @@ Match debate-import-template.json EXACTLY:
 * Each round ≈ 90 seconds of typing
 * Medium length (not short, not essay)
 * Should feel like something a person actually typed live
+* No emdashes (—)
 
 ---
 
@@ -156,4 +157,4 @@ If ANY issue → regenerate
 
 ## OUTPUT
 
-Return an array of debates matching the requested count in a downloadable .json file
+Must be a downloadable .json file

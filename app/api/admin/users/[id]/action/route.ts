@@ -63,18 +63,38 @@ export async function POST(req: NextRequest, { params }: RouteParams) {
       const smtpUser = process.env.SMTP_USER;
       const smtpPass = process.env.SMTP_PASS;
       if (smtpUser && smtpPass) {
-        const transporter = nodemailer.createTransport({
-          service: "gmail",
-          auth: { user: smtpUser, pass: smtpPass },
-        });
-        await transporter.sendMail({
-          from: `"Revisare" <${smtpUser}>`,
-          to: target.email,
-          subject: "Reset your Revisare password",
-          text: `Hi ${target.username},\n\nAn admin has initiated a password reset for your account.\n\nClick the link below to set a new password (expires in 2 hours):\n\n${resetUrl}\n\nIf you did not request this, you can ignore it.`,
-          html: `<p>Hi <strong>${target.username}</strong>,</p><p>An admin has initiated a password reset for your account.</p><p><a href="${resetUrl}">Reset Password</a></p><p>This link expires in 2 hours.</p>`,
-        });
-        emailSent = true;
+        try {
+          console.log("[admin] SMTP config check:", { 
+            userOk: !!smtpUser, 
+            passOk: !!smtpPass,
+            userLength: smtpUser?.length,
+            passLength: smtpPass?.length 
+          });
+
+          const transporter = nodemailer.createTransport({
+            service: "gmail",
+            auth: { user: smtpUser, pass: smtpPass },
+            // Add explicit configuration for better Railway compatibility
+            port: 587,
+            secure: false, // Use STARTTLS  
+            requireTLS: true,
+            debug: true, // Enable debug logs
+          });
+
+          await transporter.sendMail({
+            from: `"Revisare" <${smtpUser}>`,
+            to: target.email,
+            subject: "Reset your Revisare password",
+            text: `Hi ${target.username},\n\nAn admin has initiated a password reset for your account.\n\nClick the link below to set a new password (expires in 2 hours):\n\n${resetUrl}\n\nIf you did not request this, you can ignore it.`,
+            html: `<p>Hi <strong>${target.username}</strong>,</p><p>An admin has initiated a password reset for your account.</p><p><a href="${resetUrl}">Reset Password</a></p><p>This link expires in 2 hours.</p>`,
+          });
+          emailSent = true;
+          console.log("[admin] Reset password email sent successfully");
+        } catch (error) {
+          console.error("[admin] Reset password email failed:", error);
+        }
+      } else {
+        console.error("[admin] SMTP not configured:", { userOk: !!smtpUser, passOk: !!smtpPass });
       }
     }
 

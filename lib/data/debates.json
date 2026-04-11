@@ -1,0 +1,88 @@
+[
+  {
+    "motion": "Humans are bad by nature.",
+    "category_slug": "philosophy",
+    "format": "standard",
+    "ranked": false,
+    "debaterA": {
+      "username": "jessicathinks",
+      "side": "proposition"
+    },
+    "debaterB": {
+      "username": "lopez1979",
+      "side": "opposition"
+    },
+    "turns": [
+      {
+        "username": "jessicathinks",
+        "roundName": "opening",
+        "content": "Look, I think people dress this up way too much. Humans are not good by default. We can become decent, sure, but naturally? No. Put people in a situation with low accountability, scarce resources, or power over someone weaker and the ugly stuff comes out fast. Greed, cruelty, tribalism, selfishness. That is not some rare glitch. It is baked in. Kids have to be taught to share. Societies have to build laws so people do not steal, exploit, or hurt each other. That tells you something. I am not saying humans are monsters every second of the day. I am saying our first impulses are usually self-protective, self-serving, and sometimes brutal. Civilization is basically a long project of managing human nature because human nature is not naturally kind."
+      },
+      {
+        "username": "lopez1979",
+        "roundName": "opening",
+        "content": "This is obvious to me: that argument confuses instinct with moral character. Of course humans protect themselves first. Every animal does. That does not mean humans are bad by nature. It means humans are built to survive. The more important fact is that we are also wired for attachment, cooperation, and sacrifice. Families, friendships, communities, even basic trust between strangers, none of that works if people are fundamentally bad. You have to understand, if our nature were mainly cruel, society would collapse constantly. Instead what we actually see is people helping after disasters, raising children with care, building norms, volunteering, forgiving. Human beings are mixed, yes, but mixed is not the same as bad. Calling human nature bad is too lazy and honestly too cynical."
+      },
+      {
+        "username": "jessicathinks",
+        "roundName": "rebuttal",
+        "content": "The problem with that is you are pointing to what humans can do at their best, not what they drift toward without pressure. I am not denying love or loyalty exist. I am saying those things usually stay inside the circle. Your family, your tribe, your side. Outside that circle people get real cold real fast. History is full of ordinary people doing awful things once they had permission, fear, or a little incentive. And even in daily life, come on, people lie when it helps, they dodge responsibility, they rationalize selfish choices nonstop. That does not happen because a few bad apples showed up. It happens because the baseline needs correction."
+      },
+      {
+        "username": "lopez1979",
+        "roundName": "rebuttal",
+        "content": "You are setting the bar in a rigged way. If people fail under fear or propaganda, that proves humans are vulnerable, not inherently bad. And your point about caring mostly for our own circle is still not proof of badness. Moral concern usually expands over time. That is one of the strongest arguments against your position, actually. Humans can widen empathy. We abolished things once treated as normal. We built rights frameworks. We punish cruelty because most people do not admire it, they reject it. Yes, discipline matters. Institutions matter. But institutions are themselves human creations. They exist because people also have moral imagination, not just selfish instinct."
+      },
+      {
+        "username": "jessicathinks",
+        "roundName": "closing",
+        "content": "I am not arguing humans are incapable of goodness. Clearly we are. I am arguing goodness is work. It takes teaching, restraint, consequences, culture, effort. The darker stuff shows up on its own way too easily. If a thing has to be trained out of us over and over, then yes, it is part of our nature. That is why I land where I do. Humans can become good. But by nature? Not really."
+      },
+      {
+        "username": "lopez1979",
+        "roundName": "closing",
+        "content": "Humans are complicated, not bad. We carry selfish instincts and cooperative instincts at the same time. Reducing that to 'bad by nature' misses half the picture and honestly the more important half. We do not just restrain evil. We create trust, loyalty, beauty, duty, and care. That is nature too. So no, human beings are not bad by nature. We are unfinished by nature."
+      }
+    ],
+    "winner_username": "lopez1979",
+    "completed_at": "2026-04-11T00:32:00Z"
+  },
+  {
+    "motion": "Antitrust enforcement should break up dominant digital platforms.",
+    "category_slug": "economics",
+    "format": "quick",
+    "ranked": false,
+    "debaterA": {
+      "username": "singh624",
+      "side": "proposition"
+    },
+    "debaterB": {
+      "username": "lowkey_sofia",
+      "side": "opposition"
+    },
+    "turns": [
+      {
+        "username": "singh624",
+        "roundName": "opening",
+        "content": "Look, this is obvious. A handful of digital platforms control way too much and everybody knows it. Search, ads, app stores, cloud, online shopping, social traffic, they just keep swallowing more space and then acting shocked when regulators show up. If one company can buy competitors, copy them, bury them in rankings, and tax every business that needs access to its ecosystem, that is not a market. That is a private gatekeeper. Breaking them up is not anti-business. It is pro-competition. Big tech keeps selling the fantasy that size equals innovation, but half the time size just means they can crush smaller players before they breathe."
+      },
+      {
+        "username": "lowkey_sofia",
+        "roundName": "opening",
+        "content": "I disagree. You have to understand, dominance by itself is not enough to justify breaking firms apart. The real question is whether consumers are being harmed in a concrete way. In many of these markets, users receive better products, low prices, and enormous convenience precisely because the platforms are integrated at scale. Breaking them up may sound tough and principled, but it could easily produce fragmentation, weaker security, worse interoperability, and slower innovation. Antitrust should correct abuse, yes, but forced breakups should remain a last resort, not the default answer whenever a company becomes very large."
+      },
+      {
+        "username": "singh624",
+        "roundName": "rebuttal",
+        "content": "That consumer-harm-only line is exactly how these companies got away with murder for years. Cheap or free does not mean healthy competition. People pay in dependence, in locked-in ecosystems, in fewer choices later. Small companies get bought, copied, or pushed off the road. Also come on, these firms write the rules for everybody else and then pretend the market crowned them fairly. Regulators do not need to wait until the whole thing is dead on the floor. Breakups are how you stop the chokehold before it gets worse."
+      },
+      {
+        "username": "lowkey_sofia",
+        "roundName": "rebuttal",
+        "content": "That criticism lands better against specific conduct than against scale itself. If a platform is self-preferencing, discriminating against rivals, or using acquisitions anticompetitively, address those behaviors directly. Structural breakups are blunt. They can destroy efficiencies that benefit both businesses and users. Also, in digital markets, foreign competition and rapid technological shifts are real. A company that looks untouchable now can weaken faster than people assume. Regulation, interoperability mandates, and merger scrutiny can do a great deal without assuming that dismantling every dominant platform is the smartest path."
+      }
+    ],
+    "winner_username": "singh624",
+    "completed_at": "2026-04-11T00:41:00Z"
+  }
+]

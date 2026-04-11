@@ -33,9 +33,21 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "SMTP not configured — add SMTP_PASS to .env and restart." }, { status: 503 });
     }
 
+    console.log("[contact] SMTP config check:", { 
+      userOk: !!smtpUser, 
+      passOk: !!smtpPass,
+      userLength: smtpUser?.length,
+      passLength: smtpPass?.length 
+    });
+
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: { user: smtpUser, pass: smtpPass },
+      // Add explicit configuration for better Railway compatibility
+      port: 587,
+      secure: false, // Use STARTTLS
+      requireTLS: true,
+      debug: true, // Enable debug logs
     });
 
     await transporter.sendMail({
