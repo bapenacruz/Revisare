@@ -45,6 +45,8 @@ function syntheticArbiter(
     biggestAchievementA: a.biggestAchievementA || b.biggestAchievementA,
     biggestMistakeB: a.biggestMistakeB || b.biggestMistakeB,
     biggestAchievementB: a.biggestAchievementB || b.biggestAchievementB,
+    improvementA: a.improvementA || b.improvementA,
+    improvementB: a.improvementB || b.improvementB,
   };
 }
 

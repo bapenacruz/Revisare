@@ -15,13 +15,15 @@ function buildVerdictSchema(input: JudgeInput): string {
   }`;
   return `{
   "winnerId": "<${input.debaterA.id} or ${input.debaterB.id} — pick the debater with the higher final_score; ties go to the debater with higher factuality>",
-  "summary": "<3–5 sentences. Sharp fact-checker style — no fluff. Identify the KEY claims that determined the outcome, state which were unsupported or incorrect, reference evidence by name (e.g. 'Pew Research', 'BLS data', 'IPCC AR6'), and explain why that decided the winner. Use the debaters' exact usernames '${a}' and '${b}' — NEVER 'Debater A', 'Debater B', positional labels, or floating assertions.>",
-  "privateFeedbackA": "<2–3 sentence coaching note to ${a}. Reference a specific claim they made. State the factual error or gap and what to do differently.>",
+  "summary": "<2-4 sentences. Sharp fact-checker style — no fluff, no emojis. Identify the KEY claims that determined the outcome, state which were unsupported or incorrect, reference evidence by name (e.g. 'Pew Research', 'BLS data', 'IPCC AR6'), and explain why that decided the winner. Use the debaters' exact usernames '${a}' and '${b}' — NEVER 'Debater A', 'Debater B', positional labels, or floating assertions.>",
+  "privateFeedbackA": "<1-2 sentence direct coaching note to ${a}. Reference a specific claim they made. State the factual error or gap. No emojis. No unicode symbols.>",
   "privateFeedbackB": "<same for ${b}>",
-  "biggestMistakeA": "<The single biggest factual or logical error ${a} made — be specific; name the claim and why it hurt their case.>",
-  "biggestAchievementA": "<The single most effective argument or moment by ${a} — be specific about what made it strong.>",
-  "biggestMistakeB": "<The single biggest factual or logical error ${b} made — be specific; name the claim and why it hurt their case.>",
-  "biggestAchievementB": "<The single most effective argument or moment by ${b} — be specific about what made it strong.>",
+  "biggestMistakeA": "<The single biggest factual or logical error ${a} made — be specific; name the claim and why it hurt their case. No emojis.>",
+  "biggestAchievementA": "<The single most effective argument or moment by ${a} — be specific about what made it strong. No emojis.>",
+  "biggestMistakeB": "<The single biggest factual or logical error ${b} made — be specific. No emojis.>",
+  "biggestAchievementB": "<The single most effective argument or moment by ${b} — be specific. No emojis.>",
+  "improvementA": "<One concrete, actionable improvement ${a} should work on for their next debate. Be direct and specific. No emojis.>",
+  "improvementB": "<same for ${b}>.",
   ${scoreBlock("debaterA")},
   ${scoreBlock("debaterB")},
   "evidenceChecks": [
@@ -187,6 +189,8 @@ function parseVerdict(raw: string, input: JudgeInput): SingleJudgeVerdict {
     biggestAchievementA: typeof parsed.biggestAchievementA === "string" ? parsed.biggestAchievementA : undefined,
     biggestMistakeB: typeof parsed.biggestMistakeB === "string" ? parsed.biggestMistakeB : undefined,
     biggestAchievementB: typeof parsed.biggestAchievementB === "string" ? parsed.biggestAchievementB : undefined,
+    improvementA: typeof parsed.improvementA === "string" ? parsed.improvementA : undefined,
+    improvementB: typeof parsed.improvementB === "string" ? parsed.improvementB : undefined,
   };
 }
 
@@ -209,6 +213,12 @@ async function collectStream(
 
 function buildJudgingRubric(extra: string): string {
   return `You are an expert debate judge on the platform Arguably. You evaluate a full debate between two participants and produce ONE overall judgment.
+
+## CRITICAL OUTPUT RULES
+- DO NOT include emojis in any field
+- DO NOT include Unicode symbols (e.g. arrow characters, decorative glyphs)
+- Use only plain ASCII text in all fields
+- Keep explanations concise and direct — no fluff
 
 ## PRIMARY RULE
 Factual accuracy is the most important factor. A debater cannot win if their argument relies on false, misleading, or unsupported claims. Persuasiveness does NOT override bad facts.

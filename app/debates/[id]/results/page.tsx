@@ -124,12 +124,14 @@ export default async function ResultsPage({ params }: Props) {
     biggestAchievementA: string | null;
     biggestMistakeB: string | null;
     biggestAchievementB: string | null;
+    improvementA: string | null;
+    improvementB: string | null;
   } = (() => {
     try {
       const raw = (judgeResult as { roundScores?: string | null } | null)?.roundScores;
-      if (!raw) return { scoresA: null, scoresB: null, biggestMistakeA: null, biggestAchievementA: null, biggestMistakeB: null, biggestAchievementB: null };
+      if (!raw) return { scoresA: null, scoresB: null, biggestMistakeA: null, biggestAchievementA: null, biggestMistakeB: null, biggestAchievementB: null, improvementA: null, improvementB: null };
       const parsed = JSON.parse(raw);
-      if (Array.isArray(parsed)) return { scoresA: null, scoresB: null, biggestMistakeA: null, biggestAchievementA: null, biggestMistakeB: null, biggestAchievementB: null }; // legacy format
+      if (Array.isArray(parsed)) return { scoresA: null, scoresB: null, biggestMistakeA: null, biggestAchievementA: null, biggestMistakeB: null, biggestAchievementB: null, improvementA: null, improvementB: null }; // legacy format
       return {
         scoresA: parsed.scoresA ?? null,
         scoresB: parsed.scoresB ?? null,
@@ -137,8 +139,10 @@ export default async function ResultsPage({ params }: Props) {
         biggestAchievementA: parsed.biggestAchievementA ?? null,
         biggestMistakeB: parsed.biggestMistakeB ?? null,
         biggestAchievementB: parsed.biggestAchievementB ?? null,
+        improvementA: parsed.improvementA ?? null,
+        improvementB: parsed.improvementB ?? null,
       };
-    } catch { return { scoresA: null, scoresB: null, biggestMistakeA: null, biggestAchievementA: null, biggestMistakeB: null, biggestAchievementB: null }; }
+    } catch { return { scoresA: null, scoresB: null, biggestMistakeA: null, biggestAchievementA: null, biggestMistakeB: null, biggestAchievementB: null, improvementA: null, improvementB: null }; }
   })();
 
   // Private feedback for the current user
@@ -153,6 +157,7 @@ export default async function ResultsPage({ params }: Props) {
   const myScores = isDebaterA ? consensusScores.scoresA : isDebaterB ? consensusScores.scoresB : null;
   const myBiggestMistake = isDebaterA ? consensusScores.biggestMistakeA : isDebaterB ? consensusScores.biggestMistakeB : null;
   const myBiggestAchievement = isDebaterA ? consensusScores.biggestAchievementA : isDebaterB ? consensusScores.biggestAchievementB : null;
+  const myImprovement = isDebaterA ? consensusScores.improvementA : isDebaterB ? consensusScores.improvementB : null;
   const audiencePick =
     Object.entries(voteTally).sort((a, b) => b[1] - a[1])[0]?.[0] ?? null;
   const audiencePickUser =
@@ -504,8 +509,8 @@ export default async function ResultsPage({ params }: Props) {
       {/* Private coach feedback (visible only to the debater) */}
       {myPrivateFeedback && (
         <div className="mb-6">
-          <h2 className="text-lg font-bold text-foreground mb-3 flex items-center gap-2">
-            <span>🎓</span> Your Private Feedback
+          <h2 className="text-lg font-bold text-foreground mb-3">
+            Your Private Feedback
           </h2>
 
           {/* Coach note */}
@@ -522,7 +527,7 @@ export default async function ResultsPage({ params }: Props) {
               <CardBody>
                 <p className="text-xs font-semibold uppercase tracking-wide text-foreground-muted mb-3">Performance Breakdown</p>
                 <div className="flex flex-col gap-3">
-                  {PRIVATE_SCORE_DIMS.map(({ key, label, icon }) => {
+                  {PRIVATE_SCORE_DIMS.map(({ key, label }) => {
                     const score = myScores[key];
                     const pct = score * 10;
                     const color =
@@ -537,8 +542,7 @@ export default async function ResultsPage({ params }: Props) {
                       "text-emerald-500";
                     return (
                       <div key={key} className="flex items-center gap-3">
-                        <span className="text-base w-6 shrink-0 text-center">{icon}</span>
-                        <span className="text-sm text-foreground w-36 shrink-0">{label}</span>
+                        <span className="text-sm text-foreground-muted w-36 shrink-0">{label}</span>
                         <div className="flex-1 h-2 rounded-full bg-surface-overlay overflow-hidden">
                           <div
                             className={`h-full rounded-full transition-all ${color}`}
@@ -577,23 +581,32 @@ export default async function ResultsPage({ params }: Props) {
           )}
 
           {/* Biggest Mistake + Biggest Achievement */}
-          {(myBiggestMistake || myBiggestAchievement) && (
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {myBiggestMistake && (
-                <div className="rounded-[--radius] border border-danger/30 bg-danger/5 p-3 flex gap-2.5">
-                  <TrendingDown size={16} className="text-danger shrink-0 mt-0.5" />
-                  <div>
-                    <p className="text-[11px] font-bold uppercase tracking-wide text-danger mb-1">Biggest Mistake</p>
-                    <p className="text-xs text-foreground-muted leading-relaxed">{myBiggestMistake}</p>
-                  </div>
-                </div>
-              )}
+          {(myBiggestMistake || myBiggestAchievement || myImprovement) && (
+            <div className="flex flex-col gap-3">
               {myBiggestAchievement && (
                 <div className="rounded-[--radius] border border-emerald-500/30 bg-emerald-500/5 p-3 flex gap-2.5">
                   <Star size={16} className="text-emerald-500 shrink-0 mt-0.5" />
                   <div>
-                    <p className="text-[11px] font-bold uppercase tracking-wide text-emerald-500 mb-1">Biggest Achievement</p>
+                    <p className="text-[11px] font-bold uppercase tracking-wide text-emerald-500 mb-1">Major Strength</p>
                     <p className="text-xs text-foreground-muted leading-relaxed">{myBiggestAchievement}</p>
+                  </div>
+                </div>
+              )}
+              {myBiggestMistake && (
+                <div className="rounded-[--radius] border border-danger/30 bg-danger/5 p-3 flex gap-2.5">
+                  <TrendingDown size={16} className="text-danger shrink-0 mt-0.5" />
+                  <div>
+                    <p className="text-[11px] font-bold uppercase tracking-wide text-danger mb-1">Major Weakness</p>
+                    <p className="text-xs text-foreground-muted leading-relaxed">{myBiggestMistake}</p>
+                  </div>
+                </div>
+              )}
+              {myImprovement && (
+                <div className="rounded-[--radius] border border-brand/30 bg-brand/5 p-3 flex gap-2.5">
+                  <ArrowLeft size={16} className="text-brand shrink-0 mt-0.5 rotate-[135deg]" />
+                  <div>
+                    <p className="text-[11px] font-bold uppercase tracking-wide text-brand mb-1">Improvement</p>
+                    <p className="text-xs text-foreground-muted leading-relaxed">{myImprovement}</p>
                   </div>
                 </div>
               )}

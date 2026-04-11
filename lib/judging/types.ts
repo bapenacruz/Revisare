@@ -52,7 +52,7 @@ export interface DebaterScores {
 
 export interface SingleJudgeVerdict {
   winnerId: string | null;
-  /** 3–5 sentence verdict summary (sharp fact-checker style) */
+  /** 2–4 sentence verdict summary (sharp fact-checker style) */
   explanation: string;
   privateFeedbackA: string;
   privateFeedbackB: string;
@@ -67,11 +67,15 @@ export interface SingleJudgeVerdict {
   biggestMistakeB?: string;
   /** Single most impressive moment or argument by debater B */
   biggestAchievementB?: string;
+  /** Single actionable improvement tip for debater A */
+  improvementA?: string;
+  /** Single actionable improvement tip for debater B */
+  improvementB?: string;
 }
 
 export interface ConsensusResult {
   winnerId: string | null;
-  /** 3–5 sentence verdict summary (sharp fact-checker style) */
+  /** 2–4 sentence verdict summary (sharp fact-checker style) */
   explanation: string;
   privateFeedbackA: string;
   privateFeedbackB: string;
@@ -84,6 +88,8 @@ export interface ConsensusResult {
   biggestAchievementA?: string;
   biggestMistakeB?: string;
   biggestAchievementB?: string;
+  improvementA?: string;
+  improvementB?: string;
 }
 
 export interface IJudgingProvider {

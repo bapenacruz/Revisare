@@ -75,6 +75,8 @@ export async function judgeDebate(debateId: string): Promise<void> {
         biggestAchievementA: consensus.biggestAchievementA ?? null,
         biggestMistakeB: consensus.biggestMistakeB ?? null,
         biggestAchievementB: consensus.biggestAchievementB ?? null,
+        improvementA: consensus.improvementA ?? null,
+        improvementB: consensus.improvementB ?? null,
       }),
       evidenceChecks: JSON.stringify(consensus.evidenceChecks ?? []),
     },

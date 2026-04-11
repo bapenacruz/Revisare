@@ -1,0 +1,88 @@
+[
+  {
+    "motion": "This House Believes that social media does more harm than good",
+    "category_slug": "technology",
+    "format": "standard",
+    "ranked": false,
+    "debaterA": {
+      "username": "alice",
+      "side": "proposition"
+    },
+    "debaterB": {
+      "username": "bob",
+      "side": "opposition"
+    },
+    "turns": [
+      {
+        "username": "alice",
+        "roundName": "opening",
+        "content": "Social media has fundamentally damaged public discourse by optimising for outrage over truth. Studies show polarisation has increased dramatically since 2012 — the year smartphone adoption crossed 50%."
+      },
+      {
+        "username": "bob",
+        "roundName": "opening",
+        "content": "Social media has connected billions of people who would otherwise be isolated, enabled grassroots movements, and given marginalised voices a platform they never had before."
+      },
+      {
+        "username": "alice",
+        "roundName": "rebuttal",
+        "content": "My opponent highlights connectivity, but fails to address the mental health crisis. The Surgeon General's 2023 advisory specifically cited social media as a driver of adolescent anxiety and depression."
+      },
+      {
+        "username": "bob",
+        "roundName": "rebuttal",
+        "content": "Correlation is not causation. Multiple meta-analyses show only small effect sizes between social media use and mental health outcomes — other factors like economic anxiety and school pressure are far stronger predictors."
+      },
+      {
+        "username": "alice",
+        "roundName": "closing",
+        "content": "The evidence is clear: misinformation spreads six times faster than accurate information on social platforms (MIT 2018). The net harm to democratic discourse and mental health outweighs the connectivity benefits."
+      },
+      {
+        "username": "bob",
+        "roundName": "closing",
+        "content": "Banning or severely restricting social media would silence the very voices that benefit most — activists in authoritarian regimes, disabled people who rely on online communities, rural communities with no other connection."
+      }
+    ],
+    "winner_username": "alice",
+    "completed_at": "2025-01-15T10:00:00Z"
+  },
+  {
+    "motion": "This House Would make voting mandatory",
+    "category_slug": "politics",
+    "format": "quick",
+    "ranked": false,
+    "debaterA": {
+      "username": "charlie",
+      "side": "proposition"
+    },
+    "debaterB": {
+      "username": "diana",
+      "side": "opposition"
+    },
+    "turns": [
+      {
+        "username": "charlie",
+        "roundName": "opening",
+        "content": "Mandatory voting ensures governments represent the full population, not just those motivated to vote. Australia has had compulsory voting since 1924 with turnout consistently above 90% and no evidence of democratic harm."
+      },
+      {
+        "username": "diana",
+        "roundName": "opening",
+        "content": "Forcing citizens to vote violates the fundamental right to political non-participation. Free expression necessarily includes the right to abstain — a right recognised under international human rights frameworks."
+      },
+      {
+        "username": "charlie",
+        "roundName": "rebuttal",
+        "content": "The abstention argument is a red herring — mandatory voting systems allow blank ballots, preserving the right to say 'none of the above'. What they prevent is politicians ignoring low-turnout groups."
+      },
+      {
+        "username": "diana",
+        "roundName": "rebuttal",
+        "content": "Uninformed compelled voters reduce election quality. Research shows forced voters exhibit lower political knowledge and more susceptibility to propaganda — hardly the informed citizenry democracy requires."
+      }
+    ],
+    "winner_username": "charlie",
+    "completed_at": "2025-02-20T14:30:00Z"
+  }
+]
