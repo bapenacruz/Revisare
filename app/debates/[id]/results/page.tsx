@@ -486,19 +486,6 @@ export default async function ResultsPage({ params }: Props) {
             <span className="text-xs font-normal text-foreground-muted ml-1">— AI judges evaluated the factual accuracy of each debater&apos;s claims</span>
           </h2>
 
-          {/* Full explanation */}
-          {judgeResult.explanation && (
-            <Card className="mb-4">
-              <CardBody>
-                <div className="prose prose-sm max-w-none text-foreground-muted leading-relaxed space-y-3">
-                  {judgeResult.explanation.split(/\n\n+/).map((para, i) => (
-                    <p key={i} className="text-sm text-foreground leading-relaxed">{para}</p>
-                  ))}
-                </div>
-              </CardBody>
-            </Card>
-          )}
-
           {/* Claim-by-claim checks */}
           {consensusEvidenceChecks.length > 0 && (
             <div>
