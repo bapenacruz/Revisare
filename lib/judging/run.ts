@@ -2,6 +2,7 @@ import { db } from "@/lib/db";
 import { pusherTrigger, CHANNELS, EVENTS } from "@/lib/pusher";
 import { createNotification } from "@/lib/notifications";
 import { runJudgePanel, JUDGE_CONFIGS } from "./service";
+import { generateFeedbackOnly } from "./openrouter-provider";
 import type { JudgeInput } from "./types";
 import { computeNewRating, DEFAULT_ELO } from "@/lib/elo";
 
@@ -159,5 +160,44 @@ export async function judgeDebate(debateId: string): Promise<void> {
     phase: "completed",
     judged: true,
     winnerId: consensus.winnerId,
+  });
+}
+
+/**
+ * Regenerates ONLY the private feedback fields for an already-judged debate.
+ * Uses a single fast AI call — does not re-run the full 3-judge panel.
+ */
+export async function regeneratePrivateFeedback(debateId: string): Promise<void> {
+  const debate = await db.debate.findUnique({
+    where: { id: debateId },
+    include: {
+      debaterA: { select: { id: true, username: true } },
+      debaterB: { select: { id: true, username: true } },
+      turns: { orderBy: { submittedAt: "asc" } },
+    },
+  });
+  if (!debate) throw new Error(`Debate ${debateId} not found`);
+
+  const input: JudgeInput = {
+    motion: debate.motion,
+    format: debate.format,
+    debaterA: debate.debaterA,
+    debaterB: debate.debaterB,
+    coinFlipWinnerId: debate.coinFlipWinnerId ?? debate.debaterAId,
+    turns: debate.turns.map((t) => ({
+      userId: t.userId,
+      roundName: t.roundName,
+      content: t.content,
+    })),
+  };
+
+  const apiKey = process.env.JUDGE_C_API_KEY ?? process.env.JUDGE_A_API_KEY ?? "";
+  const model = process.env.JUDGE_C_MODEL;
+  const { feedbackA, feedbackB } = await generateFeedbackOnly(input, { apiKey, model });
+
+  // Update the consensus judge result
+  await db.judgeResult.updateMany({
+    where: { debateId: debate.id, judgeId: "consensus" },
+    data: { privateFeedbackA: feedbackA, privateFeedbackB: feedbackB },
   });
 }

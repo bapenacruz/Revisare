@@ -7,7 +7,7 @@ import { Card, CardBody } from "@/components/ui/Card";
 import { Avatar } from "@/components/ui/Avatar";
 import { ROUND_LABEL, type RoundName } from "@/lib/debate-state";
 import { CommentsSection } from "./CommentsSection";
-import { Trophy, Gavel, ArrowLeft, Users, CheckCircle2, XCircle, AlertCircle, HelpCircle, Scale, TrendingDown, Star } from "lucide-react";
+import { Trophy, Gavel, ArrowLeft, Users, CheckCircle2, XCircle, AlertCircle, HelpCircle, Scale } from "lucide-react";
 import type { DebaterScores, EvidenceCheck } from "@/lib/judging/types";
 import type { Metadata } from "next";
 
@@ -20,15 +20,6 @@ const SCORE_DIMS: Array<{ key: keyof Omit<DebaterScores, "final_score">; label: 
   { key: "persuasiveness",    label: "Persuasiveness",    weight: "5%"  },
 ];
 
-/** Private feedback uses user-friendly labels for the same score dimensions */
-const PRIVATE_SCORE_DIMS: Array<{ key: keyof Omit<DebaterScores, "final_score">; label: string; icon: string }> = [
-  { key: "factuality",        label: "Factual Accuracy",   icon: "🔬" },
-  { key: "argument_strength", label: "Logical Reasoning",  icon: "🧠" },
-  { key: "evidence_quality",  label: "Relevance",          icon: "🎯" },
-  { key: "rebuttal_quality",  label: "Rebuttal Strength",  icon: "⚔️" },
-  { key: "clarity",           label: "Clarity",            icon: "💬" },
-  { key: "persuasiveness",    label: "Persuasiveness",     icon: "✨" },
-];
 /** Maps stored judgeId → display label and accent colour class */
 const JUDGE_DISPLAY: Record<string, { label: string; accent: string }> = {
   "judge-grok": { label: "Grok", accent: "text-emerald-500" },
@@ -154,10 +145,6 @@ export default async function ResultsPage({ params }: Props) {
       : isDebaterB
         ? judgeResult?.privateFeedbackB
         : null;
-  const myScores = isDebaterA ? consensusScores.scoresA : isDebaterB ? consensusScores.scoresB : null;
-  const myBiggestMistake = isDebaterA ? consensusScores.biggestMistakeA : isDebaterB ? consensusScores.biggestMistakeB : null;
-  const myBiggestAchievement = isDebaterA ? consensusScores.biggestAchievementA : isDebaterB ? consensusScores.biggestAchievementB : null;
-  const myImprovement = isDebaterA ? consensusScores.improvementA : isDebaterB ? consensusScores.improvementB : null;
   const audiencePick =
     Object.entries(voteTally).sort((a, b) => b[1] - a[1])[0]?.[0] ?? null;
   const audiencePickUser =
@@ -512,106 +499,11 @@ export default async function ResultsPage({ params }: Props) {
           <h2 className="text-lg font-bold text-foreground mb-3">
             Your Private Feedback
           </h2>
-
-          {/* Coach note */}
-          <Card className="mb-3">
+          <Card>
             <CardBody>
-              <p className="text-xs font-semibold uppercase tracking-wide text-foreground-muted mb-2">Coach Note</p>
-              <p className="text-sm text-foreground leading-relaxed">{myPrivateFeedback}</p>
+              <pre className="text-sm font-mono text-foreground whitespace-pre-wrap leading-relaxed">{myPrivateFeedback}</pre>
             </CardBody>
           </Card>
-
-          {/* Performance grading */}
-          {myScores ? (
-            <Card className="mb-3">
-              <CardBody>
-                <p className="text-xs font-semibold uppercase tracking-wide text-foreground-muted mb-3">Performance Breakdown</p>
-                <div className="flex flex-col gap-3">
-                  {PRIVATE_SCORE_DIMS.map(({ key, label }) => {
-                    const score = myScores[key];
-                    const pct = score * 10;
-                    const color =
-                      score < 3 ? "bg-danger" :
-                      score < 5 ? "bg-amber-500" :
-                      score < 7 ? "bg-brand" :
-                      "bg-emerald-500";
-                    const textColor =
-                      score < 3 ? "text-danger" :
-                      score < 5 ? "text-amber-500" :
-                      score < 7 ? "text-brand" :
-                      "text-emerald-500";
-                    return (
-                      <div key={key} className="flex items-center gap-3">
-                        <span className="text-sm text-foreground-muted w-36 shrink-0">{label}</span>
-                        <div className="flex-1 h-2 rounded-full bg-surface-overlay overflow-hidden">
-                          <div
-                            className={`h-full rounded-full transition-all ${color}`}
-                            style={{ width: `${pct}%` }}
-                          />
-                        </div>
-                        <span className={`text-sm font-bold tabular-nums w-8 text-right ${textColor}`}>
-                          {score.toFixed(0)}<span className="text-[10px] text-foreground-subtle font-normal">/10</span>
-                        </span>
-                      </div>
-                    );
-                  })}
-                </div>
-                {myScores.final_score !== undefined && (
-                  <div className="mt-4 pt-3 border-t border-border flex items-center justify-between">
-                    <span className="text-sm font-semibold text-foreground">Overall Score</span>
-                    <span className={`text-xl font-black tabular-nums ${
-                      myScores.final_score >= 7 ? "text-emerald-500" :
-                      myScores.final_score >= 5 ? "text-brand" :
-                      myScores.final_score >= 3 ? "text-amber-500" :
-                      "text-danger"
-                    }`}>
-                      {myScores.final_score.toFixed(1)}<span className="text-sm font-normal text-foreground-subtle">/10</span>
-                    </span>
-                  </div>
-                )}
-              </CardBody>
-            </Card>
-          ) : (
-            <Card className="mb-3">
-              <CardBody>
-                <p className="text-xs font-semibold uppercase tracking-wide text-foreground-muted mb-1">Performance Breakdown</p>
-                <p className="text-xs text-foreground-subtle">Score data unavailable for this debate. Future debates will include full scoring.</p>
-              </CardBody>
-            </Card>
-          )}
-
-          {/* Biggest Mistake + Biggest Achievement */}
-          {(myBiggestMistake || myBiggestAchievement || myImprovement) && (
-            <div className="flex flex-col gap-3">
-              {myBiggestAchievement && (
-                <div className="rounded-[--radius] border border-emerald-500/30 bg-emerald-500/5 p-3 flex gap-2.5">
-                  <Star size={16} className="text-emerald-500 shrink-0 mt-0.5" />
-                  <div>
-                    <p className="text-[11px] font-bold uppercase tracking-wide text-emerald-500 mb-1">Major Strength</p>
-                    <p className="text-xs text-foreground-muted leading-relaxed">{myBiggestAchievement}</p>
-                  </div>
-                </div>
-              )}
-              {myBiggestMistake && (
-                <div className="rounded-[--radius] border border-danger/30 bg-danger/5 p-3 flex gap-2.5">
-                  <TrendingDown size={16} className="text-danger shrink-0 mt-0.5" />
-                  <div>
-                    <p className="text-[11px] font-bold uppercase tracking-wide text-danger mb-1">Major Weakness</p>
-                    <p className="text-xs text-foreground-muted leading-relaxed">{myBiggestMistake}</p>
-                  </div>
-                </div>
-              )}
-              {myImprovement && (
-                <div className="rounded-[--radius] border border-brand/30 bg-brand/5 p-3 flex gap-2.5">
-                  <ArrowLeft size={16} className="text-brand shrink-0 mt-0.5 rotate-[135deg]" />
-                  <div>
-                    <p className="text-[11px] font-bold uppercase tracking-wide text-brand mb-1">Improvement</p>
-                    <p className="text-xs text-foreground-muted leading-relaxed">{myImprovement}</p>
-                  </div>
-                </div>
-              )}
-            </div>
-          )}
         </div>
       )}
 

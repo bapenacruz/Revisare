@@ -29,6 +29,7 @@ export function DebateActions({
   const [categoryId, setCategoryId] = useState(debate.categoryId);
   const [saving, setSaving] = useState(false);
   const [rejudging, setRejudging] = useState(false);
+  const [regenFeedback, setRegenFeedback] = useState(false);
   const [msg, setMsg] = useState<string | null>(null);
 
   async function save() {
@@ -56,11 +57,25 @@ export function DebateActions({
     const res = await fetch(`/api/admin/debates/${debate.id}/rejudge`, { method: "POST" });
     setRejudging(false);
     if (res.ok) {
-      setMsg("Rejudged ✓");
+      setMsg("Rejudge started — results in ~60s");
       router.refresh();
     } else {
       const j = await res.json();
       setMsg(j.error ?? "Rejudge failed");
+    }
+  }
+
+  async function regenPrivateFeedback() {
+    if (!confirm("Regenerate private feedback for both debaters? (~30s)")) return;
+    setRegenFeedback(true);
+    setMsg(null);
+    const res = await fetch(`/api/admin/debates/${debate.id}/regen-feedback`, { method: "POST" });
+    setRegenFeedback(false);
+    if (res.ok) {
+      setMsg("Feedback regeneration started — ~30s");
+    } else {
+      const j = await res.json();
+      setMsg(j.error ?? "Regen failed");
     }
   }
 
@@ -105,13 +120,22 @@ export function DebateActions({
           </button>
 
           {debate.status === "completed" && (
-            <button
-              onClick={rejudge}
-              disabled={rejudging}
-              className="px-2 py-1 text-xs rounded bg-surface border border-border text-foreground-muted hover:text-foreground disabled:opacity-50"
-            >
-              {rejudging ? "Rejudging…" : "Re-run AI Judgement"}
-            </button>
+            <>
+              <button
+                onClick={rejudge}
+                disabled={rejudging}
+                className="px-2 py-1 text-xs rounded bg-surface border border-border text-foreground-muted hover:text-foreground disabled:opacity-50"
+              >
+                {rejudging ? "Rejudging…" : "Re-run AI Judgement"}
+              </button>
+              <button
+                onClick={regenPrivateFeedback}
+                disabled={regenFeedback}
+                className="px-2 py-1 text-xs rounded bg-surface border border-brand/40 text-brand hover:bg-brand/10 disabled:opacity-50"
+              >
+                {regenFeedback ? "Regenerating…" : "Regenerate Private Feedback"}
+              </button>
+            </>
           )}
 
           {msg && <p className="text-xs text-foreground-muted">{msg}</p>}

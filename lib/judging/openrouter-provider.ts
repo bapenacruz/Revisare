@@ -16,14 +16,8 @@ function buildVerdictSchema(input: JudgeInput): string {
   return `{
   "winnerId": "<${input.debaterA.id} or ${input.debaterB.id} — pick the debater with the higher final_score; ties go to the debater with higher factuality>",
   "summary": "<2-4 sentences. Sharp fact-checker style — no fluff, no emojis. Identify the KEY claims that determined the outcome, state which were unsupported or incorrect, reference evidence by name (e.g. 'Pew Research', 'BLS data', 'IPCC AR6'), and explain why that decided the winner. Use the debaters' exact usernames '${a}' and '${b}' — NEVER 'Debater A', 'Debater B', positional labels, or floating assertions.>",
-  "privateFeedbackA": "<1-2 sentence direct coaching note to ${a}. Reference a specific claim they made. State the factual error or gap. No emojis. No unicode symbols.>",
-  "privateFeedbackB": "<same for ${b}>",
-  "biggestMistakeA": "<The single biggest factual or logical error ${a} made — be specific; name the claim and why it hurt their case. No emojis.>",
-  "biggestAchievementA": "<The single most effective argument or moment by ${a} — be specific about what made it strong. No emojis.>",
-  "biggestMistakeB": "<The single biggest factual or logical error ${b} made — be specific. No emojis.>",
-  "biggestAchievementB": "<The single most effective argument or moment by ${b} — be specific. No emojis.>",
-  "improvementA": "<One concrete, actionable improvement ${a} should work on for their next debate. Be direct and specific. No emojis.>",
-  "improvementB": "<same for ${b}>.",
+  "privateFeedbackA": "<EXACT FORMAT REQUIRED — no deviations, no extra text, no emojis, no unicode. Output ONLY this block for ${a}:\nfactuality: <integer 0-10>\nevidence_quality: <integer 0-10>\nargument_strength: <integer 0-10>\nrebuttal_quality: <integer 0-10>\nclarity: <integer 0-10>\npersuasiveness: <integer 0-10>\n\nMajor Strength: <exactly one sentence — ${a}'s single most effective argument or evidence use>\nMajor Weakness: <exactly one sentence — ${a}'s biggest factual or logical error>\n\nImprovement: <exactly one short actionable sentence — the single most important thing ${a} should improve>>",
+  "privateFeedbackB": "<SAME EXACT FORMAT for ${b}>",
   ${scoreBlock("debaterA")},
   ${scoreBlock("debaterB")},
   "evidenceChecks": [
@@ -462,4 +456,75 @@ export class ArbiterJudgingProvider implements IJudgingProvider {
   }
 }
 
+// ─── Feedback-only regeneration ──────────────────────────────────────────────
+
+const FEEDBACK_BLOCK_TEMPLATE = (name: string) =>
+  `factuality: <integer 0-10>\nevidence_quality: <integer 0-10>\nargument_strength: <integer 0-10>\nrebuttal_quality: <integer 0-10>\nclarity: <integer 0-10>\npersuasiveness: <integer 0-10>\n\nMajor Strength: <exactly one sentence — ${name}'s single most effective argument or evidence use>\nMajor Weakness: <exactly one sentence — ${name}'s biggest factual or logical error>\n\nImprovement: <exactly one short actionable sentence — the most important thing ${name} should improve>`;
+
+/**
+ * Generates ONLY the structured private feedback for both debaters.
+ * Does not re-run fact-checking or scoring; uses the debate transcript directly.
+ * Returns plain-text blocks in the exact required format.
+ */
+export async function generateFeedbackOnly(
+  input: JudgeInput,
+  options: { apiKey: string; model?: string },
+): Promise<{ feedbackA: string; feedbackB: string }> {
+  const client = new OpenRouter({
+    apiKey: options.apiKey,
+    httpReferer: "https://arguably.app",
+    appTitle: "Arguably Debate Platform",
+  });
+  const model = options.model ?? "openai/gpt-oss-120b";
+  const a = input.debaterA.username;
+  const b = input.debaterB.username;
+
+  const systemPrompt = `You are an expert debate judge providing private performance feedback.
+
+HARD RULES:
+- Output MUST be valid JSON with exactly two keys: "feedbackA" and "feedbackB"
+- Each value MUST follow the EXACT format below — no extra text, no emojis, no unicode
+- Scores 0-10 where factuality is the most important dimension
+- If core claims are false, factuality must be 0-4 and other scores must reflect this
+- Major Strength and Major Weakness must be EXACTLY ONE sentence each
+- Improvement must be EXACTLY ONE short actionable sentence
+
+REQUIRED FORMAT for each feedback value (plain text, newlines as \\n):
+${FEEDBACK_BLOCK_TEMPLATE("<debater username>")}
+
+Output only valid JSON — no markdown fences, no commentary.`;
+
+  const userPrompt = `${buildTranscriptText(input)}
+
+Now produce private feedback for both debaters.
+
+JSON schema:
+{
+  "feedbackA": "${FEEDBACK_BLOCK_TEMPLATE(a).replace(/\n/g, "\\n")}",
+  "feedbackB": "${FEEDBACK_BLOCK_TEMPLATE(b).replace(/\n/g, "\\n")}"
+}`;
+
+  const stream = await client.chat.send({
+    chatRequest: {
+      model,
+      temperature: 0.3,
+      maxTokens: 2000,
+      responseFormat: { type: "json_object" },
+      messages: [
+        { role: "system", content: systemPrompt },
+        { role: "user", content: userPrompt },
+      ],
+      stream: true,
+    },
+  });
+
+  const raw = await collectStream(stream, 180_000);
+  if (!raw) throw new Error("Empty response from feedback generator");
+
+  const parsed = tryParseJson(raw);
+  const feedbackA = typeof parsed.feedbackA === "string" ? parsed.feedbackA.trim() : "";
+  const feedbackB = typeof parsed.feedbackB === "string" ? parsed.feedbackB.trim() : "";
+  if (!feedbackA || !feedbackB) throw new Error("Missing feedbackA or feedbackB in response");
+  return { feedbackA, feedbackB };
+}
 
