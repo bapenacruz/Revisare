@@ -72,7 +72,9 @@ export const ModelName = {
   SuspiciousTurnSignal: 'SuspiciousTurnSignal',
   PushSubscription: 'PushSubscription',
   PasswordResetToken: 'PasswordResetToken',
-  AdminAction: 'AdminAction'
+  AdminAction: 'AdminAction',
+  JudgePrompt: 'JudgePrompt',
+  DebateResult: 'DebateResult'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -251,6 +253,8 @@ export const DebateScalarFieldEnum = {
   format: 'format',
   ranked: 'ranked',
   isPublic: 'isPublic',
+  isDeleted: 'isDeleted',
+  isHidden: 'isHidden',
   timerPreset: 'timerPreset',
   status: 'status',
   phase: 'phase',
@@ -419,12 +423,46 @@ export const AdminActionScalarFieldEnum = {
 export type AdminActionScalarFieldEnum = (typeof AdminActionScalarFieldEnum)[keyof typeof AdminActionScalarFieldEnum]
 
 
+export const JudgePromptScalarFieldEnum = {
+  id: 'id',
+  type: 'type',
+  prompt: 'prompt',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type JudgePromptScalarFieldEnum = (typeof JudgePromptScalarFieldEnum)[keyof typeof JudgePromptScalarFieldEnum]
+
+
+export const DebateResultScalarFieldEnum = {
+  id: 'id',
+  debateId: 'debateId',
+  winnerId: 'winnerId',
+  votes: 'votes',
+  consensus: 'consensus',
+  confidence: 'confidence',
+  reasoning: 'reasoning',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type DebateResultScalarFieldEnum = (typeof DebateResultScalarFieldEnum)[keyof typeof DebateResultScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
 } as const
 
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+export const JsonNullValueInput = {
+  JsonNull: JsonNull
+} as const
+
+export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
 
 
 export const QueryMode = {
@@ -441,4 +479,13 @@ export const NullsOrder = {
 } as const
 
 export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+export const JsonNullValueFilter = {
+  DbNull: DbNull,
+  JsonNull: JsonNull,
+  AnyNull: AnyNull
+} as const
+
+export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 

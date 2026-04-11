@@ -41,11 +41,14 @@ export async function POST(request: Request) {
     });
 
     const transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: { user: smtpUser, pass: smtpPass },
-      // Enhanced Railway compatibility with explicit timeouts
+      host: "smtp.gmail.com",
       port: 587,
-      secure: false, // Use STARTTLS
+      secure: false,
+      auth: {
+        user: smtpUser,
+        pass: smtpPass
+      },
+      // Enhanced Railway compatibility with explicit timeouts
       requireTLS: true,
       connectionTimeout: 10000, // 10 seconds connection timeout
       greetingTimeout: 5000,    // 5 seconds greeting timeout
@@ -57,7 +60,7 @@ export async function POST(request: Request) {
       maxMessages: 1, // One message per connection
       rateDelta: 1000, // 1 second between messages
       rateLimit: 5, // Max 5 messages per rateDelta period
-    });
+    } as any);
 
     // Send email with retry logic for Railway environment
     const maxRetries = 3;

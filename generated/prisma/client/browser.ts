@@ -127,3 +127,13 @@ export type PasswordResetToken = Prisma.PasswordResetTokenModel
  * 
  */
 export type AdminAction = Prisma.AdminActionModel
+/**
+ * Model JudgePrompt
+ * 
+ */
+export type JudgePrompt = Prisma.JudgePromptModel
+/**
+ * Model DebateResult
+ * 
+ */
+export type DebateResult = Prisma.DebateResultModel

@@ -1,88 +1,88 @@
 [
   {
-    "motion": "This House Would ban facial recognition in public spaces",
+    "motion": "This House Believes AI will do more harm than good",
     "category_slug": "science-tech",
     "format": "standard",
     "ranked": false,
     "debaterA": {
-      "username": "techskeptic_41",
+      "username": "skeptical_tony",
       "side": "proposition"
     },
     "debaterB": {
-      "username": "urbanplanner_maya",
+      "username": "buildwithai",
       "side": "opposition"
     },
     "turns": [
       {
-        "username": "techskeptic_41",
+        "username": "skeptical_tony",
         "roundName": "opening",
-        "content": "Look, this stuff sounds futuristic and cool until you actually think about what it means day to day. Cameras tracking your face everywhere you go? That\u2019s not security, that\u2019s constant monitoring. And yeah people say \u201cif you\u2019re not doing anything wrong, who cares\u201d but that\u2019s not the point. The point is you shouldn\u2019t have to justify existing in public without being tracked. Once this is everywhere, you don\u2019t get that privacy back."
+        "content": "I mean look at how fast this is moving. Nobody really understands the long-term effects, but we\u2019re deploying it everywhere anyway. Jobs are already getting replaced, misinformation is getting easier to spread, and decision-making is getting outsourced to systems we don\u2019t fully control. That\u2019s not progress, that\u2019s risk stacking."
       },
       {
-        "username": "urbanplanner_maya",
+        "username": "buildwithai",
         "roundName": "opening",
-        "content": "I hear the concern, but banning it outright ignores real benefits. Cities are struggling with crime, missing persons cases, even basic safety in crowded areas. Facial recognition, when used properly, can help solve crimes faster and prevent harm. The issue isn\u2019t the technology itself, it\u2019s how it\u2019s governed. We shouldn\u2019t throw out a useful tool because it could be misused."
+        "content": "That feels overly pessimistic. Every major technology shift had the same fears. AI is just another tool, and like any tool, it depends on how we use it. It\u2019s already improving healthcare, automating boring tasks, and unlocking productivity. The upside is massive if we manage it correctly."
       },
       {
-        "username": "techskeptic_41",
+        "username": "skeptical_tony",
         "roundName": "rebuttal",
-        "content": "But \u201cused properly\u201d is doing a lot of heavy lifting there. Who decides that? Governments? Companies? We\u2019ve seen how that goes. These systems already have bias issues too, misidentifying people, especially minorities. So now you\u2019ve got surveillance plus mistakes. That\u2019s a bad combo. And again, once it\u2019s normalized, it\u2019s everywhere. You can\u2019t opt out of public space."
+        "content": "But that\u2019s the issue, \u201cif we manage it correctly.\u201d Historically, we don\u2019t. Companies move fast, regulation lags, and damage happens before anyone reacts. And AI isn\u2019t like past tools, it scales decisions and mistakes instantly."
       },
       {
-        "username": "urbanplanner_maya",
+        "username": "buildwithai",
         "roundName": "rebuttal",
-        "content": "Bias is a valid concern, but that\u2019s an argument for improving the tech, not banning it. We don\u2019t ban tools because early versions are flawed. Also, there are already regulations being developed around transparency and accountability. If anything, banning it pushes development underground or to less regulated places. Better to keep it visible and controlled."
+        "content": "Sure, but that\u2019s not a reason to stop or fear it. It\u2019s a reason to guide it. We\u2019re already seeing frameworks, safety layers, and governance models forming. Ignoring the benefits because of potential risks doesn\u2019t make sense."
       },
       {
-        "username": "techskeptic_41",
+        "username": "skeptical_tony",
         "roundName": "closing",
-        "content": "This comes down to what kind of society you want. One where you can walk around anonymously, or one where every movement is logged. Even if it starts with good intentions, the long-term risk is too high. Some lines are worth drawing early."
+        "content": "The risks here aren\u2019t small or hypothetical. They\u2019re systemic. Once these systems are embedded everywhere, rolling them back is nearly impossible. We should be way more cautious than we are."
       },
       {
-        "username": "urbanplanner_maya",
+        "username": "buildwithai",
         "roundName": "closing",
-        "content": "I don\u2019t think it\u2019s that black and white. We already trade some privacy for safety in many areas of life. The goal should be balance, not extremes. With the right safeguards, this can be a net positive."
+        "content": "Caution is good, but fear shouldn\u2019t drive the conversation. AI has the potential to solve problems we\u2019ve struggled with for decades. The goal should be responsible growth, not hesitation."
       }
     ],
-    "winner_username": "techskeptic_41",
-    "completed_at": "2026-04-11T05:40:19Z"
+    "winner_username": "buildwithai",
+    "completed_at": "2026-04-11T06:17:57+00:00"
   },
   {
-    "motion": "This House Believes remote work is worse for productivity",
-    "category_slug": "society",
+    "motion": "This House Would abolish billionaires",
+    "category_slug": "economics",
     "format": "quick",
     "ranked": false,
     "debaterA": {
-      "username": "ops_manager_dan",
+      "username": "fairshare_now",
       "side": "proposition"
     },
     "debaterB": {
-      "username": "remote4life_jess",
+      "username": "marketmax",
       "side": "opposition"
     },
     "turns": [
       {
-        "username": "ops_manager_dan",
+        "username": "fairshare_now",
         "roundName": "opening",
-        "content": "I\u2019ve managed teams both ways, and honestly remote just doesn\u2019t hit the same. Communication slows down, people take longer to respond, and collaboration turns into endless meetings. In office, you solve things in five minutes. Remote, it\u2019s threads, pings, waiting. It adds friction everywhere."
+        "content": "At a certain point, wealth stops being about success and starts being about imbalance. No one needs billions while others struggle to meet basic needs. That level of accumulation means something in the system is off."
       },
       {
-        "username": "remote4life_jess",
+        "username": "marketmax",
         "roundName": "opening",
-        "content": "I mean, that depends on how the team is set up. Remote done badly is bad, sure. But when it\u2019s structured right, it\u2019s actually more productive. People get fewer interruptions, no commute, more control over their time. A lot of people get way more done without office distractions."
+        "content": "I think that\u2019s an emotional argument more than a practical one. Billionaires are often the result of building massive value, companies, jobs, innovation. Removing that incentive could slow down growth and hurt everyone."
       },
       {
-        "username": "ops_manager_dan",
+        "username": "fairshare_now",
         "roundName": "rebuttal",
-        "content": "But that assumes everyone is disciplined, and that\u2019s just not reality. Some people thrive, sure, but a lot don\u2019t. You lose visibility, accountability gets fuzzy, and team cohesion drops. That matters more than people think."
+        "content": "But that value isn\u2019t created in a vacuum. Workers, infrastructure, society all contribute. Yet the rewards concentrate at the top. There has to be a limit where redistribution makes sense."
       },
       {
-        "username": "remote4life_jess",
+        "username": "marketmax",
         "roundName": "rebuttal",
-        "content": "I\u2019d argue that\u2019s a management problem, not a remote problem. If you need to physically see someone to trust they\u2019re working, that\u2019s already an issue. Good systems track output, not presence. And honestly, a lot of office time isn\u2019t productive either, it just looks like it."
+        "content": "Redistribution is one thing, abolishing billionaires is another. You risk capital flight, reduced investment, and less innovation. The system isn\u2019t perfect, but extreme solutions usually backfire."
       }
     ],
-    "winner_username": "remote4life_jess",
-    "completed_at": "2026-04-11T05:40:19Z"
+    "winner_username": "marketmax",
+    "completed_at": "2026-04-11T06:17:57+00:00"
   }
 ]

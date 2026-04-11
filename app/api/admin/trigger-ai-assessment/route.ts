@@ -86,12 +86,12 @@ export async function POST(req: NextRequest) {
           if (result.value.success) {
             results.success.push({
               debateId: result.value.debateId,
-              motion: result.value.motion
+              motion: result.value.motion || 'Unknown motion'
             });
           } else {
             results.errors.push({
               debateId: result.value.debateId,
-              error: result.value.error
+              error: result.value.error || 'Unknown error'
             });
           }
         } else {

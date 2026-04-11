@@ -405,7 +405,9 @@ export const ModelName = {
   SuspiciousTurnSignal: 'SuspiciousTurnSignal',
   PushSubscription: 'PushSubscription',
   PasswordResetToken: 'PasswordResetToken',
-  AdminAction: 'AdminAction'
+  AdminAction: 'AdminAction',
+  JudgePrompt: 'JudgePrompt',
+  DebateResult: 'DebateResult'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -421,7 +423,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "account" | "session" | "verificationToken" | "user" | "follow" | "userFavoriteCategory" | "category" | "challenge" | "joinRequest" | "lobbyChatMessage" | "debate" | "audienceVote" | "debateComment" | "debateTurn" | "judgeResult" | "spectatorMessage" | "notification" | "integrityFlag" | "suspiciousTurnSignal" | "pushSubscription" | "passwordResetToken" | "adminAction"
+    modelProps: "account" | "session" | "verificationToken" | "user" | "follow" | "userFavoriteCategory" | "category" | "challenge" | "joinRequest" | "lobbyChatMessage" | "debate" | "audienceVote" | "debateComment" | "debateTurn" | "judgeResult" | "spectatorMessage" | "notification" | "integrityFlag" | "suspiciousTurnSignal" | "pushSubscription" | "passwordResetToken" | "adminAction" | "judgePrompt" | "debateResult"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -2053,6 +2055,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    JudgePrompt: {
+      payload: Prisma.$JudgePromptPayload<ExtArgs>
+      fields: Prisma.JudgePromptFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.JudgePromptFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JudgePromptPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.JudgePromptFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JudgePromptPayload>
+        }
+        findFirst: {
+          args: Prisma.JudgePromptFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JudgePromptPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.JudgePromptFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JudgePromptPayload>
+        }
+        findMany: {
+          args: Prisma.JudgePromptFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JudgePromptPayload>[]
+        }
+        create: {
+          args: Prisma.JudgePromptCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JudgePromptPayload>
+        }
+        createMany: {
+          args: Prisma.JudgePromptCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.JudgePromptCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JudgePromptPayload>[]
+        }
+        delete: {
+          args: Prisma.JudgePromptDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JudgePromptPayload>
+        }
+        update: {
+          args: Prisma.JudgePromptUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JudgePromptPayload>
+        }
+        deleteMany: {
+          args: Prisma.JudgePromptDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.JudgePromptUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.JudgePromptUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JudgePromptPayload>[]
+        }
+        upsert: {
+          args: Prisma.JudgePromptUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JudgePromptPayload>
+        }
+        aggregate: {
+          args: Prisma.JudgePromptAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateJudgePrompt>
+        }
+        groupBy: {
+          args: Prisma.JudgePromptGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.JudgePromptGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.JudgePromptCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.JudgePromptCountAggregateOutputType> | number
+        }
+      }
+    }
+    DebateResult: {
+      payload: Prisma.$DebateResultPayload<ExtArgs>
+      fields: Prisma.DebateResultFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.DebateResultFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DebateResultPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.DebateResultFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DebateResultPayload>
+        }
+        findFirst: {
+          args: Prisma.DebateResultFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DebateResultPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.DebateResultFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DebateResultPayload>
+        }
+        findMany: {
+          args: Prisma.DebateResultFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DebateResultPayload>[]
+        }
+        create: {
+          args: Prisma.DebateResultCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DebateResultPayload>
+        }
+        createMany: {
+          args: Prisma.DebateResultCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.DebateResultCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DebateResultPayload>[]
+        }
+        delete: {
+          args: Prisma.DebateResultDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DebateResultPayload>
+        }
+        update: {
+          args: Prisma.DebateResultUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DebateResultPayload>
+        }
+        deleteMany: {
+          args: Prisma.DebateResultDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.DebateResultUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.DebateResultUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DebateResultPayload>[]
+        }
+        upsert: {
+          args: Prisma.DebateResultUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DebateResultPayload>
+        }
+        aggregate: {
+          args: Prisma.DebateResultAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateDebateResult>
+        }
+        groupBy: {
+          args: Prisma.DebateResultGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DebateResultGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.DebateResultCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DebateResultCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -2252,6 +2402,8 @@ export const DebateScalarFieldEnum = {
   format: 'format',
   ranked: 'ranked',
   isPublic: 'isPublic',
+  isDeleted: 'isDeleted',
+  isHidden: 'isHidden',
   timerPreset: 'timerPreset',
   status: 'status',
   phase: 'phase',
@@ -2420,12 +2572,46 @@ export const AdminActionScalarFieldEnum = {
 export type AdminActionScalarFieldEnum = (typeof AdminActionScalarFieldEnum)[keyof typeof AdminActionScalarFieldEnum]
 
 
+export const JudgePromptScalarFieldEnum = {
+  id: 'id',
+  type: 'type',
+  prompt: 'prompt',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type JudgePromptScalarFieldEnum = (typeof JudgePromptScalarFieldEnum)[keyof typeof JudgePromptScalarFieldEnum]
+
+
+export const DebateResultScalarFieldEnum = {
+  id: 'id',
+  debateId: 'debateId',
+  winnerId: 'winnerId',
+  votes: 'votes',
+  consensus: 'consensus',
+  confidence: 'confidence',
+  reasoning: 'reasoning',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type DebateResultScalarFieldEnum = (typeof DebateResultScalarFieldEnum)[keyof typeof DebateResultScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
 } as const
 
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+export const JsonNullValueInput = {
+  JsonNull: JsonNull
+} as const
+
+export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
 
 
 export const QueryMode = {
@@ -2442,6 +2628,15 @@ export const NullsOrder = {
 } as const
 
 export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+export const JsonNullValueFilter = {
+  DbNull: DbNull,
+  JsonNull: JsonNull,
+  AnyNull: AnyNull
+} as const
+
+export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 
 
 
@@ -2496,6 +2691,20 @@ export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaM
  * Reference to a field of type 'Boolean'
  */
 export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+/**
+ * Reference to a field of type 'Json'
+ */
+export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+    
+
+
+/**
+ * Reference to a field of type 'QueryMode'
+ */
+export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
     
 
 
@@ -2629,6 +2838,8 @@ export type GlobalOmitConfig = {
   pushSubscription?: Prisma.PushSubscriptionOmit
   passwordResetToken?: Prisma.PasswordResetTokenOmit
   adminAction?: Prisma.AdminActionOmit
+  judgePrompt?: Prisma.JudgePromptOmit
+  debateResult?: Prisma.DebateResultOmit
 }
 
 /* Types for Logging */

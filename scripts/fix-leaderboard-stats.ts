@@ -46,13 +46,9 @@ async function main() {
   
   console.log("🔍 Recalculating user wins/losses from actual debate results...\n");
 
-  // Get query for users to fix
-  const userQuery = args.userId 
-    ? { where: { id: args.userId } }
-    : { where: { isDeleted: false } };
-
+  // Get users to fix
   const users = await db.user.findMany({
-    ...userQuery,
+    where: args.userId ? { id: args.userId } : { isDeleted: false },
     select: {
       id: true,
       username: true,

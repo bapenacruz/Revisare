@@ -1,5 +1,28 @@
 import { OpenRouter } from "@openrouter/sdk";
 import type { DebaterScores, EvidenceCheck, IJudgingProvider, JudgeInput, SingleJudgeVerdict } from "./types";
+import { db } from "@/lib/db";
+
+// Fetch judge prompts from database with fallbacks
+async function getJudgePrompt(type: string): Promise<string> {
+  try {
+    const prompt = await db.judgePrompt.findFirst({
+      where: { type, isActive: true }
+    });
+    
+    if (prompt) return prompt.prompt;
+  } catch (error) {
+    console.error(`Error fetching prompt for ${type}:`, error);
+  }
+  
+  // Fallback prompts if database is unavailable
+  const fallbacks: Record<string, string> = {
+    judge1_grok: "You are Judge 1 (Grok), known for wit, humor, and unconventional thinking. Focus on factual accuracy above all else.",
+    judge2_claude: "You are known for meticulous, dispassionate analysis. You are especially skilled at identifying misleading framing — claims that are technically true but create a false impression. You give no credit for rhetorical polish if the underlying facts are shaky.",
+    judge3_chatgpt: "You are the final arbitrating judge. You have access to the full debate transcript AND both peer verdicts below. Your explanation should briefly note where the peer judges agreed or diverged, and add any factual findings they missed.",
+  };
+  
+  return fallbacks[type] || "Evaluate this debate fairly and factually.";
+}
 
 function buildVerdictSchema(input: JudgeInput): string {
   const a = input.debaterA.username;
@@ -316,12 +339,9 @@ Respond with ONLY valid JSON — no markdown fences, no commentary — matching 
 
 // ─── Judge A: Grok ─────────────────────────────────────────────────────────────
 
-function buildGrokSystem(input: JudgeInput): string {
-  return (
-    buildJudgingRubric(
-      "You are known for sharp, incisive fact-checking and zero tolerance for dishonesty or unsupported assertions. Call out false claims directly, even if the debater sounded confident.",
-    ) + buildVerdictSchema(input)
-  );
+async function buildGrokSystem(input: JudgeInput): Promise<string> {
+  const prompt = await getJudgePrompt("judge1_grok");
+  return buildJudgingRubric(prompt) + buildVerdictSchema(input);
 }
 
 export class GrokJudgingProvider implements IJudgingProvider {
@@ -343,6 +363,7 @@ export class GrokJudgingProvider implements IJudgingProvider {
   }
 
   private async _judge(input: JudgeInput): Promise<SingleJudgeVerdict> {
+    const systemContent = await buildGrokSystem(input);
     const stream = await this.client.chat.send({
       chatRequest: {
         model: this.model,
@@ -350,7 +371,7 @@ export class GrokJudgingProvider implements IJudgingProvider {
         maxTokens: 4000,
         responseFormat: { type: "json_object" },
         messages: [
-          { role: "system", content: buildGrokSystem(input) },
+          { role: "system", content: systemContent },
           {
             role: "user",
             content: buildTranscriptText(input) + "\n\nFact-check this debate and provide your verdict JSON.",
@@ -368,12 +389,9 @@ export class GrokJudgingProvider implements IJudgingProvider {
 
 // ─── Judge B: Claude ───────────────────────────────────────────────────────────
 
-function buildClaudeSystem(input: JudgeInput): string {
-  return (
-    buildJudgingRubric(
-      "You are known for meticulous, dispassionate analysis. You are especially skilled at identifying misleading framing — claims that are technically true but create a false impression. You give no credit for rhetorical polish if the underlying facts are shaky.",
-    ) + buildVerdictSchema(input)
-  );
+async function buildClaudeSystem(input: JudgeInput): Promise<string> {
+  const prompt = await getJudgePrompt("judge2_claude");
+  return buildJudgingRubric(prompt) + buildVerdictSchema(input);
 }
 
 export class ClaudeJudgingProvider implements IJudgingProvider {
@@ -395,6 +413,7 @@ export class ClaudeJudgingProvider implements IJudgingProvider {
   }
 
   private async _judge(input: JudgeInput): Promise<SingleJudgeVerdict> {
+    const systemContent = await buildClaudeSystem(input);
     const stream = await this.client.chat.send({
       chatRequest: {
         model: this.model,
@@ -402,7 +421,7 @@ export class ClaudeJudgingProvider implements IJudgingProvider {
         maxTokens: 4000,
         responseFormat: { type: "json_object" },
         messages: [
-          { role: "system", content: buildClaudeSystem(input) },
+          { role: "system", content: systemContent },
           {
             role: "user",
             content: buildTranscriptText(input) + "\n\nFact-check this debate and provide your verdict JSON.",
@@ -420,19 +439,9 @@ export class ClaudeJudgingProvider implements IJudgingProvider {
 
 // ─── Judge C: GPT — The Arbiter ───────────────────────────────────────────────
 
-function buildArbiterSystem(input: JudgeInput): string {
-  return (
-    buildJudgingRubric(
-      `You are the final arbitrating judge. You have access to the full debate transcript AND both peer verdicts below.
-
-Additional instructions:
-1. Read the full transcript independently and form your own assessment first.
-2. Study both peer verdicts — note where they agree and where they differ.
-3. Your claim-checking is the most authoritative. Cross-reference every significant factual claim against your knowledge. Be especially rigorous on claims the peer judges did not highlight.
-4. Your explanation should briefly note where the peer judges agreed or diverged, and add any factual findings they missed.
-5. You have the final word. Pick the winner whose factual case is stronger, regardless of peer judge votes.`,
-    ) + buildVerdictSchema(input)
-  );
+async function buildArbiterSystem(input: JudgeInput): Promise<string> {
+  const prompt = await getJudgePrompt("judge3_chatgpt");
+  return buildJudgingRubric(prompt) + buildVerdictSchema(input);
 }
 
 export class ArbiterJudgingProvider implements IJudgingProvider {
@@ -487,6 +496,7 @@ export class ArbiterJudgingProvider implements IJudgingProvider {
             .join("\n\n")
         : "";
 
+    const systemContent = await buildArbiterSystem(input);
     const stream = await this.client.chat.send({
       chatRequest: {
         model: this.model,
@@ -494,7 +504,7 @@ export class ArbiterJudgingProvider implements IJudgingProvider {
         maxTokens: 8000,
         responseFormat: { type: "json_object" },
         messages: [
-          { role: "system", content: buildArbiterSystem(input) },
+          { role: "system", content: systemContent },
           {
             role: "user",
             content:

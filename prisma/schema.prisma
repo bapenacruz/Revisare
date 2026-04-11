@@ -98,6 +98,7 @@ model User {
   followers          Follow[] @relation("Following")
   pushSubscriptions  PushSubscription[]
   passwordResetTokens PasswordResetToken[]
+  debateWins         DebateResult[] @relation("DebateWinner")
 }
 
 // ============================================================
@@ -252,6 +253,7 @@ model Debate {
   spectatorMessages SpectatorMessage[]
   audienceVotes     AudienceVote[]
   debateComments    DebateComment[]
+  result            DebateResult?
 }
 
 // ============================================================
@@ -424,4 +426,40 @@ model AdminAction {
   action    String
   reason    String?
   createdAt DateTime @default(now())
+}
+
+// ============================================================
+// Judge prompts for AI behavior configuration
+// ============================================================
+
+model JudgePrompt {
+  id          String   @id @default(cuid())
+  type        String   // "judge1_grok", "judge2_claude", "judge3_chatgpt", "private_feedback", "official_result"
+  prompt      String   @db.Text
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([type])
+  @@map("judge_prompts")
+}
+
+// ============================================================
+// Final debate results (consensus from all judges)
+// ============================================================
+
+model DebateResult {
+  id           String  @id @default(cuid())
+  debateId     String  @unique
+  debate       Debate  @relation(fields: [debateId], references: [id], onDelete: Cascade)
+  winnerId     String?
+  winner       User?   @relation("DebateWinner", fields: [winnerId], references: [id])
+  votes        Json    // Store the individual judge votes
+  consensus    Json    // Store the final consensus result
+  confidence   Float
+  reasoning    String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("debate_results")
 }
