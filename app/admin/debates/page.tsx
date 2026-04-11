@@ -2,7 +2,7 @@ export const dynamic = "force-dynamic";
 
 import { db } from "@/lib/db";
 import Link from "next/link";
-import { DebateActions } from "./DebateActions";
+import { DebateRow } from "./DebateRow";
 
 export const metadata = { title: "Debates — Admin" };
 
@@ -46,6 +46,8 @@ export default async function AdminDebatesPage({ searchParams }: Props) {
         status: true,
         ranked: true,
         categoryId: true,
+        debaterAId: true,
+        debaterBId: true,
         category: { select: { label: true, emoji: true } },
         debaterA: { select: { username: true } },
         debaterB: { select: { username: true } },
@@ -61,13 +63,6 @@ export default async function AdminDebatesPage({ searchParams }: Props) {
   ]);
 
   const pages = Math.ceil(total / limit);
-
-  function statusBadge(s: string) {
-    if (s === "completed") return "bg-green-500/10 text-green-400 border-green-500/20";
-    if (s === "active") return "bg-brand/10 text-brand border-brand/20";
-    if (s === "cancelled") return "bg-danger/10 text-danger border-danger/20";
-    return "bg-surface-overlay text-foreground-muted border-border";
-  }
 
   const buildUrl = (overrides: Record<string, string>) => {
     const params = new URLSearchParams({ q, status, category, ranked, page: pageStr, ...overrides });
@@ -142,46 +137,7 @@ export default async function AdminDebatesPage({ searchParams }: Props) {
           </thead>
           <tbody className="divide-y divide-border">
             {debates.map((d) => (
-              <tr key={d.id} className="hover:bg-surface-raised/40 transition-colors">
-                <td className="px-4 py-3 max-w-xs">
-                  <Link
-                    href={`/debates/${d.id}`}
-                    className="text-foreground hover:text-brand line-clamp-2 text-xs"
-                    target="_blank"
-                  >
-                    {d.motion}
-                  </Link>
-                </td>
-                <td className="px-4 py-3 text-xs text-foreground-muted whitespace-nowrap">
-                  {d.category.emoji} {d.category.label}
-                </td>
-                <td className="px-4 py-3 text-xs text-foreground-muted whitespace-nowrap">
-                  <span className={d.winnerId === d.debaterA?.username ? "text-foreground font-medium" : ""}>
-                    {d.debaterA?.username ?? "[deleted]"}
-                  </span>
-                  {" vs "}
-                  <span className={d.winnerId === d.debaterB?.username ? "text-foreground font-medium" : ""}>
-                    {d.debaterB?.username ?? "[deleted]"}
-                  </span>
-                </td>
-                <td className="px-4 py-3">
-                  <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs border ${statusBadge(d.status)}`}>
-                    {d.status}
-                  </span>
-                </td>
-                <td className="px-4 py-3 text-xs text-foreground-muted">
-                  {d.ranked ? "Yes" : "No"}
-                </td>
-                <td className="px-4 py-3 text-xs text-foreground-muted whitespace-nowrap">
-                  {new Date(d.createdAt).toLocaleDateString()}
-                </td>
-                <td className="px-4 py-3">
-                  <DebateActions
-                    debate={{ id: d.id, motion: d.motion, categoryId: d.categoryId, status: d.status }}
-                    categories={categories}
-                  />
-                </td>
-              </tr>
+              <DebateRow key={d.id} debate={d} categories={categories} />
             ))}
             {debates.length === 0 && (
               <tr>
