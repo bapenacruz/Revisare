@@ -10,15 +10,17 @@ export const metadata = { title: "Users — Admin" };
 interface Props {
   searchParams: Promise<{
     q?: string;
-    type?: string;   // "real" | "synthetic"
-    status?: string; // "active" | "admin" | "suspended" | "banned" | "deleted"
-    role?: string;   // "user" | "admin"
+    type?: string;       // "real" | "synthetic"
+    status?: string;     // "active" | "suspended" | "banned" | "deleted"
+    role?: string;       // "user" | "admin"
+    joinedFrom?: string;
+    joinedTo?: string;
     page?: string;
   }>;
 }
 
 export default async function AdminUsersPage({ searchParams }: Props) {
-  const { q = "", type = "", status = "", role = "", page: pageStr = "1" } = await searchParams;
+  const { q = "", type = "", status = "", role = "", joinedFrom = "", joinedTo = "", page: pageStr = "1" } = await searchParams;
   const page = Math.max(1, parseInt(pageStr, 10));
   const limit = 30;
 
@@ -36,7 +38,7 @@ export default async function AdminUsersPage({ searchParams }: Props) {
     conditions.push({ NOT: { email: { endsWith: "@placeholder.com" } } });
   }
 
-  // Status filter
+  // Status filter (admin is a role, not a status)
   const now = new Date();
   if (status === "deleted") {
     conditions.push({ isDeleted: true });
@@ -44,10 +46,8 @@ export default async function AdminUsersPage({ searchParams }: Props) {
     conditions.push({ isDeleted: false, role: "banned" });
   } else if (status === "suspended") {
     conditions.push({ isDeleted: false, role: "suspended", suspendedUntil: { gt: now } });
-  } else if (status === "admin") {
-    conditions.push({ isDeleted: false, role: "admin" });
   } else if (status === "active") {
-    conditions.push({ isDeleted: false, NOT: [{ role: "banned" }, { role: "suspended" }, { role: "admin" }] });
+    conditions.push({ isDeleted: false, NOT: [{ role: "banned" }, { role: "suspended" }] });
   } else {
     // No status filter — default excludes deleted
     conditions.push({ isDeleted: false });
@@ -58,6 +58,18 @@ export default async function AdminUsersPage({ searchParams }: Props) {
     conditions.push({ role: "admin" });
   } else if (role === "user") {
     conditions.push({ role: "user" });
+  }
+
+  // Joined date range
+  if (joinedFrom || joinedTo) {
+    const dateFilter: { gte?: Date; lte?: Date } = {};
+    if (joinedFrom) dateFilter.gte = new Date(joinedFrom);
+    if (joinedTo) {
+      const to = new Date(joinedTo);
+      to.setHours(23, 59, 59, 999);
+      dateFilter.lte = to;
+    }
+    conditions.push({ createdAt: dateFilter });
   }
 
   const where: Prisma.UserWhereInput = conditions.length > 0 ? { AND: conditions } : {};
@@ -89,94 +101,90 @@ export default async function AdminUsersPage({ searchParams }: Props) {
   const pages = Math.ceil(total / limit);
 
   // Build query string for pagination links
-  const qs = new URLSearchParams({ q, type, status, role }).toString();
+  const qs = new URLSearchParams({ q, type, status, role, joinedFrom, joinedTo }).toString();
+
+  const thInput = "w-full h-7 px-2 text-xs rounded border border-border bg-background text-foreground placeholder:text-foreground-subtle";
+  const thSelect = "w-full h-7 px-1 text-xs rounded border border-border bg-background text-foreground";
 
   return (
     <div>
-      <div className="mb-6">
-        <h1 className="text-2xl font-bold text-foreground mb-4">
-          Users
-          <span className="text-base font-normal text-foreground-muted ml-2">({total})</span>
-        </h1>
+      <h1 className="text-2xl font-bold text-foreground mb-4">
+        Users
+        <span className="text-base font-normal text-foreground-muted ml-2">({total})</span>
+      </h1>
 
-        <form method="GET" className="flex flex-wrap gap-2 items-end">
-          <div className="flex flex-col gap-1">
-            <label className="text-xs text-foreground-muted uppercase tracking-wide font-medium">Search</label>
-            <input
-              name="q"
-              defaultValue={q}
-              placeholder="Username or email..."
-              className="h-8 px-3 text-sm rounded-[--radius] border border-border bg-background text-foreground w-52"
-            />
-          </div>
-
-          <div className="flex flex-col gap-1">
-            <label className="text-xs text-foreground-muted uppercase tracking-wide font-medium">Type</label>
-            <select name="type" defaultValue={type} className="h-8 px-2 text-sm rounded-[--radius] border border-border bg-background text-foreground">
-              <option value="">All</option>
-              <option value="real">Real</option>
-              <option value="synthetic">Synthetic</option>
-            </select>
-          </div>
-
-          <div className="flex flex-col gap-1">
-            <label className="text-xs text-foreground-muted uppercase tracking-wide font-medium">Status</label>
-            <select name="status" defaultValue={status} className="h-8 px-2 text-sm rounded-[--radius] border border-border bg-background text-foreground">
-              <option value="">Any</option>
-              <option value="active">Active</option>
-              <option value="admin">Admin</option>
-              <option value="suspended">Suspended</option>
-              <option value="banned">Banned</option>
-              <option value="deleted">Deleted</option>
-            </select>
-          </div>
-
-          <div className="flex flex-col gap-1">
-            <label className="text-xs text-foreground-muted uppercase tracking-wide font-medium">Role</label>
-            <select name="role" defaultValue={role} className="h-8 px-2 text-sm rounded-[--radius] border border-border bg-background text-foreground">
-              <option value="">Any</option>
-              <option value="admin">Admin</option>
-              <option value="user">User</option>
-            </select>
-          </div>
-
-          <button type="submit" className="h-8 px-4 text-sm rounded-[--radius] bg-brand text-white self-end">
-            Filter
-          </button>
-          <Link href="/admin/users" className="h-8 px-3 flex items-center text-sm rounded-[--radius] border border-border text-foreground-muted hover:text-foreground self-end">
-            Reset
-          </Link>
-        </form>
-      </div>
-
-      <div className="rounded-[--radius] border border-border overflow-x-auto">
-        <table className="w-full text-sm">
-          <thead className="bg-surface border-b border-border">
-            <tr>
-              {["Username", "Type", "Email", "Role", "Status", "ELO", "W/L", "Joined", "Actions"].map((h) => (
-                <th
-                  key={h}
-                  className="px-4 py-2.5 text-left text-xs font-semibold text-foreground-muted uppercase tracking-wide whitespace-nowrap"
-                >
-                  {h}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-border">
-            {users.length === 0 && (
+      <form method="GET">
+        <div className="rounded-[--radius] border border-border overflow-x-auto">
+          <table className="w-full text-sm">
+            <thead className="bg-surface border-b border-border">
+              {/* Column labels */}
               <tr>
-                <td colSpan={9} className="px-4 py-8 text-center text-foreground-muted text-sm">
-                  No users found.
-                </td>
+                {["Username", "Type", "Email", "Role", "Status", "ELO", "W/L", "Joined", "Actions"].map((h) => (
+                  <th key={h} className="px-4 py-2.5 text-left text-xs font-semibold text-foreground-muted uppercase tracking-wide whitespace-nowrap">
+                    {h}
+                  </th>
+                ))}
               </tr>
-            )}
-            {users.map((u) => (
-              <UserRow key={u.id} user={u} />
-            ))}
-          </tbody>
-        </table>
-      </div>
+              {/* Filter row */}
+              <tr className="border-b border-border bg-surface-raised">
+                <th className="px-2 py-2 font-normal">
+                  <input name="q" defaultValue={q} placeholder="Username / email…" className={thInput} />
+                </th>
+                <th className="px-2 py-2 font-normal">
+                  <select name="type" defaultValue={type} className={thSelect}>
+                    <option value="">All</option>
+                    <option value="real">Real</option>
+                    <option value="synthetic">Synthetic</option>
+                  </select>
+                </th>
+                <th className="px-2 py-2 font-normal" />
+                <th className="px-2 py-2 font-normal">
+                  <select name="role" defaultValue={role} className={thSelect}>
+                    <option value="">Any</option>
+                    <option value="user">User</option>
+                    <option value="admin">Admin</option>
+                  </select>
+                </th>
+                <th className="px-2 py-2 font-normal">
+                  <select name="status" defaultValue={status} className={thSelect}>
+                    <option value="">Any</option>
+                    <option value="active">Active</option>
+                    <option value="suspended">Suspended</option>
+                    <option value="banned">Banned</option>
+                    <option value="deleted">Deleted</option>
+                  </select>
+                </th>
+                <th className="px-2 py-2 font-normal" />
+                <th className="px-2 py-2 font-normal" />
+                <th className="px-2 py-2 font-normal">
+                  <div className="flex flex-col gap-1">
+                    <input type="date" name="joinedFrom" defaultValue={joinedFrom} title="Joined from" className={thInput} />
+                    <input type="date" name="joinedTo" defaultValue={joinedTo} title="Joined to" className={thInput} />
+                  </div>
+                </th>
+                <th className="px-2 py-2 font-normal">
+                  <div className="flex gap-1">
+                    <button type="submit" className="h-7 px-3 text-xs rounded bg-brand text-white whitespace-nowrap">Filter</button>
+                    <Link href="/admin/users" className="h-7 px-2 flex items-center text-xs rounded border border-border text-foreground-muted hover:text-foreground whitespace-nowrap">Reset</Link>
+                  </div>
+                </th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-border">
+              {users.length === 0 && (
+                <tr>
+                  <td colSpan={9} className="px-4 py-8 text-center text-foreground-muted text-sm">
+                    No users found.
+                  </td>
+                </tr>
+              )}
+              {users.map((u) => (
+                <UserRow key={u.id} user={u} />
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </form>
 
       {pages > 1 && (
         <div className="flex justify-center gap-2 mt-6">

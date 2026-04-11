@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { Download, ChevronDown } from "lucide-react";
+import { useState, useMemo } from "react";
+import { Download, ChevronDown, Trash2 } from "lucide-react";
 
 type Status = "unread" | "pending" | "addressed";
 
@@ -56,10 +56,45 @@ function parseAttachments(raw: unknown): Attachment[] {
   return raw as Attachment[];
 }
 
+const CONTACT_CATEGORIES = [
+  "General Inquiry",
+  "Bug Report",
+  "Feature Request",
+  "Account Issue",
+  "Billing",
+  "Content / Moderation",
+  "Other",
+];
+
 export function ContactMessagesTable({ initialMessages }: { initialMessages: ContactMessage[] }) {
   const [messages, setMessages] = useState(initialMessages);
   const [updating, setUpdating] = useState<string | null>(null);
+  const [deleting, setDeleting] = useState<string | null>(null);
   const [expanded, setExpanded] = useState<string | null>(null);
+
+  // Column filters
+  const [filterDateFrom, setFilterDateFrom] = useState("");
+  const [filterDateTo, setFilterDateTo] = useState("");
+  const [filterCategory, setFilterCategory] = useState("");
+  const [filterEmail, setFilterEmail] = useState("");
+  const [filterSubject, setFilterSubject] = useState("");
+  const [filterStatus, setFilterStatus] = useState("");
+
+  const filteredMessages = useMemo(() => {
+    return messages.filter((m) => {
+      if (filterCategory && m.category !== filterCategory) return false;
+      if (filterEmail && !m.email.toLowerCase().includes(filterEmail.toLowerCase())) return false;
+      if (filterSubject && !m.subject.toLowerCase().includes(filterSubject.toLowerCase())) return false;
+      if (filterStatus && m.status !== filterStatus) return false;
+      if (filterDateFrom && new Date(m.createdAt) < new Date(filterDateFrom)) return false;
+      if (filterDateTo) {
+        const to = new Date(filterDateTo);
+        to.setHours(23, 59, 59, 999);
+        if (new Date(m.createdAt) > to) return false;
+      }
+      return true;
+    });
+  }, [messages, filterCategory, filterEmail, filterSubject, filterStatus, filterDateFrom, filterDateTo]);
 
   async function cycleStatus(id: string, current: Status) {
     const next = STATUS_CYCLE[current];
@@ -80,6 +115,22 @@ export function ContactMessagesTable({ initialMessages }: { initialMessages: Con
     }
   }
 
+  async function deleteMessage(id: string) {
+    setDeleting(id);
+    try {
+      const res = await fetch(`/api/admin/contact/${id}`, { method: "DELETE" });
+      if (res.ok) {
+        setMessages((prev) => prev.filter((m) => m.id !== id));
+        if (expanded === id) setExpanded(null);
+      }
+    } finally {
+      setDeleting(null);
+    }
+  }
+
+  const inputCls = "w-full h-7 px-2 text-xs rounded border border-border bg-background text-foreground placeholder:text-foreground-subtle";
+  const selectCls = "w-full h-7 px-1 text-xs rounded border border-border bg-background text-foreground";
+
   if (messages.length === 0) {
     return (
       <div className="rounded-lg border border-border bg-surface p-12 text-center">
@@ -92,6 +143,7 @@ export function ContactMessagesTable({ initialMessages }: { initialMessages: Con
     <div className="rounded-lg border border-border bg-surface overflow-hidden">
       <table className="w-full text-sm">
         <thead>
+          {/* Column labels */}
           <tr className="border-b border-border bg-surface-raised">
             <th className="text-left px-4 py-3 text-xs font-semibold text-foreground-muted uppercase tracking-wide w-36">Date</th>
             <th className="text-left px-4 py-3 text-xs font-semibold text-foreground-muted uppercase tracking-wide w-36">Category</th>
@@ -99,11 +151,54 @@ export function ContactMessagesTable({ initialMessages }: { initialMessages: Con
             <th className="text-left px-4 py-3 text-xs font-semibold text-foreground-muted uppercase tracking-wide">Subject</th>
             <th className="text-left px-4 py-3 text-xs font-semibold text-foreground-muted uppercase tracking-wide w-28">Files</th>
             <th className="text-left px-4 py-3 text-xs font-semibold text-foreground-muted uppercase tracking-wide w-28">Status</th>
-            <th className="text-left px-4 py-3 text-xs font-semibold text-foreground-muted uppercase tracking-wide w-36"></th>
+            <th className="text-left px-4 py-3 text-xs font-semibold text-foreground-muted uppercase tracking-wide w-48"></th>
+          </tr>
+          {/* Filter row */}
+          <tr className="border-b border-border bg-surface">
+            <th className="px-2 py-2 font-normal">
+              <div className="flex flex-col gap-1">
+                <input type="date" value={filterDateFrom} onChange={(e) => setFilterDateFrom(e.target.value)} className={inputCls} title="From" />
+                <input type="date" value={filterDateTo} onChange={(e) => setFilterDateTo(e.target.value)} className={inputCls} title="To" />
+              </div>
+            </th>
+            <th className="px-2 py-2 font-normal">
+              <select value={filterCategory} onChange={(e) => setFilterCategory(e.target.value)} className={selectCls}>
+                <option value="">All categories</option>
+                {CONTACT_CATEGORIES.map((c) => <option key={c} value={c}>{c}</option>)}
+              </select>
+            </th>
+            <th className="px-2 py-2 font-normal">
+              <input value={filterEmail} onChange={(e) => setFilterEmail(e.target.value)} placeholder="Filter email…" className={inputCls} />
+            </th>
+            <th className="px-2 py-2 font-normal">
+              <input value={filterSubject} onChange={(e) => setFilterSubject(e.target.value)} placeholder="Filter subject…" className={inputCls} />
+            </th>
+            <th className="px-2 py-2 font-normal" />
+            <th className="px-2 py-2 font-normal">
+              <select value={filterStatus} onChange={(e) => setFilterStatus(e.target.value)} className={selectCls}>
+                <option value="">All</option>
+                <option value="unread">Unread</option>
+                <option value="pending">Pending</option>
+                <option value="addressed">Addressed</option>
+              </select>
+            </th>
+            <th className="px-2 py-2 font-normal">
+              <button
+                onClick={() => { setFilterDateFrom(""); setFilterDateTo(""); setFilterCategory(""); setFilterEmail(""); setFilterSubject(""); setFilterStatus(""); }}
+                className="h-7 px-3 text-xs rounded border border-border text-foreground-muted hover:text-foreground"
+              >
+                Clear
+              </button>
+            </th>
           </tr>
         </thead>
         <tbody className="divide-y divide-border">
-          {messages.map((msg) => {
+          {filteredMessages.length === 0 && (
+            <tr>
+              <td colSpan={7} className="px-4 py-8 text-center text-foreground-muted text-sm">No messages match the current filters.</td>
+            </tr>
+          )}
+          {filteredMessages.map((msg) => {
             const attachments = parseAttachments(msg.attachments);
             const status = msg.status as Status;
             const isExpanded = expanded === msg.id;
@@ -167,13 +262,23 @@ export function ContactMessagesTable({ initialMessages }: { initialMessages: Con
                     </span>
                   </td>
                   <td className="px-4 py-3">
-                    <button
-                      onClick={() => cycleStatus(msg.id, status)}
-                      disabled={updating === msg.id}
-                      className="text-xs px-2.5 py-1 rounded-md border border-border text-foreground-muted hover:text-foreground hover:border-brand/50 transition-colors disabled:opacity-40 whitespace-nowrap"
-                    >
-                      {updating === msg.id ? "…" : STATUS_NEXT_LABEL[status]}
-                    </button>
+                    <div className="flex items-center gap-2">
+                      <button
+                        onClick={() => cycleStatus(msg.id, status)}
+                        disabled={updating === msg.id || deleting === msg.id}
+                        className="text-xs px-2.5 py-1 rounded-md border border-border text-foreground-muted hover:text-foreground hover:border-brand/50 transition-colors disabled:opacity-40 whitespace-nowrap"
+                      >
+                        {updating === msg.id ? "…" : STATUS_NEXT_LABEL[status]}
+                      </button>
+                      <button
+                        onClick={() => deleteMessage(msg.id)}
+                        disabled={deleting === msg.id || updating === msg.id}
+                        title="Delete message"
+                        className="p-1 rounded text-foreground-muted hover:text-danger hover:bg-danger/10 transition-colors disabled:opacity-40"
+                      >
+                        {deleting === msg.id ? <span className="text-xs">…</span> : <Trash2 size={14} />}
+                      </button>
+                    </div>
                   </td>
                 </tr>
 

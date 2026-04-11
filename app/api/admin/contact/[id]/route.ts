@@ -27,3 +27,15 @@ export async function PATCH(req: NextRequest, { params }: RouteParams) {
 
   return NextResponse.json({ id: msg.id, status: msg.status });
 }
+
+export async function DELETE(req: NextRequest, { params }: RouteParams) {
+  const session = await auth();
+  const role = (session?.user as { role?: string })?.role;
+  if (!session || role !== "admin") {
+    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+  }
+
+  const { id } = await params;
+  await db.contactMessage.delete({ where: { id } });
+  return NextResponse.json({ ok: true });
+}

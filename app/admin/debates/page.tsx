@@ -13,7 +13,9 @@ interface Props {
     status?: string;
     category?: string;
     ranked?: string;
-    deleted?: string; // "true" | "false" (default "false")
+    deleted?: string;   // "true" | "false" (default "false")
+    dateFrom?: string;
+    dateTo?: string;
     page?: string;
   }>;
 }
@@ -27,6 +29,8 @@ export default async function AdminDebatesPage({ searchParams }: Props) {
     category = "all",
     ranked = "all",
     deleted = "false",
+    dateFrom = "",
+    dateTo = "",
     page: pageStr = "1",
   } = await searchParams;
 
@@ -59,6 +63,18 @@ export default async function AdminDebatesPage({ searchParams }: Props) {
   if (ranked === "yes") where.ranked = true;
   if (ranked === "no") where.ranked = false;
 
+  // Date range filter
+  if (dateFrom || dateTo) {
+    const dateFilter: { gte?: Date; lte?: Date } = {};
+    if (dateFrom) dateFilter.gte = new Date(dateFrom);
+    if (dateTo) {
+      const to = new Date(dateTo);
+      to.setHours(23, 59, 59, 999);
+      dateFilter.lte = to;
+    }
+    where.createdAt = dateFilter;
+  }
+
   const [debates, total, categories] = await Promise.all([
     db.debate.findMany({
       where,
@@ -90,103 +106,96 @@ export default async function AdminDebatesPage({ searchParams }: Props) {
   const pages = Math.ceil(total / limit);
 
   const buildUrl = (overrides: Record<string, string>) => {
-    const params = new URLSearchParams({ q, status, category, ranked, deleted, page: pageStr, ...overrides });
+    const params = new URLSearchParams({ q, status, category, ranked, deleted, dateFrom, dateTo, page: pageStr, ...overrides });
     return `/admin/debates?${params.toString()}`;
   };
 
+  const thInput = "w-full h-7 px-2 text-xs rounded border border-border bg-background text-foreground placeholder:text-foreground-subtle";
+  const thSelect = "w-full h-7 px-1 text-xs rounded border border-border bg-background text-foreground";
+
   return (
     <div>
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex items-center justify-between mb-4">
         <h1 className="text-2xl font-bold text-foreground">Debates</h1>
         <span className="text-sm text-foreground-muted">{total} total</span>
       </div>
 
       {/* Bulk import */}
-      <div className="mb-5">
+      <div className="mb-4">
         <UploadDebates />
       </div>
 
-      {/* Filters */}
-      <form method="GET" className="flex flex-wrap gap-2 mb-4">
-        <input
-          name="q"
-          defaultValue={q}
-          placeholder="Search motion..."
-          className="text-sm rounded border border-border bg-background text-foreground px-3 py-1.5 w-60"
-        />
-        <select
-          name="status"
-          defaultValue={status}
-          className="text-sm rounded border border-border bg-background text-foreground px-2 py-1.5"
-        >
-          {STATUS_OPTIONS.map((s) => (
-            <option key={s} value={s}>{s === "all" ? "All statuses" : s}</option>
-          ))}
-        </select>
-        <select
-          name="category"
-          defaultValue={category}
-          className="text-sm rounded border border-border bg-background text-foreground px-2 py-1.5"
-        >
-          <option value="all">All categories</option>
-          {categories.map((c) => (
-            <option key={c.id} value={c.id}>{c.emoji} {c.label}</option>
-          ))}
-        </select>
-        <select
-          name="ranked"
-          defaultValue={ranked}
-          className="text-sm rounded border border-border bg-background text-foreground px-2 py-1.5"
-        >
-          <option value="all">Ranked + Exhibition</option>
-          <option value="yes">Ranked only</option>
-          <option value="no">Exhibition only</option>
-        </select>
-        <select
-          name="deleted"
-          defaultValue={deleted}
-          className="text-sm rounded border border-border bg-background text-foreground px-2 py-1.5"
-        >
-          <option value="false">Exclude deleted</option>
-          <option value="true">Include deleted</option>
-        </select>
-        <button
-          type="submit"
-          className="px-3 py-1.5 text-sm rounded bg-brand text-white"
-        >
-          Filter
-        </button>
-      </form>
-
-      {/* Table */}
-      <div className="rounded-[--radius] border border-border overflow-hidden">
-        <table className="w-full text-sm">
-          <thead className="bg-surface border-b border-border">
-            <tr>
-              {["Motion", "Category", "Debaters", "Status", "Ranked", "Date", "Actions"].map((h) => (
-                <th
-                  key={h}
-                  className="px-4 py-2.5 text-left text-xs font-semibold text-foreground-muted uppercase tracking-wide"
-                >
-                  {h}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-border">
-            {debates.map((d) => (
-              <DebateRow key={d.id} debate={d} categories={categories} />
-            ))}
-            {debates.length === 0 && (
+      {/* Table with inline column filters */}
+      <form method="GET">
+        <div className="rounded-[--radius] border border-border overflow-x-auto">
+          <table className="w-full text-sm">
+            <thead className="bg-surface border-b border-border">
+              {/* Column labels */}
               <tr>
-                <td colSpan={7} className="px-4 py-8 text-center text-sm text-foreground-muted">
-                  No debates found
-                </td>
+                {["Motion", "Category", "Debaters", "Status", "Ranked", "Date", "Actions"].map((h) => (
+                  <th key={h} className="px-4 py-2.5 text-left text-xs font-semibold text-foreground-muted uppercase tracking-wide">
+                    {h}
+                  </th>
+                ))}
               </tr>
-            )}
-          </tbody>
-        </table>
-      </div>
+              {/* Filter row */}
+              <tr className="border-b border-border bg-surface-raised">
+                <th className="px-2 py-2 font-normal">
+                  <input name="q" defaultValue={q} placeholder="Search motion…" className={thInput} />
+                </th>
+                <th className="px-2 py-2 font-normal">
+                  <select name="category" defaultValue={category} className={thSelect}>
+                    <option value="all">All categories</option>
+                    {categories.map((c) => (
+                      <option key={c.id} value={c.id}>{c.emoji} {c.label}</option>
+                    ))}
+                  </select>
+                </th>
+                <th className="px-2 py-2 font-normal" />
+                <th className="px-2 py-2 font-normal">
+                  <select name="status" defaultValue={status} className={thSelect}>
+                    {STATUS_OPTIONS.map((s) => (
+                      <option key={s} value={s}>{s === "all" ? "All statuses" : s}</option>
+                    ))}
+                  </select>
+                </th>
+                <th className="px-2 py-2 font-normal">
+                  <select name="ranked" defaultValue={ranked} className={thSelect}>
+                    <option value="all">All</option>
+                    <option value="yes">Ranked</option>
+                    <option value="no">Exhibition</option>
+                  </select>
+                </th>
+                <th className="px-2 py-2 font-normal">
+                  <div className="flex flex-col gap-1">
+                    <input type="date" name="dateFrom" defaultValue={dateFrom} title="From" className={thInput} />
+                    <input type="date" name="dateTo" defaultValue={dateTo} title="To" className={thInput} />
+                  </div>
+                  <input type="hidden" name="deleted" value={deleted} />
+                </th>
+                <th className="px-2 py-2 font-normal">
+                  <div className="flex gap-1">
+                    <button type="submit" className="h-7 px-3 text-xs rounded bg-brand text-white whitespace-nowrap">Filter</button>
+                    <Link href="/admin/debates" className="h-7 px-2 flex items-center text-xs rounded border border-border text-foreground-muted hover:text-foreground whitespace-nowrap">Reset</Link>
+                  </div>
+                </th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-border">
+              {debates.map((d) => (
+                <DebateRow key={d.id} debate={d} categories={categories} />
+              ))}
+              {debates.length === 0 && (
+                <tr>
+                  <td colSpan={7} className="px-4 py-8 text-center text-sm text-foreground-muted">
+                    No debates found
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+      </form>
 
       {/* Pagination */}
       {pages > 1 && (
