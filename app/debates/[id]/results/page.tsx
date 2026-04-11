@@ -162,11 +162,11 @@ export default async function ResultsPage({ params }: Props) {
     <div className="mx-auto max-w-4xl px-4 sm:px-6 py-10">
       {/* Back */}
       <Link
-        href={`/debates/${challengeId}`}
+        href="/debates"
         className="inline-flex items-center gap-1.5 text-sm text-foreground-muted hover:text-foreground transition-colors mb-6"
       >
         <ArrowLeft size={14} />
-        Back to Arena
+        Back to Debates
       </Link>
 
       {/* Header */}

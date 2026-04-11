@@ -1,7 +1,7 @@
 [
   {
-    "motion": "This House Believes remote work is better than office work",
-    "category_slug": "society",
+    "motion": "Social media does more harm than good",
+    "category_slug": "science-tech",
     "format": "standard",
     "ranked": false,
     "debaterA": {
@@ -16,73 +16,73 @@
       {
         "username": "bapenacruz",
         "roundName": "opening",
-        "content": "Look, once you actually work remote for a while, it is hard to argue going back makes sense. You cut commuting, you get your time back, and honestly you can focus way better without constant interruptions. People act like productivity drops, but for most roles it actually goes up. And on top of that, people are just less burned out. That matters."
+        "content": "Look, I think people overcomplicate this. The reality is pretty clear when you step back. social media does more harm than good. If you just look at what is actually happening day to day, the pattern is obvious."
       },
       {
         "username": "west2016",
         "roundName": "opening",
-        "content": "I get the appeal, I really do, but I think people overcorrect on this. Offices are not just about work output, they are about collaboration, culture, and alignment. You lose a lot of that when everything is remote. Conversations become scheduled instead of natural. That slows things down in ways people do not always notice."
+        "content": "I mean I get where you are coming from, but that feels too simple. You are focusing on one side and ignoring the tradeoffs."
       },
       {
         "username": "bapenacruz",
         "roundName": "rebuttal",
-        "content": "But most of that so called collaboration is honestly just noise. Meetings that could be emails, interruptions that break your flow. Remote forces people to be more intentional. And if you need to collaborate, you still can. It just is not constant and draining."
+        "content": "But everything has tradeoffs. The question is what outweighs what. And here I think the benefits clearly win."
       },
       {
         "username": "west2016",
         "roundName": "rebuttal",
-        "content": "I think you are underestimating how much gets lost. Quick problem solving, mentorship, even just learning by being around experienced people. Those things do not translate cleanly online. Especially for newer employees, remote can feel isolating and slower for growth."
+        "content": "I do not think it is that clear. Some of the downsides build slowly and are easy to ignore until they are serious."
       },
       {
         "username": "bapenacruz",
         "roundName": "closing",
-        "content": "At the end of the day, work should fit into life, not the other way around. Remote gives people flexibility without killing productivity. The trade is worth it for most people."
+        "content": "At the end of the day, the direction still makes sense overall."
       },
       {
         "username": "west2016",
         "roundName": "closing",
-        "content": "Flexibility is great, but not if it weakens how teams function long term. Offices still solve real problems that remote has not fully replaced."
-      }
-    ],
-    "winner_username": "bapenacruz",
-    "completed_at": "2026-04-11T07:48:35+00:00"
-  },
-  {
-    "motion": "This House Would ban smartphones for children under 14",
-    "category_slug": "society",
-    "format": "quick",
-    "ranked": false,
-    "debaterA": {
-      "username": "bapenacruz",
-      "side": "opposition"
-    },
-    "debaterB": {
-      "username": "west2016",
-      "side": "proposition"
-    },
-    "turns": [
-      {
-        "username": "bapenacruz",
-        "roundName": "opening",
-        "content": "I think banning them outright is too extreme. Yeah, there are issues, but smartphones are also how kids communicate, learn, and stay connected. The problem is not the device, it is how it is used. Parents should manage that, not a blanket ban."
-      },
-      {
-        "username": "west2016",
-        "roundName": "opening",
-        "content": "I do not think it is extreme when you look at what is happening. Attention issues, social media pressure, exposure to things they are not ready for. These are not small problems. A clear boundary like under 14 gives kids time to develop without all that noise."
-      },
-      {
-        "username": "bapenacruz",
-        "roundName": "rebuttal",
-        "content": "But kids are still going to find ways around it, or feel left out socially. And not all usage is bad. There are educational tools, communication with family, safety reasons. A ban ignores the nuance."
-      },
-      {
-        "username": "west2016",
-        "roundName": "rebuttal",
-        "content": "Sure, no policy is perfect, but doing nothing is worse. You can still allow limited devices or controlled access, but smartphones specifically are too much, too early. Sometimes simple rules work better than hoping everyone manages it well."
+        "content": "I think we need to question it more before assuming that."
       }
     ],
     "winner_username": "west2016",
-    "completed_at": "2026-04-11T07:48:35+00:00"
+    "completed_at": "2026-04-11T15:42:52+00:00"
+  },
+  {
+    "motion": "College education is no longer worth it",
+    "category_slug": "economics",
+    "format": "quick",
+    "ranked": false,
+    "debaterA": {
+      "username": "west2016",
+      "side": "proposition"
+    },
+    "debaterB": {
+      "username": "bapenacruz",
+      "side": "opposition"
+    },
+    "turns": [
+      {
+        "username": "west2016",
+        "roundName": "opening",
+        "content": "Look, I think people overcomplicate this. The reality is pretty clear when you step back. college education is no longer worth it. If you just look at what is actually happening day to day, the pattern is obvious."
+      },
+      {
+        "username": "bapenacruz",
+        "roundName": "opening",
+        "content": "I mean I get where you are coming from, but that feels too simple. You are focusing on one side and ignoring the tradeoffs."
+      },
+      {
+        "username": "west2016",
+        "roundName": "rebuttal",
+        "content": "But everything has tradeoffs. The question is what outweighs what. And here I think the benefits clearly win."
+      },
+      {
+        "username": "bapenacruz",
+        "roundName": "rebuttal",
+        "content": "I do not think it is that clear. Some of the downsides build slowly and are easy to ignore until they are serious."
+      }
+    ],
+    "winner_username": "bapenacruz",
+    "completed_at": "2026-04-11T15:42:52+00:00"
   }
 ]
