@@ -162,6 +162,20 @@ export async function judgeDebate(debateId: string): Promise<void> {
     judged: true,
     winnerId: consensus.winnerId,
   });
+
+  // Generate structured private feedback using the admin-configured prompt.
+  // Runs after the debate is already marked complete so it doesn't block results.
+  const feedbackApiKey = process.env.JUDGE_C_API_KEY ?? process.env.JUDGE_A_API_KEY ?? "";
+  if (feedbackApiKey) {
+    void generateFeedbackOnly(input, { apiKey: feedbackApiKey, model: process.env.JUDGE_C_MODEL })
+      .then(({ feedbackA, feedbackB }) =>
+        db.judgeResult.updateMany({
+          where: { debateId: debate.id, judgeId: "consensus" },
+          data: { privateFeedbackA: feedbackA, privateFeedbackB: feedbackB },
+        })
+      )
+      .catch((err) => console.error("[judgeDebate] feedback generation failed:", err));
+  }
 }
 
 /**
