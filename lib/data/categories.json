@@ -1,0 +1,132 @@
+[
+  {
+    "id": "cmnqtgaao00001woye45tcznc",
+    "slug": "politics",
+    "label": "Politics",
+    "emoji": "🏛️",
+    "description": "Power, policy, and the direction of society",
+    "order": 1,
+    "isActive": true,
+    "createdAt": "2026-04-09T01:46:33.120Z"
+  },
+  {
+    "id": "cmnqtgasn00011woyxyn6tjsk",
+    "slug": "science-tech",
+    "label": "Science & Technology",
+    "emoji": "🔬",
+    "description": "Innovation, discovery, and the future we're building",
+    "order": 2,
+    "isActive": true,
+    "createdAt": "2026-04-09T01:46:33.767Z"
+  },
+  {
+    "id": "cmnqtgatp00021woynz8xd1qt",
+    "slug": "philosophy",
+    "label": "Philosophy",
+    "emoji": "🧠",
+    "description": "Ethics, logic, and life's biggest questions",
+    "order": 3,
+    "isActive": true,
+    "createdAt": "2026-04-09T01:46:33.806Z"
+  },
+  {
+    "id": "cmnqtgauu00031woyqms0vimu",
+    "slug": "religion",
+    "label": "Religion",
+    "emoji": "✝️",
+    "description": "Belief, faith, and the meaning of existence",
+    "order": 4,
+    "isActive": true,
+    "createdAt": "2026-04-09T01:46:33.846Z"
+  },
+  {
+    "id": "cmnqtgavx00041woyf306ut94",
+    "slug": "economics",
+    "label": "Economics",
+    "emoji": "📈",
+    "description": "Money, markets, and how the world works",
+    "order": 5,
+    "isActive": true,
+    "createdAt": "2026-04-09T01:46:33.885Z"
+  },
+  {
+    "id": "cmnqtgax200051woyt9vjtxj7",
+    "slug": "society",
+    "label": "Society",
+    "emoji": "🌍",
+    "description": "Culture, norms, and how we live together",
+    "order": 6,
+    "isActive": true,
+    "createdAt": "2026-04-09T01:46:33.926Z"
+  },
+  {
+    "id": "cmnqtgay400061woycgctay8p",
+    "slug": "sports",
+    "label": "Sports",
+    "emoji": "⚽",
+    "description": "Competition, performance, and the games we love",
+    "order": 7,
+    "isActive": true,
+    "createdAt": "2026-04-09T01:46:33.964Z"
+  },
+  {
+    "id": "cmnqtgaz600071woydhxnwme8",
+    "slug": "history",
+    "label": "History",
+    "emoji": "📜",
+    "description": "The past, its lessons, and its impact today",
+    "order": 8,
+    "isActive": true,
+    "createdAt": "2026-04-09T01:46:34.002Z"
+  },
+  {
+    "id": "cmnqtgb0700081woykvx6lp13",
+    "slug": "environment",
+    "label": "Environment",
+    "emoji": "🌿",
+    "description": "Climate, sustainability, and our planet's future",
+    "order": 9,
+    "isActive": true,
+    "createdAt": "2026-04-09T01:46:34.039Z"
+  },
+  {
+    "id": "cmnqtgb1600091woyhemhn7tj",
+    "slug": "culture-entertainment",
+    "label": "Culture & Entertainment",
+    "emoji": "🎬",
+    "description": "Movies, music, games, and what we consume",
+    "order": 10,
+    "isActive": true,
+    "createdAt": "2026-04-09T01:46:34.074Z"
+  },
+  {
+    "id": "cmnqtgb2a000a1woymsopizal",
+    "slug": "law-justice",
+    "label": "Law & Justice",
+    "emoji": "⚖️",
+    "description": "Rights, rules, and what's fair",
+    "order": 11,
+    "isActive": true,
+    "createdAt": "2026-04-09T01:46:34.114Z"
+  },
+  {
+    "id": "cmnqtgb3i000b1woy2iznwelw",
+    "slug": "health-lifestyle",
+    "label": "Health & Lifestyle",
+    "emoji": "🏃",
+    "description": "Well-being, habits, and how we live day to day",
+    "order": 12,
+    "isActive": true,
+    "createdAt": "2026-04-09T01:46:34.158Z"
+  },
+  {
+    "id": "7d0a8ae2-c87f-428a-b6d1-7d70317b76a8",
+    "slug": "other",
+    "label": "Other",
+    "emoji": "💬",
+    "description": "Debates that don't fit neatly into another category",
+    "order": 99,
+    "isActive": true,
+    "createdAt": "2026-04-11T04:19:52.945Z"
+  }
+]

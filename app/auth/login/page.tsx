@@ -21,7 +21,7 @@ export default function LoginPage() {
 
     const formData = new FormData(e.currentTarget);
     const result = await signIn("credentials", {
-      username: formData.get("username") as string,
+      emailOrUsername: formData.get("emailOrUsername") as string,
       password: formData.get("password") as string,
       redirect: false,
     });
@@ -67,16 +67,16 @@ export default function LoginPage() {
             <div className="w-full border-t border-border" />
           </div>
           <div className="relative flex justify-center">
-            <span className="px-3 bg-background text-xs text-foreground-subtle">or username</span>
+            <span className="px-3 bg-background text-xs text-foreground-subtle">or continue with</span>
           </div>
         </div>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <Input
-            label="Username"
-            name="username"
+            label="Email or Username"
+            name="emailOrUsername"
             type="text"
-            placeholder="your_username"
+            placeholder="you@example.com or your_username"
             leftIcon={<User size={15} />}
             autoComplete="username"
             required

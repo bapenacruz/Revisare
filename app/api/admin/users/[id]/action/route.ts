@@ -2,6 +2,9 @@ import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { createNotification } from "@/lib/notifications";
+import crypto from "crypto";
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+const nodemailer = require("nodemailer") as typeof import("nodemailer");
 
 interface RouteParams {
   params: Promise<{ id: string }>;
@@ -26,12 +29,12 @@ export async function POST(req: NextRequest, { params }: RouteParams) {
 
   const { id: targetId } = await params;
   const body = await req.json() as {
-    action: "warn" | "suspend" | "ban" | "unban";
+    action: "warn" | "suspend" | "ban" | "unban" | "reset-password";
     reason?: string;
     suspendDays?: number;
   };
 
-  if (!["warn", "suspend", "ban", "unban"].includes(body.action)) {
+  if (!["warn", "suspend", "ban", "unban", "reset-password"].includes(body.action)) {
     return NextResponse.json({ error: "Invalid action" }, { status: 400 });
   }
 
@@ -42,6 +45,45 @@ export async function POST(req: NextRequest, { params }: RouteParams) {
   const displayDuration = days < 1
     ? `${Math.round(days * 24 * 60)} minutes`
     : `${days} days`;
+
+  // Handle reset-password separately — no notification/audit pattern matching ACTION_MESSAGES
+  if (body.action === "reset-password") {
+    const token = crypto.randomBytes(32).toString("hex");
+    const expiresAt = new Date(Date.now() + 2 * 60 * 60 * 1000); // 2 hours
+
+    await db.passwordResetToken.create({
+      data: { userId: target.id, token, expiresAt },
+    });
+
+    const resetUrl = `${process.env.NEXTAUTH_URL ?? "https://revisare.app"}/auth/reset-password?token=${token}`;
+    const isPlaceholder = target.email.endsWith("@placeholder.com");
+
+    let emailSent = false;
+    if (!isPlaceholder) {
+      const smtpUser = process.env.SMTP_USER;
+      const smtpPass = process.env.SMTP_PASS;
+      if (smtpUser && smtpPass) {
+        const transporter = nodemailer.createTransport({
+          service: "gmail",
+          auth: { user: smtpUser, pass: smtpPass },
+        });
+        await transporter.sendMail({
+          from: `"Revisare" <${smtpUser}>`,
+          to: target.email,
+          subject: "Reset your Revisare password",
+          text: `Hi ${target.username},\n\nAn admin has initiated a password reset for your account.\n\nClick the link below to set a new password (expires in 2 hours):\n\n${resetUrl}\n\nIf you did not request this, you can ignore it.`,
+          html: `<p>Hi <strong>${target.username}</strong>,</p><p>An admin has initiated a password reset for your account.</p><p><a href="${resetUrl}">Reset Password</a></p><p>This link expires in 2 hours.</p>`,
+        });
+        emailSent = true;
+      }
+    }
+
+    await db.adminAction.create({
+      data: { adminId: session!.user!.id, targetId, action: "reset-password", reason: body.reason ?? null },
+    });
+
+    return NextResponse.json({ success: true, resetUrl: isPlaceholder ? resetUrl : null, emailSent });
+  }
 
   const userUpdate: Record<string, unknown> = {};
   if (body.action === "suspend") {

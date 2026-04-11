@@ -59,16 +59,21 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     CredentialsProvider({
       name: "credentials",
       credentials: {
-        username: { label: "Username", type: "text" },
+        emailOrUsername: { label: "Email or Username", type: "text" },
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        if (!credentials?.username || !credentials?.password) return null;
+        if (!credentials?.emailOrUsername || !credentials?.password) return null;
 
-        const username = String(credentials.username).trim();
+        const raw = String(credentials.emailOrUsername).trim();
         const password = String(credentials.password);
 
-        const user = await db.user.findUnique({ where: { username } });
+        // Support login by email or username
+        const isEmail = raw.includes("@");
+        const user = isEmail
+          ? await db.user.findUnique({ where: { email: raw.toLowerCase() } })
+          : await db.user.findUnique({ where: { username: raw } });
+
         if (!user?.hashedPassword) return null;
 
         const valid = await bcrypt.compare(password, user.hashedPassword);

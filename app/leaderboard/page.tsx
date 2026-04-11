@@ -18,8 +18,8 @@ export default async function LeaderboardPage({ searchParams }: PageProps) {
   const [players, categories] = await Promise.all([
     db.user.findMany({
       where: {
-        isExhibition: false,
         isDeleted: false,
+        hideFromLeaderboard: false,
         ...(cat
           ? {
               OR: [

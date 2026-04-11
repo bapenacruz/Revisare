@@ -142,6 +142,11 @@ export type SuspiciousTurnSignal = Prisma.SuspiciousTurnSignalModel
  */
 export type PushSubscription = Prisma.PushSubscriptionModel
 /**
+ * Model PasswordResetToken
+ * 
+ */
+export type PasswordResetToken = Prisma.PasswordResetTokenModel
+/**
  * Model AdminAction
  * 
  */

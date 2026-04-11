@@ -71,6 +71,7 @@ export const ModelName = {
   IntegrityFlag: 'IntegrityFlag',
   SuspiciousTurnSignal: 'SuspiciousTurnSignal',
   PushSubscription: 'PushSubscription',
+  PasswordResetToken: 'PasswordResetToken',
   AdminAction: 'AdminAction'
 } as const
 
@@ -147,6 +148,9 @@ export const UserScalarFieldEnum = {
   aiAssessmentUpdatedAt: 'aiAssessmentUpdatedAt',
   role: 'role',
   isExhibition: 'isExhibition',
+  hideFromLeaderboard: 'hideFromLeaderboard',
+  isDeleted: 'isDeleted',
+  deletedAt: 'deletedAt',
   onboardingComplete: 'onboardingComplete',
   suspendedUntil: 'suspendedUntil',
   dob: 'dob',
@@ -387,6 +391,18 @@ export const PushSubscriptionScalarFieldEnum = {
 } as const
 
 export type PushSubscriptionScalarFieldEnum = (typeof PushSubscriptionScalarFieldEnum)[keyof typeof PushSubscriptionScalarFieldEnum]
+
+
+export const PasswordResetTokenScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  token: 'token',
+  expiresAt: 'expiresAt',
+  usedAt: 'usedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type PasswordResetTokenScalarFieldEnum = (typeof PasswordResetTokenScalarFieldEnum)[keyof typeof PasswordResetTokenScalarFieldEnum]
 
 
 export const AdminActionScalarFieldEnum = {

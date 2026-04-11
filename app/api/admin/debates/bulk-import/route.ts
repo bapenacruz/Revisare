@@ -39,7 +39,7 @@ async function findOrCreateUser(username: string): Promise<{ id: string; created
   if (existing) return { id: existing.id, created: false };
 
   // Create placeholder user
-  const placeholderEmail = `${username}@placeholder.revisare.app`;
+  const placeholderEmail = `${username}@placeholder.com`;
   const emailTaken = await db.user.findUnique({ where: { email: placeholderEmail }, select: { id: true } });
   if (emailTaken) return { id: emailTaken.id, created: false };
 

@@ -60,6 +60,9 @@ export type UserMinAggregateOutputType = {
   aiAssessmentUpdatedAt: Date | null
   role: string | null
   isExhibition: boolean | null
+  hideFromLeaderboard: boolean | null
+  isDeleted: boolean | null
+  deletedAt: Date | null
   onboardingComplete: boolean | null
   suspendedUntil: Date | null
   dob: Date | null
@@ -93,6 +96,9 @@ export type UserMaxAggregateOutputType = {
   aiAssessmentUpdatedAt: Date | null
   role: string | null
   isExhibition: boolean | null
+  hideFromLeaderboard: boolean | null
+  isDeleted: boolean | null
+  deletedAt: Date | null
   onboardingComplete: boolean | null
   suspendedUntil: Date | null
   dob: Date | null
@@ -126,6 +132,9 @@ export type UserCountAggregateOutputType = {
   aiAssessmentUpdatedAt: number
   role: number
   isExhibition: number
+  hideFromLeaderboard: number
+  isDeleted: number
+  deletedAt: number
   onboardingComplete: number
   suspendedUntil: number
   dob: number
@@ -175,6 +184,9 @@ export type UserMinAggregateInputType = {
   aiAssessmentUpdatedAt?: true
   role?: true
   isExhibition?: true
+  hideFromLeaderboard?: true
+  isDeleted?: true
+  deletedAt?: true
   onboardingComplete?: true
   suspendedUntil?: true
   dob?: true
@@ -208,6 +220,9 @@ export type UserMaxAggregateInputType = {
   aiAssessmentUpdatedAt?: true
   role?: true
   isExhibition?: true
+  hideFromLeaderboard?: true
+  isDeleted?: true
+  deletedAt?: true
   onboardingComplete?: true
   suspendedUntil?: true
   dob?: true
@@ -241,6 +256,9 @@ export type UserCountAggregateInputType = {
   aiAssessmentUpdatedAt?: true
   role?: true
   isExhibition?: true
+  hideFromLeaderboard?: true
+  isDeleted?: true
+  deletedAt?: true
   onboardingComplete?: true
   suspendedUntil?: true
   dob?: true
@@ -361,6 +379,9 @@ export type UserGroupByOutputType = {
   aiAssessmentUpdatedAt: Date | null
   role: string
   isExhibition: boolean
+  hideFromLeaderboard: boolean
+  isDeleted: boolean
+  deletedAt: Date | null
   onboardingComplete: boolean
   suspendedUntil: Date | null
   dob: Date | null
@@ -417,6 +438,9 @@ export type UserWhereInput = {
   aiAssessmentUpdatedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   role?: Prisma.StringFilter<"User"> | string
   isExhibition?: Prisma.BoolFilter<"User"> | boolean
+  hideFromLeaderboard?: Prisma.BoolFilter<"User"> | boolean
+  isDeleted?: Prisma.BoolFilter<"User"> | boolean
+  deletedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   onboardingComplete?: Prisma.BoolFilter<"User"> | boolean
   suspendedUntil?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   dob?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
@@ -440,6 +464,7 @@ export type UserWhereInput = {
   following?: Prisma.FollowListRelationFilter
   followers?: Prisma.FollowListRelationFilter
   pushSubscriptions?: Prisma.PushSubscriptionListRelationFilter
+  passwordResetTokens?: Prisma.PasswordResetTokenListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -462,6 +487,9 @@ export type UserOrderByWithRelationInput = {
   aiAssessmentUpdatedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   role?: Prisma.SortOrder
   isExhibition?: Prisma.SortOrder
+  hideFromLeaderboard?: Prisma.SortOrder
+  isDeleted?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   onboardingComplete?: Prisma.SortOrder
   suspendedUntil?: Prisma.SortOrderInput | Prisma.SortOrder
   dob?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -485,6 +513,7 @@ export type UserOrderByWithRelationInput = {
   following?: Prisma.FollowOrderByRelationAggregateInput
   followers?: Prisma.FollowOrderByRelationAggregateInput
   pushSubscriptions?: Prisma.PushSubscriptionOrderByRelationAggregateInput
+  passwordResetTokens?: Prisma.PasswordResetTokenOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -510,6 +539,9 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   aiAssessmentUpdatedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   role?: Prisma.StringFilter<"User"> | string
   isExhibition?: Prisma.BoolFilter<"User"> | boolean
+  hideFromLeaderboard?: Prisma.BoolFilter<"User"> | boolean
+  isDeleted?: Prisma.BoolFilter<"User"> | boolean
+  deletedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   onboardingComplete?: Prisma.BoolFilter<"User"> | boolean
   suspendedUntil?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   dob?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
@@ -533,6 +565,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   following?: Prisma.FollowListRelationFilter
   followers?: Prisma.FollowListRelationFilter
   pushSubscriptions?: Prisma.PushSubscriptionListRelationFilter
+  passwordResetTokens?: Prisma.PasswordResetTokenListRelationFilter
 }, "id" | "email" | "username">
 
 export type UserOrderByWithAggregationInput = {
@@ -555,6 +588,9 @@ export type UserOrderByWithAggregationInput = {
   aiAssessmentUpdatedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   role?: Prisma.SortOrder
   isExhibition?: Prisma.SortOrder
+  hideFromLeaderboard?: Prisma.SortOrder
+  isDeleted?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   onboardingComplete?: Prisma.SortOrder
   suspendedUntil?: Prisma.SortOrderInput | Prisma.SortOrder
   dob?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -596,6 +632,9 @@ export type UserScalarWhereWithAggregatesInput = {
   aiAssessmentUpdatedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   role?: Prisma.StringWithAggregatesFilter<"User"> | string
   isExhibition?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
+  hideFromLeaderboard?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
+  isDeleted?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
+  deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   onboardingComplete?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   suspendedUntil?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   dob?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
@@ -629,6 +668,9 @@ export type UserCreateInput = {
   aiAssessmentUpdatedAt?: Date | string | null
   role?: string
   isExhibition?: boolean
+  hideFromLeaderboard?: boolean
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
   onboardingComplete?: boolean
   suspendedUntil?: Date | string | null
   dob?: Date | string | null
@@ -652,6 +694,7 @@ export type UserCreateInput = {
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   pushSubscriptions?: Prisma.PushSubscriptionCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -674,6 +717,9 @@ export type UserUncheckedCreateInput = {
   aiAssessmentUpdatedAt?: Date | string | null
   role?: string
   isExhibition?: boolean
+  hideFromLeaderboard?: boolean
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
   onboardingComplete?: boolean
   suspendedUntil?: Date | string | null
   dob?: Date | string | null
@@ -697,6 +743,7 @@ export type UserUncheckedCreateInput = {
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   pushSubscriptions?: Prisma.PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -719,6 +766,9 @@ export type UserUpdateInput = {
   aiAssessmentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingComplete?: Prisma.BoolFieldUpdateOperationsInput | boolean
   suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   dob?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -742,6 +792,7 @@ export type UserUpdateInput = {
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   pushSubscriptions?: Prisma.PushSubscriptionUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -764,6 +815,9 @@ export type UserUncheckedUpdateInput = {
   aiAssessmentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingComplete?: Prisma.BoolFieldUpdateOperationsInput | boolean
   suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   dob?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -787,6 +841,7 @@ export type UserUncheckedUpdateInput = {
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   pushSubscriptions?: Prisma.PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -809,6 +864,9 @@ export type UserCreateManyInput = {
   aiAssessmentUpdatedAt?: Date | string | null
   role?: string
   isExhibition?: boolean
+  hideFromLeaderboard?: boolean
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
   onboardingComplete?: boolean
   suspendedUntil?: Date | string | null
   dob?: Date | string | null
@@ -842,6 +900,9 @@ export type UserUpdateManyMutationInput = {
   aiAssessmentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingComplete?: Prisma.BoolFieldUpdateOperationsInput | boolean
   suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   dob?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -875,6 +936,9 @@ export type UserUncheckedUpdateManyInput = {
   aiAssessmentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingComplete?: Prisma.BoolFieldUpdateOperationsInput | boolean
   suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   dob?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -913,6 +977,9 @@ export type UserCountOrderByAggregateInput = {
   aiAssessmentUpdatedAt?: Prisma.SortOrder
   role?: Prisma.SortOrder
   isExhibition?: Prisma.SortOrder
+  hideFromLeaderboard?: Prisma.SortOrder
+  isDeleted?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
   onboardingComplete?: Prisma.SortOrder
   suspendedUntil?: Prisma.SortOrder
   dob?: Prisma.SortOrder
@@ -953,6 +1020,9 @@ export type UserMaxOrderByAggregateInput = {
   aiAssessmentUpdatedAt?: Prisma.SortOrder
   role?: Prisma.SortOrder
   isExhibition?: Prisma.SortOrder
+  hideFromLeaderboard?: Prisma.SortOrder
+  isDeleted?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
   onboardingComplete?: Prisma.SortOrder
   suspendedUntil?: Prisma.SortOrder
   dob?: Prisma.SortOrder
@@ -986,6 +1056,9 @@ export type UserMinOrderByAggregateInput = {
   aiAssessmentUpdatedAt?: Prisma.SortOrder
   role?: Prisma.SortOrder
   isExhibition?: Prisma.SortOrder
+  hideFromLeaderboard?: Prisma.SortOrder
+  isDeleted?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
   onboardingComplete?: Prisma.SortOrder
   suspendedUntil?: Prisma.SortOrder
   dob?: Prisma.SortOrder
@@ -1197,6 +1270,20 @@ export type UserUpdateOneRequiredWithoutPushSubscriptionsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutPushSubscriptionsInput, Prisma.UserUpdateWithoutPushSubscriptionsInput>, Prisma.UserUncheckedUpdateWithoutPushSubscriptionsInput>
 }
 
+export type UserCreateNestedOneWithoutPasswordResetTokensInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutPasswordResetTokensInput, Prisma.UserUncheckedCreateWithoutPasswordResetTokensInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPasswordResetTokensInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutPasswordResetTokensNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutPasswordResetTokensInput, Prisma.UserUncheckedCreateWithoutPasswordResetTokensInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPasswordResetTokensInput
+  upsert?: Prisma.UserUpsertWithoutPasswordResetTokensInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutPasswordResetTokensInput, Prisma.UserUpdateWithoutPasswordResetTokensInput>, Prisma.UserUncheckedUpdateWithoutPasswordResetTokensInput>
+}
+
 export type UserCreateWithoutAccountsInput = {
   id?: string
   email: string
@@ -1217,6 +1304,9 @@ export type UserCreateWithoutAccountsInput = {
   aiAssessmentUpdatedAt?: Date | string | null
   role?: string
   isExhibition?: boolean
+  hideFromLeaderboard?: boolean
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
   onboardingComplete?: boolean
   suspendedUntil?: Date | string | null
   dob?: Date | string | null
@@ -1239,6 +1329,7 @@ export type UserCreateWithoutAccountsInput = {
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   pushSubscriptions?: Prisma.PushSubscriptionCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAccountsInput = {
@@ -1261,6 +1352,9 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   aiAssessmentUpdatedAt?: Date | string | null
   role?: string
   isExhibition?: boolean
+  hideFromLeaderboard?: boolean
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
   onboardingComplete?: boolean
   suspendedUntil?: Date | string | null
   dob?: Date | string | null
@@ -1283,6 +1377,7 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   pushSubscriptions?: Prisma.PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAccountsInput = {
@@ -1321,6 +1416,9 @@ export type UserUpdateWithoutAccountsInput = {
   aiAssessmentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingComplete?: Prisma.BoolFieldUpdateOperationsInput | boolean
   suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   dob?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1343,6 +1441,7 @@ export type UserUpdateWithoutAccountsInput = {
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   pushSubscriptions?: Prisma.PushSubscriptionUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -1365,6 +1464,9 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   aiAssessmentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingComplete?: Prisma.BoolFieldUpdateOperationsInput | boolean
   suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   dob?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1387,6 +1489,7 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   pushSubscriptions?: Prisma.PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSessionsInput = {
@@ -1409,6 +1512,9 @@ export type UserCreateWithoutSessionsInput = {
   aiAssessmentUpdatedAt?: Date | string | null
   role?: string
   isExhibition?: boolean
+  hideFromLeaderboard?: boolean
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
   onboardingComplete?: boolean
   suspendedUntil?: Date | string | null
   dob?: Date | string | null
@@ -1431,6 +1537,7 @@ export type UserCreateWithoutSessionsInput = {
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   pushSubscriptions?: Prisma.PushSubscriptionCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSessionsInput = {
@@ -1453,6 +1560,9 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   aiAssessmentUpdatedAt?: Date | string | null
   role?: string
   isExhibition?: boolean
+  hideFromLeaderboard?: boolean
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
   onboardingComplete?: boolean
   suspendedUntil?: Date | string | null
   dob?: Date | string | null
@@ -1475,6 +1585,7 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   pushSubscriptions?: Prisma.PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSessionsInput = {
@@ -1513,6 +1624,9 @@ export type UserUpdateWithoutSessionsInput = {
   aiAssessmentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingComplete?: Prisma.BoolFieldUpdateOperationsInput | boolean
   suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   dob?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1535,6 +1649,7 @@ export type UserUpdateWithoutSessionsInput = {
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   pushSubscriptions?: Prisma.PushSubscriptionUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -1557,6 +1672,9 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   aiAssessmentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingComplete?: Prisma.BoolFieldUpdateOperationsInput | boolean
   suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   dob?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1579,6 +1697,7 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   pushSubscriptions?: Prisma.PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutFollowingInput = {
@@ -1601,6 +1720,9 @@ export type UserCreateWithoutFollowingInput = {
   aiAssessmentUpdatedAt?: Date | string | null
   role?: string
   isExhibition?: boolean
+  hideFromLeaderboard?: boolean
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
   onboardingComplete?: boolean
   suspendedUntil?: Date | string | null
   dob?: Date | string | null
@@ -1623,6 +1745,7 @@ export type UserCreateWithoutFollowingInput = {
   joinRequests?: Prisma.JoinRequestCreateNestedManyWithoutUserInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   pushSubscriptions?: Prisma.PushSubscriptionCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutFollowingInput = {
@@ -1645,6 +1768,9 @@ export type UserUncheckedCreateWithoutFollowingInput = {
   aiAssessmentUpdatedAt?: Date | string | null
   role?: string
   isExhibition?: boolean
+  hideFromLeaderboard?: boolean
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
   onboardingComplete?: boolean
   suspendedUntil?: Date | string | null
   dob?: Date | string | null
@@ -1667,6 +1793,7 @@ export type UserUncheckedCreateWithoutFollowingInput = {
   joinRequests?: Prisma.JoinRequestUncheckedCreateNestedManyWithoutUserInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   pushSubscriptions?: Prisma.PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutFollowingInput = {
@@ -1694,6 +1821,9 @@ export type UserCreateWithoutFollowersInput = {
   aiAssessmentUpdatedAt?: Date | string | null
   role?: string
   isExhibition?: boolean
+  hideFromLeaderboard?: boolean
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
   onboardingComplete?: boolean
   suspendedUntil?: Date | string | null
   dob?: Date | string | null
@@ -1716,6 +1846,7 @@ export type UserCreateWithoutFollowersInput = {
   joinRequests?: Prisma.JoinRequestCreateNestedManyWithoutUserInput
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   pushSubscriptions?: Prisma.PushSubscriptionCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutFollowersInput = {
@@ -1738,6 +1869,9 @@ export type UserUncheckedCreateWithoutFollowersInput = {
   aiAssessmentUpdatedAt?: Date | string | null
   role?: string
   isExhibition?: boolean
+  hideFromLeaderboard?: boolean
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
   onboardingComplete?: boolean
   suspendedUntil?: Date | string | null
   dob?: Date | string | null
@@ -1760,6 +1894,7 @@ export type UserUncheckedCreateWithoutFollowersInput = {
   joinRequests?: Prisma.JoinRequestUncheckedCreateNestedManyWithoutUserInput
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   pushSubscriptions?: Prisma.PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutFollowersInput = {
@@ -1798,6 +1933,9 @@ export type UserUpdateWithoutFollowingInput = {
   aiAssessmentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingComplete?: Prisma.BoolFieldUpdateOperationsInput | boolean
   suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   dob?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1820,6 +1958,7 @@ export type UserUpdateWithoutFollowingInput = {
   joinRequests?: Prisma.JoinRequestUpdateManyWithoutUserNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   pushSubscriptions?: Prisma.PushSubscriptionUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutFollowingInput = {
@@ -1842,6 +1981,9 @@ export type UserUncheckedUpdateWithoutFollowingInput = {
   aiAssessmentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingComplete?: Prisma.BoolFieldUpdateOperationsInput | boolean
   suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   dob?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1864,6 +2006,7 @@ export type UserUncheckedUpdateWithoutFollowingInput = {
   joinRequests?: Prisma.JoinRequestUncheckedUpdateManyWithoutUserNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   pushSubscriptions?: Prisma.PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutFollowersInput = {
@@ -1897,6 +2040,9 @@ export type UserUpdateWithoutFollowersInput = {
   aiAssessmentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingComplete?: Prisma.BoolFieldUpdateOperationsInput | boolean
   suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   dob?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1919,6 +2065,7 @@ export type UserUpdateWithoutFollowersInput = {
   joinRequests?: Prisma.JoinRequestUpdateManyWithoutUserNestedInput
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   pushSubscriptions?: Prisma.PushSubscriptionUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutFollowersInput = {
@@ -1941,6 +2088,9 @@ export type UserUncheckedUpdateWithoutFollowersInput = {
   aiAssessmentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingComplete?: Prisma.BoolFieldUpdateOperationsInput | boolean
   suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   dob?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1963,6 +2113,7 @@ export type UserUncheckedUpdateWithoutFollowersInput = {
   joinRequests?: Prisma.JoinRequestUncheckedUpdateManyWithoutUserNestedInput
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   pushSubscriptions?: Prisma.PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutFavCategoriesInput = {
@@ -1985,6 +2136,9 @@ export type UserCreateWithoutFavCategoriesInput = {
   aiAssessmentUpdatedAt?: Date | string | null
   role?: string
   isExhibition?: boolean
+  hideFromLeaderboard?: boolean
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
   onboardingComplete?: boolean
   suspendedUntil?: Date | string | null
   dob?: Date | string | null
@@ -2007,6 +2161,7 @@ export type UserCreateWithoutFavCategoriesInput = {
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   pushSubscriptions?: Prisma.PushSubscriptionCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutFavCategoriesInput = {
@@ -2029,6 +2184,9 @@ export type UserUncheckedCreateWithoutFavCategoriesInput = {
   aiAssessmentUpdatedAt?: Date | string | null
   role?: string
   isExhibition?: boolean
+  hideFromLeaderboard?: boolean
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
   onboardingComplete?: boolean
   suspendedUntil?: Date | string | null
   dob?: Date | string | null
@@ -2051,6 +2209,7 @@ export type UserUncheckedCreateWithoutFavCategoriesInput = {
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   pushSubscriptions?: Prisma.PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutFavCategoriesInput = {
@@ -2089,6 +2248,9 @@ export type UserUpdateWithoutFavCategoriesInput = {
   aiAssessmentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingComplete?: Prisma.BoolFieldUpdateOperationsInput | boolean
   suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   dob?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2111,6 +2273,7 @@ export type UserUpdateWithoutFavCategoriesInput = {
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   pushSubscriptions?: Prisma.PushSubscriptionUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutFavCategoriesInput = {
@@ -2133,6 +2296,9 @@ export type UserUncheckedUpdateWithoutFavCategoriesInput = {
   aiAssessmentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingComplete?: Prisma.BoolFieldUpdateOperationsInput | boolean
   suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   dob?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2155,6 +2321,7 @@ export type UserUncheckedUpdateWithoutFavCategoriesInput = {
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   pushSubscriptions?: Prisma.PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutChallengesSentInput = {
@@ -2177,6 +2344,9 @@ export type UserCreateWithoutChallengesSentInput = {
   aiAssessmentUpdatedAt?: Date | string | null
   role?: string
   isExhibition?: boolean
+  hideFromLeaderboard?: boolean
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
   onboardingComplete?: boolean
   suspendedUntil?: Date | string | null
   dob?: Date | string | null
@@ -2199,6 +2369,7 @@ export type UserCreateWithoutChallengesSentInput = {
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   pushSubscriptions?: Prisma.PushSubscriptionCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutChallengesSentInput = {
@@ -2221,6 +2392,9 @@ export type UserUncheckedCreateWithoutChallengesSentInput = {
   aiAssessmentUpdatedAt?: Date | string | null
   role?: string
   isExhibition?: boolean
+  hideFromLeaderboard?: boolean
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
   onboardingComplete?: boolean
   suspendedUntil?: Date | string | null
   dob?: Date | string | null
@@ -2243,6 +2417,7 @@ export type UserUncheckedCreateWithoutChallengesSentInput = {
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   pushSubscriptions?: Prisma.PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutChallengesSentInput = {
@@ -2270,6 +2445,9 @@ export type UserCreateWithoutChallengesReceivedInput = {
   aiAssessmentUpdatedAt?: Date | string | null
   role?: string
   isExhibition?: boolean
+  hideFromLeaderboard?: boolean
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
   onboardingComplete?: boolean
   suspendedUntil?: Date | string | null
   dob?: Date | string | null
@@ -2292,6 +2470,7 @@ export type UserCreateWithoutChallengesReceivedInput = {
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   pushSubscriptions?: Prisma.PushSubscriptionCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutChallengesReceivedInput = {
@@ -2314,6 +2493,9 @@ export type UserUncheckedCreateWithoutChallengesReceivedInput = {
   aiAssessmentUpdatedAt?: Date | string | null
   role?: string
   isExhibition?: boolean
+  hideFromLeaderboard?: boolean
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
   onboardingComplete?: boolean
   suspendedUntil?: Date | string | null
   dob?: Date | string | null
@@ -2336,6 +2518,7 @@ export type UserUncheckedCreateWithoutChallengesReceivedInput = {
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   pushSubscriptions?: Prisma.PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutChallengesReceivedInput = {
@@ -2374,6 +2557,9 @@ export type UserUpdateWithoutChallengesSentInput = {
   aiAssessmentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingComplete?: Prisma.BoolFieldUpdateOperationsInput | boolean
   suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   dob?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2396,6 +2582,7 @@ export type UserUpdateWithoutChallengesSentInput = {
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   pushSubscriptions?: Prisma.PushSubscriptionUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutChallengesSentInput = {
@@ -2418,6 +2605,9 @@ export type UserUncheckedUpdateWithoutChallengesSentInput = {
   aiAssessmentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingComplete?: Prisma.BoolFieldUpdateOperationsInput | boolean
   suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   dob?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2440,6 +2630,7 @@ export type UserUncheckedUpdateWithoutChallengesSentInput = {
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   pushSubscriptions?: Prisma.PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutChallengesReceivedInput = {
@@ -2473,6 +2664,9 @@ export type UserUpdateWithoutChallengesReceivedInput = {
   aiAssessmentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingComplete?: Prisma.BoolFieldUpdateOperationsInput | boolean
   suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   dob?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2495,6 +2689,7 @@ export type UserUpdateWithoutChallengesReceivedInput = {
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   pushSubscriptions?: Prisma.PushSubscriptionUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutChallengesReceivedInput = {
@@ -2517,6 +2712,9 @@ export type UserUncheckedUpdateWithoutChallengesReceivedInput = {
   aiAssessmentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingComplete?: Prisma.BoolFieldUpdateOperationsInput | boolean
   suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   dob?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2539,6 +2737,7 @@ export type UserUncheckedUpdateWithoutChallengesReceivedInput = {
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   pushSubscriptions?: Prisma.PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutJoinRequestsInput = {
@@ -2561,6 +2760,9 @@ export type UserCreateWithoutJoinRequestsInput = {
   aiAssessmentUpdatedAt?: Date | string | null
   role?: string
   isExhibition?: boolean
+  hideFromLeaderboard?: boolean
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
   onboardingComplete?: boolean
   suspendedUntil?: Date | string | null
   dob?: Date | string | null
@@ -2583,6 +2785,7 @@ export type UserCreateWithoutJoinRequestsInput = {
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   pushSubscriptions?: Prisma.PushSubscriptionCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutJoinRequestsInput = {
@@ -2605,6 +2808,9 @@ export type UserUncheckedCreateWithoutJoinRequestsInput = {
   aiAssessmentUpdatedAt?: Date | string | null
   role?: string
   isExhibition?: boolean
+  hideFromLeaderboard?: boolean
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
   onboardingComplete?: boolean
   suspendedUntil?: Date | string | null
   dob?: Date | string | null
@@ -2627,6 +2833,7 @@ export type UserUncheckedCreateWithoutJoinRequestsInput = {
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   pushSubscriptions?: Prisma.PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutJoinRequestsInput = {
@@ -2665,6 +2872,9 @@ export type UserUpdateWithoutJoinRequestsInput = {
   aiAssessmentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingComplete?: Prisma.BoolFieldUpdateOperationsInput | boolean
   suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   dob?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2687,6 +2897,7 @@ export type UserUpdateWithoutJoinRequestsInput = {
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   pushSubscriptions?: Prisma.PushSubscriptionUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutJoinRequestsInput = {
@@ -2709,6 +2920,9 @@ export type UserUncheckedUpdateWithoutJoinRequestsInput = {
   aiAssessmentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingComplete?: Prisma.BoolFieldUpdateOperationsInput | boolean
   suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   dob?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2731,6 +2945,7 @@ export type UserUncheckedUpdateWithoutJoinRequestsInput = {
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   pushSubscriptions?: Prisma.PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutDebaterAInput = {
@@ -2753,6 +2968,9 @@ export type UserCreateWithoutDebaterAInput = {
   aiAssessmentUpdatedAt?: Date | string | null
   role?: string
   isExhibition?: boolean
+  hideFromLeaderboard?: boolean
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
   onboardingComplete?: boolean
   suspendedUntil?: Date | string | null
   dob?: Date | string | null
@@ -2775,6 +2993,7 @@ export type UserCreateWithoutDebaterAInput = {
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   pushSubscriptions?: Prisma.PushSubscriptionCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutDebaterAInput = {
@@ -2797,6 +3016,9 @@ export type UserUncheckedCreateWithoutDebaterAInput = {
   aiAssessmentUpdatedAt?: Date | string | null
   role?: string
   isExhibition?: boolean
+  hideFromLeaderboard?: boolean
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
   onboardingComplete?: boolean
   suspendedUntil?: Date | string | null
   dob?: Date | string | null
@@ -2819,6 +3041,7 @@ export type UserUncheckedCreateWithoutDebaterAInput = {
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   pushSubscriptions?: Prisma.PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutDebaterAInput = {
@@ -2846,6 +3069,9 @@ export type UserCreateWithoutDebaterBInput = {
   aiAssessmentUpdatedAt?: Date | string | null
   role?: string
   isExhibition?: boolean
+  hideFromLeaderboard?: boolean
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
   onboardingComplete?: boolean
   suspendedUntil?: Date | string | null
   dob?: Date | string | null
@@ -2868,6 +3094,7 @@ export type UserCreateWithoutDebaterBInput = {
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   pushSubscriptions?: Prisma.PushSubscriptionCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutDebaterBInput = {
@@ -2890,6 +3117,9 @@ export type UserUncheckedCreateWithoutDebaterBInput = {
   aiAssessmentUpdatedAt?: Date | string | null
   role?: string
   isExhibition?: boolean
+  hideFromLeaderboard?: boolean
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
   onboardingComplete?: boolean
   suspendedUntil?: Date | string | null
   dob?: Date | string | null
@@ -2912,6 +3142,7 @@ export type UserUncheckedCreateWithoutDebaterBInput = {
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   pushSubscriptions?: Prisma.PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutDebaterBInput = {
@@ -2950,6 +3181,9 @@ export type UserUpdateWithoutDebaterAInput = {
   aiAssessmentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingComplete?: Prisma.BoolFieldUpdateOperationsInput | boolean
   suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   dob?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2972,6 +3206,7 @@ export type UserUpdateWithoutDebaterAInput = {
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   pushSubscriptions?: Prisma.PushSubscriptionUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDebaterAInput = {
@@ -2994,6 +3229,9 @@ export type UserUncheckedUpdateWithoutDebaterAInput = {
   aiAssessmentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingComplete?: Prisma.BoolFieldUpdateOperationsInput | boolean
   suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   dob?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3016,6 +3254,7 @@ export type UserUncheckedUpdateWithoutDebaterAInput = {
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   pushSubscriptions?: Prisma.PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutDebaterBInput = {
@@ -3049,6 +3288,9 @@ export type UserUpdateWithoutDebaterBInput = {
   aiAssessmentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingComplete?: Prisma.BoolFieldUpdateOperationsInput | boolean
   suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   dob?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3071,6 +3313,7 @@ export type UserUpdateWithoutDebaterBInput = {
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   pushSubscriptions?: Prisma.PushSubscriptionUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDebaterBInput = {
@@ -3093,6 +3336,9 @@ export type UserUncheckedUpdateWithoutDebaterBInput = {
   aiAssessmentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingComplete?: Prisma.BoolFieldUpdateOperationsInput | boolean
   suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   dob?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3115,6 +3361,7 @@ export type UserUncheckedUpdateWithoutDebaterBInput = {
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   pushSubscriptions?: Prisma.PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutNotificationsInput = {
@@ -3137,6 +3384,9 @@ export type UserCreateWithoutNotificationsInput = {
   aiAssessmentUpdatedAt?: Date | string | null
   role?: string
   isExhibition?: boolean
+  hideFromLeaderboard?: boolean
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
   onboardingComplete?: boolean
   suspendedUntil?: Date | string | null
   dob?: Date | string | null
@@ -3159,6 +3409,7 @@ export type UserCreateWithoutNotificationsInput = {
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   pushSubscriptions?: Prisma.PushSubscriptionCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -3181,6 +3432,9 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   aiAssessmentUpdatedAt?: Date | string | null
   role?: string
   isExhibition?: boolean
+  hideFromLeaderboard?: boolean
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
   onboardingComplete?: boolean
   suspendedUntil?: Date | string | null
   dob?: Date | string | null
@@ -3203,6 +3457,7 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   pushSubscriptions?: Prisma.PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -3241,6 +3496,9 @@ export type UserUpdateWithoutNotificationsInput = {
   aiAssessmentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingComplete?: Prisma.BoolFieldUpdateOperationsInput | boolean
   suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   dob?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3263,6 +3521,7 @@ export type UserUpdateWithoutNotificationsInput = {
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   pushSubscriptions?: Prisma.PushSubscriptionUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -3285,6 +3544,9 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   aiAssessmentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingComplete?: Prisma.BoolFieldUpdateOperationsInput | boolean
   suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   dob?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3307,6 +3569,7 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   pushSubscriptions?: Prisma.PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutPushSubscriptionsInput = {
@@ -3329,6 +3592,9 @@ export type UserCreateWithoutPushSubscriptionsInput = {
   aiAssessmentUpdatedAt?: Date | string | null
   role?: string
   isExhibition?: boolean
+  hideFromLeaderboard?: boolean
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
   onboardingComplete?: boolean
   suspendedUntil?: Date | string | null
   dob?: Date | string | null
@@ -3351,6 +3617,7 @@ export type UserCreateWithoutPushSubscriptionsInput = {
   joinRequests?: Prisma.JoinRequestCreateNestedManyWithoutUserInput
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPushSubscriptionsInput = {
@@ -3373,6 +3640,9 @@ export type UserUncheckedCreateWithoutPushSubscriptionsInput = {
   aiAssessmentUpdatedAt?: Date | string | null
   role?: string
   isExhibition?: boolean
+  hideFromLeaderboard?: boolean
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
   onboardingComplete?: boolean
   suspendedUntil?: Date | string | null
   dob?: Date | string | null
@@ -3395,6 +3665,7 @@ export type UserUncheckedCreateWithoutPushSubscriptionsInput = {
   joinRequests?: Prisma.JoinRequestUncheckedCreateNestedManyWithoutUserInput
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPushSubscriptionsInput = {
@@ -3433,6 +3704,9 @@ export type UserUpdateWithoutPushSubscriptionsInput = {
   aiAssessmentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingComplete?: Prisma.BoolFieldUpdateOperationsInput | boolean
   suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   dob?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3455,6 +3729,7 @@ export type UserUpdateWithoutPushSubscriptionsInput = {
   joinRequests?: Prisma.JoinRequestUpdateManyWithoutUserNestedInput
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPushSubscriptionsInput = {
@@ -3477,6 +3752,9 @@ export type UserUncheckedUpdateWithoutPushSubscriptionsInput = {
   aiAssessmentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   onboardingComplete?: Prisma.BoolFieldUpdateOperationsInput | boolean
   suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   dob?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -3499,6 +3777,215 @@ export type UserUncheckedUpdateWithoutPushSubscriptionsInput = {
   joinRequests?: Prisma.JoinRequestUncheckedUpdateManyWithoutUserNestedInput
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutPasswordResetTokensInput = {
+  id?: string
+  email: string
+  emailVerified?: Date | string | null
+  username: string
+  hashedPassword?: string | null
+  bio?: string | null
+  avatarUrl?: string | null
+  country?: string | null
+  twitterHandle?: string | null
+  threadsHandle?: string | null
+  truthSocialHandle?: string | null
+  blueskyHandle?: string | null
+  mastodonHandle?: string | null
+  websiteUrl?: string | null
+  lastUsernameChange?: Date | string | null
+  aiAssessment?: string | null
+  aiAssessmentUpdatedAt?: Date | string | null
+  role?: string
+  isExhibition?: boolean
+  hideFromLeaderboard?: boolean
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
+  onboardingComplete?: boolean
+  suspendedUntil?: Date | string | null
+  dob?: Date | string | null
+  gender?: string | null
+  region?: string | null
+  elo?: number
+  rankedDebatesPlayed?: number
+  wins?: number
+  losses?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  favCategories?: Prisma.UserFavoriteCategoryCreateNestedManyWithoutUserInput
+  debaterA?: Prisma.DebateCreateNestedManyWithoutDebaterAInput
+  debaterB?: Prisma.DebateCreateNestedManyWithoutDebaterBInput
+  challengesSent?: Prisma.ChallengeCreateNestedManyWithoutCreatorInput
+  challengesReceived?: Prisma.ChallengeCreateNestedManyWithoutTargetInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  joinRequests?: Prisma.JoinRequestCreateNestedManyWithoutUserInput
+  following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
+  followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
+  pushSubscriptions?: Prisma.PushSubscriptionCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutPasswordResetTokensInput = {
+  id?: string
+  email: string
+  emailVerified?: Date | string | null
+  username: string
+  hashedPassword?: string | null
+  bio?: string | null
+  avatarUrl?: string | null
+  country?: string | null
+  twitterHandle?: string | null
+  threadsHandle?: string | null
+  truthSocialHandle?: string | null
+  blueskyHandle?: string | null
+  mastodonHandle?: string | null
+  websiteUrl?: string | null
+  lastUsernameChange?: Date | string | null
+  aiAssessment?: string | null
+  aiAssessmentUpdatedAt?: Date | string | null
+  role?: string
+  isExhibition?: boolean
+  hideFromLeaderboard?: boolean
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
+  onboardingComplete?: boolean
+  suspendedUntil?: Date | string | null
+  dob?: Date | string | null
+  gender?: string | null
+  region?: string | null
+  elo?: number
+  rankedDebatesPlayed?: number
+  wins?: number
+  losses?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  favCategories?: Prisma.UserFavoriteCategoryUncheckedCreateNestedManyWithoutUserInput
+  debaterA?: Prisma.DebateUncheckedCreateNestedManyWithoutDebaterAInput
+  debaterB?: Prisma.DebateUncheckedCreateNestedManyWithoutDebaterBInput
+  challengesSent?: Prisma.ChallengeUncheckedCreateNestedManyWithoutCreatorInput
+  challengesReceived?: Prisma.ChallengeUncheckedCreateNestedManyWithoutTargetInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  joinRequests?: Prisma.JoinRequestUncheckedCreateNestedManyWithoutUserInput
+  following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
+  followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
+  pushSubscriptions?: Prisma.PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutPasswordResetTokensInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutPasswordResetTokensInput, Prisma.UserUncheckedCreateWithoutPasswordResetTokensInput>
+}
+
+export type UserUpsertWithoutPasswordResetTokensInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutPasswordResetTokensInput, Prisma.UserUncheckedUpdateWithoutPasswordResetTokensInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutPasswordResetTokensInput, Prisma.UserUncheckedCreateWithoutPasswordResetTokensInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutPasswordResetTokensInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutPasswordResetTokensInput, Prisma.UserUncheckedUpdateWithoutPasswordResetTokensInput>
+}
+
+export type UserUpdateWithoutPasswordResetTokensInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  hashedPassword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  twitterHandle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  threadsHandle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  truthSocialHandle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  blueskyHandle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mastodonHandle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  websiteUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastUsernameChange?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiAssessment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiAssessmentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  role?: Prisma.StringFieldUpdateOperationsInput | string
+  isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  onboardingComplete?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dob?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  elo?: Prisma.IntFieldUpdateOperationsInput | number
+  rankedDebatesPlayed?: Prisma.IntFieldUpdateOperationsInput | number
+  wins?: Prisma.IntFieldUpdateOperationsInput | number
+  losses?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  favCategories?: Prisma.UserFavoriteCategoryUpdateManyWithoutUserNestedInput
+  debaterA?: Prisma.DebateUpdateManyWithoutDebaterANestedInput
+  debaterB?: Prisma.DebateUpdateManyWithoutDebaterBNestedInput
+  challengesSent?: Prisma.ChallengeUpdateManyWithoutCreatorNestedInput
+  challengesReceived?: Prisma.ChallengeUpdateManyWithoutTargetNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  joinRequests?: Prisma.JoinRequestUpdateManyWithoutUserNestedInput
+  following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
+  followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
+  pushSubscriptions?: Prisma.PushSubscriptionUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutPasswordResetTokensInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  hashedPassword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  twitterHandle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  threadsHandle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  truthSocialHandle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  blueskyHandle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mastodonHandle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  websiteUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastUsernameChange?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiAssessment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiAssessmentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  role?: Prisma.StringFieldUpdateOperationsInput | string
+  isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  onboardingComplete?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dob?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  elo?: Prisma.IntFieldUpdateOperationsInput | number
+  rankedDebatesPlayed?: Prisma.IntFieldUpdateOperationsInput | number
+  wins?: Prisma.IntFieldUpdateOperationsInput | number
+  losses?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  favCategories?: Prisma.UserFavoriteCategoryUncheckedUpdateManyWithoutUserNestedInput
+  debaterA?: Prisma.DebateUncheckedUpdateManyWithoutDebaterANestedInput
+  debaterB?: Prisma.DebateUncheckedUpdateManyWithoutDebaterBNestedInput
+  challengesSent?: Prisma.ChallengeUncheckedUpdateManyWithoutCreatorNestedInput
+  challengesReceived?: Prisma.ChallengeUncheckedUpdateManyWithoutTargetNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  joinRequests?: Prisma.JoinRequestUncheckedUpdateManyWithoutUserNestedInput
+  following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
+  followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
+  pushSubscriptions?: Prisma.PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -3519,6 +4006,7 @@ export type UserCountOutputType = {
   following: number
   followers: number
   pushSubscriptions: number
+  passwordResetTokens: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -3534,6 +4022,7 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   following?: boolean | UserCountOutputTypeCountFollowingArgs
   followers?: boolean | UserCountOutputTypeCountFollowersArgs
   pushSubscriptions?: boolean | UserCountOutputTypeCountPushSubscriptionsArgs
+  passwordResetTokens?: boolean | UserCountOutputTypeCountPasswordResetTokensArgs
 }
 
 /**
@@ -3630,6 +4119,13 @@ export type UserCountOutputTypeCountPushSubscriptionsArgs<ExtArgs extends runtim
   where?: Prisma.PushSubscriptionWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountPasswordResetTokensArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PasswordResetTokenWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -3651,6 +4147,9 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   aiAssessmentUpdatedAt?: boolean
   role?: boolean
   isExhibition?: boolean
+  hideFromLeaderboard?: boolean
+  isDeleted?: boolean
+  deletedAt?: boolean
   onboardingComplete?: boolean
   suspendedUntil?: boolean
   dob?: boolean
@@ -3674,6 +4173,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   following?: boolean | Prisma.User$followingArgs<ExtArgs>
   followers?: boolean | Prisma.User$followersArgs<ExtArgs>
   pushSubscriptions?: boolean | Prisma.User$pushSubscriptionsArgs<ExtArgs>
+  passwordResetTokens?: boolean | Prisma.User$passwordResetTokensArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -3697,6 +4197,9 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   aiAssessmentUpdatedAt?: boolean
   role?: boolean
   isExhibition?: boolean
+  hideFromLeaderboard?: boolean
+  isDeleted?: boolean
+  deletedAt?: boolean
   onboardingComplete?: boolean
   suspendedUntil?: boolean
   dob?: boolean
@@ -3730,6 +4233,9 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   aiAssessmentUpdatedAt?: boolean
   role?: boolean
   isExhibition?: boolean
+  hideFromLeaderboard?: boolean
+  isDeleted?: boolean
+  deletedAt?: boolean
   onboardingComplete?: boolean
   suspendedUntil?: boolean
   dob?: boolean
@@ -3763,6 +4269,9 @@ export type UserSelectScalar = {
   aiAssessmentUpdatedAt?: boolean
   role?: boolean
   isExhibition?: boolean
+  hideFromLeaderboard?: boolean
+  isDeleted?: boolean
+  deletedAt?: boolean
   onboardingComplete?: boolean
   suspendedUntil?: boolean
   dob?: boolean
@@ -3776,7 +4285,7 @@ export type UserSelectScalar = {
   updatedAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "emailVerified" | "username" | "hashedPassword" | "bio" | "avatarUrl" | "country" | "twitterHandle" | "threadsHandle" | "truthSocialHandle" | "blueskyHandle" | "mastodonHandle" | "websiteUrl" | "lastUsernameChange" | "aiAssessment" | "aiAssessmentUpdatedAt" | "role" | "isExhibition" | "onboardingComplete" | "suspendedUntil" | "dob" | "gender" | "region" | "elo" | "rankedDebatesPlayed" | "wins" | "losses" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "emailVerified" | "username" | "hashedPassword" | "bio" | "avatarUrl" | "country" | "twitterHandle" | "threadsHandle" | "truthSocialHandle" | "blueskyHandle" | "mastodonHandle" | "websiteUrl" | "lastUsernameChange" | "aiAssessment" | "aiAssessmentUpdatedAt" | "role" | "isExhibition" | "hideFromLeaderboard" | "isDeleted" | "deletedAt" | "onboardingComplete" | "suspendedUntil" | "dob" | "gender" | "region" | "elo" | "rankedDebatesPlayed" | "wins" | "losses" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
@@ -3790,6 +4299,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   following?: boolean | Prisma.User$followingArgs<ExtArgs>
   followers?: boolean | Prisma.User$followersArgs<ExtArgs>
   pushSubscriptions?: boolean | Prisma.User$pushSubscriptionsArgs<ExtArgs>
+  passwordResetTokens?: boolean | Prisma.User$passwordResetTokensArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -3810,6 +4320,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     following: Prisma.$FollowPayload<ExtArgs>[]
     followers: Prisma.$FollowPayload<ExtArgs>[]
     pushSubscriptions: Prisma.$PushSubscriptionPayload<ExtArgs>[]
+    passwordResetTokens: Prisma.$PasswordResetTokenPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -3831,6 +4342,9 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     aiAssessmentUpdatedAt: Date | null
     role: string
     isExhibition: boolean
+    hideFromLeaderboard: boolean
+    isDeleted: boolean
+    deletedAt: Date | null
     onboardingComplete: boolean
     suspendedUntil: Date | null
     dob: Date | null
@@ -4248,6 +4762,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   following<T extends Prisma.User$followingArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$followingArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FollowPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   followers<T extends Prisma.User$followersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$followersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FollowPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   pushSubscriptions<T extends Prisma.User$pushSubscriptionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$pushSubscriptionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PushSubscriptionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  passwordResetTokens<T extends Prisma.User$passwordResetTokensArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$passwordResetTokensArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PasswordResetTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4296,6 +4811,9 @@ export interface UserFieldRefs {
   readonly aiAssessmentUpdatedAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly role: Prisma.FieldRef<"User", 'String'>
   readonly isExhibition: Prisma.FieldRef<"User", 'Boolean'>
+  readonly hideFromLeaderboard: Prisma.FieldRef<"User", 'Boolean'>
+  readonly isDeleted: Prisma.FieldRef<"User", 'Boolean'>
+  readonly deletedAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly onboardingComplete: Prisma.FieldRef<"User", 'Boolean'>
   readonly suspendedUntil: Prisma.FieldRef<"User", 'DateTime'>
   readonly dob: Prisma.FieldRef<"User", 'DateTime'>
@@ -4985,6 +5503,30 @@ export type User$pushSubscriptionsArgs<ExtArgs extends runtime.Types.Extensions.
   take?: number
   skip?: number
   distinct?: Prisma.PushSubscriptionScalarFieldEnum | Prisma.PushSubscriptionScalarFieldEnum[]
+}
+
+/**
+ * User.passwordResetTokens
+ */
+export type User$passwordResetTokensArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PasswordResetToken
+   */
+  select?: Prisma.PasswordResetTokenSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PasswordResetToken
+   */
+  omit?: Prisma.PasswordResetTokenOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PasswordResetTokenInclude<ExtArgs> | null
+  where?: Prisma.PasswordResetTokenWhereInput
+  orderBy?: Prisma.PasswordResetTokenOrderByWithRelationInput | Prisma.PasswordResetTokenOrderByWithRelationInput[]
+  cursor?: Prisma.PasswordResetTokenWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PasswordResetTokenScalarFieldEnum | Prisma.PasswordResetTokenScalarFieldEnum[]
 }
 
 /**
