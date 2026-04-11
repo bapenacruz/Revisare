@@ -13,11 +13,14 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = { title: "My Profile" };
 
-export default async function ProfilePage() {
+export default async function ProfilePage({ searchParams }: { searchParams: Promise<{ tab?: string }> }) {
   const session = await auth();
   if (!session?.user?.id) {
     redirect("/auth/login");
   }
+
+  const { tab } = await searchParams;
+  const defaultTab = ["following", "followers", "assessment", "edit"].includes(tab ?? "") ? tab! : "following";
 
   const [user, categories, followersData, followingData] = await Promise.all([
     db.user.findUnique({
@@ -108,7 +111,7 @@ export default async function ProfilePage() {
 
         {/* Main content */}
         <div className="flex-1">
-          <Tabs defaultTab="following">
+          <Tabs defaultTab={defaultTab}>
             <TabList className="flex-nowrap w-full [&>button]:flex-1 [&>button]:px-1 [&>button]:text-center [&>button]:text-xs">
               <TabTrigger id="following">
                 Following

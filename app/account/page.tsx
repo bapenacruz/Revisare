@@ -118,7 +118,7 @@ export default function AccountPage() {
 
       {/* Menu items */}
       <nav className="py-2">
-        <Link href="/profile" className="flex items-center gap-3 px-6 py-4 text-base text-foreground-muted hover:text-foreground hover:bg-surface-raised transition-colors">
+        <Link href="/profile?tab=edit" className="flex items-center gap-3 px-6 py-4 text-base text-foreground-muted hover:text-foreground hover:bg-surface-raised transition-colors">
           <User size={18} />
           My Profile
         </Link>
