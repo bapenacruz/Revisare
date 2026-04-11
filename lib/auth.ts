@@ -32,10 +32,19 @@ async function uniqueUsername(base: string): Promise<string> {
   return `${base.substring(0, 14)}${Date.now().toString().slice(-6)}`;
 }
 
+const prismaAdapter = PrismaAdapter(db as any);
+
 export const { handlers, auth, signIn, signOut } = NextAuth({
   trustHost: true,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  adapter: PrismaAdapter(db as any),
+  adapter: {
+    ...prismaAdapter,
+    // Override to ensure email lookups are always case-insensitive
+    async getUserByEmail(email: string) {
+      return db.user.findFirst({
+        where: { email: { equals: email, mode: "insensitive" } },
+      }) as any;
+    },
+  },
 
   providers: [
     GoogleProvider({
