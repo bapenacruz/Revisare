@@ -70,7 +70,7 @@ const EXHIBITION_USERS = [
 ];
 
 async function main() {
-  console.log("🌱 Seeding database…");
+  console.log("🌱 Seeding database...");
 
   // Upsert categories
   for (const cat of CATEGORY_SEEDS) {

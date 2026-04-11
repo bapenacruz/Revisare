@@ -127,7 +127,7 @@ export function CommentsSection({ challengeId }: { challengeId: string }) {
           <textarea
             className="w-full p-3 rounded-[--radius] bg-surface-raised border border-border text-foreground placeholder:text-foreground-subtle text-sm resize-none focus:outline-none focus:border-brand transition-colors"
             rows={3}
-            placeholder="Share your thoughts on the debate…"
+            placeholder="Share your thoughts on the debate..."
             value={draft}
             onChange={(e) => setDraft(e.target.value.slice(0, 1000))}
             disabled={posting}

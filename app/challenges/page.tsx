@@ -339,7 +339,7 @@ export default function MyDebatesPage() {
                   )}
                   {(filterFrom || filterTo) && (
                     <span className="flex items-center gap-1 h-6 px-2.5 text-xs rounded-full bg-surface border border-border text-foreground-muted">
-                      {filterFrom || "…"} → {filterTo || "…"}
+                      {filterFrom || "..."} → {filterTo || "..."}
                       <button onClick={() => { setFilterFrom(""); setFilterTo(""); }} className="ml-0.5 opacity-60 hover:opacity-100"><X size={10} /></button>
                     </span>
                   )}

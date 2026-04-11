@@ -4,39 +4,52 @@ import type { DebaterScores, EvidenceCheck, IJudgingProvider, JudgeInput, Single
 function buildVerdictSchema(input: JudgeInput): string {
   const a = input.debaterA.username;
   const b = input.debaterB.username;
-  const scoreBlock = (name: string) => `"${name}_scores": {
-    "factuality": <0–10. MOST IMPORTANT. 0=entirely false claims, 10=every major claim verified by real evidence>,
-    "evidence_quality": <0–10. quality, specificity, and credibility of evidence cited>,
-    "argument_strength": <0–10. logical structure, internal consistency, and relevance to the motion>,
-    "rebuttal_quality": <0–10. how effectively they addressed the opponent's specific claims>,
-    "clarity": <0–10. how clearly they expressed and organised their position>,
-    "persuasiveness": <0–10. overall persuasive impact on a neutral observer>,
-    "final_score": <weighted score: factuality×0.35 + evidence_quality×0.25 + argument_strength×0.15 + rebuttal_quality×0.15 + clarity×0.05 + persuasiveness×0.05. RULE: if factuality<5 cap at 6.0; if factuality<3 cap at 3.0. Round to 1 decimal.>
-  }`;
   return `{
-  "winnerId": "<${input.debaterA.id} or ${input.debaterB.id} — pick the debater with the higher final_score; ties go to the debater with higher factuality>",
-  "summary": "<2-4 sentences. Sharp fact-checker style — no fluff, no emojis. Identify the KEY claims that determined the outcome, state which were unsupported or incorrect, reference evidence by name (e.g. 'Pew Research', 'BLS data', 'IPCC AR6'), and explain why that decided the winner. Use the debaters' exact usernames '${a}' and '${b}' — NEVER 'Debater A', 'Debater B', positional labels, or floating assertions.>",
-  "privateFeedbackA": "<EXACT FORMAT REQUIRED — no deviations, no extra text, no emojis, no unicode. Output ONLY this block for ${a}:\nfactuality: <integer 0-10>\nevidence_quality: <integer 0-10>\nargument_strength: <integer 0-10>\nrebuttal_quality: <integer 0-10>\nclarity: <integer 0-10>\npersuasiveness: <integer 0-10>\n\nMajor Strength: <exactly one sentence — ${a}'s single most effective argument or evidence use>\nMajor Weakness: <exactly one sentence — ${a}'s biggest factual or logical error>\n\nImprovement: <exactly one short actionable sentence — the single most important thing ${a} should improve>>",
-  "privateFeedbackB": "<SAME EXACT FORMAT for ${b}>",
-  ${scoreBlock("debaterA")},
-  ${scoreBlock("debaterB")},
-  "evidenceChecks": [
-    {
-      "debater": "<exact username '${a}' or '${b}'>",
-      "claim": "<specific factual claim, quoted or closely paraphrased from the transcript>",
-      "verdict": "<correct|incorrect|misleading|disputed|unsupported>",
-      "explanation": "<why — cite specific statistics, studies, laws, or verified data. Say 'no clear consensus' rather than inventing a source.>",
-      "source": "<specific citation: e.g. 'IPCC AR6 2021', 'BLS Employment Situation Feb 2025', 'WHO Global TB Report 2023'>",
-      "importance": "<central|supporting|peripheral>"
-    }
-  ]
+  "winner_username": "<${a} or ${b}>",
+  "public_result": {
+    "winner_username": "<${a} or ${b}>",
+    "summary": "<3 to 5 concise sentences explaining why this user won in public-facing language>"
+  },
+  "private_assessment": {
+    "decision_summary": "<short internal summary of why the winner won>",
+    "key_claim_checks": [
+      {
+        "username": "<${a} or ${b}>",
+        "claim": "<specific factual claim from the transcript>",
+        "verdict": "<correct|incorrect|misleading|disputed|unsupported>",
+        "reason": "<short explanation>",
+        "source": "<real source name or credible category if uncertain>"
+      }
+    ],
+    "scores": {
+      "${a}": {
+        "factuality": <0-10 integer>,
+        "evidence_quality": <0-10 integer>,
+        "argument_strength": <0-10 integer>,
+        "rebuttal_quality": <0-10 integer>,
+        "clarity": <0-10 integer>,
+        "persuasiveness": <0-10 integer>,
+        "final_score": <weighted score with factuality dominance rules applied, rounded to 1 decimal>
+      },
+      "${b}": {
+        "factuality": <0-10 integer>,
+        "evidence_quality": <0-10 integer>,
+        "argument_strength": <0-10 integer>,
+        "rebuttal_quality": <0-10 integer>,
+        "clarity": <0-10 integer>,
+        "persuasiveness": <0-10 integer>,
+        "final_score": <weighted score with factuality dominance rules applied, rounded to 1 decimal>
+      }
+    },
+    "winner_reason": "<1 to 2 sentence internal explanation focused on factual accuracy>"
+  }
 }
 
 Requirements:
-- 5–10 total claim checks; at least 2 per debater covering their most important assertions
-- importance="central" means the debater's case meaningfully weakens if this claim is false
-- Do NOT invent sources. If no specific source, write a credible category (e.g. "established climate science consensus")
-- Verdict: correct=confirmed; incorrect=contradicted; misleading=partially true but exaggerated/missing key context; disputed=credible experts genuinely disagree; unsupported=asserted without adequate proof`;
+- Include 3-8 claim checks covering the most important assertions from both debaters
+- Use exact usernames ${a} and ${b}
+- Apply factuality dominance rules: if factuality < 5 cap final_score at 6.0, if factuality < 3 cap at 3.0
+- Choose winner based primarily on factual reliability`;
 }
 
 function buildTranscriptText(input: JudgeInput): string {
@@ -145,46 +158,91 @@ function parseScores(raw: unknown): DebaterScores | undefined {
 function parseVerdict(raw: string, input: JudgeInput): SingleJudgeVerdict {
   const parsed = tryParseJson(raw);
 
-  const validIds = new Set([input.debaterA.id, input.debaterB.id]);
-  const winnerId: string | null =
-    typeof parsed.winnerId === "string" && validIds.has(parsed.winnerId)
-      ? parsed.winnerId
-      : input.debaterA.id;
+  // Map winner_username to winnerId
+  const winnerUsername = parsed.winner_username ?? parsed.public_result?.winner_username;
+  const winnerId: string | null = 
+    winnerUsername === input.debaterA.username ? input.debaterA.id :
+    winnerUsername === input.debaterB.username ? input.debaterB.id :
+    input.debaterA.id; // fallback
 
+  // Extract summary from new format
+  const explanation = String(parsed.public_result?.summary ?? parsed.summary ?? "");
+
+  // Extract evidence checks from new format
   const VALID_VERDICTS = new Set(["correct", "incorrect", "misleading", "disputed", "unsupported"]);
-  const evidenceChecks: EvidenceCheck[] = Array.isArray(parsed.evidenceChecks)
-    ? (parsed.evidenceChecks as Array<Record<string, unknown>>)
+  const evidenceChecks: EvidenceCheck[] = Array.isArray(parsed.private_assessment?.key_claim_checks)
+    ? (parsed.private_assessment.key_claim_checks as Array<Record<string, unknown>>)
         .filter((e) => e && typeof e.claim === "string" && typeof e.verdict === "string")
         .map((e) => ({
-          debater: String(e.debater ?? ""),
+          debater: String(e.username ?? ""),
           claim: String(e.claim ?? ""),
           verdict: (VALID_VERDICTS.has(String(e.verdict)) ? e.verdict : "unsupported") as EvidenceCheck["verdict"],
-          explanation: String(e.explanation ?? ""),
+          explanation: String(e.reason ?? ""),
           source: typeof e.source === "string" && e.source ? e.source : undefined,
-          importance:
-            e.importance === "central" || e.importance === "supporting" || e.importance === "peripheral"
-              ? e.importance
-              : undefined,
+          importance: undefined, // New format doesn't include importance
         }))
     : [];
 
-  // Accept either "summary" (new) or "explanation" (legacy) for the text field
-  const explanation = String(parsed.summary ?? parsed.explanation ?? "");
+  // Extract scores from new nested format
+  const scores = parsed.private_assessment?.scores;
+  const scoresA = parseScoresFromNew(scores?.[input.debaterA.username]);
+  const scoresB = parseScoresFromNew(scores?.[input.debaterB.username]);
+
+  // Generate simple private feedback from winner reason
+  const winnerReason = String(parsed.private_assessment?.winner_reason ?? "");
+  const privateFeedbackA = winnerUsername === input.debaterA.username ? winnerReason : "";
+  const privateFeedbackB = winnerUsername === input.debaterB.username ? winnerReason : "";
 
   return {
     winnerId,
     explanation,
-    privateFeedbackA: String(parsed.privateFeedbackA ?? ""),
-    privateFeedbackB: String(parsed.privateFeedbackB ?? ""),
+    privateFeedbackA,
+    privateFeedbackB,
     evidenceChecks,
-    scoresA: parseScores(parsed.debaterA_scores),
-    scoresB: parseScores(parsed.debaterB_scores),
-    biggestMistakeA: typeof parsed.biggestMistakeA === "string" ? parsed.biggestMistakeA : undefined,
-    biggestAchievementA: typeof parsed.biggestAchievementA === "string" ? parsed.biggestAchievementA : undefined,
-    biggestMistakeB: typeof parsed.biggestMistakeB === "string" ? parsed.biggestMistakeB : undefined,
-    biggestAchievementB: typeof parsed.biggestAchievementB === "string" ? parsed.biggestAchievementB : undefined,
-    improvementA: typeof parsed.improvementA === "string" ? parsed.improvementA : undefined,
-    improvementB: typeof parsed.improvementB === "string" ? parsed.improvementB : undefined,
+    scoresA,
+    scoresB,
+    biggestMistakeA: undefined,
+    biggestAchievementA: undefined,
+    biggestMistakeB: undefined,
+    biggestAchievementB: undefined,
+    improvementA: undefined,
+    improvementB: undefined,
+  };
+}
+
+function parseScoresFromNew(raw: unknown): DebaterScores | undefined {
+  if (!raw || typeof raw !== "object") return undefined;
+  const r = raw as Record<string, unknown>;
+  const n = (k: string, fallback = 5): number => {
+    const v = r[k];
+    return typeof v === "number" ? Math.max(0, Math.min(10, v)) : fallback;
+  };
+  const factuality = n("factuality");
+  const evidence_quality = n("evidence_quality");
+  const argument_strength = n("argument_strength");
+  const rebuttal_quality = n("rebuttal_quality");
+  const clarity = n("clarity");
+  const persuasiveness = n("persuasiveness");
+  
+  // Compute server-side — don't trust model's arithmetic
+  let final_score =
+    factuality * 0.35 +
+    evidence_quality * 0.25 +
+    argument_strength * 0.15 +
+    rebuttal_quality * 0.15 +
+    clarity * 0.05 +
+    persuasiveness * 0.05;
+  if (factuality < 3) final_score = Math.min(final_score, 3);
+  else if (factuality < 5) final_score = Math.min(final_score, 6);
+  
+  return {
+    factuality,
+    evidence_quality,
+    argument_strength,
+    rebuttal_quality,
+    clarity,
+    persuasiveness,
+    final_score: Math.round(final_score * 10) / 10,
   };
 }
 
@@ -243,59 +301,44 @@ async function withRetry<T>(
 function buildJudgingRubric(extra: string): string {
   return `You are an expert debate judge on the platform Arguably. You evaluate a full debate between two participants and produce ONE overall judgment.
 
-## CRITICAL OUTPUT RULES
-- DO NOT include emojis in any field
-- DO NOT include Unicode symbols (e.g. arrow characters, decorative glyphs)
-- Use only plain ASCII text in all fields
-- Keep explanations concise and direct — no fluff
+CRITICAL OUTPUT RULES
+- Return ONLY valid JSON
+- Do not wrap the JSON in markdown
+- Do not include any text before or after the JSON
+- Do not include emojis
+- Use only plain ASCII characters
+- Always use the debaters' real usernames
+- No ties
 
-## PRIMARY RULE
+PRIMARY RULE
 Factual accuracy is the most important factor. A debater cannot win if their argument relies on false, misleading, or unsupported claims. Persuasiveness does NOT override bad facts.
 
-## MANDATORY RULES
+EVALUATION PROCESS
 
-### Names
-Always use the debaters' actual usernames throughout your entire response. NEVER use "Debater A", "Debater B", "A", "B", "Proposition", "Opposition", or any positional label.
+STEP 1 - Identify the key factual or empirical claims from each side.
+STEP 2 - Fact-check those claims using credible real-world knowledge and real source names where possible.
+STEP 3 - Score both debaters from 0 to 10 on:
+- factuality
+- evidence_quality
+- argument_strength
+- rebuttal_quality
+- clarity
+- persuasiveness
 
-### Sources
-Cite real, verifiable sources by name when applying to claim checks: "WHO Global TB Report 2023", "IPCC AR6 2021", "BLS Employment Situation Feb 2025", "IMF World Economic Outlook 2025", "Pew Research", etc. Do NOT invent citations. If genuinely uncertain, write a credible category (e.g., "established macroeconomic consensus") and be clear about the uncertainty.
+STEP 4 - Apply these weights:
+- factuality = 35
+- evidence_quality = 25
+- argument_strength = 15
+- rebuttal_quality = 15
+- clarity = 5
+- persuasiveness = 5
 
-## EVALUATION PROCESS
+CRITICAL SCORING RULES
+- If factuality < 5, cap final_score at 6.0
+- If factuality < 3, automatic loss and cap final_score at 3.0
+- A debater cannot win with false or unsupported core claims
 
-### STEP 1 — IDENTIFY KEY CLAIMS
-Extract the most important factual or empirical claims from each side. Focus on claims that matter to the outcome — not minor details.
-
-### STEP 2 — FACT-CHECK WITH REAL EVIDENCE
-For each important claim, determine if it is:
-- **correct** — confirmed by credible, verifiable evidence
-- **incorrect** — directly contradicted by credible evidence
-- **misleading** — partially true but deceptively framed, missing crucial context, or significantly exaggerated
-- **disputed** — actively contested among credible experts; no clear consensus
-- **unsupported** — asserted without adequate proof; unverifiable or too speculative
-
-Be decisive: if a claim lacks evidence → mark it unsupported; if it exaggerates → misleading; if it is central and wrong → it heavily damages the argument.
-
-### STEP 3 — SCORE EACH DEBATER (0–10 per dimension)
-Score BOTH debaters on:
-- **factuality** (MOST IMPORTANT) — are their major claims actually true?
-- **evidence_quality** — how specific and credible is the evidence they cited?
-- **argument_strength** — logical structure, consistency, relevance
-- **rebuttal_quality** — how effectively they addressed the opponent's specific claims
-- **clarity** — how clearly they expressed their position
-- **persuasiveness** — overall persuasive impact
-
-### STEP 4 — APPLY FACTUALITY DOMINANCE
-Weights: factuality=35%, evidence_quality=25%, argument_strength=15%, rebuttal_quality=15%, clarity=5%, persuasiveness=5%
-
-CRITICAL RULES:
-- If factuality < 5 → cap final_score at 6.0
-- If factuality < 3 → automatic loss (cap final_score at 3.0)
-- A debater CANNOT win with false or unsupported core claims
-
-### STEP 5 — FINAL VERDICT
-Choose ONE winner. Base decision primarily on factual reliability. If both debaters have factual problems, decide based on whose CENTRAL claims are more accurate. No ties.
-
-Write a 3–5 sentence summary: sharp fact-checker style, no fluff. Identify the KEY claims, state which were unsupported/incorrect, briefly reference evidence, explain why that determined the winner.
+STEP 5 - Choose one winner based primarily on factual reliability.
 
 ${extra}
 
@@ -464,12 +507,12 @@ export class ArbiterJudgingProvider implements IJudgingProvider {
                     : "Tie";
               const claimSummary = verdict.evidenceChecks
                 .slice(0, 5)
-                .map((e) => `  • ${e.debater}: "${e.claim.slice(0, 60)}…" → ${e.verdict}`)
+                .map((e) => `  • ${e.debater}: "${e.claim.slice(0, 60)}..." → ${e.verdict}`)
                 .join("\n");
               return (
                 `PEER VERDICT from ${judgeName}:\n` +
                 `  Winner: ${winnerName}\n` +
-                `  Analysis: ${verdict.explanation.slice(0, 400)}…\n` +
+                `  Analysis: ${verdict.explanation.slice(0, 400)}...\n` +
                 `  Key claims checked:\n${claimSummary}`
               );
             })

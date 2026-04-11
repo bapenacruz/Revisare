@@ -162,7 +162,7 @@ export default function AccountPage() {
                 }}
                 className="px-4 py-2 text-sm rounded bg-danger text-white disabled:opacity-50"
               >
-                {deleting ? "Deleting…" : "Yes, delete my account"}
+                {deleting ? "Deleting..." : "Yes, delete my account"}
               </button>
               <button
                 onClick={() => setConfirmDelete(false)}

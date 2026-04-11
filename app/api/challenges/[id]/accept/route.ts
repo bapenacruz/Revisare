@@ -50,7 +50,7 @@ export async function POST(_request: NextRequest, { params }: RouteParams) {
     await createNotification(otherId, {
       type: "challenge_accepted",
       title: "Terms accepted",
-      body: "A participant has accepted the debate terms. Waiting for both sides…",
+      body: "A participant has accepted the debate terms. Waiting for both sides...",
       href: `/challenges/${challengeId}/lobby`,
       challengeId,
     });

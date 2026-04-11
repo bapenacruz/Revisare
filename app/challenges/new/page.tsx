@@ -256,7 +256,7 @@ function NewChallengeForm() {
                       {targetUsername}
                     </span>
                   ) : (
-                    <span className="text-foreground-subtle">Select opponent…</span>
+                    <span className="text-foreground-subtle">Select opponent...</span>
                   )}
                   <ChevronDown size={14} className="text-foreground-muted shrink-0" />
                 </button>
@@ -269,7 +269,7 @@ function NewChallengeForm() {
                         <input
                           autoFocus
                           className="flex-1 bg-transparent text-sm text-foreground placeholder:text-foreground-subtle focus:outline-none"
-                          placeholder="Search…"
+                          placeholder="Search..."
                           value={followingSearch}
                           onChange={(e) => setFollowingSearch(e.target.value)}
                         />

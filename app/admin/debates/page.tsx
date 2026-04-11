@@ -111,7 +111,7 @@ export default async function AdminDebatesPage({ searchParams }: Props) {
         <input
           name="q"
           defaultValue={q}
-          placeholder="Search motion…"
+          placeholder="Search motion..."
           className="text-sm rounded border border-border bg-background text-foreground px-3 py-1.5 w-60"
         />
         <select

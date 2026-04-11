@@ -410,7 +410,7 @@ export default function LobbyPage() {
                       <div className="w-10 h-10 rounded-full border-2 border-dashed border-border flex items-center justify-center">
                         <span className="text-xs text-foreground-subtle">?</span>
                       </div>
-                      <span className="text-xs text-foreground-subtle italic">Waiting for opponent…</span>
+                      <span className="text-xs text-foreground-subtle italic">Waiting for opponent...</span>
                     </div>
                   );
                 }
@@ -427,7 +427,7 @@ export default function LobbyPage() {
                     </div>
                     <span className="text-sm font-medium text-foreground">{u.username}</span>
                     <span className={`text-xs ${accepted ? "text-success" : "text-foreground-subtle"}`}>
-                      {accepted ? "Terms accepted" : "Pending…"}
+                      {accepted ? "Terms accepted" : "Pending..."}
                     </span>
                   </div>
                 );
@@ -472,7 +472,7 @@ export default function LobbyPage() {
                     hasRequested ? (
                       <div className="flex items-center gap-2 text-sm text-foreground-muted italic">
                         <Clock size={14} />
-                        Waiting for the owner to accept you…
+                        Waiting for the owner to accept you...
                       </div>
                     ) : (
                       <Button onClick={joinChallenge} isLoading={joining} disabled={joining}>
@@ -482,12 +482,12 @@ export default function LobbyPage() {
                     )
                   ) : challenge.type === "open" && !challenge.targetId && isCreator ? (
                     <div className="text-sm text-foreground-muted italic">
-                      Waiting for an opponent to accept the open challenge…
+                      Waiting for an opponent to accept the open challenge...
                     </div>
                   ) : myAccepted ? (
                     <div className="flex items-center gap-2 text-sm text-success">
                       <CheckCircle size={15} />
-                      You&apos;ve accepted. Waiting for {otherUser?.username ?? "opponent"}…
+                      You&apos;ve accepted. Waiting for {otherUser?.username ?? "opponent"}...
                     </div>
                   ) : (
                     <Button onClick={acceptTerms} isLoading={accepting} disabled={accepting}>
@@ -560,7 +560,7 @@ export default function LobbyPage() {
             <form onSubmit={sendMessage} className="px-3 pb-3 pt-2 border-t border-border flex gap-2">
               <input
                 className="flex-1 h-9 px-3 rounded-[--radius-sm] bg-surface border border-border text-sm text-foreground placeholder:text-foreground-subtle focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand transition-colors"
-                placeholder={isLocked ? "Lobby locked" : "Type a message…"}
+                placeholder={isLocked ? "Lobby locked" : "Type a message..."}
                 value={draft}
                 onChange={(e) => setDraft(e.target.value)}
                 disabled={isLocked || sending}

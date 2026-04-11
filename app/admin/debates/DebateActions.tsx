@@ -116,7 +116,7 @@ export function DebateActions({
             disabled={saving}
             className="px-2 py-1 text-xs rounded bg-brand text-white disabled:opacity-50"
           >
-            {saving ? "Saving…" : "Save Changes"}
+            {saving ? "Saving..." : "Save Changes"}
           </button>
 
           {debate.status === "completed" && (
@@ -126,14 +126,14 @@ export function DebateActions({
                 disabled={rejudging}
                 className="px-2 py-1 text-xs rounded bg-surface border border-border text-foreground-muted hover:text-foreground disabled:opacity-50"
               >
-                {rejudging ? "Rejudging…" : "Re-run AI Judgement"}
+                {rejudging ? "Rejudging..." : "Re-run AI Judgement"}
               </button>
               <button
                 onClick={regenPrivateFeedback}
                 disabled={regenFeedback}
                 className="px-2 py-1 text-xs rounded bg-surface border border-brand/40 text-brand hover:bg-brand/10 disabled:opacity-50"
               >
-                {regenFeedback ? "Regenerating…" : "Regenerate Private Feedback"}
+                {regenFeedback ? "Regenerating..." : "Regenerate Private Feedback"}
               </button>
             </>
           )}

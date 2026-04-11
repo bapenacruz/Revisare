@@ -113,7 +113,7 @@ export async function POST(request: Request) {
   const debateHistory = allDebates.length > 0
     ? allDebates.map((d) => {
         const excerpt = d.turns
-          .map((t) => `    [${t.roundName}] "${t.content.slice(0, 300)}${t.content.length > 300 ? "…" : ""}"`)
+          .map((t) => `    [${t.roundName}] "${t.content.slice(0, 300)}${t.content.length > 300 ? "..." : ""}"`)
           .join("\n");
         return `- "${d.motion}" (${d.category}) — ${d.won ? "WON" : "LOST"}\n${excerpt}`;
       }).join("\n\n")

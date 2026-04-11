@@ -25,7 +25,7 @@ function date(v: unknown): Date | null {
 }
 
 async function main() {
-  console.log("🚚 Starting SQLite → PostgreSQL migration…\n");
+  console.log("🚚 Starting SQLite → PostgreSQL migration...\n");
 
   // ── 1. Build category ID mapping (slug → pgId) ──────────────────────────
   const sqliteCats = sqlite.prepare("SELECT id, slug FROM Category").all() as {

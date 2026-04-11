@@ -105,7 +105,7 @@ export default async function AdminUsersPage({ searchParams }: Props) {
             <input
               name="q"
               defaultValue={q}
-              placeholder="Username or email…"
+              placeholder="Username or email..."
               className="h-8 px-3 text-sm rounded-[--radius] border border-border bg-background text-foreground w-52"
             />
           </div>

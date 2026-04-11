@@ -66,7 +66,7 @@ function ResetPasswordForm() {
   if (success) {
     return (
       <p className="text-sm text-green-400 text-center">
-        Password updated! Redirecting to login…
+        Password updated! Redirecting to login...
       </p>
     );
   }

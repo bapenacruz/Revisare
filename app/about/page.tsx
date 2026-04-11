@@ -128,7 +128,7 @@ function ContactForm() {
           onChange={(e) => setForm((f) => ({ ...f, category: e.target.value }))}
           className="w-full px-3 py-2.5 rounded-lg border border-border bg-surface text-sm text-foreground outline-none focus:border-brand transition-colors"
         >
-          <option value="">Select a category…</option>
+          <option value="">Select a category...</option>
           {CATEGORIES.map((c) => (
             <option key={c} value={c}>{c}</option>
           ))}
@@ -165,7 +165,7 @@ function ContactForm() {
         <textarea
           value={form.message}
           onChange={(e) => setForm((f) => ({ ...f, message: e.target.value }))}
-          placeholder="Describe your issue or feedback…"
+          placeholder="Describe your issue or feedback..."
           rows={5}
           className="w-full px-3 py-2.5 rounded-lg border border-border bg-surface text-sm outline-none focus:border-brand transition-colors resize-none placeholder:text-foreground-muted"
         />

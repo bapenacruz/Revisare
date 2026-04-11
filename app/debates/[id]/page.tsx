@@ -919,7 +919,7 @@ export default function ArenaPage() {
               onClick={confirmForfeit}
               disabled={forfeiting}
             >
-              {forfeiting ? "Forfeiting…" : "Yes, forfeit"}
+              {forfeiting ? "Forfeiting..." : "Yes, forfeit"}
             </Button>
           </div>
         </div>

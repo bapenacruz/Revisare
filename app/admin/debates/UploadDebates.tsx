@@ -161,7 +161,7 @@ export function UploadDebates() {
           {uploading ? (
             <>
               <Loader2 size={14} className="animate-spin" />
-              Uploading…
+              Uploading...
             </>
           ) : (
             <>

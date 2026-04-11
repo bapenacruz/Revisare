@@ -108,7 +108,7 @@ export function EditProfileForm({ initial, allCategories }: EditProfileFormProps
         label="Bio"
         value={form.bio}
         onChange={(e) => setForm((f) => ({ ...f, bio: e.target.value }))}
-        placeholder="Tell the community about yourself…"
+        placeholder="Tell the community about yourself..."
         hint="Max 300 characters."
       />
 

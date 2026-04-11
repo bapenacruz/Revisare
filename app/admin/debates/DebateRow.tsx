@@ -219,7 +219,7 @@ export function DebateRow({
                   disabled={saving}
                   className="px-4 py-1.5 text-sm rounded bg-brand text-white disabled:opacity-50 whitespace-nowrap"
                 >
-                  {saving ? "Saving…" : "Save Changes"}
+                  {saving ? "Saving..." : "Save Changes"}
                 </button>
                 {debate.status === "completed" && (
                   <button
@@ -227,7 +227,7 @@ export function DebateRow({
                     disabled={rejudging}
                     className="px-4 py-1.5 text-sm rounded bg-surface border border-border text-foreground-muted hover:text-foreground disabled:opacity-50 whitespace-nowrap"
                   >
-                    {rejudging ? "Rejudging…" : "Re-run AI Judgement"}
+                    {rejudging ? "Rejudging..." : "Re-run AI Judgement"}
                   </button>
                 )}
 
@@ -242,7 +242,7 @@ export function DebateRow({
                         : "bg-surface border-border text-foreground-muted hover:text-foreground"
                     }`}
                   >
-                    {hiding ? "Processing…" : localHidden ? "Unhide Debate" : "Hide Debate"}
+                    {hiding ? "Processing..." : localHidden ? "Unhide Debate" : "Hide Debate"}
                   </button>
                 )}
 
@@ -262,7 +262,7 @@ export function DebateRow({
                         disabled={deleting}
                         className="px-4 py-1.5 text-sm rounded bg-danger text-white border-danger disabled:opacity-50"
                       >
-                        {deleting ? "Deleting…" : "Confirm Delete"}
+                        {deleting ? "Deleting..." : "Confirm Delete"}
                       </button>
                       <button
                         onClick={(e) => { e.stopPropagation(); setConfirmDelete(false); }}

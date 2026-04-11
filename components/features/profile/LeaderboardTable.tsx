@@ -102,7 +102,7 @@ export function LeaderboardTable({ players, categories }: LeaderboardTableProps)
           <input
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            placeholder="Search debaters…"
+            placeholder="Search debaters..."
             className={cn(
               "w-full h-9 pl-8 pr-3 rounded-[--radius] bg-surface border border-border text-sm",
               "text-foreground placeholder:text-foreground-subtle",
@@ -243,7 +243,7 @@ export function LeaderboardTable({ players, categories }: LeaderboardTableProps)
               <input
                 value={draftLocation}
                 onChange={(e) => setDraftLocation(e.target.value)}
-                placeholder="Country or region…"
+                placeholder="Country or region..."
                 className="w-full h-10 pl-8 pr-3 rounded-[--radius] bg-surface border border-border text-sm text-foreground placeholder:text-foreground-subtle focus:outline-none focus:border-brand"
               />
             </div>

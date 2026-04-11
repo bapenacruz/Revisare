@@ -126,7 +126,7 @@ export function CountryRegionPicker({
                 ref={searchRef}
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                placeholder={open === "country" ? "Search countries…" : "Search regions…"}
+                placeholder={open === "country" ? "Search countries..." : "Search regions..."}
                 className="w-full pl-9 pr-9 py-2.5 bg-surface rounded-lg border border-border text-sm outline-none focus:border-brand transition-colors"
               />
               {search && (
