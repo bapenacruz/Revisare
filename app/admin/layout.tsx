@@ -13,17 +13,14 @@ export default async function AdminLayout({ children }: { children: ReactNode })
   return (
     <div className="min-h-screen bg-background">
       <div className="border-b border-border bg-surface">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 h-12 flex items-center gap-6 text-sm">
-          <span className="font-semibold text-foreground-muted uppercase tracking-wide text-xs">
-            Admin
-          </span>
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 py-2 flex flex-wrap items-center gap-x-6 gap-y-1 text-sm">
           {[
             { href: "/admin", label: "Dashboard" },
             { href: "/admin/flags", label: "Flags" },
             { href: "/admin/users", label: "Users" },
             { href: "/admin/debates", label: "Debates" },
             { href: "/admin/categories", label: "Categories" },
-            { href: "/admin/judge-prompts", label: "Judge Prompts" },
+            { href: "/admin/judge-prompts", label: "Prompts" },
             { href: "/admin/contact", label: "Contact" },
           ].map((link) => (
             <a

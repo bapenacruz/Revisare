@@ -141,7 +141,7 @@ export function ContactMessagesTable({ initialMessages }: { initialMessages: Con
 
   return (
     <div className="rounded-lg border border-border bg-surface overflow-hidden">
-      <table className="w-full text-sm min-w-[800px]">
+      <table className="w-full text-xs sm:text-sm">
         <thead>
           {/* Column labels */}
           <tr className="border-b border-border bg-surface-raised">

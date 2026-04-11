@@ -114,8 +114,8 @@ export default async function AdminUsersPage({ searchParams }: Props) {
       </h1>
 
       <form method="GET">
-        <div className="rounded-[--radius] border border-border overflow-x-auto">
-          <table className="w-full text-sm min-w-[900px]">
+        <div className="rounded-[--radius] border border-border">
+          <table className="w-full text-xs sm:text-sm">
             <thead className="bg-surface border-b border-border">
               {/* Column labels */}
               <tr>
