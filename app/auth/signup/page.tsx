@@ -75,7 +75,7 @@ export default function SignupPage() {
             size="lg"
             className="w-full"
             type="button"
-            onClick={() => signIn("google", { callbackUrl: "/profile" })}
+            onClick={() => signIn("google", { callbackUrl: "/" })}
           >
             <svg viewBox="0 0 24 24" className="w-4 h-4" aria-hidden>
               <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
@@ -90,7 +90,7 @@ export default function SignupPage() {
             size="lg"
             className="w-full"
             type="button"
-            onClick={() => signIn("microsoft-entra-id", { callbackUrl: "/profile" })}
+            onClick={() => signIn("microsoft-entra-id", { callbackUrl: "/" })}
           >
             <svg viewBox="0 0 24 24" className="w-4 h-4" aria-hidden>
               <path d="M11.4 2H2v9.4h9.4V2z" fill="#F25022"/>

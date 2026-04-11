@@ -30,7 +30,7 @@ export default function LoginPage() {
     if (result?.error) {
       setError("Invalid username or password.");
     } else {
-      router.push("/profile");
+      router.push("/");
       router.refresh();
     }
   };
@@ -54,7 +54,7 @@ export default function LoginPage() {
             variant="secondary"
             size="lg"
             className="w-full"
-            onClick={() => signIn("google", { callbackUrl: "/profile" })}
+            onClick={() => signIn("google", { callbackUrl: "/" })}
             type="button"
           >
             <svg viewBox="0 0 24 24" className="w-4 h-4" aria-hidden>
@@ -69,7 +69,7 @@ export default function LoginPage() {
             variant="secondary"
             size="lg"
             className="w-full"
-            onClick={() => signIn("microsoft-entra-id", { callbackUrl: "/profile" })}
+            onClick={() => signIn("microsoft-entra-id", { callbackUrl: "/" })}
             type="button"
           >
             <svg viewBox="0 0 24 24" className="w-4 h-4" aria-hidden>

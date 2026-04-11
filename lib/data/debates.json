@@ -1,11 +1,11 @@
 [
   {
-    "motion": "Social media does more harm than good",
+    "motion": "Data privacy should take priority over personalized convenience.",
     "category_slug": "science-tech",
     "format": "standard",
     "ranked": false,
     "debaterA": {
-      "username": "bapenacruz",
+      "username": "bapeenacruz",
       "side": "proposition"
     },
     "debaterB": {
@@ -14,75 +14,37 @@
     },
     "turns": [
       {
-        "username": "bapenacruz",
+        "username": "bapeenacruz",
         "roundName": "opening",
-        "content": "Look, I think people overcomplicate this. The reality is pretty clear when you step back. social media does more harm than good. If you just look at what is actually happening day to day, the pattern is obvious."
+        "content": "Look, convenience is nice. I like when stuff works fast too. But people act like that ends the conversation and it really does not. The problem is all this convenience keeps getting built on top of collecting more and more data, and most people do not even realize how much they are giving up. It is not just shopping suggestions. It is where you go, what you search, who you talk to, what time you are awake, what you might buy next. That is a crazy amount of insight into a person. Once that becomes normal, companies and platforms start having way too much leverage. So for me this is simple. Privacy has to come first, and then convenience gets built inside those limits, not the other way around."
       },
       {
         "username": "west2016",
         "roundName": "opening",
-        "content": "I mean I get where you are coming from, but that feels too simple. You are focusing on one side and ignoring the tradeoffs."
+        "content": "I get the concern, but I think that puts the hierarchy in the wrong place. People say privacy should come first like it is some clean principle, but in practice people use technology because it helps them. Personalized convenience is not some shallow bonus. It is fraud alerts, better navigation, smarter accessibility tools, better recommendations, less wasted time. Those things matter. And honestly, most users are not asking for maximum privacy if it means products become clunky and harder to use. The answer is not to prioritize privacy in every conflict. The answer is to set reasonable rules so people still get the benefits without obvious abuse."
       },
       {
-        "username": "bapenacruz",
+        "username": "bapeenacruz",
         "roundName": "rebuttal",
-        "content": "But everything has tradeoffs. The question is what outweighs what. And here I think the benefits clearly win."
+        "content": "But that sounds good only because the downside is easy to ignore until it is not. That is the whole issue. People feel the convenience right away, but the data risk shows up later. Breaches, profiling, manipulation, price steering, algorithmic nudging, all that comes after. So saying users keep choosing convenience does not prove it is the better principle. It just proves the trade is hidden and lopsided. And also, once companies get used to harvesting everything, they do not stop at what is necessary. They keep pushing. That is why privacy has to be the higher rule. Otherwise convenience becomes the excuse for basically unlimited collection."
       },
       {
         "username": "west2016",
         "roundName": "rebuttal",
-        "content": "I do not think it is that clear. Some of the downsides build slowly and are easy to ignore until they are serious."
+        "content": "I still think that is too absolute. You are treating privacy like a trump card no matter what, and real life usually is not that neat. Sometimes a service genuinely does need data to work well. Sometimes personalization is the thing that makes the product useful at all. The reality is, people do not benefit from rigid principles if the result is worse tools, more friction, and less access. I am not saying companies should collect everything. Obviously not. I am saying privacy should be protected strongly, but not automatically placed above convenience every single time. There has to be balance or you end up defending a right in theory while making everyday technology worse for actual people."
       },
       {
-        "username": "bapenacruz",
+        "username": "bapeenacruz",
         "roundName": "closing",
-        "content": "At the end of the day, the direction still makes sense overall."
+        "content": "At the end of the day, convenience can be redesigned. Privacy cannot really be recovered once it is gone. That is why it has to come first. Build useful products, sure, but build them with limits."
       },
       {
         "username": "west2016",
         "roundName": "closing",
-        "content": "I think we need to question it more before assuming that."
+        "content": "I think privacy matters a lot, but not as an absolute first principle in every case. Technology should still be practical and helpful, and that means balancing protection with usability."
       }
     ],
-    "winner_username": "west2016",
-    "completed_at": "2026-04-11T15:42:52+00:00"
-  },
-  {
-    "motion": "College education is no longer worth it",
-    "category_slug": "economics",
-    "format": "quick",
-    "ranked": false,
-    "debaterA": {
-      "username": "west2016",
-      "side": "proposition"
-    },
-    "debaterB": {
-      "username": "bapenacruz",
-      "side": "opposition"
-    },
-    "turns": [
-      {
-        "username": "west2016",
-        "roundName": "opening",
-        "content": "Look, I think people overcomplicate this. The reality is pretty clear when you step back. college education is no longer worth it. If you just look at what is actually happening day to day, the pattern is obvious."
-      },
-      {
-        "username": "bapenacruz",
-        "roundName": "opening",
-        "content": "I mean I get where you are coming from, but that feels too simple. You are focusing on one side and ignoring the tradeoffs."
-      },
-      {
-        "username": "west2016",
-        "roundName": "rebuttal",
-        "content": "But everything has tradeoffs. The question is what outweighs what. And here I think the benefits clearly win."
-      },
-      {
-        "username": "bapenacruz",
-        "roundName": "rebuttal",
-        "content": "I do not think it is that clear. Some of the downsides build slowly and are easy to ignore until they are serious."
-      }
-    ],
-    "winner_username": "bapenacruz",
-    "completed_at": "2026-04-11T15:42:52+00:00"
+    "winner_username": "bapeenacruz",
+    "completed_at": "2026-04-11T17:58:35+00:00"
   }
 ]
