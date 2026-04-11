@@ -463,3 +463,21 @@ model DebateResult {
 
   @@map("debate_results")
 }
+
+// ============================================================
+// Contact form submissions
+// ============================================================
+
+model ContactMessage {
+  id          String   @id @default(cuid())
+  category    String
+  email       String
+  subject     String
+  message     String   @db.Text
+  attachments Json     @default("[]") // Array of { filename, content (base64), mimeType }
+  status      String   @default("unread") // "unread" | "pending" | "addressed"
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("contact_messages")
+}
