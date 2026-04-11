@@ -16,8 +16,6 @@ export default async function AdminContactPage() {
       <div className="mb-6">
         <h1 className="text-2xl font-bold text-foreground">Contact Messages</h1>
         <p className="text-sm text-foreground-muted mt-1">
-          {messages.length} message{messages.length !== 1 ? "s" : ""} total
-          {" · "}
           {messages.filter((m) => m.status === "unread").length} unread
         </p>
       </div>
