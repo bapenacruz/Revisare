@@ -12,6 +12,7 @@ interface Category {
 
 interface Debate {
   id: string;
+  challengeId: string;
   motion: string;
   categoryId: string;
   status: string;
@@ -88,7 +89,7 @@ export function DebateRow({
       >
         <td className="px-4 py-3 max-w-xs">
           <Link
-            href={`/debates/${debate.id}`}
+            href={`/debates/${debate.challengeId}`}
             className="text-foreground hover:text-brand line-clamp-2 text-xs"
             target="_blank"
             onClick={(e) => e.stopPropagation()}

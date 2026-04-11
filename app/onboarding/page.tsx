@@ -61,10 +61,10 @@ export default function OnboardingPage() {
     window.location.href = "/?welcome=1";
   };
 
-  // Max date for DOB: today - 13 years
+  // Max date for DOB: today - 18 years
   const maxDob = (() => {
     const d = new Date();
-    d.setFullYear(d.getFullYear() - 13);
+    d.setFullYear(d.getFullYear() - 18);
     return d.toISOString().split("T")[0];
   })();
 

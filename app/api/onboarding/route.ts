@@ -25,15 +25,17 @@ export async function POST(request: Request) {
 
     const { country, region, dob, gender } = parsed.data;
 
-    // Validate DOB: must be a valid date and user must be at least 13 years old
+    // Validate DOB: must be a valid date and user must be at least 18 years old
     const dobDate = new Date(dob);
     if (isNaN(dobDate.getTime())) {
       return NextResponse.json({ error: "Invalid date of birth" }, { status: 400 });
     }
     const minAge = new Date();
-    minAge.setFullYear(minAge.getFullYear() - 13);
+    minAge.setFullYear(minAge.getFullYear() - 18);
     if (dobDate > minAge) {
-      return NextResponse.json({ error: "You must be at least 13 years old" }, { status: 400 });
+      // Hard-delete the account — underage users cannot register
+      await db.user.delete({ where: { id: session.user.id } }).catch(() => null);
+      return NextResponse.json({ error: "You must be at least 18 years old to use Revisare. Your account has been removed." }, { status: 403 });
     }
 
     await db.user.update({

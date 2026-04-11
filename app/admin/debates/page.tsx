@@ -42,6 +42,7 @@ export default async function AdminDebatesPage({ searchParams }: Props) {
       where,
       select: {
         id: true,
+        challengeId: true,
         motion: true,
         status: true,
         ranked: true,

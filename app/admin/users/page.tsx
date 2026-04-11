@@ -2,7 +2,7 @@ export const dynamic = "force-dynamic";
 
 import { db } from "@/lib/db";
 import Link from "next/link";
-import { UserActions } from "./UserActions";
+import { UserRow } from "./UserRow";
 
 export const metadata = { title: "Users — Admin" };
 
@@ -44,15 +44,6 @@ export default async function AdminUsersPage({ searchParams }: Props) {
 
   const pages = Math.ceil(total / limit);
 
-  function roleBadge(role: string, suspendedUntil: Date | null) {
-    if (role === "admin") return "bg-brand-dim text-brand border-brand/30";
-    if (role === "banned") return "bg-danger/10 text-danger border-danger/30";
-    if (role === "suspended" && suspendedUntil && suspendedUntil > new Date())
-      return "bg-accent/10 text-accent border-accent/30";
-    if (role === "exhibition") return "bg-surface-overlay text-foreground-muted border-border";
-    return "bg-surface-overlay text-foreground-muted border-border";
-  }
-
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
@@ -80,7 +71,7 @@ export default async function AdminUsersPage({ searchParams }: Props) {
         <table className="w-full text-sm">
           <thead className="bg-surface border-b border-border">
             <tr>
-              {["Username", "Email", "Role", "ELO", "W/L", "Joined", "Actions"].map((h) => (
+              {["Username", "Email", "Status", "ELO", "W/L", "Joined", ""].map((h) => (
                 <th
                   key={h}
                   className="px-4 py-2.5 text-left text-xs font-semibold text-foreground-muted uppercase tracking-wide whitespace-nowrap"
@@ -98,57 +89,9 @@ export default async function AdminUsersPage({ searchParams }: Props) {
                 </td>
               </tr>
             )}
-            {users.map((u) => {
-              const isActuallySuspended =
-                u.role === "suspended" &&
-                u.suspendedUntil &&
-                u.suspendedUntil > new Date();
-              return (
-                <tr
-                  key={u.id}
-                  className="bg-background hover:bg-surface transition-colors"
-                >
-                  <td className="px-4 py-3 font-medium text-foreground">
-                    <Link href={`/profile/${u.username}`} className="hover:text-brand">
-                      {u.username}
-                    </Link>
-                    {u.isExhibition && (
-                      <span className="ml-1.5 text-[10px] text-foreground-muted">[exhibition]</span>
-                    )}
-                  </td>
-                  <td className="px-4 py-3 text-foreground-muted text-xs">{u.email}</td>
-                  <td className="px-4 py-3">
-                    <span
-                      className={`inline-flex px-2 py-0.5 rounded-full text-xs border capitalize ${roleBadge(u.role, u.suspendedUntil)}`}
-                    >
-                      {isActuallySuspended
-                        ? `suspended until ${u.suspendedUntil!.toLocaleDateString()}`
-                        : u.role}
-                    </span>
-                  </td>
-                  <td className="px-4 py-3 text-foreground-muted">{u.elo}</td>
-                  <td className="px-4 py-3 text-foreground-muted">
-                    {u.wins}W / {u.losses}L
-                  </td>
-                  <td className="px-4 py-3 text-foreground-muted whitespace-nowrap text-xs">
-                    {u.createdAt.toLocaleDateString()}
-                  </td>
-                  <td className="px-4 py-3">
-                    {u.role !== "exhibition" && (
-                      <UserActions
-                        user={{
-                          id: u.id,
-                          username: u.username,
-                          role: u.role,
-                          suspendedUntil: u.suspendedUntil?.toISOString() ?? null,
-                          isDeleted: u.isDeleted,
-                        }}
-                      />
-                    )}
-                  </td>
-                </tr>
-              );
-            })}
+            {users.map((u) => (
+              <UserRow key={u.id} user={u} />
+            ))}
           </tbody>
         </table>
       </div>

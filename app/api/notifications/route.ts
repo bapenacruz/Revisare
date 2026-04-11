@@ -3,6 +3,8 @@ import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { VISIBLE_NOTIFICATION_TYPES } from "@/lib/notifications";
 
+const PAGE_SIZE = 15;
+
 export async function GET(req: NextRequest) {
   const session = await auth();
   if (!session?.user?.id) {
@@ -11,16 +13,23 @@ export async function GET(req: NextRequest) {
 
   const { searchParams } = new URL(req.url);
   const unreadOnly = searchParams.get("unread") === "true";
+  const typeFilter = searchParams.get("type");
+  const page = Math.max(1, parseInt(searchParams.get("page") ?? "1", 10));
 
-  const [notifications, unreadCount] = await Promise.all([
+  const typeWhere = typeFilter && typeFilter !== "all"
+    ? [typeFilter as (typeof VISIBLE_NOTIFICATION_TYPES)[number]]
+    : VISIBLE_NOTIFICATION_TYPES;
+
+  const where = {
+    userId: session.user.id,
+    type: { in: typeWhere },
+    ...(unreadOnly ? { read: false } : {}),
+  };
+
+  const [allNotifications, unreadCount] = await Promise.all([
     db.notification.findMany({
-      where: {
-        userId: session.user.id,
-        type: { in: VISIBLE_NOTIFICATION_TYPES },
-        ...(unreadOnly ? { read: false } : {}),
-      },
+      where,
       orderBy: { createdAt: "desc" },
-      take: 50,
     }),
     db.notification.count({
       where: {
@@ -31,8 +40,21 @@ export async function GET(req: NextRequest) {
     }),
   ]);
 
+  // Deduplicate: keep only the latest notification per (type + payload string)
+  const seen = new Set<string>();
+  const deduped = allNotifications.filter((n) => {
+    const key = `${n.type}:${n.payload}`;
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+
+  const total = deduped.length;
+  const totalPages = Math.ceil(total / PAGE_SIZE);
+  const paginated = deduped.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+
   return NextResponse.json({
-    notifications: notifications.map((n) => ({
+    notifications: paginated.map((n) => ({
       id: n.id,
       type: n.type,
       payload: JSON.parse(n.payload) as Record<string, unknown>,
@@ -40,6 +62,9 @@ export async function GET(req: NextRequest) {
       createdAt: n.createdAt,
     })),
     unreadCount,
+    total,
+    totalPages,
+    page,
   });
 }
 

@@ -11,9 +11,9 @@ function isAdmin(role: string | undefined): boolean {
   return role === "admin";
 }
 
-const ACTION_MESSAGES: Record<string, (days?: number) => string> = {
+const ACTION_MESSAGES: Record<string, (displayDuration?: string) => string> = {
   warn: () => "You have received an official warning from the moderation team for violating platform integrity rules.",
-  suspend: (d) => `Your account has been suspended for ${d ?? 7} days due to a confirmed integrity violation.`,
+  suspend: (d) => `Your account has been suspended for ${d ?? "7 days"} due to a confirmed integrity violation.`,
   ban: () => "Your account has been permanently banned due to repeated or severe integrity violations.",
   unban: () => "Your account restriction has been lifted. Please ensure you follow platform rules going forward.",
 };
@@ -39,6 +39,9 @@ export async function POST(req: NextRequest, { params }: RouteParams) {
   if (!target) return NextResponse.json({ error: "User not found" }, { status: 404 });
 
   const days = body.suspendDays ?? 7;
+  const displayDuration = days < 1
+    ? `${Math.round(days * 24 * 60)} minutes`
+    : `${days} days`;
 
   const userUpdate: Record<string, unknown> = {};
   if (body.action === "suspend") {
@@ -79,7 +82,7 @@ export async function POST(req: NextRequest, { params }: RouteParams) {
             : body.action === "ban"
               ? "Your account has been banned"
               : "Account restriction lifted",
-      body: msgFn(days),
+      body: msgFn(displayDuration),
     });
   }
 

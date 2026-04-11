@@ -4,7 +4,7 @@ import Link from "next/link";
 import { signOut } from "next-auth/react";
 import { useSession } from "@/components/providers/SessionProvider";
 import { useRouter } from "next/navigation";
-import { User, Swords, ShieldCheck, Info, LogOut, Smartphone, Apple, ChevronDown } from "lucide-react";
+import { User, Swords, ShieldCheck, Info, LogOut, Smartphone, Apple, ChevronDown, Trash2 } from "lucide-react";
 import { Avatar } from "@/components/ui/Avatar";
 import { useState } from "react";
 
@@ -81,6 +81,8 @@ function InstallSection() {
 export default function AccountPage() {
   const { data: session } = useSession();
   const router = useRouter();
+  const [confirmDelete, setConfirmDelete] = useState(false);
+  const [deleting, setDeleting] = useState(false);
   const user = session?.user;
 
   if (!user) {
@@ -136,6 +138,41 @@ export default function AccountPage() {
           <LogOut size={18} />
           Sign Out
         </button>
+        <div className="my-2 border-t border-border" />
+        {!confirmDelete ? (
+          <button
+            onClick={() => setConfirmDelete(true)}
+            className="w-full flex items-center gap-3 px-6 py-4 text-sm text-foreground-subtle hover:text-danger hover:bg-surface-raised transition-colors"
+          >
+            <Trash2 size={16} />
+            Delete Account
+          </button>
+        ) : (
+          <div className="px-6 py-4 flex flex-col gap-3">
+            <p className="text-sm text-foreground-muted">
+              This will anonymize your account. Your debates stay visible but your name and data will be removed. You can sign up again with the same email.
+            </p>
+            <div className="flex gap-2">
+              <button
+                disabled={deleting}
+                onClick={async () => {
+                  setDeleting(true);
+                  await fetch("/api/me/delete", { method: "DELETE" });
+                  await signOut({ callbackUrl: "/" });
+                }}
+                className="px-4 py-2 text-sm rounded bg-danger text-white disabled:opacity-50"
+              >
+                {deleting ? "Deleting…" : "Yes, delete my account"}
+              </button>
+              <button
+                onClick={() => setConfirmDelete(false)}
+                className="px-4 py-2 text-sm text-foreground-muted hover:text-foreground"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        )}
       </nav>
     </div>
   );

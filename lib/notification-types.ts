@@ -16,4 +16,5 @@ export const VISIBLE_NOTIFICATION_TYPES: NotificationType[] = [
   "challenge_received",
   "featured_debate",
   "opponent_forfeit",
+  "integrity_action",
 ];
