@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { ThumbsUp } from "lucide-react";
 import { Card, CardBody } from "@/components/ui/Card";
 import { Avatar } from "@/components/ui/Avatar";
+import Link from "next/link";
 
 interface Debater {
   id: string;
@@ -18,9 +19,10 @@ interface Props {
   /** Server-rendered initial tally: { userId: count } */
   initialVotes: Record<string, number>;
   isParticipant: boolean;
+  isAuthenticated: boolean;
 }
 
-export function AudienceVotePanel({ challengeId, debateId, debaterA, debaterB, initialVotes, isParticipant }: Props) {
+export function AudienceVotePanel({ challengeId, debateId, debaterA, debaterB, initialVotes, isParticipant, isAuthenticated }: Props) {
   const [votes, setVotes] = useState<Record<string, number>>(initialVotes);
   const [voted, setVoted] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
@@ -72,7 +74,34 @@ export function AudienceVotePanel({ challengeId, debateId, debaterA, debaterB, i
         </div>
         <p className="text-xs text-foreground-muted mb-3">Separate from the official AI judge.</p>
 
-        {isParticipant ? (
+        {!isAuthenticated ? (
+          <>
+            {[debaterA, debaterB].map((d) => {
+              const p = pct(d.id);
+              const isProp = d.id === debaterA.id;
+              return (
+                <div key={d.id} className="mb-2">
+                  <div className="w-full flex items-center gap-2 p-2 rounded-[--radius] border border-border bg-surface-raised opacity-50">
+                    <Avatar initial={d.username[0]} size="sm" />
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center justify-between mb-1">
+                        <span className="text-xs font-medium text-foreground truncate">{d.username}</span>
+                        <span className="text-xs text-foreground-muted shrink-0 ml-1">{p}%</span>
+                      </div>
+                      <div className="h-1 rounded-full bg-surface-overlay overflow-hidden">
+                        <div className="h-full rounded-full transition-all duration-500" style={{ width: `${p}%`, backgroundColor: isProp ? "var(--brand)" : "var(--danger)" }} />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+            <p className="text-xs text-center mt-2">
+              <Link href="/auth/login" className="text-brand hover:underline">Sign in</Link>
+              <span className="text-foreground-muted"> to cast your vote</span>
+            </p>
+          </>
+        ) : isParticipant ? (
           <>
             {[debaterA, debaterB].map((d) => {
               const p = pct(d.id);

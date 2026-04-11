@@ -271,6 +271,7 @@ export default async function ResultsPage({ params }: Props) {
           debaterB={debate.debaterB}
           initialVotes={voteTally}
           isParticipant={isDebaterA || isDebaterB}
+          isAuthenticated={!!sessionUserId}
         />
       </div>
 

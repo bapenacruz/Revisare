@@ -1021,6 +1021,33 @@ function AudienceVotePanel({
 
         {isDebater ? (
           <p className="text-xs text-foreground-muted italic text-center py-2">Participants cannot vote in their own debate.</p>
+        ) : !me ? (
+          <>
+            {[debate.debaterA, debate.debaterB].map((d) => {
+              const isProp = d.id === propositionId;
+              const p = pct(d.id);
+              return (
+                <div key={d.id} className="mb-2">
+                  <div className="w-full flex items-center gap-2 p-2 rounded-[--radius] border border-border bg-surface-raised opacity-50">
+                    <Avatar initial={d.username[0]} size="sm" />
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center justify-between mb-1">
+                        <span className="text-xs font-medium text-foreground truncate">{d.username}</span>
+                        <span className="text-xs text-foreground-muted shrink-0 ml-1">{p}%</span>
+                      </div>
+                      <div className="h-1 rounded-full bg-surface-overlay overflow-hidden">
+                        <div className="h-full rounded-full transition-all duration-500" style={{ width: `${p}%`, backgroundColor: isProp ? "var(--brand)" : "var(--danger)" }} />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+            <p className="text-xs text-center mt-2">
+              <a href="/auth/login" className="text-brand hover:underline">Sign in</a>
+              <span className="text-foreground-muted"> to cast your vote</span>
+            </p>
+          </>
         ) : [debate.debaterA, debate.debaterB].map((d) => {
           const isProp = d.id === propositionId;
           const p = pct(d.id);

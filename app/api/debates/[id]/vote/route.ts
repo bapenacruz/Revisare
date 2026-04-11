@@ -10,6 +10,10 @@ export async function POST(req: NextRequest, { params }: RouteParams) {
   const { id: challengeId } = await params;
   const session = await auth();
 
+  if (!session?.user?.id) {
+    return NextResponse.json({ error: "Sign in to vote." }, { status: 401 });
+  }
+
   const debate = await db.debate.findUnique({ where: { challengeId } });
   if (!debate) return NextResponse.json({ error: "Not found" }, { status: 404 });
 
