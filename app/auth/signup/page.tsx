@@ -67,6 +67,9 @@ export default function SignupPage() {
         </div>
 
         <div className="flex flex-col gap-2 mb-4">
+          <p className="text-xs text-center text-amber-400/80 bg-amber-400/10 border border-amber-400/20 rounded-lg px-3 py-2">
+            During Beta, signing up with Google or Microsoft is recommended for easier account recovery.
+          </p>
           <Button
             variant="secondary"
             size="lg"
