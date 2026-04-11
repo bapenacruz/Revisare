@@ -623,7 +623,7 @@ export default function ArenaPage() {
                     </p>
                   </div>
                 ) : (
-                  <p className="text-sm text-foreground-muted">AI judging is in progress\u2026</p>
+                  <p className="text-sm text-foreground-muted">AI judging is in progress…</p>
                 )}
                 {debate.forfeitedBy && (
                   <div className="mt-3 p-2 rounded-md bg-danger/10 border border-danger/20">

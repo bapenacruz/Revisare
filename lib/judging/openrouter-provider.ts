@@ -449,8 +449,12 @@ export class ClaudeJudgingProvider implements IJudgingProvider {
 // ─── Judge C: GPT — The Arbiter ───────────────────────────────────────────────
 
 async function buildArbiterSystem(input: JudgeInput): Promise<string> {
-  const prompt = await getJudgePrompt("judge3_chatgpt");
-  return buildJudgingRubric(prompt) + buildVerdictSchema(input);
+  const judgePersona = await getJudgePrompt("judge3_chatgpt");
+  const resultStyle = await getJudgePrompt("official_result");
+  const resultInstruction = resultStyle
+    ? `\n\nOFFICIAL RESULT INSTRUCTION — apply this when writing the public_result.summary field: ${resultStyle}`
+    : "";
+  return buildJudgingRubric(judgePersona) + buildVerdictSchema(input) + resultInstruction;
 }
 
 export class ArbiterJudgingProvider implements IJudgingProvider {
@@ -561,7 +565,7 @@ export async function generateFeedbackOnly(
 
   const extraInstruction = await getJudgePrompt("private_feedback");
 
-  const systemPrompt = `You are an expert debate judge providing private performance feedback.${extraInstruction ? `\n\nCOACHING STYLE: ${extraInstruction}` : ""}
+  const systemPrompt = `You are an expert debate judge providing private performance feedback.
 
 HARD RULES:
 - Output MUST be valid JSON with exactly two keys: "feedbackA" and "feedbackB"
@@ -573,6 +577,7 @@ HARD RULES:
 
 REQUIRED FORMAT for each feedback value (plain text, newlines as \\n):
 ${FEEDBACK_BLOCK_TEMPLATE("<debater username>")}
+${extraInstruction ? `\nADDITIONAL INSTRUCTION — after generating each feedback value, also append this sentence verbatim on a new line: "${extraInstruction}"` : ""}
 
 Output only valid JSON — no markdown fences, no commentary.`;
 
