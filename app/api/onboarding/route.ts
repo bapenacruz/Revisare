@@ -4,6 +4,7 @@ import { db } from "@/lib/db";
 import { z } from "zod";
 
 const onboardingSchema = z.object({
+  username: z.string().regex(/^[a-z0-9_]{3,20}$/, "Username must be 3–20 chars: lowercase letters, numbers, underscores."),
   country: z.string().min(1, "Country is required").max(100),
   region: z.string().max(100).optional(),
   dob: z.string().min(1, "Date of birth is required"),
@@ -23,7 +24,16 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: parsed.error.issues[0].message }, { status: 400 });
     }
 
-    const { country, region, dob, gender } = parsed.data;
+    const { username, country, region, dob, gender } = parsed.data;
+
+    // Check username uniqueness (exclude self)
+    const usernameClash = await db.user.findFirst({
+      where: { username, NOT: { id: session.user.id } },
+      select: { id: true },
+    });
+    if (usernameClash) {
+      return NextResponse.json({ error: "That username is already taken." }, { status: 400 });
+    }
 
     // Validate DOB: must be a valid date and user must be at least 18 years old
     const dobDate = new Date(dob);
@@ -41,6 +51,7 @@ export async function POST(request: Request) {
     await db.user.update({
       where: { id: session.user.id },
       data: {
+        username,
         country,
         region: region || null,
         dob: dobDate,

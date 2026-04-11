@@ -1,9 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useSession } from "@/components/providers/SessionProvider";
 import { useRouter } from "next/navigation";
-import { Sword, ChevronRight } from "lucide-react";
+import { Sword, ChevronRight, Check, X } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { CountryRegionPicker } from "@/components/ui/CountryRegionPicker";
 
@@ -17,12 +17,42 @@ export default function OnboardingPage() {
   const { data: session, status, update } = useSession();
   const router = useRouter();
 
+  const [username, setUsername] = useState("");
+  const [usernameStatus, setUsernameStatus] = useState<"idle" | "checking" | "available" | "taken" | "invalid">("idle");
   const [country, setCountry] = useState("");
   const [region, setRegion] = useState("");
   const [dob, setDob] = useState("");
   const [gender, setGender] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
+  const checkTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Pre-fill username from session once loaded
+  useEffect(() => {
+    if (session?.user?.username && !username) {
+      setUsername(session.user.username);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [session?.user?.username]);
+
+  // Debounced username availability check
+  useEffect(() => {
+    if (checkTimerRef.current) clearTimeout(checkTimerRef.current);
+    if (!username) { setUsernameStatus("idle"); return; }
+    const re = /^[a-z0-9_]{3,20}$/;
+    if (!re.test(username)) { setUsernameStatus("invalid"); return; }
+    setUsernameStatus("checking");
+    checkTimerRef.current = setTimeout(async () => {
+      try {
+        const res = await fetch(`/api/onboarding/check-username?username=${encodeURIComponent(username)}`);
+        const data = await res.json() as { available: boolean };
+        setUsernameStatus(data.available ? "available" : "taken");
+      } catch {
+        setUsernameStatus("idle");
+      }
+    }, 400);
+    return () => { if (checkTimerRef.current) clearTimeout(checkTimerRef.current); };
+  }, [username]);
 
   useEffect(() => {
     if (status === "unauthenticated") {
@@ -37,6 +67,7 @@ export default function OnboardingPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!username || usernameStatus !== "available") { setError("Please choose a valid, available username."); return; }
     if (!country) { setError("Please select your country."); return; }
     if (!dob) { setError("Please enter your date of birth."); return; }
     setError("");
@@ -45,7 +76,7 @@ export default function OnboardingPage() {
     const res = await fetch("/api/onboarding", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ country, region, dob, gender }),
+      body: JSON.stringify({ username, country, region, dob, gender }),
     });
     const data = await res.json();
 
@@ -91,6 +122,44 @@ export default function OnboardingPage() {
             </p>
 
             <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+              {/* Username */}
+              <div className="flex flex-col gap-1">
+                <label className="text-sm font-medium text-foreground">
+                  Username <span className="text-danger">*</span>
+                </label>
+                <div className="relative">
+                  <input
+                    type="text"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value.toLowerCase().replace(/[^a-z0-9_]/g, ""))}
+                    placeholder="your_handle"
+                    maxLength={20}
+                    required
+                    className={`w-full px-3 py-2.5 pr-9 rounded-lg border text-sm outline-none transition-colors bg-surface ${
+                      usernameStatus === "available" ? "border-emerald-500 focus:border-emerald-500" :
+                      usernameStatus === "taken" || usernameStatus === "invalid" ? "border-danger focus:border-danger" :
+                      "border-border focus:border-brand"
+                    }`}
+                  />
+                  <div className="absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none">
+                    {usernameStatus === "checking" && <span className="text-xs text-foreground-muted animate-pulse">…</span>}
+                    {usernameStatus === "available" && <Check size={14} className="text-emerald-500" />}
+                    {(usernameStatus === "taken" || usernameStatus === "invalid") && <X size={14} className="text-danger" />}
+                  </div>
+                </div>
+                <p className={`text-xs ${
+                  usernameStatus === "taken" ? "text-danger" :
+                  usernameStatus === "invalid" ? "text-danger" :
+                  usernameStatus === "available" ? "text-emerald-500" :
+                  "text-foreground-muted"
+                }`}>
+                  {usernameStatus === "taken" ? "Username already taken." :
+                   usernameStatus === "invalid" ? "3–20 chars, lowercase letters, numbers, underscores only." :
+                   usernameStatus === "available" ? "Username available!" :
+                   "3–20 chars, lowercase letters, numbers, underscores only."}
+                </p>
+              </div>
+
               {/* Country + Region */}
               <CountryRegionPicker
                 country={country}

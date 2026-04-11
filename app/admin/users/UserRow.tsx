@@ -44,7 +44,6 @@ export function UserRow({ user }: { user: User }) {
   const [suspendDays, setSuspendDays] = useState(7);
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [msg, setMsg] = useState<string | null>(null);
-  const [resetLink, setResetLink] = useState<string | null>(null);
   const [newUsername, setNewUsername] = useState(user.username);
   const [hideFromLeaderboard, setHideFromLeaderboard] = useState(user.hideFromLeaderboard);
   const [localDeleted, setLocalDeleted] = useState(user.isDeleted);
@@ -59,7 +58,6 @@ export function UserRow({ user }: { user: User }) {
   async function apply(action: string) {
     setLoading(true);
     setMsg(null);
-    setResetLink(null);
     const res = await fetch(`/api/admin/users/${user.id}/action`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -68,8 +66,7 @@ export function UserRow({ user }: { user: User }) {
     const data = await res.json();
     setLoading(false);
     if (action === "reset-password") {
-      if (data.resetUrl) setResetLink(data.resetUrl);
-      setMsg(data.message || (data.emailSent ? "Reset email sent ✓" : data.resetUrl ? "Reset link generated ✓" : "Done ✓"));
+      if (data.resetUrl) setMsg(data.message || (data.emailSent ? "Reset email sent ✓" : data.resetUrl ? "Reset link generated ✓" : "Done ✓"));
     } else {
       setMsg(action === "warn" ? "Warning sent ✓" : "Done ✓");
     }
@@ -276,15 +273,6 @@ export function UserRow({ user }: { user: User }) {
                     </div>
 
                     <div className="flex items-center gap-2">
-                      {/* Reset password */}
-                      <button
-                        onClick={(e) => { e.stopPropagation(); apply("reset-password"); }}
-                        disabled={loading}
-                        className="px-3 py-1.5 text-sm rounded bg-surface border border-border text-foreground-muted hover:text-foreground disabled:opacity-50"
-                      >
-                        Reset Password
-                      </button>
-
                       {/* Hide from leaderboard toggle */}
                       <button
                         onClick={(e) => { e.stopPropagation(); toggleHideFromLeaderboard(); }}
@@ -328,17 +316,6 @@ export function UserRow({ user }: { user: User }) {
 
                 {msg && (
                   <p className="text-sm text-foreground-muted">{msg}</p>
-                )}
-                {resetLink && (
-                  <div className="mt-2">
-                    <label className="text-xs text-foreground-muted font-medium">Reset Link:</label>
-                    <input
-                      readOnly
-                      value={resetLink}
-                      className="mt-1 text-sm rounded border border-border bg-background text-foreground px-2 py-1.5 w-full font-mono"
-                      onClick={(e) => (e.target as HTMLInputElement).select()}
-                    />
-                  </div>
                 )}
               </div>
             </div>
