@@ -46,33 +46,63 @@ export async function POST(req: NextRequest) {
       success: [] as Array<{ debateId: string, motion: string }>
     };
 
-    // Process debates one by one to avoid overwhelming the system
-    for (const debate of debatesNeedingAssessment) {
-      try {
-        console.log(`[AI Assessment] Processing debate ${debate.id}: "${debate.motion}" between ${debate.debaterA.username} vs ${debate.debaterB.username}`);
-        
-        // Trigger AI judging for this debate
-        await judgeDebate(debate.id);
-        
+    // Process debates in batches of 5 to balance speed and system load
+    const BATCH_SIZE = 5;
+    
+    for (let i = 0; i < debatesNeedingAssessment.length; i += BATCH_SIZE) {
+      const batch = debatesNeedingAssessment.slice(i, i + BATCH_SIZE);
+      console.log(`[AI Assessment] Processing batch ${Math.floor(i / BATCH_SIZE) + 1}/${Math.ceil(debatesNeedingAssessment.length / BATCH_SIZE)} (${batch.length} debates)`);
+      
+      // Process all debates in this batch simultaneously
+      const batchResults = await Promise.allSettled(
+        batch.map(async (debate) => {
+          console.log(`[AI Assessment] Processing debate ${debate.id}: "${debate.motion}" between ${debate.debaterA.username} vs ${debate.debaterB.username}`);
+          
+          try {
+            await judgeDebate(debate.id);
+            console.log(`[AI Assessment] ✓ Successfully processed debate ${debate.id}`);
+            return {
+              success: true,
+              debateId: debate.id,
+              motion: debate.motion
+            };
+          } catch (error) {
+            const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+            console.error(`[AI Assessment] Failed to process debate ${debate.id}:`, errorMessage);
+            return {
+              success: false,
+              debateId: debate.id,
+              error: errorMessage
+            };
+          }
+        })
+      );
+
+      // Process batch results
+      for (const result of batchResults) {
         results.processed++;
-        results.success.push({
-          debateId: debate.id,
-          motion: debate.motion
-        });
         
-        console.log(`[AI Assessment] ✓ Successfully processed debate ${debate.id}`);
-        
-        // Small delay to prevent rate limiting
-        await new Promise(resolve => setTimeout(resolve, 1000));
-        
-      } catch (error) {
-        const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-        console.error(`[AI Assessment] Failed to process debate ${debate.id}:`, errorMessage);
-        
-        results.errors.push({
-          debateId: debate.id,
-          error: errorMessage
-        });
+        if (result.status === 'fulfilled') {
+          if (result.value.success) {
+            results.success.push({
+              debateId: result.value.debateId,
+              motion: result.value.motion
+            });
+          } else {
+            results.errors.push({
+              debateId: result.value.debateId,
+              error: result.value.error
+            });
+          }
+        } else {
+          // Handle rejected promises (shouldn't happen with our error handling, but just in case)
+          console.error(`[AI Assessment] Unexpected batch failure:`, result.reason);
+        }
+      }
+      
+      // Small delay between batches to prevent overwhelming the system
+      if (i + BATCH_SIZE < debatesNeedingAssessment.length) {
+        await new Promise(resolve => setTimeout(resolve, 2000));
       }
     }
 
