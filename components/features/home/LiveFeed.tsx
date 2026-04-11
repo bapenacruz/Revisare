@@ -58,7 +58,7 @@ export function LiveFeed({ initialItems, initialCursor }: LiveFeedProps) {
 
   if (items.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center text-center px-6" style={{ minHeight: "calc(100svh - 8rem)" }}>
+      <div className="flex flex-col flex-1 items-center justify-center text-center px-6">
         <Radio size={36} className="mb-4 opacity-25 text-foreground-muted" />
         <p className="text-sm text-foreground-muted">
           No live debates right now — check back soon.

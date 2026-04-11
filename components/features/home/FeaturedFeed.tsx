@@ -76,7 +76,7 @@ export function FeaturedFeed() {
 
   if (!loading && empty) {
     return (
-      <div className="flex flex-col items-center justify-center h-full text-center px-6">
+      <div className="flex flex-col flex-1 items-center justify-center text-center px-6">
         <Sparkles size={36} className="mb-4 opacity-25 text-foreground-muted" />
         <p className="text-sm text-foreground-muted">No featured debates yet.</p>
       </div>

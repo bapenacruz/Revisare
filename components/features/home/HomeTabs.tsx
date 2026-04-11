@@ -78,17 +78,17 @@ export function HomeTabs({ liveCount, initialLive, initialLiveCursor }: HomeTabs
         - No z-index stacking issues, no pointer-events quirks
         - Components stay mounted so scroll/fetch state is preserved
       */}
-      <div style={{ minHeight: "calc(100svh - 8rem)" }}>
-        <div className={activeTab !== 0 ? "hidden" : "h-full"}>
+      <div style={{ minHeight: "calc(100svh - 8rem)" }} className="flex flex-col">
+        <div className={activeTab !== 0 ? "hidden" : "flex-1 flex flex-col"}>
           <LiveFeed initialItems={initialLive} initialCursor={initialLiveCursor} />
         </div>
-        <div className={activeTab !== 1 ? "hidden" : "h-full"}>
+        <div className={activeTab !== 1 ? "hidden" : "flex-1 flex flex-col"}>
           <FeaturedFeed />
         </div>
-        <div className={activeTab !== 2 ? "hidden" : "h-full"}>
+        <div className={activeTab !== 2 ? "hidden" : "flex-1 flex flex-col"}>
           <OpenChallengesFeed />
         </div>
-        <div className={activeTab !== 3 ? "hidden" : "h-full"}>
+        <div className={activeTab !== 3 ? "hidden" : "flex-1 flex flex-col"}>
           <YourDebatesFeed />
         </div>
       </div>
