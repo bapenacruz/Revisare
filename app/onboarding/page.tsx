@@ -113,7 +113,7 @@ export default function OnboardingPage() {
                   required
                   className="w-full px-3 py-2.5 rounded-lg border border-border bg-surface text-sm outline-none focus:border-brand transition-colors"
                 />
-                <p className="text-xs text-foreground-muted">You must be at least 13 years old.</p>
+                <p className="text-xs text-foreground-muted">You must be at least 18 years old.</p>
               </div>
 
               {/* Gender (optional) */}

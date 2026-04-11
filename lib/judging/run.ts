@@ -90,6 +90,7 @@ export async function judgeDebate(debateId: string): Promise<void> {
   });
 
   // Update Elo ratings and win/loss counts atomically (ranked debates only)
+  // Only update if this debate hasn't already been processed (prevent duplicates)
   if (debate.ranked) {
     const rA = debate.debaterA.elo ?? DEFAULT_ELO;
     const rB = debate.debaterB.elo ?? DEFAULT_ELO;
