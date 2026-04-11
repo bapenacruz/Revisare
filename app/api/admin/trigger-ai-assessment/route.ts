@@ -1,24 +1,15 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
+import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { judgeDebate } from "@/lib/judging";
 
 export async function POST(req: NextRequest) {
   try {
     // Only allow admin users
-    const session = await getServerSession(authOptions);
-    if (!session?.user?.id) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
-
-    const user = await db.user.findUnique({
-      where: { id: session.user.id },
-      select: { role: true }
-    });
-
-    if (user?.role !== "admin") {
-      return NextResponse.json({ error: "Admin access required" }, { status: 403 });
+    const session = await auth();
+    const role = (session?.user as { role?: string })?.role;
+    if (!session || role !== "admin") {
+      return NextResponse.json({ error: "Forbidden" }, { status: 403 });
     }
 
     // Find all completed debates that need AI assessment
@@ -104,18 +95,10 @@ export async function POST(req: NextRequest) {
 export async function GET(req: NextRequest) {
   try {
     // Only allow admin users for status check
-    const session = await getServerSession(authOptions);
-    if (!session?.user?.id) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
-
-    const user = await db.user.findUnique({
-      where: { id: session.user.id },
-      select: { role: true }
-    });
-
-    if (user?.role !== "admin") {
-      return NextResponse.json({ error: "Admin access required" }, { status: 403 });
+    const session = await auth();
+    const role = (session?.user as { role?: string })?.role;
+    if (!session || role !== "admin") {
+      return NextResponse.json({ error: "Forbidden" }, { status: 403 });
     }
 
     // Count debates that need AI assessment
