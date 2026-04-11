@@ -41,7 +41,7 @@ export default function SignupPage() {
 
     // Auto sign-in after signup
     const result = await signIn("credentials", {
-      email: payload.email,
+      emailOrUsername: payload.email,
       password: payload.password,
       redirect: false,
     });
