@@ -95,7 +95,7 @@ export function FeaturedFeed() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {items.map((debate) => {
             return (
-              <Link key={debate.id} href={`/debates/${debate.challengeId}`}>
+              <Link key={debate.id} href={`/debates/${debate.challengeId}/results`}>
                 <Card interactive className="h-full">
                   <CardBody className="flex flex-col gap-3 p-4">
                     <div className="flex flex-wrap items-center gap-1.5">

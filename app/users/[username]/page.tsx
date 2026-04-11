@@ -172,7 +172,7 @@ export default async function PublicProfilePage({ params }: Props) {
             const won = d.winnerId === user.id;
             const lost = d.winnerId !== null && d.winnerId !== user.id;
             return (
-              <Link key={d.id} href={`/debates/${d.challengeId}`}>
+              <Link key={d.id} href={`/debates/${d.challengeId}/results`}>
                 <Card interactive className="h-full">
                   <CardBody className="flex flex-col gap-2 p-4">
                     <div className="flex items-center gap-1.5">

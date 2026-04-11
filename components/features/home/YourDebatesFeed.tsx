@@ -132,13 +132,14 @@ export function YourDebatesFeed() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {items.map((debate) => {
             const isCompleted = debate.status === "completed";
+            const debateHref = isCompleted ? `/debates/${debate.challengeId}/results` : `/debates/${debate.challengeId}`;
             const statusInfo = STATUS_BADGE[debate.status] ?? {
               label: debate.status,
               variant: "default" as const,
             };
 
             return (
-              <Link key={debate.id} href={`/debates/${debate.challengeId}`}>
+              <Link key={debate.id} href={debateHref}>
                 <Card interactive className="h-full">
                   <CardBody className="flex flex-col gap-3 p-4">
                     {/* Top row: category + status */}

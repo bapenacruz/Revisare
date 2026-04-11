@@ -179,6 +179,13 @@ export default function ArenaPage() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fetchDebate, challengeId]);
 
+  // Redirect to results page once debate is completed
+  useEffect(() => {
+    if (debate?.status === "completed") {
+      router.replace(`/debates/${challengeId}/results`);
+    }
+  }, [debate?.status, challengeId, router]);
+
   // Reset draft and auto-submit guard when turn advances
   useEffect(() => {
     autoSubmittedRef.current = false;

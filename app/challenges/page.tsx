@@ -357,7 +357,7 @@ export default function MyDebatesPage() {
                     const isWinner = debate.winnerId === userId;
                     const isLoss = debate.winnerId !== null && debate.winnerId !== userId;
                     return (
-                      <Link key={debate.id} href={`/debates/${debate.challengeId}`}>
+                      <Link key={debate.id} href={`/debates/${debate.challengeId}/results`}>
                         <Card interactive>
                           <CardBody className="flex flex-col gap-2 p-4">
                             <div className="flex flex-wrap items-center gap-1.5">

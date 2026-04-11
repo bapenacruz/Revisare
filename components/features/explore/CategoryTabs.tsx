@@ -147,17 +147,7 @@ export function CategoryTabs({ live, open, recent, categoryLabel }: CategoryTabs
             ) : (
               <div className="px-4 sm:px-6 py-5 grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {recent.map((d) => (
-                  <Link key={d.id} href={`/debates/${d.challengeId}`}>
-                    <Card interactive className="h-full">
-                      <CardBody className="flex flex-col gap-3 p-4">
-                        <p className="text-sm font-medium text-foreground leading-snug line-clamp-3 flex-1">
-                          {d.motion}
-                        </p>
-                        <div className="flex flex-col gap-1">
-                          {[d.debaterA, d.debaterB].map((p) => (
-                            <div key={p.username} className="flex items-center gap-1.5 text-xs text-foreground-muted">
-                              <Avatar initial={p.username[0].toUpperCase()} size="xs" />
-                              <span className="truncate">{p.username}</span>
+                  <Link key={d.id} href={`/debates/${d.challengeId}/results`}>
                             </div>
                           ))}
                         </div>

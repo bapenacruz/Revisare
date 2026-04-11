@@ -142,7 +142,7 @@ export default async function DebatesPage() {
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {recentDebates.map((d) => (
-              <Link key={d.id} href={`/debates/${d.challengeId}`}>
+              <Link key={d.id} href={`/debates/${d.challengeId}/results`}>
                 <Card interactive>
                   <CardBody className="flex flex-col gap-2.5 p-4">
                     <div className="flex items-center gap-2">
