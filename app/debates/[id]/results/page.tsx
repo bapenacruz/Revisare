@@ -451,31 +451,51 @@ export default async function ResultsPage({ params }: Props) {
             <span className="text-xs font-normal text-foreground-muted ml-1">— AI judges evaluated the factual accuracy of each debater&apos;s claims</span>
           </h2>
 
-          {/* Full explanation as a fact-checking report */}
-          {judgeResult.winnerId && judgeResult.explanation ? (
-            <div>
-              <div className="flex items-center gap-2 mb-1">
-                <Trophy size={18} className="text-accent" />
-                <span className="font-bold text-foreground">
-                  {judgeResult.winnerId === debate.debaterAId
-                    ? debate.debaterA.username
-                    : debate.debaterB.username}{" "}
-                  wins
-                </span>
-              </div>
-              <p className="text-xs text-foreground-muted">See the fact-check analysis below ↓</p>
-            </div>
-          ) : (
-            <div>
-              <div className="flex items-center gap-2 mb-1">
-                <div className="animate-spin h-4 w-4 border-2 border-brand border-t-transparent rounded-full"></div>
-                <span className="font-semibold text-foreground">AI judging in progress...</span>
-              </div>
-              <p className="text-xs text-foreground-muted">Results will be available shortly.</p>
-            </div>
+          {/* Full explanation */}
+          {judgeResult.explanation && (
+            <Card className="mb-4">
+              <CardBody>
+                <div className="prose prose-sm max-w-none text-foreground-muted leading-relaxed space-y-3">
+                  {judgeResult.explanation.split(/\n\n+/).map((para, i) => (
+                    <p key={i} className="text-sm text-foreground leading-relaxed">{para}</p>
+                  ))}
+                </div>
+              </CardBody>
+            </Card>
           )}
-        </div>
-      )}
+
+          {/* Claim-by-claim checks */}
+          {consensusEvidenceChecks.length > 0 && (
+            <div>
+              <h3 className="text-sm font-semibold text-foreground mb-2 flex items-center gap-2">
+                Claim-by-Claim Verification
+                <span className="text-xs font-normal text-foreground-muted">({consensusEvidenceChecks.length} claims checked)</span>
+              </h3>
+              <div className="flex flex-col gap-2">
+                {consensusEvidenceChecks.map((ec, idx) => {
+                  const isA = ec.debater === debate.debaterA.username;
+                  const cfg = VERDICT_CONFIG[ec.verdict as keyof typeof VERDICT_CONFIG] ?? VERDICT_CONFIG.unsupported;
+                  const Icon = cfg.icon;
+                  const importanceColor =
+                    ec.importance === "central" ? "text-danger font-semibold" :
+                    ec.importance === "supporting" ? "text-amber-500" :
+                    "text-foreground-subtle";
+
+                  return (
+                    <div key={idx} className={`rounded-[--radius] border p-3 ${cfg.bg}`}>
+                      <div className="flex items-start gap-2">
+                        <span className={`mt-0.5 shrink-0 ${cfg.color}`}><Icon size={14} /></span>
+                        <div className="flex-1 min-w-0">
+                          <div className="flex flex-wrap items-center gap-2 mb-1.5">
+                            <span className={`text-[10px] font-bold uppercase tracking-wide ${cfg.color}`}>
+                              {cfg.label}
+                            </span>
+                            <span className={`text-[10px] font-semibold px-1.5 py-0.5 rounded ${isA ? "bg-brand/20 text-brand" : "bg-danger/20 text-danger"}`}>
+                              {ec.debater}
+                            </span>
+                            {ec.importance && (
+                              <span className={`text-[10px] uppercase tracking-wide ${importanceColor}`}>
+                                {ec.importance === "central" ? "⚠ Central claim" : ec.importance === "supporting" ? "Supporting" : "Peripheral"}
                               </span>
                             )}
                           </div>
