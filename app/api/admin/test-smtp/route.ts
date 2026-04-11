@@ -36,15 +36,42 @@ export async function GET(req: NextRequest) {
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: { user: smtpUser, pass: smtpPass },
+      // Enhanced Railway compatibility with explicit timeouts
       port: 587,
-      secure: false,
+      secure: false, // Use STARTTLS
       requireTLS: true,
-      debug: true,
+      connectionTimeout: 10000, // 10 seconds connection timeout
+      greetingTimeout: 5000,    // 5 seconds greeting timeout
+      socketTimeout: 15000,     // 15 seconds socket timeout
+      debug: process.env.NODE_ENV !== 'production', // Only debug in development
+      logger: process.env.NODE_ENV !== 'production', // Only log in development
+      // Retry configuration
+      pool: false, // Don't use connection pooling for reliability
+      maxMessages: 1, // One message per connection
+      rateDelta: 1000, // 1 second between messages
+      rateLimit: 5, // Max 5 messages per rateDelta period
     });
 
-    // Test the connection
-    await transporter.verify();
+    console.log("[smtp-test] Testing connection...");
     
+    // Test the connection with timeout
+    const connectionTest = new Promise((resolve, reject) => {
+      const timeout = setTimeout(() => {
+        reject(new Error('Connection test timed out after 15 seconds'));
+      }, 15000);
+      
+      transporter.verify()
+        .then(result => {
+          clearTimeout(timeout);
+          resolve(result);
+        })
+        .catch(error => {
+          clearTimeout(timeout);
+          reject(error);
+        });
+    });
+    
+    await connectionTest;
     console.log("[smtp-test] Connection verified successfully");
 
     // Send a test email
