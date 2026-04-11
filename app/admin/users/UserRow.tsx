@@ -47,12 +47,14 @@ export function UserRow({ user }: { user: User }) {
   const [editingUsername, setEditingUsername] = useState(false);
   const [newUsername, setNewUsername] = useState(user.username);
   const [hideFromLeaderboard, setHideFromLeaderboard] = useState(user.hideFromLeaderboard);
+  const [localDeleted, setLocalDeleted] = useState(user.isDeleted);
 
   const isBanned = user.role === "banned";
   const isSuspended = user.role === "suspended" && !!user.suspendedUntil && new Date(user.suspendedUntil) > new Date();
   const isPlaceholder = user.email.endsWith("@placeholder.com");
   const isSynthetic = isPlaceholder;
-  const status = getStatus(user);
+  const effectiveUser = { ...user, isDeleted: localDeleted };
+  const status = getStatus(effectiveUser);
 
   async function apply(action: string) {
     setLoading(true);
@@ -76,11 +78,24 @@ export function UserRow({ user }: { user: User }) {
 
   async function deleteUser() {
     setLoading(true);
-    await fetch(`/api/admin/users/${user.id}`, { method: "DELETE" });
-    setLoading(false);
-    setConfirmDelete(false);
-    setMsg("Deleted ✓");
-    router.refresh();
+    try {
+      const res = await fetch(`/api/admin/users/${user.id}`, { method: "DELETE" });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        setMsg(`Error: ${(data as { error?: string }).error ?? res.statusText}`);
+        setConfirmDelete(false);
+        return;
+      }
+      setLocalDeleted(true);
+      setConfirmDelete(false);
+      setMsg("Deleted ✓");
+      router.refresh();
+    } catch (err) {
+      setMsg(`Error: ${err instanceof Error ? err.message : "Network error"}`);
+      setConfirmDelete(false);
+    } finally {
+      setLoading(false);
+    }
   }
 
   async function saveUsername() {
@@ -183,7 +198,7 @@ export function UserRow({ user }: { user: User }) {
 
         {/* Actions — all inline in one row */}
         <td className="px-4 py-3">
-          {user.isDeleted ? (
+          {localDeleted ? (
             <span className="text-xs text-foreground-muted italic">deleted</span>
           ) : (
             <div className="flex flex-wrap items-center gap-1.5">

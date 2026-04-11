@@ -64,32 +64,40 @@ export async function DELETE(_req: NextRequest, { params }: RouteParams) {
   if (!target) return NextResponse.json({ error: "User not found" }, { status: 404 });
   if (target.isDeleted) return NextResponse.json({ error: "Already deleted" }, { status: 400 });
 
-  // Soft delete — preserve the record so debate history stays intact.
-  // Anonymize all personal data but keep the user row for FK references.
-  await db.user.update({
-    where: { id: targetId },
-    data: {
-      isDeleted: true,
-      deletedAt: new Date(),
-      username: `[deleted_${targetId.slice(0, 8)}]`,
-      email: `deleted_${targetId}@deleted.invalid`,
-      hashedPassword: null,
-      bio: null,
-      avatarUrl: null,
-      country: null,
-      twitterHandle: null,
-      threadsHandle: null,
-      truthSocialHandle: null,
-      blueskyHandle: null,
-      mastodonHandle: null,
-      websiteUrl: null,
-      aiAssessment: null,
-    },
-  });
+  // Generate a unique anonymised username/email — use full ID to avoid 8-char collisions
+  const anonUsername = `[deleted_${targetId}]`;
+  const anonEmail = `deleted_${targetId}@deleted.invalid`;
 
-  // Revoke all sessions so they're immediately signed out
-  await db.session.deleteMany({ where: { userId: targetId } });
-  await db.account.deleteMany({ where: { userId: targetId } });
+  try {
+    await db.user.update({
+      where: { id: targetId },
+      data: {
+        isDeleted: true,
+        deletedAt: new Date(),
+        username: anonUsername,
+        email: anonEmail,
+        hashedPassword: null,
+        bio: null,
+        avatarUrl: null,
+        country: null,
+        twitterHandle: null,
+        threadsHandle: null,
+        truthSocialHandle: null,
+        blueskyHandle: null,
+        mastodonHandle: null,
+        websiteUrl: null,
+        aiAssessment: null,
+      },
+    });
 
-  return NextResponse.json({ ok: true });
+    // Revoke all sessions so they're immediately signed out
+    await db.session.deleteMany({ where: { userId: targetId } });
+    await db.account.deleteMany({ where: { userId: targetId } });
+
+    return NextResponse.json({ ok: true });
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err);
+    console.error("[admin] delete user error:", msg);
+    return NextResponse.json({ error: msg }, { status: 500 });
+  }
 }
