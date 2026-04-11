@@ -10,6 +10,7 @@ import { CommentsSection } from "./CommentsSection";
 import { AudienceVotePanel } from "./AudienceVotePanel";
 import { Trophy, Gavel, Users, CheckCircle2, XCircle, AlertCircle, HelpCircle, Scale } from "lucide-react";
 import { PrivateFeedbackView } from "@/components/debate/PrivateFeedbackView";
+import { PrivateFeedbackSection } from "./PrivateFeedbackSection";
 import type { DebaterScores, EvidenceCheck } from "@/lib/judging/types";
 import type { Metadata } from "next";
 
@@ -303,11 +304,10 @@ export default async function ResultsPage({ params }: Props) {
           ) : (
             <Card>
               <CardBody>
-                {myPrivateFeedback && myPrivateFeedback.trim().length > 0 ? (
-                  <PrivateFeedbackView text={myPrivateFeedback} />
-                ) : (
-                  <p className="text-sm text-foreground-muted italic">Private feedback has not been generated yet.</p>
-                )}
+                <PrivateFeedbackSection
+                  challengeId={challengeId}
+                  initialFeedback={myPrivateFeedback}
+                />
               </CardBody>
             </Card>
           )}

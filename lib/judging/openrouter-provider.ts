@@ -618,7 +618,7 @@ JSON schema:
     return collectStream(stream, 90_000);
   };
 
-  const raw = await withRetry(doRequest);
+  const raw = await withRetry(doRequest, { attempts: 4, delayMs: 3000 });
   if (!raw) throw new Error("Empty response from feedback generator");
 
   const parsed = tryParseJson(raw);
