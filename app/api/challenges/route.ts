@@ -60,6 +60,7 @@ export async function POST(request: NextRequest) {
     where: {
       creatorId: session.user.id,
       status: { in: ["pending", "locked"] },
+      OR: [{ expiresAt: null }, { expiresAt: { gt: new Date() } }],
     },
     select: { id: true },
   });
@@ -140,6 +141,7 @@ export async function GET(_request: NextRequest) {
         { targetId: session.user.id },
       ],
       status: { not: "active" }, // active ones are full debates, shown elsewhere
+      AND: [{ OR: [{ expiresAt: null }, { expiresAt: { gt: new Date() } }] }],
     },
     include: {
       category: { select: { id: true, label: true, emoji: true, slug: true } },

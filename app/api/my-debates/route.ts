@@ -18,11 +18,12 @@ export async function GET(request: NextRequest) {
   const filterFrom = searchParams.get("from"); // ISO date string
   const filterTo = searchParams.get("to"); // ISO date string
 
-  // Open challenge (pending/locked, created by me)
+  // Open challenge (pending/locked, created by me, not expired)
   const openChallenge = await db.challenge.findFirst({
     where: {
       creatorId: userId,
       status: { in: ["pending", "locked"] },
+      OR: [{ expiresAt: null }, { expiresAt: { gt: new Date() } }],
     },
     select: {
       id: true,
