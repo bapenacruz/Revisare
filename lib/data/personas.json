@@ -2,10 +2,7 @@
   {
     "username": "jessicakim903",
     "name": "Jessica Kim",
-    "email": "jessica.kim@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
-    "culture": "american",
+	"culture": "american",
     "age": 65,
     "gender": "Female",
     "bio": "Believes emotions matter in debate.",
@@ -36,8 +33,7 @@
     "username": "ryanpatel140",
     "name": "Ryan Patel",
     "email": "ryan.patel@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "american",
     "age": 49,
     "gender": "Female",
@@ -69,8 +65,7 @@
     "username": "alihassan784",
     "name": "Ali Hassan",
     "email": "ali.hassan@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "middle_eastern",
     "age": 52,
     "gender": "Female",
@@ -102,8 +97,7 @@
     "username": "noorsmith761",
     "name": "Noor Smith",
     "email": "noor.smith@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "middle_eastern",
     "age": 24,
     "gender": "Male",
@@ -135,8 +129,7 @@
     "username": "chinedujohnson376",
     "name": "Chinedu Johnson",
     "email": "chinedu.johnson@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "african",
     "age": 26,
     "gender": "Female",
@@ -168,8 +161,7 @@
     "username": "arjungarcia212",
     "name": "Arjun Garcia",
     "email": "arjun.garcia@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "indian",
     "age": 54,
     "gender": "Male",
@@ -201,8 +193,7 @@
     "username": "ashleymartinez580",
     "name": "Ashley Martinez",
     "email": "ashley.martinez@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "american",
     "age": 31,
     "gender": "Male",
@@ -234,8 +225,7 @@
     "username": "michaelkim559",
     "name": "Michael Kim",
     "email": "michael.kim@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "american",
     "age": 35,
     "gender": "Male",
@@ -267,8 +257,7 @@
     "username": "fatimadubois123",
     "name": "Fatima Dubois",
     "email": "fatima.dubois@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "middle_eastern",
     "age": 65,
     "gender": "Female",
@@ -300,8 +289,7 @@
     "username": "aminagarcia364",
     "name": "Amina Garcia",
     "email": "amina.garcia@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "african",
     "age": 34,
     "gender": "Female",
@@ -333,8 +321,7 @@
     "username": "jessicasingh179",
     "name": "Jessica Singh",
     "email": "jessica.singh@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "american",
     "age": 32,
     "gender": "Male",
@@ -366,8 +353,7 @@
     "username": "jessicalopez389",
     "name": "Jessica Lopez",
     "email": "jessica.lopez@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "american",
     "age": 36,
     "gender": "Male",
@@ -399,8 +385,7 @@
     "username": "josesingh293",
     "name": "Jose Singh",
     "email": "jose.singh@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "hispanic",
     "age": 60,
     "gender": "Female",
@@ -432,8 +417,7 @@
     "username": "jessicakhan684",
     "name": "Jessica Khan",
     "email": "jessica.khan@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "american",
     "age": 27,
     "gender": "Male",
@@ -465,8 +449,7 @@
     "username": "rahuljohnson227",
     "name": "Rahul Johnson",
     "email": "rahul.johnson@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "indian",
     "age": 63,
     "gender": "Male",
@@ -498,8 +481,7 @@
     "username": "ananyalopez559",
     "name": "Ananya Lopez",
     "email": "ananya.lopez@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "indian",
     "age": 57,
     "gender": "Male",
@@ -531,8 +513,7 @@
     "username": "ananyakhan800",
     "name": "Ananya Khan",
     "email": "ananya.khan@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "indian",
     "age": 40,
     "gender": "Male",
@@ -564,8 +545,7 @@
     "username": "priyazhang43",
     "name": "Priya Zhang",
     "email": "priya.zhang@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "indian",
     "age": 40,
     "gender": "Male",
@@ -597,8 +577,7 @@
     "username": "omarkim531",
     "name": "Omar Kim",
     "email": "omar.kim@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "middle_eastern",
     "age": 41,
     "gender": "Male",
@@ -630,8 +609,7 @@
     "username": "ryanpatel918",
     "name": "Ryan Patel",
     "email": "ryan.patel@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "american",
     "age": 56,
     "gender": "Female",
@@ -663,8 +641,7 @@
     "username": "chinedugarcia649",
     "name": "Chinedu Garcia",
     "email": "chinedu.garcia@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "african",
     "age": 18,
     "gender": "Male",
@@ -696,8 +673,7 @@
     "username": "carloskhan596",
     "name": "Carlos Khan",
     "email": "carlos.khan@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "hispanic",
     "age": 58,
     "gender": "Female",
@@ -729,8 +705,7 @@
     "username": "sofiagarcia950",
     "name": "Sofia Garcia",
     "email": "sofia.garcia@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "european",
     "age": 65,
     "gender": "Female",
@@ -762,8 +737,7 @@
     "username": "abebegarcia406",
     "name": "Abebe Garcia",
     "email": "abebe.garcia@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "african",
     "age": 21,
     "gender": "Male",
@@ -795,8 +769,7 @@
     "username": "anapatel625",
     "name": "Ana Patel",
     "email": "ana.patel@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "hispanic",
     "age": 24,
     "gender": "Female",
@@ -828,8 +801,7 @@
     "username": "yusufgarcia490",
     "name": "Yusuf Garcia",
     "email": "yusuf.garcia@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "middle_eastern",
     "age": 21,
     "gender": "Male",
@@ -861,8 +833,7 @@
     "username": "alijohnson623",
     "name": "Ali Johnson",
     "email": "ali.johnson@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "middle_eastern",
     "age": 64,
     "gender": "Male",
@@ -894,8 +865,7 @@
     "username": "yukirossi376",
     "name": "Yuki Rossi",
     "email": "yuki.rossi@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "asian",
     "age": 49,
     "gender": "Male",
@@ -927,8 +897,7 @@
     "username": "lucasingh399",
     "name": "Luca Singh",
     "email": "luca.singh@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "european",
     "age": 56,
     "gender": "Male",
@@ -960,8 +929,7 @@
     "username": "ananyalopez307",
     "name": "Ananya Lopez",
     "email": "ananya.lopez@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "indian",
     "age": 45,
     "gender": "Male",
@@ -993,8 +961,7 @@
     "username": "clairebrown438",
     "name": "Claire Brown",
     "email": "claire.brown@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "european",
     "age": 43,
     "gender": "Female",
@@ -1026,8 +993,7 @@
     "username": "luissingh831",
     "name": "Luis Singh",
     "email": "luis.singh@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "hispanic",
     "age": 51,
     "gender": "Female",
@@ -1059,8 +1025,7 @@
     "username": "arjunzhang631",
     "name": "Arjun Zhang",
     "email": "arjun.zhang@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "indian",
     "age": 43,
     "gender": "Male",
@@ -1092,8 +1057,7 @@
     "username": "clairerossi82",
     "name": "Claire Rossi",
     "email": "claire.rossi@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "european",
     "age": 61,
     "gender": "Female",
@@ -1125,8 +1089,7 @@
     "username": "martajohnson880",
     "name": "Marta Johnson",
     "email": "marta.johnson@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "european",
     "age": 65,
     "gender": "Female",
@@ -1158,8 +1121,7 @@
     "username": "clairekim39",
     "name": "Claire Kim",
     "email": "claire.kim@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "european",
     "age": 38,
     "gender": "Male",
@@ -1191,8 +1153,7 @@
     "username": "emilyjohnson134",
     "name": "Emily Johnson",
     "email": "emily.johnson@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "american",
     "age": 61,
     "gender": "Male",
@@ -1224,8 +1185,7 @@
     "username": "chinedukim462",
     "name": "Chinedu Kim",
     "email": "chinedu.kim@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "african",
     "age": 52,
     "gender": "Male",
@@ -1257,8 +1217,7 @@
     "username": "rahulkim938",
     "name": "Rahul Kim",
     "email": "rahul.kim@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "indian",
     "age": 29,
     "gender": "Male",
@@ -1290,8 +1249,7 @@
     "username": "chinedumensah755",
     "name": "Chinedu Mensah",
     "email": "chinedu.mensah@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "african",
     "age": 63,
     "gender": "Male",
@@ -1323,8 +1281,7 @@
     "username": "sofiakim712",
     "name": "Sofia Kim",
     "email": "sofia.kim@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "hispanic",
     "age": 45,
     "gender": "Male",
@@ -1356,8 +1313,7 @@
     "username": "arjunmensah858",
     "name": "Arjun Mensah",
     "email": "arjun.mensah@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "indian",
     "age": 57,
     "gender": "Female",
@@ -1389,8 +1345,7 @@
     "username": "yukikim346",
     "name": "Yuki Kim",
     "email": "yuki.kim@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "asian",
     "age": 58,
     "gender": "Female",
@@ -1422,8 +1377,7 @@
     "username": "rahulzhang217",
     "name": "Rahul Zhang",
     "email": "rahul.zhang@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "indian",
     "age": 61,
     "gender": "Female",
@@ -1455,8 +1409,7 @@
     "username": "jasonhassan971",
     "name": "Jason Hassan",
     "email": "jason.hassan@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "american",
     "age": 36,
     "gender": "Male",
@@ -1488,8 +1441,7 @@
     "username": "rahullopez695",
     "name": "Rahul Lopez",
     "email": "rahul.lopez@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "indian",
     "age": 39,
     "gender": "Male",
@@ -1521,8 +1473,7 @@
     "username": "alismith882",
     "name": "Ali Smith",
     "email": "ali.smith@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "middle_eastern",
     "age": 30,
     "gender": "Male",
@@ -1554,8 +1505,7 @@
     "username": "kwamehassan512",
     "name": "Kwame Hassan",
     "email": "kwame.hassan@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "african",
     "age": 19,
     "gender": "Male",
@@ -1587,8 +1537,7 @@
     "username": "ananyamensah224",
     "name": "Ananya Mensah",
     "email": "ananya.mensah@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "indian",
     "age": 36,
     "gender": "Female",
@@ -1620,8 +1569,7 @@
     "username": "ryanzhang427",
     "name": "Ryan Zhang",
     "email": "ryan.zhang@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "american",
     "age": 65,
     "gender": "Male",
@@ -1653,8 +1601,7 @@
     "username": "ananyasmith781",
     "name": "Ananya Smith",
     "email": "ananya.smith@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "indian",
     "age": 64,
     "gender": "Female",
@@ -1686,8 +1633,7 @@
     "username": "ashleyrossi995",
     "name": "Ashley Rossi",
     "email": "ashley.rossi@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "american",
     "age": 47,
     "gender": "Male",
@@ -1719,8 +1665,7 @@
     "username": "vikramsingh963",
     "name": "Vikram Singh",
     "email": "vikram.singh@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "indian",
     "age": 25,
     "gender": "Female",
@@ -1752,8 +1697,7 @@
     "username": "abebejohnson364",
     "name": "Abebe Johnson",
     "email": "abebe.johnson@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "african",
     "age": 36,
     "gender": "Female",
@@ -1785,8 +1729,7 @@
     "username": "clairepatel801",
     "name": "Claire Patel",
     "email": "claire.patel@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "european",
     "age": 47,
     "gender": "Female",
@@ -1818,8 +1761,7 @@
     "username": "kwamekhan498",
     "name": "Kwame Khan",
     "email": "kwame.khan@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "african",
     "age": 45,
     "gender": "Female",
@@ -1851,8 +1793,7 @@
     "username": "ivandubois959",
     "name": "Ivan Dubois",
     "email": "ivan.dubois@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "european",
     "age": 45,
     "gender": "Male",
@@ -1884,8 +1825,7 @@
     "username": "jessicazhang176",
     "name": "Jessica Zhang",
     "email": "jessica.zhang@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "american",
     "age": 23,
     "gender": "Female",
@@ -1917,8 +1857,7 @@
     "username": "sofiasmith845",
     "name": "Sofia Smith",
     "email": "sofia.smith@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "hispanic",
     "age": 26,
     "gender": "Male",
@@ -1950,8 +1889,7 @@
     "username": "jasonkim34",
     "name": "Jason Kim",
     "email": "jason.kim@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "american",
     "age": 42,
     "gender": "Female",
@@ -1983,8 +1921,7 @@
     "username": "omarjohnson267",
     "name": "Omar Johnson",
     "email": "omar.johnson@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "middle_eastern",
     "age": 56,
     "gender": "Male",
@@ -2016,8 +1953,7 @@
     "username": "jasonkim489",
     "name": "Jason Kim",
     "email": "jason.kim@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "american",
     "age": 39,
     "gender": "Female",
@@ -2049,8 +1985,7 @@
     "username": "nehadubois316",
     "name": "Neha Dubois",
     "email": "neha.dubois@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "indian",
     "age": 61,
     "gender": "Male",
@@ -2082,8 +2017,7 @@
     "username": "mariasingh296",
     "name": "Maria Singh",
     "email": "maria.singh@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "hispanic",
     "age": 40,
     "gender": "Male",
@@ -2115,8 +2049,7 @@
     "username": "ivansmith239",
     "name": "Ivan Smith",
     "email": "ivan.smith@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "european",
     "age": 60,
     "gender": "Female",
@@ -2148,8 +2081,7 @@
     "username": "mindubois457",
     "name": "Min Dubois",
     "email": "min.dubois@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "asian",
     "age": 55,
     "gender": "Male",
@@ -2181,8 +2113,7 @@
     "username": "lucabrown951",
     "name": "Luca Brown",
     "email": "luca.brown@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "european",
     "age": 21,
     "gender": "Female",
@@ -2214,8 +2145,7 @@
     "username": "weidubois474",
     "name": "Wei Dubois",
     "email": "wei.dubois@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "asian",
     "age": 47,
     "gender": "Male",
@@ -2247,8 +2177,7 @@
     "username": "luiskhan489",
     "name": "Luis Khan",
     "email": "luis.khan@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "hispanic",
     "age": 21,
     "gender": "Female",
@@ -2280,8 +2209,7 @@
     "username": "arjunbrown913",
     "name": "Arjun Brown",
     "email": "arjun.brown@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "indian",
     "age": 21,
     "gender": "Male",
@@ -2313,8 +2241,7 @@
     "username": "yusuflopez822",
     "name": "Yusuf Lopez",
     "email": "yusuf.lopez@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "middle_eastern",
     "age": 60,
     "gender": "Male",
@@ -2346,8 +2273,7 @@
     "username": "zolakhan578",
     "name": "Zola Khan",
     "email": "zola.khan@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "african",
     "age": 35,
     "gender": "Female",
@@ -2379,8 +2305,7 @@
     "username": "martasingh381",
     "name": "Marta Singh",
     "email": "marta.singh@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "european",
     "age": 49,
     "gender": "Female",
@@ -2412,8 +2337,7 @@
     "username": "minsingh810",
     "name": "Min Singh",
     "email": "min.singh@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "asian",
     "age": 30,
     "gender": "Male",
@@ -2445,8 +2369,7 @@
     "username": "sofiakim692",
     "name": "Sofia Kim",
     "email": "sofia.kim@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "european",
     "age": 35,
     "gender": "Male",
@@ -2478,8 +2401,7 @@
     "username": "ananyadubois325",
     "name": "Ananya Dubois",
     "email": "ananya.dubois@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "indian",
     "age": 58,
     "gender": "Male",
@@ -2511,8 +2433,7 @@
     "username": "layladubois122",
     "name": "Layla Dubois",
     "email": "layla.dubois@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "middle_eastern",
     "age": 37,
     "gender": "Male",
@@ -2544,8 +2465,7 @@
     "username": "jessicakhan329",
     "name": "Jessica Khan",
     "email": "jessica.khan@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "american",
     "age": 33,
     "gender": "Female",
@@ -2577,8 +2497,7 @@
     "username": "rahulmensah827",
     "name": "Rahul Mensah",
     "email": "rahul.mensah@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "indian",
     "age": 63,
     "gender": "Male",
@@ -2610,8 +2529,7 @@
     "username": "fatimabrown139",
     "name": "Fatima Brown",
     "email": "fatima.brown@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "middle_eastern",
     "age": 58,
     "gender": "Male",
@@ -2643,8 +2561,7 @@
     "username": "jessicasingh533",
     "name": "Jessica Singh",
     "email": "jessica.singh@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "american",
     "age": 23,
     "gender": "Male",
@@ -2676,8 +2593,7 @@
     "username": "haorossi70",
     "name": "Hao Rossi",
     "email": "hao.rossi@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "asian",
     "age": 40,
     "gender": "Male",
@@ -2709,8 +2625,7 @@
     "username": "rahulzhang480",
     "name": "Rahul Zhang",
     "email": "rahul.zhang@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "indian",
     "age": 61,
     "gender": "Male",
@@ -2742,8 +2657,7 @@
     "username": "josebrown959",
     "name": "Jose Brown",
     "email": "jose.brown@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "hispanic",
     "age": 23,
     "gender": "Male",
@@ -2775,8 +2689,7 @@
     "username": "alisingh599",
     "name": "Ali Singh",
     "email": "ali.singh@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "middle_eastern",
     "age": 22,
     "gender": "Female",
@@ -2808,8 +2721,7 @@
     "username": "vikramlopez307",
     "name": "Vikram Lopez",
     "email": "vikram.lopez@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "indian",
     "age": 18,
     "gender": "Female",
@@ -2841,8 +2753,7 @@
     "username": "yukizhang821",
     "name": "Yuki Zhang",
     "email": "yuki.zhang@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "asian",
     "age": 58,
     "gender": "Male",
@@ -2874,8 +2785,7 @@
     "username": "martajohnson212",
     "name": "Marta Johnson",
     "email": "marta.johnson@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "european",
     "age": 36,
     "gender": "Male",
@@ -2907,8 +2817,7 @@
     "username": "fatimazhang320",
     "name": "Fatima Zhang",
     "email": "fatima.zhang@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "middle_eastern",
     "age": 55,
     "gender": "Male",
@@ -2940,8 +2849,7 @@
     "username": "kenjikim642",
     "name": "Kenji Kim",
     "email": "kenji.kim@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "asian",
     "age": 64,
     "gender": "Female",
@@ -2973,8 +2881,7 @@
     "username": "sofiagarcia131",
     "name": "Sofia Garcia",
     "email": "sofia.garcia@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "european",
     "age": 33,
     "gender": "Female",
@@ -3006,8 +2913,7 @@
     "username": "noordubois95",
     "name": "Noor Dubois",
     "email": "noor.dubois@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "middle_eastern",
     "age": 24,
     "gender": "Male",
@@ -3039,8 +2945,7 @@
     "username": "soobrown458",
     "name": "Soo Brown",
     "email": "soo.brown@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "asian",
     "age": 34,
     "gender": "Male",
@@ -3072,8 +2977,7 @@
     "username": "clairezhang840",
     "name": "Claire Zhang",
     "email": "claire.zhang@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "european",
     "age": 28,
     "gender": "Female",
@@ -3105,8 +3009,7 @@
     "username": "erikzhang763",
     "name": "Erik Zhang",
     "email": "erik.zhang@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "european",
     "age": 30,
     "gender": "Male",
@@ -3138,8 +3041,7 @@
     "username": "zolahassan894",
     "name": "Zola Hassan",
     "email": "zola.hassan@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "african",
     "age": 23,
     "gender": "Female",
@@ -3171,8 +3073,7 @@
     "username": "ananyakim660",
     "name": "Ananya Kim",
     "email": "ananya.kim@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "indian",
     "age": 44,
     "gender": "Female",
@@ -3204,8 +3105,7 @@
     "username": "mariakhan33",
     "name": "Maria Khan",
     "email": "maria.khan@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "hispanic",
     "age": 37,
     "gender": "Female",
@@ -3237,8 +3137,7 @@
     "username": "priyapatel159",
     "name": "Priya Patel",
     "email": "priya.patel@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "indian",
     "age": 25,
     "gender": "Female",
@@ -3270,8 +3169,7 @@
     "username": "arjunkhan274",
     "name": "Arjun Khan",
     "email": "arjun.khan@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "indian",
     "age": 34,
     "gender": "Male",
@@ -3303,8 +3201,7 @@
     "username": "carlosmartinez372",
     "name": "Carlos Martinez",
     "email": "carlos.martinez@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "hispanic",
     "age": 39,
     "gender": "Male",
@@ -3336,8 +3233,7 @@
     "username": "priyapatel610",
     "name": "Priya Patel",
     "email": "priya.patel@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "indian",
     "age": 27,
     "gender": "Female",
@@ -3369,8 +3265,7 @@
     "username": "rahulkhan612",
     "name": "Rahul Khan",
     "email": "rahul.khan@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "indian",
     "age": 29,
     "gender": "Female",
@@ -3402,8 +3297,7 @@
     "username": "haogarcia481",
     "name": "Hao Garcia",
     "email": "hao.garcia@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "asian",
     "age": 59,
     "gender": "Male",
@@ -3435,8 +3329,7 @@
     "username": "priyajohnson783",
     "name": "Priya Johnson",
     "email": "priya.johnson@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "indian",
     "age": 59,
     "gender": "Male",
@@ -3468,8 +3361,7 @@
     "username": "erikpatel595",
     "name": "Erik Patel",
     "email": "erik.patel@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "european",
     "age": 59,
     "gender": "Male",
@@ -3501,8 +3393,7 @@
     "username": "clairegarcia197",
     "name": "Claire Garcia",
     "email": "claire.garcia@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "european",
     "age": 19,
     "gender": "Female",
@@ -3534,8 +3425,7 @@
     "username": "nehabrown996",
     "name": "Neha Brown",
     "email": "neha.brown@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "indian",
     "age": 53,
     "gender": "Male",
@@ -3567,8 +3457,7 @@
     "username": "emilymartinez745",
     "name": "Emily Martinez",
     "email": "emily.martinez@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "american",
     "age": 19,
     "gender": "Male",
@@ -3600,8 +3489,7 @@
     "username": "jasonsmith471",
     "name": "Jason Smith",
     "email": "jason.smith@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "american",
     "age": 64,
     "gender": "Male",
@@ -3633,8 +3521,7 @@
     "username": "arjunbrown311",
     "name": "Arjun Brown",
     "email": "arjun.brown@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "indian",
     "age": 38,
     "gender": "Female",
@@ -3666,8 +3553,7 @@
     "username": "michaelkim525",
     "name": "Michael Kim",
     "email": "michael.kim@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "american",
     "age": 45,
     "gender": "Female",
@@ -3699,8 +3585,7 @@
     "username": "ryanpatel35",
     "name": "Ryan Patel",
     "email": "ryan.patel@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "american",
     "age": 35,
     "gender": "Male",
@@ -3732,8 +3617,7 @@
     "username": "soolopez310",
     "name": "Soo Lopez",
     "email": "soo.lopez@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "asian",
     "age": 35,
     "gender": "Female",
@@ -3765,8 +3649,7 @@
     "username": "luisrossi515",
     "name": "Luis Rossi",
     "email": "luis.rossi@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "hispanic",
     "age": 41,
     "gender": "Female",
@@ -3798,8 +3681,7 @@
     "username": "sofiabrown807",
     "name": "Sofia Brown",
     "email": "sofia.brown@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "hispanic",
     "age": 61,
     "gender": "Male",
@@ -3831,8 +3713,7 @@
     "username": "vikrammartinez610",
     "name": "Vikram Martinez",
     "email": "vikram.martinez@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "indian",
     "age": 55,
     "gender": "Male",
@@ -3864,8 +3745,7 @@
     "username": "neharossi785",
     "name": "Neha Rossi",
     "email": "neha.rossi@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "indian",
     "age": 65,
     "gender": "Male",
@@ -3897,8 +3777,7 @@
     "username": "anazhang13",
     "name": "Ana Zhang",
     "email": "ana.zhang@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "hispanic",
     "age": 44,
     "gender": "Male",
@@ -3930,8 +3809,7 @@
     "username": "zolamartinez582",
     "name": "Zola Martinez",
     "email": "zola.martinez@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "african",
     "age": 65,
     "gender": "Male",
@@ -3963,8 +3841,7 @@
     "username": "weijohnson14",
     "name": "Wei Johnson",
     "email": "wei.johnson@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "asian",
     "age": 56,
     "gender": "Female",
@@ -3996,8 +3873,7 @@
     "username": "rahulsingh312",
     "name": "Rahul Singh",
     "email": "rahul.singh@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "indian",
     "age": 44,
     "gender": "Male",
@@ -4029,8 +3905,7 @@
     "username": "jessicahassan882",
     "name": "Jessica Hassan",
     "email": "jessica.hassan@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "american",
     "age": 60,
     "gender": "Female",
@@ -4062,8 +3937,7 @@
     "username": "nehapatel49",
     "name": "Neha Patel",
     "email": "neha.patel@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "indian",
     "age": 36,
     "gender": "Male",
@@ -4095,8 +3969,7 @@
     "username": "zolamensah722",
     "name": "Zola Mensah",
     "email": "zola.mensah@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "african",
     "age": 53,
     "gender": "Male",
@@ -4128,8 +4001,7 @@
     "username": "rahulsingh803",
     "name": "Rahul Singh",
     "email": "rahul.singh@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "indian",
     "age": 32,
     "gender": "Female",
@@ -4161,8 +4033,7 @@
     "username": "arjunrossi460",
     "name": "Arjun Rossi",
     "email": "arjun.rossi@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "indian",
     "age": 43,
     "gender": "Female",
@@ -4194,8 +4065,7 @@
     "username": "kenjidubois35",
     "name": "Kenji Dubois",
     "email": "kenji.dubois@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "asian",
     "age": 61,
     "gender": "Female",
@@ -4227,8 +4097,7 @@
     "username": "ashleymensah662",
     "name": "Ashley Mensah",
     "email": "ashley.mensah@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "american",
     "age": 33,
     "gender": "Female",
@@ -4260,8 +4129,7 @@
     "username": "ashleysingh640",
     "name": "Ashley Singh",
     "email": "ashley.singh@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "american",
     "age": 18,
     "gender": "Male",
@@ -4293,8 +4161,7 @@
     "username": "rahulmensah532",
     "name": "Rahul Mensah",
     "email": "rahul.mensah@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "indian",
     "age": 53,
     "gender": "Female",
@@ -4326,8 +4193,7 @@
     "username": "erikkhan815",
     "name": "Erik Khan",
     "email": "erik.khan@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "european",
     "age": 30,
     "gender": "Female",
@@ -4359,8 +4225,7 @@
     "username": "michaelmensah426",
     "name": "Michael Mensah",
     "email": "michael.mensah@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "american",
     "age": 62,
     "gender": "Female",
@@ -4392,8 +4257,7 @@
     "username": "yusufpatel82",
     "name": "Yusuf Patel",
     "email": "yusuf.patel@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "middle_eastern",
     "age": 20,
     "gender": "Male",
@@ -4425,8 +4289,7 @@
     "username": "omardubois946",
     "name": "Omar Dubois",
     "email": "omar.dubois@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "middle_eastern",
     "age": 19,
     "gender": "Male",
@@ -4458,8 +4321,7 @@
     "username": "laylahassan296",
     "name": "Layla Hassan",
     "email": "layla.hassan@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "middle_eastern",
     "age": 61,
     "gender": "Female",
@@ -4491,8 +4353,7 @@
     "username": "chinedugarcia869",
     "name": "Chinedu Garcia",
     "email": "chinedu.garcia@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "african",
     "age": 22,
     "gender": "Male",
@@ -4524,8 +4385,7 @@
     "username": "jasonzhang995",
     "name": "Jason Zhang",
     "email": "jason.zhang@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "american",
     "age": 34,
     "gender": "Female",
@@ -4557,8 +4417,7 @@
     "username": "ryankhan84",
     "name": "Ryan Khan",
     "email": "ryan.khan@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "american",
     "age": 25,
     "gender": "Male",
@@ -4590,8 +4449,7 @@
     "username": "zolamartinez343",
     "name": "Zola Martinez",
     "email": "zola.martinez@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "african",
     "age": 37,
     "gender": "Female",
@@ -4623,8 +4481,7 @@
     "username": "abebebrown43",
     "name": "Abebe Brown",
     "email": "abebe.brown@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "african",
     "age": 43,
     "gender": "Male",
@@ -4656,8 +4513,7 @@
     "username": "priyasmith755",
     "name": "Priya Smith",
     "email": "priya.smith@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "indian",
     "age": 45,
     "gender": "Male",
@@ -4689,8 +4545,7 @@
     "username": "sofiagarcia641",
     "name": "Sofia Garcia",
     "email": "sofia.garcia@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "european",
     "age": 60,
     "gender": "Female",
@@ -4722,8 +4577,7 @@
     "username": "martasmith86",
     "name": "Marta Smith",
     "email": "marta.smith@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "european",
     "age": 57,
     "gender": "Male",
@@ -4755,8 +4609,7 @@
     "username": "sofiakhan773",
     "name": "Sofia Khan",
     "email": "sofia.khan@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "hispanic",
     "age": 19,
     "gender": "Female",
@@ -4788,8 +4641,7 @@
     "username": "aminamensah524",
     "name": "Amina Mensah",
     "email": "amina.mensah@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "african",
     "age": 26,
     "gender": "Male",
@@ -4821,8 +4673,7 @@
     "username": "rahulkim650",
     "name": "Rahul Kim",
     "email": "rahul.kim@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "indian",
     "age": 58,
     "gender": "Male",
@@ -4854,8 +4705,7 @@
     "username": "yukirossi427",
     "name": "Yuki Rossi",
     "email": "yuki.rossi@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "asian",
     "age": 50,
     "gender": "Male",
@@ -4887,8 +4737,7 @@
     "username": "erikmensah637",
     "name": "Erik Mensah",
     "email": "erik.mensah@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "european",
     "age": 30,
     "gender": "Male",
@@ -4920,8 +4769,7 @@
     "username": "mariapatel631",
     "name": "Maria Patel",
     "email": "maria.patel@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "hispanic",
     "age": 63,
     "gender": "Male",
@@ -4953,8 +4801,7 @@
     "username": "carlosmensah88",
     "name": "Carlos Mensah",
     "email": "carlos.mensah@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "hispanic",
     "age": 19,
     "gender": "Male",
@@ -4986,8 +4833,7 @@
     "username": "yukisingh926",
     "name": "Yuki Singh",
     "email": "yuki.singh@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "asian",
     "age": 45,
     "gender": "Male",
@@ -5019,8 +4865,7 @@
     "username": "jessicamensah272",
     "name": "Jessica Mensah",
     "email": "jessica.mensah@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "american",
     "age": 52,
     "gender": "Female",
@@ -5052,8 +4897,7 @@
     "username": "clairejohnson521",
     "name": "Claire Johnson",
     "email": "claire.johnson@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "european",
     "age": 60,
     "gender": "Male",
@@ -5085,8 +4929,7 @@
     "username": "josezhang779",
     "name": "Jose Zhang",
     "email": "jose.zhang@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "hispanic",
     "age": 61,
     "gender": "Male",
@@ -5118,8 +4961,7 @@
     "username": "fatimajohnson182",
     "name": "Fatima Johnson",
     "email": "fatima.johnson@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "middle_eastern",
     "age": 28,
     "gender": "Female",
@@ -5151,8 +4993,7 @@
     "username": "sofiabrown185",
     "name": "Sofia Brown",
     "email": "sofia.brown@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "hispanic",
     "age": 34,
     "gender": "Male",
@@ -5184,8 +5025,7 @@
     "username": "marialopez101",
     "name": "Maria Lopez",
     "email": "maria.lopez@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "hispanic",
     "age": 63,
     "gender": "Male",
@@ -5217,8 +5057,7 @@
     "username": "niakim278",
     "name": "Nia Kim",
     "email": "nia.kim@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "african",
     "age": 65,
     "gender": "Male",
@@ -5250,8 +5089,7 @@
     "username": "sofialopez483",
     "name": "Sofia Lopez",
     "email": "sofia.lopez@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "hispanic",
     "age": 57,
     "gender": "Female",
@@ -5283,8 +5121,7 @@
     "username": "martadubois13",
     "name": "Marta Dubois",
     "email": "marta.dubois@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "european",
     "age": 57,
     "gender": "Male",
@@ -5316,8 +5153,7 @@
     "username": "sofiahassan869",
     "name": "Sofia Hassan",
     "email": "sofia.hassan@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "european",
     "age": 58,
     "gender": "Male",
@@ -5349,8 +5185,7 @@
     "username": "vikramdubois51",
     "name": "Vikram Dubois",
     "email": "vikram.dubois@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "indian",
     "age": 46,
     "gender": "Female",
@@ -5382,8 +5217,7 @@
     "username": "ryanbrown95",
     "name": "Ryan Brown",
     "email": "ryan.brown@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "american",
     "age": 22,
     "gender": "Male",
@@ -5415,8 +5249,7 @@
     "username": "chinedusmith439",
     "name": "Chinedu Smith",
     "email": "chinedu.smith@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "african",
     "age": 37,
     "gender": "Female",
@@ -5448,8 +5281,7 @@
     "username": "kenjidubois53",
     "name": "Kenji Dubois",
     "email": "kenji.dubois@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "asian",
     "age": 53,
     "gender": "Female",
@@ -5481,8 +5313,7 @@
     "username": "jessicazhang882",
     "name": "Jessica Zhang",
     "email": "jessica.zhang@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "american",
     "age": 24,
     "gender": "Male",
@@ -5514,8 +5345,7 @@
     "username": "fatimalopez704",
     "name": "Fatima Lopez",
     "email": "fatima.lopez@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "middle_eastern",
     "age": 37,
     "gender": "Female",
@@ -5547,8 +5377,7 @@
     "username": "rahulkim932",
     "name": "Rahul Kim",
     "email": "rahul.kim@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "indian",
     "age": 32,
     "gender": "Female",
@@ -5580,8 +5409,7 @@
     "username": "ryanhassan76",
     "name": "Ryan Hassan",
     "email": "ryan.hassan@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "american",
     "age": 47,
     "gender": "Female",
@@ -5613,8 +5441,7 @@
     "username": "haokhan771",
     "name": "Hao Khan",
     "email": "hao.khan@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "asian",
     "age": 46,
     "gender": "Male",
@@ -5646,8 +5473,7 @@
     "username": "omarjohnson371",
     "name": "Omar Johnson",
     "email": "omar.johnson@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "middle_eastern",
     "age": 55,
     "gender": "Female",
@@ -5679,8 +5505,7 @@
     "username": "emilykhan716",
     "name": "Emily Khan",
     "email": "emily.khan@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "american",
     "age": 22,
     "gender": "Female",
@@ -5712,8 +5537,7 @@
     "username": "ryandubois648",
     "name": "Ryan Dubois",
     "email": "ryan.dubois@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "american",
     "age": 63,
     "gender": "Male",
@@ -5745,8 +5569,7 @@
     "username": "rahulkim144",
     "name": "Rahul Kim",
     "email": "rahul.kim@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "indian",
     "age": 62,
     "gender": "Female",
@@ -5778,8 +5601,7 @@
     "username": "mariapatel543",
     "name": "Maria Patel",
     "email": "maria.patel@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "hispanic",
     "age": 31,
     "gender": "Female",
@@ -5811,8 +5633,7 @@
     "username": "zolamensah119",
     "name": "Zola Mensah",
     "email": "zola.mensah@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "african",
     "age": 28,
     "gender": "Male",
@@ -5844,8 +5665,7 @@
     "username": "soozhang631",
     "name": "Soo Zhang",
     "email": "soo.zhang@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "asian",
     "age": 33,
     "gender": "Male",
@@ -5877,8 +5697,7 @@
     "username": "yusufbrown97",
     "name": "Yusuf Brown",
     "email": "yusuf.brown@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "middle_eastern",
     "age": 23,
     "gender": "Female",
@@ -5910,8 +5729,7 @@
     "username": "anasmith68",
     "name": "Ana Smith",
     "email": "ana.smith@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "hispanic",
     "age": 49,
     "gender": "Male",
@@ -5943,8 +5761,7 @@
     "username": "chinedugarcia396",
     "name": "Chinedu Garcia",
     "email": "chinedu.garcia@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "african",
     "age": 64,
     "gender": "Male",
@@ -5976,8 +5793,7 @@
     "username": "kenjilopez130",
     "name": "Kenji Lopez",
     "email": "kenji.lopez@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "asian",
     "age": 36,
     "gender": "Female",
@@ -6009,8 +5825,7 @@
     "username": "clairekim149",
     "name": "Claire Kim",
     "email": "claire.kim@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "european",
     "age": 39,
     "gender": "Female",
@@ -6042,8 +5857,7 @@
     "username": "mariasmith647",
     "name": "Maria Smith",
     "email": "maria.smith@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "hispanic",
     "age": 52,
     "gender": "Male",
@@ -6075,8 +5889,7 @@
     "username": "chinedusingh114",
     "name": "Chinedu Singh",
     "email": "chinedu.singh@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "african",
     "age": 30,
     "gender": "Male",
@@ -6108,8 +5921,7 @@
     "username": "martapatel87",
     "name": "Marta Patel",
     "email": "marta.patel@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "european",
     "age": 65,
     "gender": "Female",
@@ -6141,8 +5953,7 @@
     "username": "martapatel763",
     "name": "Marta Patel",
     "email": "marta.patel@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "european",
     "age": 54,
     "gender": "Male",
@@ -6174,8 +5985,7 @@
     "username": "fatimalopez45",
     "name": "Fatima Lopez",
     "email": "fatima.lopez@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "middle_eastern",
     "age": 45,
     "gender": "Male",
@@ -6207,8 +6017,7 @@
     "username": "sofiagarcia245",
     "name": "Sofia Garcia",
     "email": "sofia.garcia@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "hispanic",
     "age": 52,
     "gender": "Female",
@@ -6240,8 +6049,7 @@
     "username": "sofiasmith430",
     "name": "Sofia Smith",
     "email": "sofia.smith@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "european",
     "age": 59,
     "gender": "Female",
@@ -6273,8 +6081,7 @@
     "username": "omardubois252",
     "name": "Omar Dubois",
     "email": "omar.dubois@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "middle_eastern",
     "age": 26,
     "gender": "Female",
@@ -6306,8 +6113,7 @@
     "username": "vikramkim697",
     "name": "Vikram Kim",
     "email": "vikram.kim@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "indian",
     "age": 64,
     "gender": "Male",
@@ -6339,8 +6145,7 @@
     "username": "anagarcia371",
     "name": "Ana Garcia",
     "email": "ana.garcia@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "hispanic",
     "age": 65,
     "gender": "Female",
@@ -6372,8 +6177,7 @@
     "username": "yusufdubois413",
     "name": "Yusuf Dubois",
     "email": "yusuf.dubois@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "middle_eastern",
     "age": 23,
     "gender": "Male",
@@ -6405,8 +6209,7 @@
     "username": "luishassan342",
     "name": "Luis Hassan",
     "email": "luis.hassan@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "hispanic",
     "age": 34,
     "gender": "Male",
@@ -6438,8 +6241,7 @@
     "username": "sofiamartinez825",
     "name": "Sofia Martinez",
     "email": "sofia.martinez@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "hispanic",
     "age": 45,
     "gender": "Female",
@@ -6471,8 +6273,7 @@
     "username": "vikramhassan140",
     "name": "Vikram Hassan",
     "email": "vikram.hassan@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "indian",
     "age": 24,
     "gender": "Male",
@@ -6504,8 +6305,7 @@
     "username": "yusufgarcia143",
     "name": "Yusuf Garcia",
     "email": "yusuf.garcia@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "middle_eastern",
     "age": 30,
     "gender": "Male",
@@ -6537,8 +6337,7 @@
     "username": "luislopez404",
     "name": "Luis Lopez",
     "email": "luis.lopez@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "hispanic",
     "age": 31,
     "gender": "Female",
@@ -6570,8 +6369,7 @@
     "username": "emilysingh879",
     "name": "Emily Singh",
     "email": "emily.singh@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "american",
     "age": 58,
     "gender": "Female",
@@ -6603,8 +6401,7 @@
     "username": "josesmith782",
     "name": "Jose Smith",
     "email": "jose.smith@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "hispanic",
     "age": 34,
     "gender": "Male",
@@ -6636,8 +6433,7 @@
     "username": "luislopez860",
     "name": "Luis Lopez",
     "email": "luis.lopez@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "hispanic",
     "age": 26,
     "gender": "Male",
@@ -6669,8 +6465,7 @@
     "username": "ananyamensah882",
     "name": "Ananya Mensah",
     "email": "ananya.mensah@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "indian",
     "age": 64,
     "gender": "Female",
@@ -6702,8 +6497,7 @@
     "username": "fatimabrown585",
     "name": "Fatima Brown",
     "email": "fatima.brown@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "middle_eastern",
     "age": 31,
     "gender": "Male",
@@ -6735,8 +6529,7 @@
     "username": "soobrown726",
     "name": "Soo Brown",
     "email": "soo.brown@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "asian",
     "age": 60,
     "gender": "Male",
@@ -6768,8 +6561,7 @@
     "username": "ashleydubois348",
     "name": "Ashley Dubois",
     "email": "ashley.dubois@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "american",
     "age": 19,
     "gender": "Male",
@@ -6801,8 +6593,7 @@
     "username": "eriksmith652",
     "name": "Erik Smith",
     "email": "erik.smith@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "european",
     "age": 18,
     "gender": "Female",
@@ -6834,8 +6625,7 @@
     "username": "noormartinez278",
     "name": "Noor Martinez",
     "email": "noor.martinez@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "middle_eastern",
     "age": 54,
     "gender": "Female",
@@ -6867,8 +6657,7 @@
     "username": "jessicazhang511",
     "name": "Jessica Zhang",
     "email": "jessica.zhang@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "american",
     "age": 63,
     "gender": "Male",
@@ -6900,8 +6689,7 @@
     "username": "anajohnson405",
     "name": "Ana Johnson",
     "email": "ana.johnson@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "hispanic",
     "age": 43,
     "gender": "Male",
@@ -6933,8 +6721,7 @@
     "username": "michaelbrown141",
     "name": "Michael Brown",
     "email": "michael.brown@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "american",
     "age": 44,
     "gender": "Female",
@@ -6966,8 +6753,7 @@
     "username": "sofiasingh368",
     "name": "Sofia Singh",
     "email": "sofia.singh@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "hispanic",
     "age": 59,
     "gender": "Male",
@@ -6999,8 +6785,7 @@
     "username": "eriksmith127",
     "name": "Erik Smith",
     "email": "erik.smith@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "european",
     "age": 36,
     "gender": "Male",
@@ -7032,8 +6817,7 @@
     "username": "sofiakhan305",
     "name": "Sofia Khan",
     "email": "sofia.khan@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "hispanic",
     "age": 34,
     "gender": "Female",
@@ -7065,8 +6849,7 @@
     "username": "abebekim712",
     "name": "Abebe Kim",
     "email": "abebe.kim@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "african",
     "age": 29,
     "gender": "Male",
@@ -7098,8 +6881,7 @@
     "username": "joselopez190",
     "name": "Jose Lopez",
     "email": "jose.lopez@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "hispanic",
     "age": 63,
     "gender": "Female",
@@ -7131,8 +6913,7 @@
     "username": "erikkhan992",
     "name": "Erik Khan",
     "email": "erik.khan@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "european",
     "age": 53,
     "gender": "Female",
@@ -7164,8 +6945,7 @@
     "username": "abebemartinez697",
     "name": "Abebe Martinez",
     "email": "abebe.martinez@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "african",
     "age": 51,
     "gender": "Male",
@@ -7197,8 +6977,7 @@
     "username": "clairebrown176",
     "name": "Claire Brown",
     "email": "claire.brown@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "european",
     "age": 49,
     "gender": "Male",
@@ -7230,8 +7009,7 @@
     "username": "nehakim313",
     "name": "Neha Kim",
     "email": "neha.kim@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "indian",
     "age": 27,
     "gender": "Male",
@@ -7263,8 +7041,7 @@
     "username": "soorossi72",
     "name": "Soo Rossi",
     "email": "soo.rossi@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "asian",
     "age": 44,
     "gender": "Female",
@@ -7296,8 +7073,7 @@
     "username": "sofiasmith803",
     "name": "Sofia Smith",
     "email": "sofia.smith@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "european",
     "age": 18,
     "gender": "Female",
@@ -7329,8 +7105,7 @@
     "username": "erikdubois386",
     "name": "Erik Dubois",
     "email": "erik.dubois@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "european",
     "age": 21,
     "gender": "Male",
@@ -7362,8 +7137,7 @@
     "username": "arjunpatel25",
     "name": "Arjun Patel",
     "email": "arjun.patel@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "indian",
     "age": 62,
     "gender": "Female",
@@ -7395,8 +7169,7 @@
     "username": "minkhan514",
     "name": "Min Khan",
     "email": "min.khan@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "asian",
     "age": 59,
     "gender": "Female",
@@ -7428,8 +7201,7 @@
     "username": "sofiasmith444",
     "name": "Sofia Smith",
     "email": "sofia.smith@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "european",
     "age": 59,
     "gender": "Female",
@@ -7461,8 +7233,7 @@
     "username": "zolakhan882",
     "name": "Zola Khan",
     "email": "zola.khan@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "african",
     "age": 39,
     "gender": "Female",
@@ -7494,8 +7265,7 @@
     "username": "josedubois195",
     "name": "Jose Dubois",
     "email": "jose.dubois@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "hispanic",
     "age": 58,
     "gender": "Female",
@@ -7527,8 +7297,7 @@
     "username": "lucamartinez804",
     "name": "Luca Martinez",
     "email": "luca.martinez@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "european",
     "age": 27,
     "gender": "Female",
@@ -7560,8 +7329,7 @@
     "username": "alikim352",
     "name": "Ali Kim",
     "email": "ali.kim@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "middle_eastern",
     "age": 40,
     "gender": "Female",
@@ -7593,8 +7361,7 @@
     "username": "haohassan87",
     "name": "Hao Hassan",
     "email": "hao.hassan@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "asian",
     "age": 22,
     "gender": "Male",
@@ -7626,8 +7393,7 @@
     "username": "priyamartinez954",
     "name": "Priya Martinez",
     "email": "priya.martinez@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "indian",
     "age": 23,
     "gender": "Male",
@@ -7659,8 +7425,7 @@
     "username": "nehazhang929",
     "name": "Neha Zhang",
     "email": "neha.zhang@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "indian",
     "age": 20,
     "gender": "Female",
@@ -7692,8 +7457,7 @@
     "username": "noormensah604",
     "name": "Noor Mensah",
     "email": "noor.mensah@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "middle_eastern",
     "age": 32,
     "gender": "Female",
@@ -7725,8 +7489,7 @@
     "username": "carlossingh919",
     "name": "Carlos Singh",
     "email": "carlos.singh@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "hispanic",
     "age": 42,
     "gender": "Male",
@@ -7758,8 +7521,7 @@
     "username": "ananyapatel63",
     "name": "Ananya Patel",
     "email": "ananya.patel@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "indian",
     "age": 22,
     "gender": "Female",
@@ -7791,8 +7553,7 @@
     "username": "haopatel581",
     "name": "Hao Patel",
     "email": "hao.patel@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "asian",
     "age": 21,
     "gender": "Male",
@@ -7824,8 +7585,7 @@
     "username": "ryanhassan211",
     "name": "Ryan Hassan",
     "email": "ryan.hassan@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "american",
     "age": 22,
     "gender": "Male",
@@ -7857,8 +7617,7 @@
     "username": "clairesingh439",
     "name": "Claire Singh",
     "email": "claire.singh@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "european",
     "age": 45,
     "gender": "Male",
@@ -7890,8 +7649,7 @@
     "username": "jessicadubois338",
     "name": "Jessica Dubois",
     "email": "jessica.dubois@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "american",
     "age": 22,
     "gender": "Male",
@@ -7923,8 +7681,7 @@
     "username": "noorbrown630",
     "name": "Noor Brown",
     "email": "noor.brown@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "middle_eastern",
     "age": 58,
     "gender": "Female",
@@ -7956,8 +7713,7 @@
     "username": "sofialopez691",
     "name": "Sofia Lopez",
     "email": "sofia.lopez@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "european",
     "age": 49,
     "gender": "Female",
@@ -7989,8 +7745,7 @@
     "username": "fatimahassan65",
     "name": "Fatima Hassan",
     "email": "fatima.hassan@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "middle_eastern",
     "age": 35,
     "gender": "Male",
@@ -8022,8 +7777,7 @@
     "username": "aminalopez321",
     "name": "Amina Lopez",
     "email": "amina.lopez@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "african",
     "age": 21,
     "gender": "Male",
@@ -8055,8 +7809,7 @@
     "username": "jasonsmith175",
     "name": "Jason Smith",
     "email": "jason.smith@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "american",
     "age": 53,
     "gender": "Male",
@@ -8088,8 +7841,7 @@
     "username": "laylapatel484",
     "name": "Layla Patel",
     "email": "layla.patel@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "middle_eastern",
     "age": 45,
     "gender": "Female",
@@ -8121,8 +7873,7 @@
     "username": "neharossi758",
     "name": "Neha Rossi",
     "email": "neha.rossi@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "indian",
     "age": 23,
     "gender": "Male",
@@ -8154,8 +7905,7 @@
     "username": "nehadubois153",
     "name": "Neha Dubois",
     "email": "neha.dubois@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "indian",
     "age": 54,
     "gender": "Female",
@@ -8187,8 +7937,7 @@
     "username": "chinedusingh690",
     "name": "Chinedu Singh",
     "email": "chinedu.singh@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "african",
     "age": 23,
     "gender": "Female",
@@ -8220,8 +7969,7 @@
     "username": "josejohnson775",
     "name": "Jose Johnson",
     "email": "jose.johnson@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "hispanic",
     "age": 28,
     "gender": "Male",
@@ -8253,8 +8001,7 @@
     "username": "weizhang625",
     "name": "Wei Zhang",
     "email": "wei.zhang@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "asian",
     "age": 33,
     "gender": "Male",
@@ -8286,8 +8033,7 @@
     "username": "yukimensah852",
     "name": "Yuki Mensah",
     "email": "yuki.mensah@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "asian",
     "age": 56,
     "gender": "Female",
@@ -8319,8 +8065,7 @@
     "username": "michaelmensah764",
     "name": "Michael Mensah",
     "email": "michael.mensah@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "american",
     "age": 49,
     "gender": "Female",
@@ -8352,8 +8097,7 @@
     "username": "clairezhang716",
     "name": "Claire Zhang",
     "email": "claire.zhang@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "european",
     "age": 23,
     "gender": "Male",
@@ -8385,8 +8129,7 @@
     "username": "jasonrossi261",
     "name": "Jason Rossi",
     "email": "jason.rossi@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "american",
     "age": 52,
     "gender": "Male",
@@ -8418,8 +8161,7 @@
     "username": "sofiasingh590",
     "name": "Sofia Singh",
     "email": "sofia.singh@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "european",
     "age": 31,
     "gender": "Male",
@@ -8451,8 +8193,7 @@
     "username": "jasondubois518",
     "name": "Jason Dubois",
     "email": "jason.dubois@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "american",
     "age": 20,
     "gender": "Female",
@@ -8484,8 +8225,7 @@
     "username": "neharossi96",
     "name": "Neha Rossi",
     "email": "neha.rossi@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "indian",
     "age": 64,
     "gender": "Male",
@@ -8517,8 +8257,7 @@
     "username": "ryanmartinez26",
     "name": "Ryan Martinez",
     "email": "ryan.martinez@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "american",
     "age": 48,
     "gender": "Male",
@@ -8550,8 +8289,7 @@
     "username": "haojohnson509",
     "name": "Hao Johnson",
     "email": "hao.johnson@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "asian",
     "age": 51,
     "gender": "Male",
@@ -8583,8 +8321,7 @@
     "username": "luismensah419",
     "name": "Luis Mensah",
     "email": "luis.mensah@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "hispanic",
     "age": 42,
     "gender": "Female",
@@ -8616,8 +8353,7 @@
     "username": "laylabrown818",
     "name": "Layla Brown",
     "email": "layla.brown@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "middle_eastern",
     "age": 59,
     "gender": "Male",
@@ -8649,8 +8385,7 @@
     "username": "marialopez187",
     "name": "Maria Lopez",
     "email": "maria.lopez@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "hispanic",
     "age": 61,
     "gender": "Female",
@@ -8682,8 +8417,7 @@
     "username": "lucarossi318",
     "name": "Luca Rossi",
     "email": "luca.rossi@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "european",
     "age": 35,
     "gender": "Male",
@@ -8715,8 +8449,7 @@
     "username": "josehassan223",
     "name": "Jose Hassan",
     "email": "jose.hassan@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "hispanic",
     "age": 37,
     "gender": "Male",
@@ -8748,8 +8481,7 @@
     "username": "ananyabrown520",
     "name": "Ananya Brown",
     "email": "ananya.brown@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "indian",
     "age": 38,
     "gender": "Male",
@@ -8781,8 +8513,7 @@
     "username": "ivankhan974",
     "name": "Ivan Khan",
     "email": "ivan.khan@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "european",
     "age": 50,
     "gender": "Female",
@@ -8814,8 +8545,7 @@
     "username": "chinedusingh905",
     "name": "Chinedu Singh",
     "email": "chinedu.singh@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "african",
     "age": 33,
     "gender": "Male",
@@ -8847,8 +8577,7 @@
     "username": "ananyahassan313",
     "name": "Ananya Hassan",
     "email": "ananya.hassan@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "indian",
     "age": 62,
     "gender": "Female",
@@ -8880,8 +8609,7 @@
     "username": "kwamehassan960",
     "name": "Kwame Hassan",
     "email": "kwame.hassan@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "african",
     "age": 32,
     "gender": "Male",
@@ -8913,8 +8641,7 @@
     "username": "kwamekim90",
     "name": "Kwame Kim",
     "email": "kwame.kim@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "african",
     "age": 43,
     "gender": "Female",
@@ -8946,8 +8673,7 @@
     "username": "weirossi864",
     "name": "Wei Rossi",
     "email": "wei.rossi@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "asian",
     "age": 49,
     "gender": "Male",
@@ -8979,8 +8705,7 @@
     "username": "erikzhang961",
     "name": "Erik Zhang",
     "email": "erik.zhang@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "european",
     "age": 22,
     "gender": "Female",
@@ -9012,8 +8737,7 @@
     "username": "kwamekim132",
     "name": "Kwame Kim",
     "email": "kwame.kim@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "african",
     "age": 46,
     "gender": "Female",
@@ -9045,8 +8769,7 @@
     "username": "niasingh72",
     "name": "Nia Singh",
     "email": "nia.singh@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "african",
     "age": 45,
     "gender": "Female",
@@ -9078,8 +8801,7 @@
     "username": "arjungarcia133",
     "name": "Arjun Garcia",
     "email": "arjun.garcia@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "indian",
     "age": 46,
     "gender": "Female",
@@ -9111,8 +8833,7 @@
     "username": "sofiahassan514",
     "name": "Sofia Hassan",
     "email": "sofia.hassan@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "hispanic",
     "age": 50,
     "gender": "Female",
@@ -9144,8 +8865,7 @@
     "username": "soohassan647",
     "name": "Soo Hassan",
     "email": "soo.hassan@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "asian",
     "age": 52,
     "gender": "Male",
@@ -9177,8 +8897,7 @@
     "username": "michaelgarcia772",
     "name": "Michael Garcia",
     "email": "michael.garcia@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "american",
     "age": 23,
     "gender": "Female",
@@ -9210,8 +8929,7 @@
     "username": "ananyakim552",
     "name": "Ananya Kim",
     "email": "ananya.kim@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "indian",
     "age": 29,
     "gender": "Male",
@@ -9243,8 +8961,7 @@
     "username": "vikramsingh726",
     "name": "Vikram Singh",
     "email": "vikram.singh@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "indian",
     "age": 34,
     "gender": "Female",
@@ -9276,8 +8993,7 @@
     "username": "minlopez380",
     "name": "Min Lopez",
     "email": "min.lopez@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "asian",
     "age": 58,
     "gender": "Male",
@@ -9309,8 +9025,7 @@
     "username": "arjunpatel521",
     "name": "Arjun Patel",
     "email": "arjun.patel@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "indian",
     "age": 49,
     "gender": "Female",
@@ -9342,8 +9057,7 @@
     "username": "emilydubois455",
     "name": "Emily Dubois",
     "email": "emily.dubois@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "american",
     "age": 47,
     "gender": "Male",
@@ -9375,8 +9089,7 @@
     "username": "jessicazhang262",
     "name": "Jessica Zhang",
     "email": "jessica.zhang@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "american",
     "age": 49,
     "gender": "Male",
@@ -9408,8 +9121,7 @@
     "username": "haosmith677",
     "name": "Hao Smith",
     "email": "hao.smith@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "asian",
     "age": 50,
     "gender": "Female",
@@ -9441,8 +9153,7 @@
     "username": "jessicagarcia272",
     "name": "Jessica Garcia",
     "email": "jessica.garcia@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "american",
     "age": 27,
     "gender": "Male",
@@ -9474,8 +9185,7 @@
     "username": "omarrossi324",
     "name": "Omar Rossi",
     "email": "omar.rossi@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "middle_eastern",
     "age": 60,
     "gender": "Female",
@@ -9507,8 +9217,7 @@
     "username": "clairemensah627",
     "name": "Claire Mensah",
     "email": "claire.mensah@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "european",
     "age": 32,
     "gender": "Male",
@@ -9540,8 +9249,7 @@
     "username": "luisbrown171",
     "name": "Luis Brown",
     "email": "luis.brown@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "hispanic",
     "age": 39,
     "gender": "Female",
@@ -9573,8 +9281,7 @@
     "username": "nehamensah434",
     "name": "Neha Mensah",
     "email": "neha.mensah@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "indian",
     "age": 65,
     "gender": "Male",
@@ -9606,8 +9313,7 @@
     "username": "omarkhan222",
     "name": "Omar Khan",
     "email": "omar.khan@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "middle_eastern",
     "age": 53,
     "gender": "Male",
@@ -9639,8 +9345,7 @@
     "username": "ananyadubois457",
     "name": "Ananya Dubois",
     "email": "ananya.dubois@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "indian",
     "age": 58,
     "gender": "Male",
@@ -9672,8 +9377,7 @@
     "username": "mariagarcia590",
     "name": "Maria Garcia",
     "email": "maria.garcia@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "hispanic",
     "age": 27,
     "gender": "Female",
@@ -9705,8 +9409,7 @@
     "username": "kwamepatel465",
     "name": "Kwame Patel",
     "email": "kwame.patel@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "african",
     "age": 50,
     "gender": "Female",
@@ -9738,8 +9441,7 @@
     "username": "kwamehassan166",
     "name": "Kwame Hassan",
     "email": "kwame.hassan@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "african",
     "age": 34,
     "gender": "Male",
@@ -9771,8 +9473,7 @@
     "username": "abebezhang102",
     "name": "Abebe Zhang",
     "email": "abebe.zhang@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "african",
     "age": 32,
     "gender": "Female",
@@ -9804,8 +9505,7 @@
     "username": "yusufhassan798",
     "name": "Yusuf Hassan",
     "email": "yusuf.hassan@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "middle_eastern",
     "age": 33,
     "gender": "Female",
@@ -9837,8 +9537,7 @@
     "username": "abeberossi577",
     "name": "Abebe Rossi",
     "email": "abebe.rossi@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "african",
     "age": 39,
     "gender": "Male",
@@ -9870,8 +9569,7 @@
     "username": "kwamejohnson726",
     "name": "Kwame Johnson",
     "email": "kwame.johnson@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "african",
     "age": 63,
     "gender": "Female",
@@ -9903,8 +9601,7 @@
     "username": "ryankhan844",
     "name": "Ryan Khan",
     "email": "ryan.khan@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "american",
     "age": 65,
     "gender": "Male",
@@ -9936,8 +9633,7 @@
     "username": "anakhan873",
     "name": "Ana Khan",
     "email": "ana.khan@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "hispanic",
     "age": 39,
     "gender": "Male",
@@ -9969,8 +9665,7 @@
     "username": "niazhang510",
     "name": "Nia Zhang",
     "email": "nia.zhang@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "african",
     "age": 47,
     "gender": "Male",
@@ -10002,8 +9697,7 @@
     "username": "josekhan60",
     "name": "Jose Khan",
     "email": "jose.khan@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "hispanic",
     "age": 21,
     "gender": "Male",
@@ -10035,8 +9729,7 @@
     "username": "kenjibrown965",
     "name": "Kenji Brown",
     "email": "kenji.brown@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "asian",
     "age": 18,
     "gender": "Female",
@@ -10068,8 +9761,7 @@
     "username": "nialopez453",
     "name": "Nia Lopez",
     "email": "nia.lopez@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "african",
     "age": 44,
     "gender": "Female",
@@ -10101,8 +9793,7 @@
     "username": "abebezhang23",
     "name": "Abebe Zhang",
     "email": "abebe.zhang@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "african",
     "age": 46,
     "gender": "Male",
@@ -10134,8 +9825,7 @@
     "username": "mariasmith482",
     "name": "Maria Smith",
     "email": "maria.smith@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "hispanic",
     "age": 20,
     "gender": "Female",
@@ -10167,8 +9857,7 @@
     "username": "mariagarcia848",
     "name": "Maria Garcia",
     "email": "maria.garcia@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "hispanic",
     "age": 47,
     "gender": "Male",
@@ -10200,8 +9889,7 @@
     "username": "vikrammensah501",
     "name": "Vikram Mensah",
     "email": "vikram.mensah@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "indian",
     "age": 19,
     "gender": "Female",
@@ -10233,8 +9921,7 @@
     "username": "haobrown551",
     "name": "Hao Brown",
     "email": "hao.brown@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "asian",
     "age": 61,
     "gender": "Male",
@@ -10266,8 +9953,7 @@
     "username": "yusufsmith401",
     "name": "Yusuf Smith",
     "email": "yusuf.smith@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "middle_eastern",
     "age": 27,
     "gender": "Female",
@@ -10299,8 +9985,7 @@
     "username": "ananyakim259",
     "name": "Ananya Kim",
     "email": "ananya.kim@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "indian",
     "age": 25,
     "gender": "Male",
@@ -10332,8 +10017,7 @@
     "username": "fatimasingh429",
     "name": "Fatima Singh",
     "email": "fatima.singh@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "middle_eastern",
     "age": 47,
     "gender": "Male",
@@ -10365,8 +10049,7 @@
     "username": "rahulbrown123",
     "name": "Rahul Brown",
     "email": "rahul.brown@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "indian",
     "age": 27,
     "gender": "Female",
@@ -10398,8 +10081,7 @@
     "username": "jasonkim138",
     "name": "Jason Kim",
     "email": "jason.kim@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "american",
     "age": 19,
     "gender": "Female",
@@ -10431,8 +10113,7 @@
     "username": "omargarcia115",
     "name": "Omar Garcia",
     "email": "omar.garcia@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "middle_eastern",
     "age": 34,
     "gender": "Female",
@@ -10464,8 +10145,7 @@
     "username": "vikrampatel641",
     "name": "Vikram Patel",
     "email": "vikram.patel@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "indian",
     "age": 41,
     "gender": "Male",
@@ -10497,8 +10177,7 @@
     "username": "yusufkim390",
     "name": "Yusuf Kim",
     "email": "yusuf.kim@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "middle_eastern",
     "age": 21,
     "gender": "Female",
@@ -10530,8 +10209,7 @@
     "username": "kwamejohnson720",
     "name": "Kwame Johnson",
     "email": "kwame.johnson@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "african",
     "age": 30,
     "gender": "Male",
@@ -10563,8 +10241,7 @@
     "username": "vikramlopez563",
     "name": "Vikram Lopez",
     "email": "vikram.lopez@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "indian",
     "age": 62,
     "gender": "Male",
@@ -10596,8 +10273,7 @@
     "username": "anasingh631",
     "name": "Ana Singh",
     "email": "ana.singh@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "hispanic",
     "age": 37,
     "gender": "Male",
@@ -10629,8 +10305,7 @@
     "username": "arjunrossi404",
     "name": "Arjun Rossi",
     "email": "arjun.rossi@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "indian",
     "age": 61,
     "gender": "Male",
@@ -10662,8 +10337,7 @@
     "username": "ivanmartinez382",
     "name": "Ivan Martinez",
     "email": "ivan.martinez@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "european",
     "age": 56,
     "gender": "Female",
@@ -10695,8 +10369,7 @@
     "username": "niajohnson932",
     "name": "Nia Johnson",
     "email": "nia.johnson@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "african",
     "age": 41,
     "gender": "Female",
@@ -10728,8 +10401,7 @@
     "username": "kwamekim659",
     "name": "Kwame Kim",
     "email": "kwame.kim@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "african",
     "age": 50,
     "gender": "Male",
@@ -10761,8 +10433,7 @@
     "username": "noorbrown530",
     "name": "Noor Brown",
     "email": "noor.brown@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "middle_eastern",
     "age": 24,
     "gender": "Male",
@@ -10794,8 +10465,7 @@
     "username": "sofialopez193",
     "name": "Sofia Lopez",
     "email": "sofia.lopez@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "european",
     "age": 47,
     "gender": "Female",
@@ -10827,8 +10497,7 @@
     "username": "niasmith746",
     "name": "Nia Smith",
     "email": "nia.smith@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "african",
     "age": 46,
     "gender": "Male",
@@ -10860,8 +10529,7 @@
     "username": "josekhan62",
     "name": "Jose Khan",
     "email": "jose.khan@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "hispanic",
     "age": 30,
     "gender": "Female",
@@ -10893,8 +10561,7 @@
     "username": "minsmith216",
     "name": "Min Smith",
     "email": "min.smith@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "asian",
     "age": 20,
     "gender": "Male",
@@ -10926,8 +10593,7 @@
     "username": "martajohnson411",
     "name": "Marta Johnson",
     "email": "marta.johnson@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "european",
     "age": 31,
     "gender": "Female",
@@ -10959,8 +10625,7 @@
     "username": "mindubois17",
     "name": "Min Dubois",
     "email": "min.dubois@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "asian",
     "age": 61,
     "gender": "Female",
@@ -10992,8 +10657,7 @@
     "username": "ashleymartinez206",
     "name": "Ashley Martinez",
     "email": "ashley.martinez@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "american",
     "age": 57,
     "gender": "Male",
@@ -11025,8 +10689,7 @@
     "username": "yukipatel980",
     "name": "Yuki Patel",
     "email": "yuki.patel@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "asian",
     "age": 29,
     "gender": "Male",
@@ -11058,8 +10721,7 @@
     "username": "jasonsingh287",
     "name": "Jason Singh",
     "email": "jason.singh@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "american",
     "age": 62,
     "gender": "Female",
@@ -11091,8 +10753,7 @@
     "username": "aminapatel245",
     "name": "Amina Patel",
     "email": "amina.patel@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "african",
     "age": 43,
     "gender": "Female",
@@ -11124,8 +10785,7 @@
     "username": "weibrown352",
     "name": "Wei Brown",
     "email": "wei.brown@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "asian",
     "age": 62,
     "gender": "Female",
@@ -11157,8 +10817,7 @@
     "username": "priyasmith686",
     "name": "Priya Smith",
     "email": "priya.smith@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "indian",
     "age": 52,
     "gender": "Male",
@@ -11190,8 +10849,7 @@
     "username": "ryankhan154",
     "name": "Ryan Khan",
     "email": "ryan.khan@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "american",
     "age": 49,
     "gender": "Male",
@@ -11223,8 +10881,7 @@
     "username": "kwamekhan435",
     "name": "Kwame Khan",
     "email": "kwame.khan@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "african",
     "age": 54,
     "gender": "Female",
@@ -11256,8 +10913,7 @@
     "username": "anapatel680",
     "name": "Ana Patel",
     "email": "ana.patel@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "hispanic",
     "age": 21,
     "gender": "Female",
@@ -11289,8 +10945,7 @@
     "username": "vikramjohnson132",
     "name": "Vikram Johnson",
     "email": "vikram.johnson@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "indian",
     "age": 40,
     "gender": "Female",
@@ -11322,8 +10977,7 @@
     "username": "clairerossi767",
     "name": "Claire Rossi",
     "email": "claire.rossi@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "european",
     "age": 48,
     "gender": "Male",
@@ -11355,8 +11009,7 @@
     "username": "omarbrown319",
     "name": "Omar Brown",
     "email": "omar.brown@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "middle_eastern",
     "age": 38,
     "gender": "Female",
@@ -11388,8 +11041,7 @@
     "username": "luisgarcia71",
     "name": "Luis Garcia",
     "email": "luis.garcia@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "hispanic",
     "age": 57,
     "gender": "Female",
@@ -11421,8 +11073,7 @@
     "username": "luislopez32",
     "name": "Luis Lopez",
     "email": "luis.lopez@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "hispanic",
     "age": 64,
     "gender": "Female",
@@ -11454,8 +11105,7 @@
     "username": "martapatel633",
     "name": "Marta Patel",
     "email": "marta.patel@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "european",
     "age": 58,
     "gender": "Female",
@@ -11487,8 +11137,7 @@
     "username": "anamartinez877",
     "name": "Ana Martinez",
     "email": "ana.martinez@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "hispanic",
     "age": 59,
     "gender": "Female",
@@ -11520,8 +11169,7 @@
     "username": "kenjikhan543",
     "name": "Kenji Khan",
     "email": "kenji.khan@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "asian",
     "age": 46,
     "gender": "Female",
@@ -11553,8 +11201,7 @@
     "username": "laylakim319",
     "name": "Layla Kim",
     "email": "layla.kim@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "middle_eastern",
     "age": 23,
     "gender": "Female",
@@ -11586,8 +11233,7 @@
     "username": "arjunzhang966",
     "name": "Arjun Zhang",
     "email": "arjun.zhang@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "indian",
     "age": 43,
     "gender": "Male",
@@ -11619,8 +11265,7 @@
     "username": "michaelmartinez262",
     "name": "Michael Martinez",
     "email": "michael.martinez@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "american",
     "age": 51,
     "gender": "Female",
@@ -11652,8 +11297,7 @@
     "username": "soodubois434",
     "name": "Soo Dubois",
     "email": "soo.dubois@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "asian",
     "age": 47,
     "gender": "Female",
@@ -11685,8 +11329,7 @@
     "username": "ryanjohnson264",
     "name": "Ryan Johnson",
     "email": "ryan.johnson@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "american",
     "age": 19,
     "gender": "Female",
@@ -11718,8 +11361,7 @@
     "username": "abebegarcia711",
     "name": "Abebe Garcia",
     "email": "abebe.garcia@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "african",
     "age": 62,
     "gender": "Male",
@@ -11751,8 +11393,7 @@
     "username": "weidubois412",
     "name": "Wei Dubois",
     "email": "wei.dubois@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "asian",
     "age": 41,
     "gender": "Male",
@@ -11784,8 +11425,7 @@
     "username": "jessicabrown948",
     "name": "Jessica Brown",
     "email": "jessica.brown@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "american",
     "age": 59,
     "gender": "Female",
@@ -11817,8 +11457,7 @@
     "username": "carloskhan108",
     "name": "Carlos Khan",
     "email": "carlos.khan@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "hispanic",
     "age": 30,
     "gender": "Male",
@@ -11850,8 +11489,7 @@
     "username": "haodubois68",
     "name": "Hao Dubois",
     "email": "hao.dubois@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "asian",
     "age": 24,
     "gender": "Male",
@@ -11883,8 +11521,7 @@
     "username": "mindubois862",
     "name": "Min Dubois",
     "email": "min.dubois@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "asian",
     "age": 43,
     "gender": "Male",
@@ -11916,8 +11553,7 @@
     "username": "abebekim265",
     "name": "Abebe Kim",
     "email": "abebe.kim@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "african",
     "age": 18,
     "gender": "Female",
@@ -11949,8 +11585,7 @@
     "username": "vikramgarcia14",
     "name": "Vikram Garcia",
     "email": "vikram.garcia@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "indian",
     "age": 23,
     "gender": "Female",
@@ -11982,8 +11617,7 @@
     "username": "arjunsingh230",
     "name": "Arjun Singh",
     "email": "arjun.singh@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "indian",
     "age": 20,
     "gender": "Male",
@@ -12015,8 +11649,7 @@
     "username": "ananyakhan891",
     "name": "Ananya Khan",
     "email": "ananya.khan@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "indian",
     "age": 48,
     "gender": "Male",
@@ -12048,8 +11681,7 @@
     "username": "aminakim285",
     "name": "Amina Kim",
     "email": "amina.kim@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "african",
     "age": 38,
     "gender": "Male",
@@ -12081,8 +11713,7 @@
     "username": "aminapatel978",
     "name": "Amina Patel",
     "email": "amina.patel@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "african",
     "age": 59,
     "gender": "Female",
@@ -12114,8 +11745,7 @@
     "username": "niadubois355",
     "name": "Nia Dubois",
     "email": "nia.dubois@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "african",
     "age": 25,
     "gender": "Female",
@@ -12147,8 +11777,7 @@
     "username": "yukidubois679",
     "name": "Yuki Dubois",
     "email": "yuki.dubois@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "asian",
     "age": 57,
     "gender": "Female",
@@ -12180,8 +11809,7 @@
     "username": "kwamekhan257",
     "name": "Kwame Khan",
     "email": "kwame.khan@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "african",
     "age": 49,
     "gender": "Male",
@@ -12213,8 +11841,7 @@
     "username": "martamartinez333",
     "name": "Marta Martinez",
     "email": "marta.martinez@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "european",
     "age": 58,
     "gender": "Female",
@@ -12246,8 +11873,7 @@
     "username": "noorgarcia401",
     "name": "Noor Garcia",
     "email": "noor.garcia@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "middle_eastern",
     "age": 21,
     "gender": "Female",
@@ -12279,8 +11905,7 @@
     "username": "joselopez601",
     "name": "Jose Lopez",
     "email": "jose.lopez@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "hispanic",
     "age": 40,
     "gender": "Female",
@@ -12312,8 +11937,7 @@
     "username": "mariakim817",
     "name": "Maria Kim",
     "email": "maria.kim@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "hispanic",
     "age": 35,
     "gender": "Male",
@@ -12345,8 +11969,7 @@
     "username": "yusufgarcia747",
     "name": "Yusuf Garcia",
     "email": "yusuf.garcia@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "middle_eastern",
     "age": 40,
     "gender": "Male",
@@ -12378,8 +12001,7 @@
     "username": "minpatel690",
     "name": "Min Patel",
     "email": "min.patel@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "asian",
     "age": 47,
     "gender": "Male",
@@ -12411,8 +12033,7 @@
     "username": "vikrammensah457",
     "name": "Vikram Mensah",
     "email": "vikram.mensah@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "indian",
     "age": 65,
     "gender": "Male",
@@ -12444,8 +12065,7 @@
     "username": "anapatel728",
     "name": "Ana Patel",
     "email": "ana.patel@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "hispanic",
     "age": 59,
     "gender": "Male",
@@ -12477,8 +12097,7 @@
     "username": "anadubois851",
     "name": "Ana Dubois",
     "email": "ana.dubois@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "hispanic",
     "age": 59,
     "gender": "Female",
@@ -12510,8 +12129,7 @@
     "username": "sofiazhang208",
     "name": "Sofia Zhang",
     "email": "sofia.zhang@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "hispanic",
     "age": 22,
     "gender": "Male",
@@ -12543,8 +12161,7 @@
     "username": "ashleybrown122",
     "name": "Ashley Brown",
     "email": "ashley.brown@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "american",
     "age": 24,
     "gender": "Female",
@@ -12576,8 +12193,7 @@
     "username": "soogarcia620",
     "name": "Soo Garcia",
     "email": "soo.garcia@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "asian",
     "age": 21,
     "gender": "Female",
@@ -12609,8 +12225,7 @@
     "username": "jessicamartinez334",
     "name": "Jessica Martinez",
     "email": "jessica.martinez@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "american",
     "age": 55,
     "gender": "Male",
@@ -12642,8 +12257,7 @@
     "username": "kenjipatel878",
     "name": "Kenji Patel",
     "email": "kenji.patel@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "asian",
     "age": 50,
     "gender": "Male",
@@ -12675,8 +12289,7 @@
     "username": "ivankim798",
     "name": "Ivan Kim",
     "email": "ivan.kim@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "european",
     "age": 33,
     "gender": "Female",
@@ -12708,8 +12321,7 @@
     "username": "zolahassan600",
     "name": "Zola Hassan",
     "email": "zola.hassan@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "african",
     "age": 21,
     "gender": "Male",
@@ -12741,8 +12353,7 @@
     "username": "lucamensah93",
     "name": "Luca Mensah",
     "email": "luca.mensah@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "european",
     "age": 47,
     "gender": "Male",
@@ -12774,8 +12385,7 @@
     "username": "ryansmith99",
     "name": "Ryan Smith",
     "email": "ryan.smith@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "american",
     "age": 40,
     "gender": "Female",
@@ -12807,8 +12417,7 @@
     "username": "sofiasingh995",
     "name": "Sofia Singh",
     "email": "sofia.singh@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "european",
     "age": 61,
     "gender": "Female",
@@ -12840,8 +12449,7 @@
     "username": "zolamensah690",
     "name": "Zola Mensah",
     "email": "zola.mensah@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "african",
     "age": 18,
     "gender": "Male",
@@ -12873,8 +12481,7 @@
     "username": "laylamensah433",
     "name": "Layla Mensah",
     "email": "layla.mensah@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "middle_eastern",
     "age": 58,
     "gender": "Male",
@@ -12906,8 +12513,7 @@
     "username": "zolakim516",
     "name": "Zola Kim",
     "email": "zola.kim@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "african",
     "age": 46,
     "gender": "Male",
@@ -12939,8 +12545,7 @@
     "username": "jasonpatel161",
     "name": "Jason Patel",
     "email": "jason.patel@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "american",
     "age": 24,
     "gender": "Female",
@@ -12972,8 +12577,7 @@
     "username": "mariabrown218",
     "name": "Maria Brown",
     "email": "maria.brown@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "hispanic",
     "age": 65,
     "gender": "Female",
@@ -13005,8 +12609,7 @@
     "username": "rahulsmith438",
     "name": "Rahul Smith",
     "email": "rahul.smith@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "indian",
     "age": 48,
     "gender": "Female",
@@ -13038,8 +12641,7 @@
     "username": "michaelbrown824",
     "name": "Michael Brown",
     "email": "michael.brown@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "american",
     "age": 32,
     "gender": "Female",
@@ -13071,8 +12673,7 @@
     "username": "laylajohnson633",
     "name": "Layla Johnson",
     "email": "layla.johnson@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "middle_eastern",
     "age": 19,
     "gender": "Male",
@@ -13104,8 +12705,7 @@
     "username": "sofiasingh411",
     "name": "Sofia Singh",
     "email": "sofia.singh@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "hispanic",
     "age": 60,
     "gender": "Male",
@@ -13137,8 +12737,7 @@
     "username": "laylakhan864",
     "name": "Layla Khan",
     "email": "layla.khan@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "middle_eastern",
     "age": 42,
     "gender": "Female",
@@ -13170,8 +12769,7 @@
     "username": "abebegarcia968",
     "name": "Abebe Garcia",
     "email": "abebe.garcia@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "african",
     "age": 57,
     "gender": "Female",
@@ -13203,8 +12801,7 @@
     "username": "kwamesingh589",
     "name": "Kwame Singh",
     "email": "kwame.singh@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "african",
     "age": 40,
     "gender": "Male",
@@ -13236,8 +12833,7 @@
     "username": "sofiadubois199",
     "name": "Sofia Dubois",
     "email": "sofia.dubois@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "european",
     "age": 53,
     "gender": "Female",
@@ -13269,8 +12865,7 @@
     "username": "eriksmith919",
     "name": "Erik Smith",
     "email": "erik.smith@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "european",
     "age": 42,
     "gender": "Male",
@@ -13302,8 +12897,7 @@
     "username": "haomartinez780",
     "name": "Hao Martinez",
     "email": "hao.martinez@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "asian",
     "age": 49,
     "gender": "Male",
@@ -13335,8 +12929,7 @@
     "username": "sofiamensah255",
     "name": "Sofia Mensah",
     "email": "sofia.mensah@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "european",
     "age": 43,
     "gender": "Male",
@@ -13368,8 +12961,7 @@
     "username": "ryanpatel648",
     "name": "Ryan Patel",
     "email": "ryan.patel@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "american",
     "age": 28,
     "gender": "Female",
@@ -13401,8 +12993,7 @@
     "username": "carloslopez80",
     "name": "Carlos Lopez",
     "email": "carlos.lopez@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "hispanic",
     "age": 35,
     "gender": "Female",
@@ -13434,8 +13025,7 @@
     "username": "omarmartinez592",
     "name": "Omar Martinez",
     "email": "omar.martinez@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "middle_eastern",
     "age": 27,
     "gender": "Female",
@@ -13467,8 +13057,7 @@
     "username": "luismensah542",
     "name": "Luis Mensah",
     "email": "luis.mensah@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "hispanic",
     "age": 20,
     "gender": "Male",
@@ -13500,8 +13089,7 @@
     "username": "zoladubois914",
     "name": "Zola Dubois",
     "email": "zola.dubois@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "african",
     "age": 19,
     "gender": "Male",
@@ -13533,8 +13121,7 @@
     "username": "fatimasmith505",
     "name": "Fatima Smith",
     "email": "fatima.smith@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "middle_eastern",
     "age": 20,
     "gender": "Female",
@@ -13566,8 +13153,7 @@
     "username": "zolasingh380",
     "name": "Zola Singh",
     "email": "zola.singh@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "african",
     "age": 64,
     "gender": "Male",
@@ -13599,8 +13185,7 @@
     "username": "weizhang31",
     "name": "Wei Zhang",
     "email": "wei.zhang@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "asian",
     "age": 62,
     "gender": "Male",
@@ -13632,8 +13217,7 @@
     "username": "minkhan64",
     "name": "Min Khan",
     "email": "min.khan@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "asian",
     "age": 36,
     "gender": "Female",
@@ -13665,8 +13249,7 @@
     "username": "clairehassan470",
     "name": "Claire Hassan",
     "email": "claire.hassan@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "european",
     "age": 52,
     "gender": "Male",
@@ -13698,8 +13281,7 @@
     "username": "aminamensah539",
     "name": "Amina Mensah",
     "email": "amina.mensah@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "african",
     "age": 55,
     "gender": "Male",
@@ -13731,8 +13313,7 @@
     "username": "arjunsingh597",
     "name": "Arjun Singh",
     "email": "arjun.singh@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "indian",
     "age": 52,
     "gender": "Female",
@@ -13764,8 +13345,7 @@
     "username": "minrossi818",
     "name": "Min Rossi",
     "email": "min.rossi@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "asian",
     "age": 19,
     "gender": "Female",
@@ -13797,8 +13377,7 @@
     "username": "abebemartinez621",
     "name": "Abebe Martinez",
     "email": "abebe.martinez@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "african",
     "age": 59,
     "gender": "Male",
@@ -13830,8 +13409,7 @@
     "username": "abebemensah989",
     "name": "Abebe Mensah",
     "email": "abebe.mensah@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "african",
     "age": 63,
     "gender": "Female",
@@ -13863,8 +13441,7 @@
     "username": "clairemensah897",
     "name": "Claire Mensah",
     "email": "claire.mensah@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "european",
     "age": 26,
     "gender": "Male",
@@ -13896,8 +13473,7 @@
     "username": "anapatel240",
     "name": "Ana Patel",
     "email": "ana.patel@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "hispanic",
     "age": 45,
     "gender": "Male",
@@ -13929,8 +13505,7 @@
     "username": "sofiazhang230",
     "name": "Sofia Zhang",
     "email": "sofia.zhang@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "hispanic",
     "age": 61,
     "gender": "Male",
@@ -13962,8 +13537,7 @@
     "username": "josekhan198",
     "name": "Jose Khan",
     "email": "jose.khan@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "hispanic",
     "age": 63,
     "gender": "Male",
@@ -13995,8 +13569,7 @@
     "username": "fatimapatel674",
     "name": "Fatima Patel",
     "email": "fatima.patel@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "middle_eastern",
     "age": 40,
     "gender": "Female",
@@ -14028,8 +13601,7 @@
     "username": "sofiadubois260",
     "name": "Sofia Dubois",
     "email": "sofia.dubois@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "european",
     "age": 59,
     "gender": "Female",
@@ -14061,8 +13633,7 @@
     "username": "emilygarcia880",
     "name": "Emily Garcia",
     "email": "emily.garcia@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "american",
     "age": 61,
     "gender": "Male",
@@ -14094,8 +13665,7 @@
     "username": "rahuldubois717",
     "name": "Rahul Dubois",
     "email": "rahul.dubois@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "indian",
     "age": 60,
     "gender": "Male",
@@ -14127,8 +13697,7 @@
     "username": "alizhang712",
     "name": "Ali Zhang",
     "email": "ali.zhang@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "middle_eastern",
     "age": 23,
     "gender": "Male",
@@ -14160,8 +13729,7 @@
     "username": "jasondubois479",
     "name": "Jason Dubois",
     "email": "jason.dubois@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "american",
     "age": 51,
     "gender": "Female",
@@ -14193,8 +13761,7 @@
     "username": "abebegarcia776",
     "name": "Abebe Garcia",
     "email": "abebe.garcia@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "african",
     "age": 40,
     "gender": "Male",
@@ -14226,8 +13793,7 @@
     "username": "lucapatel574",
     "name": "Luca Patel",
     "email": "luca.patel@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "european",
     "age": 28,
     "gender": "Male",
@@ -14259,8 +13825,7 @@
     "username": "aminakim837",
     "name": "Amina Kim",
     "email": "amina.kim@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "african",
     "age": 19,
     "gender": "Male",
@@ -14292,8 +13857,7 @@
     "username": "jessicarossi702",
     "name": "Jessica Rossi",
     "email": "jessica.rossi@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "american",
     "age": 22,
     "gender": "Male",
@@ -14325,8 +13889,7 @@
     "username": "zolazhang815",
     "name": "Zola Zhang",
     "email": "zola.zhang@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "african",
     "age": 29,
     "gender": "Female",
@@ -14358,8 +13921,7 @@
     "username": "arjunhassan882",
     "name": "Arjun Hassan",
     "email": "arjun.hassan@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "indian",
     "age": 34,
     "gender": "Male",
@@ -14391,8 +13953,7 @@
     "username": "omarpatel508",
     "name": "Omar Patel",
     "email": "omar.patel@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "middle_eastern",
     "age": 50,
     "gender": "Male",
@@ -14424,8 +13985,7 @@
     "username": "lucasingh31",
     "name": "Luca Singh",
     "email": "luca.singh@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "european",
     "age": 64,
     "gender": "Female",
@@ -14457,8 +14017,7 @@
     "username": "omarpatel704",
     "name": "Omar Patel",
     "email": "omar.patel@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "middle_eastern",
     "age": 65,
     "gender": "Male",
@@ -14490,8 +14049,7 @@
     "username": "lucarossi17",
     "name": "Luca Rossi",
     "email": "luca.rossi@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "european",
     "age": 59,
     "gender": "Female",
@@ -14523,8 +14081,7 @@
     "username": "ashleygarcia752",
     "name": "Ashley Garcia",
     "email": "ashley.garcia@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "american",
     "age": 53,
     "gender": "Female",
@@ -14556,8 +14113,7 @@
     "username": "erikkim420",
     "name": "Erik Kim",
     "email": "erik.kim@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "european",
     "age": 37,
     "gender": "Male",
@@ -14589,8 +14145,7 @@
     "username": "zolalopez972",
     "name": "Zola Lopez",
     "email": "zola.lopez@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "african",
     "age": 46,
     "gender": "Female",
@@ -14622,8 +14177,7 @@
     "username": "carlosbrown426",
     "name": "Carlos Brown",
     "email": "carlos.brown@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "hispanic",
     "age": 18,
     "gender": "Male",
@@ -14655,8 +14209,7 @@
     "username": "soohassan352",
     "name": "Soo Hassan",
     "email": "soo.hassan@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "asian",
     "age": 47,
     "gender": "Male",
@@ -14688,8 +14241,7 @@
     "username": "weizhang452",
     "name": "Wei Zhang",
     "email": "wei.zhang@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "asian",
     "age": 42,
     "gender": "Female",
@@ -14721,8 +14273,7 @@
     "username": "jasongarcia453",
     "name": "Jason Garcia",
     "email": "jason.garcia@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "american",
     "age": 24,
     "gender": "Female",
@@ -14754,8 +14305,7 @@
     "username": "nehahassan960",
     "name": "Neha Hassan",
     "email": "neha.hassan@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "indian",
     "age": 19,
     "gender": "Male",
@@ -14787,8 +14337,7 @@
     "username": "sofiakim371",
     "name": "Sofia Kim",
     "email": "sofia.kim@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "hispanic",
     "age": 61,
     "gender": "Male",
@@ -14820,8 +14369,7 @@
     "username": "fatimamensah794",
     "name": "Fatima Mensah",
     "email": "fatima.mensah@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "middle_eastern",
     "age": 55,
     "gender": "Male",
@@ -14853,8 +14401,7 @@
     "username": "ryanpatel457",
     "name": "Ryan Patel",
     "email": "ryan.patel@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "american",
     "age": 61,
     "gender": "Female",
@@ -14886,8 +14433,7 @@
     "username": "mariasingh304",
     "name": "Maria Singh",
     "email": "maria.singh@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "hispanic",
     "age": 44,
     "gender": "Male",
@@ -14919,8 +14465,7 @@
     "username": "soorossi639",
     "name": "Soo Rossi",
     "email": "soo.rossi@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "asian",
     "age": 59,
     "gender": "Male",
@@ -14952,8 +14497,7 @@
     "username": "vikramsmith33",
     "name": "Vikram Smith",
     "email": "vikram.smith@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "indian",
     "age": 26,
     "gender": "Male",
@@ -14985,8 +14529,7 @@
     "username": "lucahassan725",
     "name": "Luca Hassan",
     "email": "luca.hassan@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "european",
     "age": 44,
     "gender": "Male",
@@ -15018,8 +14561,7 @@
     "username": "chinedukhan193",
     "name": "Chinedu Khan",
     "email": "chinedu.khan@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "african",
     "age": 32,
     "gender": "Male",
@@ -15051,8 +14593,7 @@
     "username": "chinedusingh453",
     "name": "Chinedu Singh",
     "email": "chinedu.singh@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "african",
     "age": 34,
     "gender": "Female",
@@ -15084,8 +14625,7 @@
     "username": "yukihassan30",
     "name": "Yuki Hassan",
     "email": "yuki.hassan@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "asian",
     "age": 46,
     "gender": "Female",
@@ -15117,8 +14657,7 @@
     "username": "laylahassan345",
     "name": "Layla Hassan",
     "email": "layla.hassan@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "middle_eastern",
     "age": 38,
     "gender": "Male",
@@ -15150,8 +14689,7 @@
     "username": "haozhang253",
     "name": "Hao Zhang",
     "email": "hao.zhang@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "asian",
     "age": 38,
     "gender": "Female",
@@ -15183,8 +14721,7 @@
     "username": "vikramlopez21",
     "name": "Vikram Lopez",
     "email": "vikram.lopez@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "indian",
     "age": 23,
     "gender": "Male",
@@ -15216,8 +14753,7 @@
     "username": "luisjohnson107",
     "name": "Luis Johnson",
     "email": "luis.johnson@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "hispanic",
     "age": 54,
     "gender": "Female",
@@ -15249,8 +14785,7 @@
     "username": "emilybrown167",
     "name": "Emily Brown",
     "email": "emily.brown@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "american",
     "age": 40,
     "gender": "Female",
@@ -15282,8 +14817,7 @@
     "username": "ivanzhang249",
     "name": "Ivan Zhang",
     "email": "ivan.zhang@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "european",
     "age": 36,
     "gender": "Female",
@@ -15315,8 +14849,7 @@
     "username": "ivanrossi417",
     "name": "Ivan Rossi",
     "email": "ivan.rossi@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "european",
     "age": 47,
     "gender": "Male",
@@ -15348,8 +14881,7 @@
     "username": "sofiakim210",
     "name": "Sofia Kim",
     "email": "sofia.kim@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "european",
     "age": 22,
     "gender": "Female",
@@ -15381,8 +14913,7 @@
     "username": "fatimabrown965",
     "name": "Fatima Brown",
     "email": "fatima.brown@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "middle_eastern",
     "age": 61,
     "gender": "Female",
@@ -15414,8 +14945,7 @@
     "username": "michaelsingh215",
     "name": "Michael Singh",
     "email": "michael.singh@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "american",
     "age": 40,
     "gender": "Male",
@@ -15447,8 +14977,7 @@
     "username": "niahassan597",
     "name": "Nia Hassan",
     "email": "nia.hassan@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "african",
     "age": 43,
     "gender": "Female",
@@ -15480,8 +15009,7 @@
     "username": "omarlopez350",
     "name": "Omar Lopez",
     "email": "omar.lopez@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "middle_eastern",
     "age": 49,
     "gender": "Female",
@@ -15513,8 +15041,7 @@
     "username": "clairelopez800",
     "name": "Claire Lopez",
     "email": "claire.lopez@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "european",
     "age": 58,
     "gender": "Male",
@@ -15546,8 +15073,7 @@
     "username": "martarossi547",
     "name": "Marta Rossi",
     "email": "marta.rossi@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "european",
     "age": 40,
     "gender": "Male",
@@ -15579,8 +15105,7 @@
     "username": "lucapatel299",
     "name": "Luca Patel",
     "email": "luca.patel@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "european",
     "age": 51,
     "gender": "Male",
@@ -15612,8 +15137,7 @@
     "username": "ryanmartinez49",
     "name": "Ryan Martinez",
     "email": "ryan.martinez@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "american",
     "age": 41,
     "gender": "Male",
@@ -15645,8 +15169,7 @@
     "username": "ryanmartinez992",
     "name": "Ryan Martinez",
     "email": "ryan.martinez@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "american",
     "age": 37,
     "gender": "Male",
@@ -15678,8 +15201,7 @@
     "username": "sofialopez913",
     "name": "Sofia Lopez",
     "email": "sofia.lopez@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "european",
     "age": 39,
     "gender": "Male",
@@ -15711,8 +15233,7 @@
     "username": "kwamemartinez666",
     "name": "Kwame Martinez",
     "email": "kwame.martinez@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "african",
     "age": 61,
     "gender": "Female",
@@ -15744,8 +15265,7 @@
     "username": "carlossmith703",
     "name": "Carlos Smith",
     "email": "carlos.smith@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "hispanic",
     "age": 18,
     "gender": "Male",
@@ -15777,8 +15297,7 @@
     "username": "kenjigarcia805",
     "name": "Kenji Garcia",
     "email": "kenji.garcia@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "asian",
     "age": 36,
     "gender": "Female",
@@ -15810,8 +15329,7 @@
     "username": "alipatel754",
     "name": "Ali Patel",
     "email": "ali.patel@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "middle_eastern",
     "age": 28,
     "gender": "Female",
@@ -15843,8 +15361,7 @@
     "username": "yusufgarcia244",
     "name": "Yusuf Garcia",
     "email": "yusuf.garcia@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "middle_eastern",
     "age": 21,
     "gender": "Female",
@@ -15876,8 +15393,7 @@
     "username": "nehapatel397",
     "name": "Neha Patel",
     "email": "neha.patel@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "indian",
     "age": 57,
     "gender": "Male",
@@ -15909,8 +15425,7 @@
     "username": "ivanjohnson751",
     "name": "Ivan Johnson",
     "email": "ivan.johnson@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "european",
     "age": 39,
     "gender": "Male",
@@ -15942,8 +15457,7 @@
     "username": "zolagarcia470",
     "name": "Zola Garcia",
     "email": "zola.garcia@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "african",
     "age": 48,
     "gender": "Male",
@@ -15975,8 +15489,7 @@
     "username": "arjungarcia294",
     "name": "Arjun Garcia",
     "email": "arjun.garcia@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "indian",
     "age": 48,
     "gender": "Female",
@@ -16008,8 +15521,7 @@
     "username": "ryanpatel117",
     "name": "Ryan Patel",
     "email": "ryan.patel@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "american",
     "age": 55,
     "gender": "Male",
@@ -16041,8 +15553,7 @@
     "username": "arjunkhan735",
     "name": "Arjun Khan",
     "email": "arjun.khan@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "indian",
     "age": 52,
     "gender": "Female",
@@ -16074,8 +15585,7 @@
     "username": "yukikim22",
     "name": "Yuki Kim",
     "email": "yuki.kim@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "asian",
     "age": 21,
     "gender": "Male",
@@ -16107,8 +15617,7 @@
     "username": "zolakhan186",
     "name": "Zola Khan",
     "email": "zola.khan@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "african",
     "age": 51,
     "gender": "Female",
@@ -16140,8 +15649,7 @@
     "username": "priyakhan181",
     "name": "Priya Khan",
     "email": "priya.khan@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "indian",
     "age": 53,
     "gender": "Female",
@@ -16173,8 +15681,7 @@
     "username": "chinedubrown606",
     "name": "Chinedu Brown",
     "email": "chinedu.brown@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "african",
     "age": 35,
     "gender": "Female",
@@ -16206,8 +15713,7 @@
     "username": "weikhan75",
     "name": "Wei Khan",
     "email": "wei.khan@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "asian",
     "age": 64,
     "gender": "Male",
@@ -16239,8 +15745,7 @@
     "username": "sofiasmith418",
     "name": "Sofia Smith",
     "email": "sofia.smith@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "hispanic",
     "age": 51,
     "gender": "Female",
@@ -16272,8 +15777,7 @@
     "username": "alilopez546",
     "name": "Ali Lopez",
     "email": "ali.lopez@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "middle_eastern",
     "age": 48,
     "gender": "Male",
@@ -16305,8 +15809,7 @@
     "username": "zolamartinez765",
     "name": "Zola Martinez",
     "email": "zola.martinez@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "african",
     "age": 32,
     "gender": "Female",
@@ -16338,8 +15841,7 @@
     "username": "omarsingh412",
     "name": "Omar Singh",
     "email": "omar.singh@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "middle_eastern",
     "age": 58,
     "gender": "Male",
@@ -16371,8 +15873,7 @@
     "username": "lucamartinez485",
     "name": "Luca Martinez",
     "email": "luca.martinez@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "european",
     "age": 36,
     "gender": "Male",
@@ -16404,8 +15905,7 @@
     "username": "abebekhan137",
     "name": "Abebe Khan",
     "email": "abebe.khan@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "african",
     "age": 30,
     "gender": "Female",
@@ -16437,8 +15937,7 @@
     "username": "clairedubois809",
     "name": "Claire Dubois",
     "email": "claire.dubois@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "european",
     "age": 44,
     "gender": "Male",
@@ -16470,8 +15969,7 @@
     "username": "ananyarossi409",
     "name": "Ananya Rossi",
     "email": "ananya.rossi@arguablydebate.com",
-    "password": "Arguably2026!",
-    "synthetic": true,
+    "password": "Arguably2026!"
     "culture": "indian",
     "age": 31,
     "gender": "Female",

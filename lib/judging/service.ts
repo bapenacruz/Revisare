@@ -88,6 +88,17 @@ export const JUDGE_CONFIGS: JudgeConfig[] = [
 
 // ─── Panel execution ────────────────────────────────────────────────────────
 
+/** Wrap a judge call with a hard wall-clock timeout — last line of defence if the
+ *  provider's own stream timeout fails to fire (e.g. the SDK call itself hangs). */
+function withHardTimeout<T>(fn: () => Promise<T>, ms: number, label: string): Promise<T> {
+  return Promise.race([
+    fn(),
+    new Promise<never>((_, reject) =>
+      setTimeout(() => reject(new Error(`[judging] ${label} hard timeout after ${ms / 1000}s`)), ms),
+    ),
+  ]);
+}
+
 /**
  * Runs the 3-judge panel in two phases:
  *
@@ -122,8 +133,14 @@ export async function runJudgePanel(input: JudgeInput): Promise<ConsensusResult>
       : mock;
 
     [grokVerdict, claudeVerdict] = await Promise.all([
-      grokProvider.judge(input).catch((e) => { console.error("[Judge A] Failed:", e); return mock.judge(input); }),
-      claudeProvider.judge(input).catch((e) => { console.error("[Judge B] Failed:", e); return mock.judge(input); }),
+      withHardTimeout(
+        () => grokProvider.judge(input).catch((e) => { console.error("[Judge A] Failed:", e); return mock.judge(input); }),
+        120_000, "Grok",
+      ).catch((e) => { console.error("[Judge A] Hard timeout:", e); return mock.judge(input); }),
+      withHardTimeout(
+        () => claudeProvider.judge(input).catch((e) => { console.error("[Judge B] Failed:", e); return mock.judge(input); }),
+        120_000, "Claude",
+      ).catch((e) => { console.error("[Judge B] Hard timeout:", e); return mock.judge(input); }),
     ]);
   }
 
@@ -137,11 +154,17 @@ export async function runJudgePanel(input: JudgeInput): Promise<ConsensusResult>
       apiKey: keyC,
       model: process.env[JUDGE_CONFIGS[2].modelEnv],
     });
-    arbiterVerdict = await arbiter.judgeWithPriorVerdicts(input, [
-      { judgeName: "Grok", verdict: grokVerdict },
-      { judgeName: "Claude", verdict: claudeVerdict },
-    ]).catch((e) => {
-      console.error("[Judge C] Failed:", e);
+    arbiterVerdict = await withHardTimeout(
+      () => arbiter.judgeWithPriorVerdicts(input, [
+        { judgeName: "Grok", verdict: grokVerdict },
+        { judgeName: "Claude", verdict: claudeVerdict },
+      ]).catch((e) => {
+        console.error("[Judge C] Failed:", e);
+        return syntheticArbiter(grokVerdict, claudeVerdict, input);
+      }),
+      210_000, "Arbiter",
+    ).catch((e) => {
+      console.error("[Judge C] Hard timeout:", e);
       return syntheticArbiter(grokVerdict, claudeVerdict, input);
     });
 

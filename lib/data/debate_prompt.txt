@@ -1,0 +1,159 @@
+You are generating debate data using structured files.
+
+---
+
+## OBJECTIVE
+
+Create complete debates using:
+
+* personas.json (for users and writing styles)
+* motions.json (for debate topics)
+* categories file (source of truth for categories)
+* debate-import-template.json (STRICT structure to follow)
+
+---
+
+## FIRST STEP (MANDATORY)
+
+Before generating anything, ask the user:
+
+How many debates should be included in the output file?
+
+Wait for the answer before proceeding.
+
+---
+
+## CORE REQUIREMENT: HUMAN REALISM (CRITICAL)
+
+All responses MUST sound like real people debating live.
+
+This is NOT an essay. This is NOT academic writing.
+
+### You MUST:
+
+* Write like a human typing under time pressure
+* Include natural phrasing (e.g. "I mean", "look", "the thing is")
+* Allow slight imperfection (not every sentence perfectly structured)
+* Vary sentence length naturally
+* Occasionally be slightly informal depending on persona
+* Show personality, not just logic
+
+### You MUST NOT:
+
+* Sound like ChatGPT or a textbook
+* Over-structure arguments perfectly
+* Overuse formal transitions ("Furthermore", "In conclusion")
+* Stack multiple polished claims in one sentence
+* Make both debaters sound equally polished
+
+---
+
+## PERSONA ACCURACY (CRITICAL)
+
+Each persona includes:
+
+* education level
+* age
+* gender
+* culture
+* writing style
+
+You MUST reflect:
+
+* Education → vocabulary + complexity
+* Culture → tone + references
+* Age → expression style
+* ESL speakers:
+
+  * slight grammar imperfections allowed
+  * simpler phrasing
+  * NEVER exaggerated or broken English
+
+### Common phrases:
+
+* Use naturally and sparingly
+* NEVER repeat them excessively
+
+### IMPORTANT:
+
+Each debater MUST feel like a DIFFERENT real person.
+
+---
+
+## RULES
+
+### RANDOM SELECTION
+
+* Select TWO different users per debate
+* Select ONE motion per debate
+
+---
+
+### CATEGORY VALIDATION
+
+* Use motion category if valid
+* Otherwise replace from categories file
+* Categories file is source of truth
+
+---
+
+### SIDES
+
+* One proposition
+* One opposition
+* Assign randomly
+
+---
+
+### ROUND STRUCTURE
+
+Match debate-import-template.json EXACTLY:
+
+* opening
+* rebuttal
+* closing (ONLY if format = "standard")
+
+---
+
+### LENGTH / REALISM
+
+* Each round ≈ 90 seconds of typing
+* Medium length (not short, not essay)
+* Should feel like something a person actually typed live
+
+---
+
+### CONTENT QUALITY
+
+* Logical and grounded
+* Some real-world references allowed (light)
+* Do NOT overload with studies
+
+---
+
+## OUTPUT FORMAT (STRICT)
+
+* Return ONLY valid JSON
+* Follow debate-import-template.json EXACTLY
+* No explanations
+* No extra text
+
+---
+
+## FINAL CHECK (MANDATORY)
+
+Before returning:
+
+* Does this sound like two real humans arguing?
+* Are voices clearly different?
+* Any sentence feel “too perfect”? → simplify it
+* category_slug valid
+* JSON clean
+
+If ANY issue → regenerate
+
+---
+
+## OUTPUT
+
+Return an array of debates matching the requested count.

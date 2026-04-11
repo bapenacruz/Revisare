@@ -188,19 +188,54 @@ function parseVerdict(raw: string, input: JudgeInput): SingleJudgeVerdict {
   };
 }
 
-/** Collect all chunks from a streaming chat.send() response into one string */
+/** Collect all chunks from a streaming chat.send() response into one string.
+ * Uses Promise.race so the timeout fires even if no chunks ever arrive. */
 async function collectStream(
   stream: AsyncIterable<{ choices: Array<{ delta: { content?: string | null } }> }>,
-  timeoutMs = 180_000,
+  timeoutMs = 90_000,
 ): Promise<string> {
   let text = "";
-  const deadline = Date.now() + timeoutMs;
-  for await (const chunk of stream) {
-    if (Date.now() > deadline) throw new Error("Stream timed out after " + timeoutMs + "ms");
-    const content = chunk.choices[0]?.delta?.content;
-    if (content) text += content;
+
+  const drain = async (): Promise<string> => {
+    for await (const chunk of stream) {
+      const content = chunk.choices[0]?.delta?.content;
+      if (content) text += content;
+    }
+    return text.trim();
+  };
+
+  const timeout = new Promise<never>((_, reject) =>
+    setTimeout(
+      () => reject(new Error(`Stream timed out after ${Math.round(timeoutMs / 1000)}s`)),
+      timeoutMs,
+    ),
+  );
+
+  return Promise.race([drain(), timeout]);
+}
+
+/** Retry a function up to `attempts` times with exponential backoff. */
+async function withRetry<T>(
+  fn: () => Promise<T>,
+  { attempts = 2, delayMs = 4000 }: { attempts?: number; delayMs?: number } = {},
+): Promise<T> {
+  let lastErr: unknown;
+  for (let i = 0; i < attempts; i++) {
+    try {
+      return await fn();
+    } catch (err) {
+      lastErr = err;
+      if (i < attempts - 1) {
+        console.warn(
+          `[judging] attempt ${i + 1}/${attempts} failed (retrying in ${delayMs}ms):`,
+          err instanceof Error ? err.message : err,
+        );
+        await new Promise((r) => setTimeout(r, delayMs));
+        delayMs = Math.min(delayMs * 2, 30_000);
+      }
+    }
   }
-  return text.trim();
+  throw lastErr;
 }
 
 // ─── Shared system prompt ──────────────────────────────────────────────────────
@@ -293,6 +328,10 @@ export class GrokJudgingProvider implements IJudgingProvider {
   }
 
   async judge(input: JudgeInput): Promise<SingleJudgeVerdict> {
+    return withRetry(() => this._judge(input));
+  }
+
+  private async _judge(input: JudgeInput): Promise<SingleJudgeVerdict> {
     const stream = await this.client.chat.send({
       chatRequest: {
         model: this.model,
@@ -310,7 +349,7 @@ export class GrokJudgingProvider implements IJudgingProvider {
       },
     });
 
-    const raw = await collectStream(stream);
+    const raw = await collectStream(stream, 90_000);
     if (!raw) throw new Error("Empty response from Grok judge");
     return parseVerdict(raw, input);
   }
@@ -341,6 +380,10 @@ export class ClaudeJudgingProvider implements IJudgingProvider {
   }
 
   async judge(input: JudgeInput): Promise<SingleJudgeVerdict> {
+    return withRetry(() => this._judge(input));
+  }
+
+  private async _judge(input: JudgeInput): Promise<SingleJudgeVerdict> {
     const stream = await this.client.chat.send({
       chatRequest: {
         model: this.model,
@@ -358,7 +401,7 @@ export class ClaudeJudgingProvider implements IJudgingProvider {
       },
     });
 
-    const raw = await collectStream(stream);
+    const raw = await collectStream(stream, 90_000);
     if (!raw) throw new Error("Empty response from Claude judge");
     return parseVerdict(raw, input);
   }
@@ -396,6 +439,13 @@ export class ArbiterJudgingProvider implements IJudgingProvider {
   }
 
   async judgeWithPriorVerdicts(
+    input: JudgeInput,
+    priorVerdicts: Array<{ judgeName: string; verdict: SingleJudgeVerdict }>,
+  ): Promise<SingleJudgeVerdict> {
+    return withRetry(() => this._judgeWithPriorVerdicts(input, priorVerdicts), { attempts: 2, delayMs: 5000 });
+  }
+
+  private async _judgeWithPriorVerdicts(
     input: JudgeInput,
     priorVerdicts: Array<{ judgeName: string; verdict: SingleJudgeVerdict }>,
   ): Promise<SingleJudgeVerdict> {
@@ -446,7 +496,7 @@ export class ArbiterJudgingProvider implements IJudgingProvider {
       },
     });
 
-    const raw = await collectStream(stream, 360_000); // 6 min — Arbiter response is large
+    const raw = await collectStream(stream, 180_000); // 3 min for Arbiter
     if (!raw) throw new Error("Empty response from Arbiter judge");
     return parseVerdict(raw, input);
   }
@@ -504,21 +554,24 @@ JSON schema:
   "feedbackB": "${FEEDBACK_BLOCK_TEMPLATE(b).replace(/\n/g, "\\n")}"
 }`;
 
-  const stream = await client.chat.send({
-    chatRequest: {
-      model,
-      temperature: 0.3,
-      maxTokens: 2000,
-      responseFormat: { type: "json_object" },
-      messages: [
-        { role: "system", content: systemPrompt },
-        { role: "user", content: userPrompt },
-      ],
-      stream: true,
-    },
-  });
+  const doRequest = async () => {
+    const stream = await client.chat.send({
+      chatRequest: {
+        model,
+        temperature: 0.3,
+        maxTokens: 2000,
+        responseFormat: { type: "json_object" },
+        messages: [
+          { role: "system", content: systemPrompt },
+          { role: "user", content: userPrompt },
+        ],
+        stream: true,
+      },
+    });
+    return collectStream(stream, 90_000);
+  };
 
-  const raw = await collectStream(stream, 180_000);
+  const raw = await withRetry(doRequest);
   if (!raw) throw new Error("Empty response from feedback generator");
 
   const parsed = tryParseJson(raw);
