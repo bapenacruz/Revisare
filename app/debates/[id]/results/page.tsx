@@ -319,7 +319,6 @@ export default async function ResultsPage({ params }: Props) {
         <div className="mb-8">
           <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
             <span>📊</span> Scorecard
-            <span className="text-xs font-normal text-foreground-muted ml-1">— factuality-weighted scores from the AI judge panel</span>
           </h2>
           <Card>
             <CardBody>
@@ -409,7 +408,7 @@ export default async function ResultsPage({ params }: Props) {
                   );
                 })}
               </div>
-              <p className="text-[10px] text-foreground-subtle mt-4 text-center">If factuality &lt; 5, final score is capped at 6. If factuality &lt; 3, automatic loss (capped at 3).</p>
+
             </CardBody>
           </Card>
         </div>
@@ -420,7 +419,6 @@ export default async function ResultsPage({ params }: Props) {
         <div className="mb-8">
           <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
             <span>🔍</span> Fact-Check Analysis
-            <span className="text-xs font-normal text-foreground-muted ml-1">— AI judges evaluated the factual accuracy of each debater&apos;s claims</span>
           </h2>
 
           {/* Claim-by-claim checks */}
@@ -428,7 +426,7 @@ export default async function ResultsPage({ params }: Props) {
             <div>
               <h3 className="text-sm font-semibold text-foreground mb-2 flex items-center gap-2">
                 Claim-by-Claim Verification
-                <span className="text-xs font-normal text-foreground-muted">({consensusEvidenceChecks.length} claims checked)</span>
+
               </h3>
               <div className="flex flex-col gap-2">
                 {consensusEvidenceChecks.map((ec, idx) => {
@@ -479,7 +477,7 @@ export default async function ResultsPage({ params }: Props) {
         <div className="mb-8">
           <h2 className="text-lg font-bold text-foreground mb-3 flex items-center gap-2">
             <Users size={18} className="text-brand" />
-            Judge Panel ({individualJudgeResults.length} judges)
+            Judge Panel
           </h2>
           <div className="flex flex-col gap-2">
             {individualJudgeResults.map((jr, i) => {

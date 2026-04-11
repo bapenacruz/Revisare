@@ -91,7 +91,7 @@ export function CommentsSection({ challengeId }: { challengeId: string }) {
       </div>
 
       {comments.length === 0 ? (
-        <p className="text-sm text-foreground-muted mb-4">No comments yet. Share your thoughts!</p>
+        <p className="text-sm text-foreground-muted mb-4">No comments yet.</p>
       ) : (
         <div className="flex flex-col gap-4 mb-6">
           {comments.map((c) => (
