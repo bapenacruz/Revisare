@@ -39,7 +39,7 @@ export default function OnboardingPage() {
   useEffect(() => {
     if (checkTimerRef.current) clearTimeout(checkTimerRef.current);
     if (!username) { setUsernameStatus("idle"); return; }
-    const re = /^[a-z0-9_]{3,20}$/;
+    const re = /^[a-z0-9_.]{3,20}$/;
     if (!re.test(username)) { setUsernameStatus("invalid"); return; }
     setUsernameStatus("checking");
     checkTimerRef.current = setTimeout(async () => {
@@ -131,7 +131,7 @@ export default function OnboardingPage() {
                   <input
                     type="text"
                     value={username}
-                    onChange={(e) => setUsername(e.target.value.toLowerCase().replace(/[^a-z0-9_]/g, ""))}
+                    onChange={(e) => setUsername(e.target.value.toLowerCase().replace(/[^a-z0-9_.]/g, ""))}
                     placeholder="your_handle"
                     maxLength={20}
                     required

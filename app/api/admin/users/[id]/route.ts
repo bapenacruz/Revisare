@@ -30,7 +30,7 @@ export async function PATCH(req: NextRequest, { params }: RouteParams) {
 
   if (typeof body.username === "string") {
     const newUsername = body.username.trim();
-    if (!/^[a-zA-Z0-9_]{3,30}$/.test(newUsername)) {
+    if (!/^[a-zA-Z0-9_.]{3,30}$/.test(newUsername)) {
       return NextResponse.json({ error: "Invalid username format" }, { status: 400 });
     }
     // Only allow rename for placeholder users

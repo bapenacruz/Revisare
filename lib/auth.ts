@@ -13,7 +13,7 @@ function usernameFromEmail(email: string): string {
   return email
     .split("@")[0]
     .toLowerCase()
-    .replace(/[^a-z0-9]/g, "_")
+    .replace(/[^a-z0-9.]/g, "_")
     .replace(/_+/g, "_")
     .replace(/^_+|_+$/g, "")
     .substring(0, 20) || "user";

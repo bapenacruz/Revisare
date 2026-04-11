@@ -8,7 +8,7 @@ const profileUpdateSchema = z.object({
     .string()
     .min(3)
     .max(30)
-    .regex(/^[a-zA-Z0-9_]+$/)
+    .regex(/^[a-zA-Z0-9_.]+$/)
     .optional(),
   bio: z.string().max(300).optional(),
   country: z.string().max(100).optional(),

@@ -4,7 +4,7 @@ import { db } from "@/lib/db";
 import { z } from "zod";
 
 const onboardingSchema = z.object({
-  username: z.string().regex(/^[a-z0-9_]{3,20}$/, "Username must be 3–20 chars: lowercase letters, numbers, underscores."),
+  username: z.string().regex(/^[a-z0-9_.]{3,20}$/, "Username must be 3–20 chars: lowercase letters, numbers, underscores, periods."),
   country: z.string().min(1, "Country is required").max(100),
   region: z.string().max(100).optional(),
   dob: z.string().min(1, "Date of birth is required"),
