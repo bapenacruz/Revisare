@@ -14,7 +14,7 @@ export const revalidate = 30;
 export default async function DebatesPage() {
   const [liveDebates, recentDebates, openChallenges] = await Promise.all([
     db.debate.findMany({
-      where: { status: "active", isPublic: true },
+      where: { status: "active", isPublic: true, isDeleted: false },
       include: {
         category: { select: { label: true, emoji: true } },
         debaterA: { select: { username: true } },
@@ -24,7 +24,7 @@ export default async function DebatesPage() {
       take: 6,
     }),
     db.debate.findMany({
-      where: { status: "completed", isPublic: true },
+      where: { status: "completed", isPublic: true, isDeleted: false },
       include: {
         category: { select: { label: true, emoji: true } },
         debaterA: { select: { username: true } },

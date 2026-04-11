@@ -7,7 +7,8 @@ import { Card, CardBody } from "@/components/ui/Card";
 import { Avatar } from "@/components/ui/Avatar";
 import { ROUND_LABEL, type RoundName } from "@/lib/debate-state";
 import { CommentsSection } from "./CommentsSection";
-import { Trophy, Gavel, ArrowLeft, Users, CheckCircle2, XCircle, AlertCircle, HelpCircle, Scale } from "lucide-react";
+import { AudienceVotePanel } from "./AudienceVotePanel";
+import { Trophy, Gavel, Users, CheckCircle2, XCircle, AlertCircle, HelpCircle, Scale } from "lucide-react";
 import { PrivateFeedbackView } from "@/components/debate/PrivateFeedbackView";
 import type { DebaterScores, EvidenceCheck } from "@/lib/judging/types";
 import type { Metadata } from "next";
@@ -67,12 +68,11 @@ export default async function ResultsPage({ params }: Props) {
 
   if (!debate || debate.status !== "completed") notFound();
 
-  // Audience vote tally
+  // Audience vote tally — passed to client AudienceVotePanel
   const voteTally: Record<string, number> = {};
   for (const v of debate.audienceVotes) {
     voteTally[v.votedForId] = (voteTally[v.votedForId] ?? 0) + 1;
   }
-  const totalVotes = Object.values(voteTally).reduce((a, b) => a + b, 0);
 
   const propositionUser =
     debate.coinFlipWinnerId === debate.debaterAId ? debate.debaterA : debate.debaterB;
@@ -149,26 +149,9 @@ export default async function ResultsPage({ params }: Props) {
       : isDebaterB
         ? judgeResult?.privateFeedbackB
         : null;
-  const audiencePick =
-    Object.entries(voteTally).sort((a, b) => b[1] - a[1])[0]?.[0] ?? null;
-  const audiencePickUser =
-    audiencePick === debate.debaterAId
-      ? debate.debaterA
-      : audiencePick === debate.debaterBId
-        ? debate.debaterB
-        : null;
 
   return (
     <div className="mx-auto max-w-4xl px-4 sm:px-6 py-10">
-      {/* Back */}
-      <Link
-        href="/debates"
-        className="inline-flex items-center gap-1.5 text-sm text-foreground-muted hover:text-foreground transition-colors mb-6"
-      >
-        <ArrowLeft size={14} />
-        Back to Debates
-      </Link>
-
       {/* Header */}
       <div className="mb-8">
         <div className="flex flex-wrap items-center gap-2 mb-3">
@@ -207,7 +190,7 @@ export default async function ResultsPage({ params }: Props) {
         </CardBody>
       </Card>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+      <div className="flex flex-col gap-6 mb-8">
         {/* Official result */}
         <Card>
           <CardBody>
@@ -279,61 +262,15 @@ export default async function ResultsPage({ params }: Props) {
           </CardBody>
         </Card>
 
-        {/* Audience pick */}
-        <Card>
-          <CardBody>
-            <div className="flex items-center gap-2 mb-3">
-              <span className="text-base">👥</span>
-              <span className="font-semibold text-foreground text-sm">Audience Pick</span>
-              <span className="text-xs text-foreground-muted ml-auto">{totalVotes} votes</span>
-            </div>
-
-            {totalVotes === 0 ? (
-              <p className="text-sm text-foreground-muted">No votes cast yet.</p>
-            ) : (
-              <div className="flex flex-col gap-2">
-                {[debate.debaterA, debate.debaterB].map((d) => {
-                  const count = voteTally[d.id] ?? 0;
-                  const p = totalVotes === 0 ? 0 : Math.round((count / totalVotes) * 100);
-                  const isProp = d.id === propositionUser.id;
-                  const isWinner = d.id === audiencePick;
-                  return (
-                    <div key={d.id} className="flex items-center gap-2">
-                      <Link href={`/users/${d.username}`} className="hover:opacity-80 transition-opacity shrink-0">
-                        <Avatar initial={d.username[0]} size="sm" />
-                      </Link>
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-center justify-between mb-0.5">
-                          <Link href={`/users/${d.username}`} className="text-xs font-medium text-foreground truncate hover:text-brand transition-colors">
-                            {d.username}
-                            {isWinner && <span className="ml-1 text-accent">★</span>}
-                          </Link>
-                          <span className="text-xs text-foreground-muted shrink-0 ml-1">
-                            {count} ({p}%)
-                          </span>
-                        </div>
-                        <div className="h-1.5 rounded-full bg-surface-overlay overflow-hidden">
-                          <div
-                            className="h-full rounded-full transition-all"
-                            style={{
-                              width: `${p}%`,
-                              backgroundColor: isProp ? "var(--brand)" : "var(--danger)",
-                            }}
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
-                {audiencePickUser && (
-                  <p className="text-xs text-foreground-muted mt-1 text-center">
-                    Audience chose <span className="text-accent font-semibold">{audiencePickUser.username}</span>
-                  </p>
-                )}
-              </div>
-            )}
-          </CardBody>
-        </Card>
+        {/* Audience Pick — interactive voting */}
+        <AudienceVotePanel
+          challengeId={challengeId}
+          debateId={debate.id}
+          debaterA={debate.debaterA}
+          debaterB={debate.debaterB}
+          initialVotes={voteTally}
+          isParticipant={isDebaterA || isDebaterB}
+        />
       </div>
 
       {/* Private Feedback — visible to each debater (their own) and admins (both) */}
