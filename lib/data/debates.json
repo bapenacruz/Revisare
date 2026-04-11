@@ -1,88 +1,88 @@
 [
   {
-    "motion": "This House Believes AI will do more harm than good",
+    "motion": "Data privacy should take priority over personalized convenience.",
     "category_slug": "science-tech",
     "format": "standard",
     "ranked": false,
     "debaterA": {
-      "username": "skeptical_tony",
+      "username": "quietstorm.soo",
       "side": "proposition"
     },
     "debaterB": {
-      "username": "buildwithai",
+      "username": "heartland105",
       "side": "opposition"
     },
     "turns": [
       {
-        "username": "skeptical_tony",
+        "username": "quietstorm.soo",
         "roundName": "opening",
-        "content": "I mean look at how fast this is moving. Nobody really understands the long-term effects, but we\u2019re deploying it everywhere anyway. Jobs are already getting replaced, misinformation is getting easier to spread, and decision-making is getting outsourced to systems we don\u2019t fully control. That\u2019s not progress, that\u2019s risk stacking."
+        "content": "Honestly, this one is not even close for me. Personalized convenience is nice, sure. Faster apps, better suggestions, fewer clicks. Fine. But the cost is that companies keep building these giant profiles on people and most users barely understand the trade they are making. It is not just ads either. It is location, habits, sleep, money patterns, who you talk to. That starts to become power. And once that data exists, it gets sold, leaked, or quietly repurposed. Convenience is replaceable. Privacy really is not."
       },
       {
-        "username": "buildwithai",
+        "username": "heartland105",
         "roundName": "opening",
-        "content": "That feels overly pessimistic. Every major technology shift had the same fears. AI is just another tool, and like any tool, it depends on how we use it. It\u2019s already improving healthcare, automating boring tasks, and unlocking productivity. The upside is massive if we manage it correctly."
+        "content": "Look, I think that sounds dramatic. People say privacy like it is some absolute thing, but in real life people choose convenience every single day because it genuinely improves life. Maps work better, shopping is easier, fraud detection improves, recommendations save time. This is obvious. Most people do not want clunky products just to defend some abstract principle they are not actively using. Privacy matters, yes, but putting it above everything else ignores how much value personalization creates."
       },
       {
-        "username": "skeptical_tony",
+        "username": "quietstorm.soo",
         "roundName": "rebuttal",
-        "content": "But that\u2019s the issue, \u201cif we manage it correctly.\u201d Historically, we don\u2019t. Companies move fast, regulation lags, and damage happens before anyone reacts. And AI isn\u2019t like past tools, it scales decisions and mistakes instantly."
+        "content": "But that is exactly the trap. The value is immediate and the risk is delayed, so of course people click yes. That does not make it a fair trade. Also, we act like personalization only means convenience, when really it can shape behavior. Prices can change, feeds can narrow, choices can be nudged. You are not just being served, you are being steered. And if the default system depends on people giving up more and more data, then the system is built wrong."
       },
       {
-        "username": "buildwithai",
+        "username": "heartland105",
         "roundName": "rebuttal",
-        "content": "Sure, but that\u2019s not a reason to stop or fear it. It\u2019s a reason to guide it. We\u2019re already seeing frameworks, safety layers, and governance models forming. Ignoring the benefits because of potential risks doesn\u2019t make sense."
+        "content": "I get the concern, but you are treating bad implementation as proof the whole model is bad. The reality is, people do benefit in concrete ways right now. Elderly users, busy parents, people who are not very tech savvy, they all rely on friction being low. Stronger consent rules and better limits make more sense than saying privacy always comes first. Because if you do that too rigidly, you end up making products worse for normal users while power users are the only ones happy."
       },
       {
-        "username": "skeptical_tony",
+        "username": "quietstorm.soo",
         "roundName": "closing",
-        "content": "The risks here aren\u2019t small or hypothetical. They\u2019re systemic. Once these systems are embedded everywhere, rolling them back is nearly impossible. We should be way more cautious than we are."
+        "content": "For me the issue is simple. When convenience conflicts with privacy, privacy should win because it protects autonomy at the root level. A slightly better recommendation engine is not worth normalizing mass data extraction. Build useful products, yes. But build them with limits."
       },
       {
-        "username": "buildwithai",
+        "username": "heartland105",
         "roundName": "closing",
-        "content": "Caution is good, but fear shouldn\u2019t drive the conversation. AI has the potential to solve problems we\u2019ve struggled with for decades. The goal should be responsible growth, not hesitation."
+        "content": "I still think that puts the hierarchy in the wrong order. People live in the real world, not in a perfect theory of rights. Convenience is not trivial when it saves time, reduces mistakes, and makes tools usable. Protect privacy, absolutely. Just do not pretend convenience is some shallow extra when for many people it is the whole reason tech helps at all."
       }
     ],
-    "winner_username": "buildwithai",
-    "completed_at": "2026-04-11T06:17:57+00:00"
+    "winner_username": "quietstorm.soo",
+    "completed_at": "2026-04-11T07:34:19+00:00"
   },
   {
-    "motion": "This House Would abolish billionaires",
-    "category_slug": "economics",
+    "motion": "Humans are bad by nature.",
+    "category_slug": "philosophy",
     "format": "quick",
     "ranked": false,
     "debaterA": {
-      "username": "fairshare_now",
+      "username": "marta_johnson",
       "side": "proposition"
     },
     "debaterB": {
-      "username": "marketmax",
+      "username": "realpeopleamman",
       "side": "opposition"
     },
     "turns": [
       {
-        "username": "fairshare_now",
+        "username": "marta_johnson",
         "roundName": "opening",
-        "content": "At a certain point, wealth stops being about success and starts being about imbalance. No one needs billions while others struggle to meet basic needs. That level of accumulation means something in the system is off."
+        "content": "Look, I do not think people are evil every second of every day, but bad by nature, yes, mostly. Strip away rules, consequences, social pressure, and what comes out first is selfishness. Honestly, we learn to cooperate because we have to. We do not start there. Kids grab, adults rationalize, groups turn cruel fast when they think they can get away with it. Civilization is basically damage control for what people already are."
       },
       {
-        "username": "marketmax",
+        "username": "realpeopleamman",
         "roundName": "opening",
-        "content": "I think that\u2019s an emotional argument more than a practical one. Billionaires are often the result of building massive value, companies, jobs, innovation. Removing that incentive could slow down growth and hurt everyone."
+        "content": "Honestly, I think that view confuses fear and survival with moral badness. People can be selfish, yes, but people also help each other constantly with no reward. Families sacrifice. Strangers rescue strangers. Communities rebuild after disasters. If humans were bad by nature, those things would be weird exceptions. They are not. Look, I think humans are mixed by nature, maybe fragile, maybe inconsistent, but not fundamentally bad."
       },
       {
-        "username": "fairshare_now",
+        "username": "marta_johnson",
         "roundName": "rebuttal",
-        "content": "But that value isn\u2019t created in a vacuum. Workers, infrastructure, society all contribute. Yet the rewards concentrate at the top. There has to be a limit where redistribution makes sense."
+        "content": "But even the good examples prove my point a little. We praise them because they stand out. Nobody headlines the thousand ordinary selfish acts because they are routine. And when stress rises, comfort drops, or resources get tight, the polite mask slips pretty quick. That tells you what is underneath."
       },
       {
-        "username": "marketmax",
+        "username": "realpeopleamman",
         "roundName": "rebuttal",
-        "content": "Redistribution is one thing, abolishing billionaires is another. You risk capital flight, reduced investment, and less innovation. The system isn\u2019t perfect, but extreme solutions usually backfire."
+        "content": "I do not buy that. Pressure revealing selfishness does not mean selfishness is the core truth. It may just mean fear is powerful. The thing is, humans also show loyalty, tenderness, and fairness under pressure. You see both. So saying people are bad by nature goes too far. It picks the darkest evidence and calls it the essence."
       }
     ],
-    "winner_username": "marketmax",
-    "completed_at": "2026-04-11T06:17:57+00:00"
+    "winner_username": "realpeopleamman",
+    "completed_at": "2026-04-11T07:34:19+00:00"
   }
 ]
