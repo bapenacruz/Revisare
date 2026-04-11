@@ -1,6 +1,7 @@
 import NextAuth from "next-auth";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import GoogleProvider from "next-auth/providers/google";
+import MicrosoftEntraId from "next-auth/providers/microsoft-entra-id";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import { db } from "@/lib/db";
@@ -52,6 +53,24 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           emailVerified: profile.email_verified ? new Date() : null,
           username: `${base.substring(0, 16)}_${tag}`,
           avatarUrl: (profile.picture as string | undefined) ?? null,
+        };
+      },
+    }),
+
+    MicrosoftEntraId({
+      clientId: process.env.MICROSOFT_CLIENT_ID ?? "",
+      clientSecret: process.env.MICROSOFT_CLIENT_SECRET ?? "",
+      issuer: "https://login.microsoftonline.com/consumers/v2.0/",
+      allowDangerousEmailAccountLinking: true,
+      profile(profile) {
+        const base = usernameFromEmail(profile.email as string);
+        const tag = Math.random().toString(36).slice(2, 6);
+        return {
+          id: profile.oid,
+          email: profile.email,
+          emailVerified: null,
+          username: `${base.substring(0, 16)}_${tag}`,
+          avatarUrl: null,
         };
       },
     }),
