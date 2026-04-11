@@ -587,7 +587,7 @@ HARD RULES:
 
 REQUIRED FORMAT for each feedback value (plain text, newlines as \\n):
 ${FEEDBACK_BLOCK_TEMPLATE("<debater username>")}
-${extraInstruction ? `\nADDITIONAL INSTRUCTION — after generating each feedback value, also append this sentence verbatim on a new line: "${extraInstruction}"` : ""}
+${extraInstruction ? `\nADDITIONAL INSTRUCTION for generating feedback:\n${extraInstruction}` : ""}
 
 Output only valid JSON — no markdown fences, no commentary.`;
 
