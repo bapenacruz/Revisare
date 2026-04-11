@@ -141,6 +141,7 @@ export default async function AdminUsersPage({ searchParams }: Props) {
                           username: u.username,
                           role: u.role,
                           suspendedUntil: u.suspendedUntil?.toISOString() ?? null,
+                          isDeleted: u.isDeleted,
                         }}
                       />
                     )}
