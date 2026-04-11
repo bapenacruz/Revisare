@@ -23,6 +23,7 @@ const CATEGORY_SEEDS = [
   { slug: "culture-entertainment",label: "Culture & Entertainment", emoji: "🎬", description: "Movies, music, games, and what we consume",                order: 10 },
   { slug: "law-justice",          label: "Law & Justice",           emoji: "⚖️", description: "Rights, rules, and what's fair",                           order: 11 },
   { slug: "health-lifestyle",     label: "Health & Lifestyle",      emoji: "🏃", description: "Well-being, habits, and how we live day to day",           order: 12 },
+  { slug: "other",                label: "Other",                   emoji: "💬", description: "Debates that don't fit neatly into another category",       order: 99 },
 ];
 
 /**
