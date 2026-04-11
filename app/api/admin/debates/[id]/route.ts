@@ -55,6 +55,11 @@ export async function DELETE(
     data: { isDeleted: true } 
   });
 
+  // Remove all notifications referencing this debate
+  await db.notification.deleteMany({
+    where: { payload: { contains: debate.challengeId } },
+  });
+
   // Reverse wins/losses/ELO if it was a ranked completed debate with a winner
   if (debate.ranked && debate.winnerId && debate.status === "completed" && !debate.isDeleted) {
     const loserId = debate.winnerId === debate.debaterAId ? debate.debaterBId : debate.debaterAId;

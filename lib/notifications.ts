@@ -24,6 +24,17 @@ export async function createNotification(
   });
   if (user?.isExhibition) return; // skip exhibition accounts
 
+  // One notification per debate per type — delete any prior one before inserting
+  if (payload.challengeId) {
+    await db.notification.deleteMany({
+      where: {
+        userId,
+        type: payload.type,
+        payload: { contains: payload.challengeId },
+      },
+    });
+  }
+
   const notif = await db.notification.create({
     data: {
       userId,
