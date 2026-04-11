@@ -35,11 +35,11 @@ export async function POST(request: Request) {
 
     // Check for existing email or username
     const existing = await db.user.findFirst({
-      where: { OR: [{ email: normalizedEmail }, { username }] },
+      where: { OR: [{ email: { equals: normalizedEmail, mode: "insensitive" } }, { username }] },
       select: { email: true, username: true },
     });
 
-    if (existing?.email === normalizedEmail) {
+    if (existing?.email?.toLowerCase() === normalizedEmail) {
       return NextResponse.json({ error: "Email already in use" }, { status: 409 });
     }
     if (existing?.username === username) {
