@@ -73,9 +73,37 @@ export function AudienceVotePanel({ challengeId, debateId, debaterA, debaterB, i
         <p className="text-xs text-foreground-muted mb-3">Separate from the official AI judge.</p>
 
         {isParticipant ? (
-          <p className="text-xs text-foreground-muted italic text-center py-2">
-            Participants cannot vote in their own debate.
-          </p>
+          <>
+            {[debaterA, debaterB].map((d) => {
+              const p = pct(d.id);
+              const isProp = d.id === debaterA.id;
+              return (
+                <div key={d.id} className="mb-2">
+                  <div className="w-full flex items-center gap-2 p-2 rounded-[--radius] border border-border bg-surface-raised">
+                    <Avatar initial={d.username[0]} size="sm" />
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center justify-between mb-1">
+                        <span className="text-xs font-medium text-foreground truncate">{d.username}</span>
+                        <span className="text-xs text-foreground-muted shrink-0 ml-1">{p}%</span>
+                      </div>
+                      <div className="h-1 rounded-full bg-surface-overlay overflow-hidden">
+                        <div
+                          className="h-full rounded-full transition-all duration-500"
+                          style={{
+                            width: `${p}%`,
+                            backgroundColor: isProp ? "var(--brand)" : "var(--danger)",
+                          }}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+            <p className="text-xs text-foreground-muted italic text-center mt-1">
+              Participants cannot vote in their own debate.
+            </p>
+          </>
         ) : (
           <>
             {[debaterA, debaterB].map((d) => {
