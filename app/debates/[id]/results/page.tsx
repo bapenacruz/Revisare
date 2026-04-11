@@ -344,6 +344,7 @@ export default async function ResultsPage({ params }: Props) {
 
       {/* ── Scorecard ──────────────────────────────────────────── */}
       {(consensusScores.scoresA || consensusScores.scoresB) && (
+        <div className="mb-8">
           <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
             <span>📊</span> Scorecard
             <span className="text-xs font-normal text-foreground-muted ml-1">— factuality-weighted scores from the AI judge panel</span>
