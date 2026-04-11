@@ -24,14 +24,17 @@ async function getJudgePrompt(type: string): Promise<string> {
   return fallbacks[type] || "Evaluate this debate fairly and factually.";
 }
 
-function buildVerdictSchema(input: JudgeInput): string {
+function buildVerdictSchema(input: JudgeInput, summaryInstruction?: string): string {
   const a = input.debaterA.username;
   const b = input.debaterB.username;
+  const summaryDesc = summaryInstruction
+    ? `<3 to 5 sentences. ${summaryInstruction}>`
+    : `<3 to 5 concise sentences explaining why this user won in public-facing language>`;
   return `{
   "winner_username": "<${a} or ${b}>",
   "public_result": {
     "winner_username": "<${a} or ${b}>",
-    "summary": "<3 to 5 concise sentences explaining why this user won in public-facing language>"
+    "summary": "${summaryDesc}"
   },
   "private_assessment": {
     "decision_summary": "<short internal summary of why the winner won>",
@@ -348,9 +351,17 @@ Respond with ONLY valid JSON — no markdown fences, no commentary — matching 
 
 // ─── Judge A: Grok ─────────────────────────────────────────────────────────────
 
+// Strip any embedded JSON schema blocks a persona prompt might contain (from old DB records)
+function stripPersonaJsonSchema(prompt: string): string {
+  // Remove everything from the first { that looks like a JSON schema block
+  const schemaStart = prompt.search(/\n\s*Return JSON|\n\s*\{[\s\S]*"winner"/i);
+  if (schemaStart !== -1) return prompt.slice(0, schemaStart).trim();
+  return prompt;
+}
+
 async function buildGrokSystem(input: JudgeInput): Promise<string> {
-  const prompt = await getJudgePrompt("judge1_grok");
-  return buildJudgingRubric(prompt) + buildVerdictSchema(input);
+  const raw = await getJudgePrompt("judge1_grok");
+  return buildJudgingRubric(stripPersonaJsonSchema(raw)) + buildVerdictSchema(input);
 }
 
 export class GrokJudgingProvider implements IJudgingProvider {
@@ -399,8 +410,8 @@ export class GrokJudgingProvider implements IJudgingProvider {
 // ─── Judge B: Claude ───────────────────────────────────────────────────────────
 
 async function buildClaudeSystem(input: JudgeInput): Promise<string> {
-  const prompt = await getJudgePrompt("judge2_claude");
-  return buildJudgingRubric(prompt) + buildVerdictSchema(input);
+  const raw = await getJudgePrompt("judge2_claude");
+  return buildJudgingRubric(stripPersonaJsonSchema(raw)) + buildVerdictSchema(input);
 }
 
 export class ClaudeJudgingProvider implements IJudgingProvider {
@@ -449,12 +460,10 @@ export class ClaudeJudgingProvider implements IJudgingProvider {
 // ─── Judge C: GPT — The Arbiter ───────────────────────────────────────────────
 
 async function buildArbiterSystem(input: JudgeInput): Promise<string> {
-  const judgePersona = await getJudgePrompt("judge3_chatgpt");
+  const raw = await getJudgePrompt("judge3_chatgpt");
+  const persona = stripPersonaJsonSchema(raw);
   const resultStyle = await getJudgePrompt("official_result");
-  const resultInstruction = resultStyle
-    ? `\n\nOFFICIAL RESULT INSTRUCTION — apply this when writing the public_result.summary field: ${resultStyle}`
-    : "";
-  return buildJudgingRubric(judgePersona) + buildVerdictSchema(input) + resultInstruction;
+  return buildJudgingRubric(persona) + buildVerdictSchema(input, resultStyle || undefined);
 }
 
 export class ArbiterJudgingProvider implements IJudgingProvider {
