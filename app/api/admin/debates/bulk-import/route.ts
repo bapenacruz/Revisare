@@ -3,6 +3,7 @@ import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { z } from "zod";
 import bcrypt from "bcryptjs";
+import { judgeDebate } from "@/lib/judging";
 
 const TurnSchema = z.object({
   username: z.string().min(1),
@@ -239,6 +240,13 @@ export async function POST(request: NextRequest) {
           db.user.update({ where: { id: loserId }, data: { losses: { increment: 1 } } }),
         ]);
       }
+
+      // Trigger AI assessment for this debate (async, don't wait)
+      // This ensures all imported debates get proper AI judge results
+      judgeDebate(debate.id).catch((err) => {
+        console.error(`[Bulk Import] Failed to trigger AI assessment for debate ${debate.id}:`, err);
+        // Don't fail the import if AI assessment fails - it can be triggered later via admin tools
+      });
 
       results.push({
         index: i,

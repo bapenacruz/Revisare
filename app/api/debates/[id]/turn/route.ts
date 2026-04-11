@@ -185,7 +185,8 @@ export async function POST(req: NextRequest, { params }: RouteParams) {
           explanation: "Judging encountered an error. A provisional result was assigned.",
           privateFeedbackA: null,
           privateFeedbackB: null,
-          roundScores: "[]",
+          roundScores: JSON.stringify({}),
+          evidenceChecks: JSON.stringify([]),
         },
       });
     }

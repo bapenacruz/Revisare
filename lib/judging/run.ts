@@ -83,7 +83,7 @@ export async function judgeDebate(debateId: string): Promise<void> {
     },
   });
 
-  // Update debate with official winner
+  // Update debate with official winner AFTER all judge results are stored
   await db.debate.update({
     where: { id: debate.id },
     data: { winnerId: consensus.winnerId },

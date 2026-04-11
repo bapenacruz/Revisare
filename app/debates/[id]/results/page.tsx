@@ -236,15 +236,23 @@ export default async function ResultsPage({ params }: Props) {
                   <p className="text-xs text-foreground-muted">See the fact-check analysis below ↓</p>
                 </div>
               )
-            ) : winner ? (
+            ) : winner && debate.forfeitedBy ? (
+              // Only show winner immediately for forfeit cases
               <div>
                 <div className="flex items-center gap-2 mb-1">
                   <Trophy size={18} className="text-accent" />
                   <span className="font-bold text-foreground">{winner.username} wins</span>
                 </div>
-                <p className="text-xs text-foreground-muted">
-                  {debate.forfeitedBy ? "Won by forfeit." : "Result recorded."}
-                </p>
+                <p className="text-xs text-foreground-muted">Won by forfeit.</p>
+              </div>
+            ) : winner ? (
+              // If there's a winner but no judge result, judging is in progress
+              <div>
+                <div className="flex items-center gap-2 mb-1">
+                  <div className="animate-spin h-4 w-4 border-2 border-brand border-t-transparent rounded-full"></div>
+                  <span className="font-semibold text-foreground">AI judging in progress...</span>
+                </div>
+                <p className="text-xs text-foreground-muted">Results will be available shortly.</p>
               </div>
             ) : (
               <p className="text-sm text-foreground-muted">No judge result available yet.</p>

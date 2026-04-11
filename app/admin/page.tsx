@@ -2,6 +2,7 @@ export const dynamic = "force-dynamic";
 
 import { db } from "@/lib/db";
 import Link from "next/link";
+import AIAssessmentTrigger from "@/components/admin/AIAssessmentTrigger";
 
 export const metadata = { title: "Admin Dashboard" };
 
@@ -75,7 +76,7 @@ export default async function AdminDashboard() {
         ))}
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <div className="rounded-[--radius] border border-border bg-surface p-5">
           <h2 className="font-semibold text-foreground mb-4">Quick Actions</h2>
           <div className="flex flex-col gap-2">
@@ -95,6 +96,8 @@ export default async function AdminDashboard() {
             ))}
           </div>
         </div>
+
+        <AIAssessmentTrigger />
 
         <div className="rounded-[--radius] border border-border bg-surface p-5">
           <h2 className="font-semibold text-foreground mb-4">Recent Admin Actions</h2>

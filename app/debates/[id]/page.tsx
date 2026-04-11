@@ -612,14 +612,14 @@ export default function ArenaPage() {
                       <p className="text-sm text-foreground-muted leading-relaxed">{judgeResult.explanation}</p>
                     </div>
                   )
-                ) : winnerUser ? (
+                ) : winnerUser && (judgeResult || debate.forfeitedBy) ? (
                   <div>
                     <div className="flex items-center gap-2 mb-2">
                       <Trophy size={16} className="text-accent" />
                       <span className="font-bold text-foreground">{winnerUser.username} wins</span>
                     </div>
                     <p className="text-sm text-foreground-muted">
-                      {debate.forfeitedBy ? "Won by forfeit." : "AI judging in progress\u2026"}
+                      {debate.forfeitedBy ? "Won by forfeit." : "Winner determined by AI judges"}
                     </p>
                   </div>
                 ) : (

@@ -1,88 +1,88 @@
 [
   {
-    "motion": "Humans are bad by nature.",
-    "category_slug": "philosophy",
+    "motion": "This House Would ban facial recognition in public spaces",
+    "category_slug": "science-tech",
     "format": "standard",
     "ranked": false,
     "debaterA": {
-      "username": "jessicathinks",
+      "username": "techskeptic_41",
       "side": "proposition"
     },
     "debaterB": {
-      "username": "lopez1979",
+      "username": "urbanplanner_maya",
       "side": "opposition"
     },
     "turns": [
       {
-        "username": "jessicathinks",
+        "username": "techskeptic_41",
         "roundName": "opening",
-        "content": "Look, I think people dress this up way too much. Humans are not good by default. We can become decent, sure, but naturally? No. Put people in a situation with low accountability, scarce resources, or power over someone weaker and the ugly stuff comes out fast. Greed, cruelty, tribalism, selfishness. That is not some rare glitch. It is baked in. Kids have to be taught to share. Societies have to build laws so people do not steal, exploit, or hurt each other. That tells you something. I am not saying humans are monsters every second of the day. I am saying our first impulses are usually self-protective, self-serving, and sometimes brutal. Civilization is basically a long project of managing human nature because human nature is not naturally kind."
+        "content": "Look, this stuff sounds futuristic and cool until you actually think about what it means day to day. Cameras tracking your face everywhere you go? That\u2019s not security, that\u2019s constant monitoring. And yeah people say \u201cif you\u2019re not doing anything wrong, who cares\u201d but that\u2019s not the point. The point is you shouldn\u2019t have to justify existing in public without being tracked. Once this is everywhere, you don\u2019t get that privacy back."
       },
       {
-        "username": "lopez1979",
+        "username": "urbanplanner_maya",
         "roundName": "opening",
-        "content": "This is obvious to me: that argument confuses instinct with moral character. Of course humans protect themselves first. Every animal does. That does not mean humans are bad by nature. It means humans are built to survive. The more important fact is that we are also wired for attachment, cooperation, and sacrifice. Families, friendships, communities, even basic trust between strangers, none of that works if people are fundamentally bad. You have to understand, if our nature were mainly cruel, society would collapse constantly. Instead what we actually see is people helping after disasters, raising children with care, building norms, volunteering, forgiving. Human beings are mixed, yes, but mixed is not the same as bad. Calling human nature bad is too lazy and honestly too cynical."
+        "content": "I hear the concern, but banning it outright ignores real benefits. Cities are struggling with crime, missing persons cases, even basic safety in crowded areas. Facial recognition, when used properly, can help solve crimes faster and prevent harm. The issue isn\u2019t the technology itself, it\u2019s how it\u2019s governed. We shouldn\u2019t throw out a useful tool because it could be misused."
       },
       {
-        "username": "jessicathinks",
+        "username": "techskeptic_41",
         "roundName": "rebuttal",
-        "content": "The problem with that is you are pointing to what humans can do at their best, not what they drift toward without pressure. I am not denying love or loyalty exist. I am saying those things usually stay inside the circle. Your family, your tribe, your side. Outside that circle people get real cold real fast. History is full of ordinary people doing awful things once they had permission, fear, or a little incentive. And even in daily life, come on, people lie when it helps, they dodge responsibility, they rationalize selfish choices nonstop. That does not happen because a few bad apples showed up. It happens because the baseline needs correction."
+        "content": "But \u201cused properly\u201d is doing a lot of heavy lifting there. Who decides that? Governments? Companies? We\u2019ve seen how that goes. These systems already have bias issues too, misidentifying people, especially minorities. So now you\u2019ve got surveillance plus mistakes. That\u2019s a bad combo. And again, once it\u2019s normalized, it\u2019s everywhere. You can\u2019t opt out of public space."
       },
       {
-        "username": "lopez1979",
+        "username": "urbanplanner_maya",
         "roundName": "rebuttal",
-        "content": "You are setting the bar in a rigged way. If people fail under fear or propaganda, that proves humans are vulnerable, not inherently bad. And your point about caring mostly for our own circle is still not proof of badness. Moral concern usually expands over time. That is one of the strongest arguments against your position, actually. Humans can widen empathy. We abolished things once treated as normal. We built rights frameworks. We punish cruelty because most people do not admire it, they reject it. Yes, discipline matters. Institutions matter. But institutions are themselves human creations. They exist because people also have moral imagination, not just selfish instinct."
+        "content": "Bias is a valid concern, but that\u2019s an argument for improving the tech, not banning it. We don\u2019t ban tools because early versions are flawed. Also, there are already regulations being developed around transparency and accountability. If anything, banning it pushes development underground or to less regulated places. Better to keep it visible and controlled."
       },
       {
-        "username": "jessicathinks",
+        "username": "techskeptic_41",
         "roundName": "closing",
-        "content": "I am not arguing humans are incapable of goodness. Clearly we are. I am arguing goodness is work. It takes teaching, restraint, consequences, culture, effort. The darker stuff shows up on its own way too easily. If a thing has to be trained out of us over and over, then yes, it is part of our nature. That is why I land where I do. Humans can become good. But by nature? Not really."
+        "content": "This comes down to what kind of society you want. One where you can walk around anonymously, or one where every movement is logged. Even if it starts with good intentions, the long-term risk is too high. Some lines are worth drawing early."
       },
       {
-        "username": "lopez1979",
+        "username": "urbanplanner_maya",
         "roundName": "closing",
-        "content": "Humans are complicated, not bad. We carry selfish instincts and cooperative instincts at the same time. Reducing that to 'bad by nature' misses half the picture and honestly the more important half. We do not just restrain evil. We create trust, loyalty, beauty, duty, and care. That is nature too. So no, human beings are not bad by nature. We are unfinished by nature."
+        "content": "I don\u2019t think it\u2019s that black and white. We already trade some privacy for safety in many areas of life. The goal should be balance, not extremes. With the right safeguards, this can be a net positive."
       }
     ],
-    "winner_username": "lopez1979",
-    "completed_at": "2026-04-11T00:32:00Z"
+    "winner_username": "techskeptic_41",
+    "completed_at": "2026-04-11T05:40:19Z"
   },
   {
-    "motion": "Antitrust enforcement should break up dominant digital platforms.",
-    "category_slug": "economics",
+    "motion": "This House Believes remote work is worse for productivity",
+    "category_slug": "society",
     "format": "quick",
     "ranked": false,
     "debaterA": {
-      "username": "singh624",
+      "username": "ops_manager_dan",
       "side": "proposition"
     },
     "debaterB": {
-      "username": "lowkey_sofia",
+      "username": "remote4life_jess",
       "side": "opposition"
     },
     "turns": [
       {
-        "username": "singh624",
+        "username": "ops_manager_dan",
         "roundName": "opening",
-        "content": "Look, this is obvious. A handful of digital platforms control way too much and everybody knows it. Search, ads, app stores, cloud, online shopping, social traffic, they just keep swallowing more space and then acting shocked when regulators show up. If one company can buy competitors, copy them, bury them in rankings, and tax every business that needs access to its ecosystem, that is not a market. That is a private gatekeeper. Breaking them up is not anti-business. It is pro-competition. Big tech keeps selling the fantasy that size equals innovation, but half the time size just means they can crush smaller players before they breathe."
+        "content": "I\u2019ve managed teams both ways, and honestly remote just doesn\u2019t hit the same. Communication slows down, people take longer to respond, and collaboration turns into endless meetings. In office, you solve things in five minutes. Remote, it\u2019s threads, pings, waiting. It adds friction everywhere."
       },
       {
-        "username": "lowkey_sofia",
+        "username": "remote4life_jess",
         "roundName": "opening",
-        "content": "I disagree. You have to understand, dominance by itself is not enough to justify breaking firms apart. The real question is whether consumers are being harmed in a concrete way. In many of these markets, users receive better products, low prices, and enormous convenience precisely because the platforms are integrated at scale. Breaking them up may sound tough and principled, but it could easily produce fragmentation, weaker security, worse interoperability, and slower innovation. Antitrust should correct abuse, yes, but forced breakups should remain a last resort, not the default answer whenever a company becomes very large."
+        "content": "I mean, that depends on how the team is set up. Remote done badly is bad, sure. But when it\u2019s structured right, it\u2019s actually more productive. People get fewer interruptions, no commute, more control over their time. A lot of people get way more done without office distractions."
       },
       {
-        "username": "singh624",
+        "username": "ops_manager_dan",
         "roundName": "rebuttal",
-        "content": "That consumer-harm-only line is exactly how these companies got away with murder for years. Cheap or free does not mean healthy competition. People pay in dependence, in locked-in ecosystems, in fewer choices later. Small companies get bought, copied, or pushed off the road. Also come on, these firms write the rules for everybody else and then pretend the market crowned them fairly. Regulators do not need to wait until the whole thing is dead on the floor. Breakups are how you stop the chokehold before it gets worse."
+        "content": "But that assumes everyone is disciplined, and that\u2019s just not reality. Some people thrive, sure, but a lot don\u2019t. You lose visibility, accountability gets fuzzy, and team cohesion drops. That matters more than people think."
       },
       {
-        "username": "lowkey_sofia",
+        "username": "remote4life_jess",
         "roundName": "rebuttal",
-        "content": "That criticism lands better against specific conduct than against scale itself. If a platform is self-preferencing, discriminating against rivals, or using acquisitions anticompetitively, address those behaviors directly. Structural breakups are blunt. They can destroy efficiencies that benefit both businesses and users. Also, in digital markets, foreign competition and rapid technological shifts are real. A company that looks untouchable now can weaken faster than people assume. Regulation, interoperability mandates, and merger scrutiny can do a great deal without assuming that dismantling every dominant platform is the smartest path."
+        "content": "I\u2019d argue that\u2019s a management problem, not a remote problem. If you need to physically see someone to trust they\u2019re working, that\u2019s already an issue. Good systems track output, not presence. And honestly, a lot of office time isn\u2019t productive either, it just looks like it."
       }
     ],
-    "winner_username": "singh624",
-    "completed_at": "2026-04-11T00:41:00Z"
+    "winner_username": "remote4life_jess",
+    "completed_at": "2026-04-11T05:40:19Z"
   }
 ]
