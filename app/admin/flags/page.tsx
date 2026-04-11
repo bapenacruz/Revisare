@@ -105,7 +105,7 @@ export default async function AdminFlagsPage({ searchParams }: Props) {
 
       <form method="GET">
         <div className="rounded-[--radius] border border-border overflow-x-auto">
-          <table className="w-full text-sm">
+          <table className="w-full text-sm min-w-[800px]">
             <thead className="bg-surface border-b border-border">
               {/* Column labels */}
               <tr>

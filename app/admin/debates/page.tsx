@@ -128,7 +128,7 @@ export default async function AdminDebatesPage({ searchParams }: Props) {
       {/* Table with inline column filters */}
       <form method="GET">
         <div className="rounded-[--radius] border border-border overflow-x-auto">
-          <table className="w-full text-sm">
+          <table className="w-full text-sm min-w-[900px]">
             <thead className="bg-surface border-b border-border">
               {/* Column labels */}
               <tr>
