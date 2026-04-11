@@ -10,12 +10,19 @@ export const metadata = { title: "Debates — Admin" };
 interface Props {
   searchParams: Promise<{
     q?: string;
+    username?: string;
     status?: string;
     category?: string;
     ranked?: string;
     deleted?: string;   // "true" | "false" (default "false")
     dateFrom?: string;
     dateTo?: string;
+    minViewers?: string;
+    maxViewers?: string;
+    minComments?: string;
+    maxComments?: string;
+    minVotes?: string;
+    maxVotes?: string;
     page?: string;
   }>;
 }
@@ -25,12 +32,19 @@ const STATUS_OPTIONS = ["all", "pending", "active", "completed", "cancelled", "d
 export default async function AdminDebatesPage({ searchParams }: Props) {
   const {
     q = "",
+    username = "",
     status = "all",
     category = "all",
     ranked = "all",
     deleted = "false",
     dateFrom = "",
     dateTo = "",
+    minViewers = "",
+    maxViewers = "",
+    minComments = "",
+    maxComments = "",
+    minVotes = "",
+    maxVotes = "",
     page: pageStr = "1",
   } = await searchParams;
 
@@ -39,6 +53,12 @@ export default async function AdminDebatesPage({ searchParams }: Props) {
 
   const where: Record<string, unknown> = {};
   if (q) where.motion = { contains: q, mode: "insensitive" };
+  if (username) {
+    where.OR = [
+      { debaterA: { username: { contains: username, mode: "insensitive" } } },
+      { debaterB: { username: { contains: username, mode: "insensitive" } } },
+    ];
+  }
   
   // Handle status filtering with deleted/hidden logic
   if (status === "deleted") {
@@ -75,6 +95,28 @@ export default async function AdminDebatesPage({ searchParams }: Props) {
     where.createdAt = dateFilter;
   }
 
+  // Count range filters
+  const countWhere: Record<string, unknown> = {};
+  if (minViewers || maxViewers) {
+    const f: Record<string, number> = {};
+    if (minViewers) f.gte = parseInt(minViewers, 10);
+    if (maxViewers) f.lte = parseInt(maxViewers, 10);
+    countWhere.spectatorMessages = f;
+  }
+  if (minComments || maxComments) {
+    const f: Record<string, number> = {};
+    if (minComments) f.gte = parseInt(minComments, 10);
+    if (maxComments) f.lte = parseInt(maxComments, 10);
+    countWhere.debateComments = f;
+  }
+  if (minVotes || maxVotes) {
+    const f: Record<string, number> = {};
+    if (minVotes) f.gte = parseInt(minVotes, 10);
+    if (maxVotes) f.lte = parseInt(maxVotes, 10);
+    countWhere.audienceVotes = f;
+  }
+  if (Object.keys(countWhere).length > 0) where._count = countWhere;
+
   const [debates, total, categories] = await Promise.all([
     db.debate.findMany({
       where,
@@ -94,6 +136,7 @@ export default async function AdminDebatesPage({ searchParams }: Props) {
         debaterB: { select: { username: true } },
         winnerId: true,
         createdAt: true,
+        _count: { select: { spectatorMessages: true, debateComments: true, audienceVotes: true } },
       },
       orderBy: { createdAt: "desc" },
       skip: (page - 1) * limit,
@@ -106,7 +149,7 @@ export default async function AdminDebatesPage({ searchParams }: Props) {
   const pages = Math.ceil(total / limit);
 
   const buildUrl = (overrides: Record<string, string>) => {
-    const params = new URLSearchParams({ q, status, category, ranked, deleted, dateFrom, dateTo, page: pageStr, ...overrides });
+    const params = new URLSearchParams({ q, username, status, category, ranked, deleted, dateFrom, dateTo, minViewers, maxViewers, minComments, maxComments, minVotes, maxVotes, page: pageStr, ...overrides });
     return `/admin/debates?${params.toString()}`;
   };
 
@@ -132,7 +175,7 @@ export default async function AdminDebatesPage({ searchParams }: Props) {
             <thead className="bg-surface border-b border-border">
               {/* Column labels */}
               <tr>
-                {["Motion", "Category", "Debaters", "Status", "Ranked", "Date", "Actions"].map((h) => (
+                {["Motion", "Category", "Debaters", "Status", "Ranked", "Date", "Viewers", "Comments", "Votes", "Actions"].map((h) => (
                   <th key={h} className="px-4 py-2.5 text-left text-xs font-semibold text-foreground-muted uppercase tracking-wide">
                     {h}
                   </th>
@@ -151,7 +194,9 @@ export default async function AdminDebatesPage({ searchParams }: Props) {
                     ))}
                   </select>
                 </th>
-                <th className="px-2 py-2 font-normal" />
+                <th className="px-2 py-2 font-normal">
+                  <input name="username" defaultValue={username} placeholder="Username…" className={thInput} />
+                </th>
                 <th className="px-2 py-2 font-normal">
                   <select name="status" defaultValue={status} className={thSelect}>
                     {STATUS_OPTIONS.map((s) => (
@@ -174,6 +219,24 @@ export default async function AdminDebatesPage({ searchParams }: Props) {
                   <input type="hidden" name="deleted" value={deleted} />
                 </th>
                 <th className="px-2 py-2 font-normal">
+                  <div className="flex flex-col gap-1">
+                    <input type="number" name="minViewers" defaultValue={minViewers} placeholder="Min" min={0} className={thInput} />
+                    <input type="number" name="maxViewers" defaultValue={maxViewers} placeholder="Max" min={0} className={thInput} />
+                  </div>
+                </th>
+                <th className="px-2 py-2 font-normal">
+                  <div className="flex flex-col gap-1">
+                    <input type="number" name="minComments" defaultValue={minComments} placeholder="Min" min={0} className={thInput} />
+                    <input type="number" name="maxComments" defaultValue={maxComments} placeholder="Max" min={0} className={thInput} />
+                  </div>
+                </th>
+                <th className="px-2 py-2 font-normal">
+                  <div className="flex flex-col gap-1">
+                    <input type="number" name="minVotes" defaultValue={minVotes} placeholder="Min" min={0} className={thInput} />
+                    <input type="number" name="maxVotes" defaultValue={maxVotes} placeholder="Max" min={0} className={thInput} />
+                  </div>
+                </th>
+                <th className="px-2 py-2 font-normal">
                   <div className="flex gap-1">
                     <button type="submit" className="h-7 px-3 text-xs rounded bg-brand text-white whitespace-nowrap">Filter</button>
                     <Link href="/admin/debates" className="h-7 px-2 flex items-center text-xs rounded border border-border text-foreground-muted hover:text-foreground whitespace-nowrap">Reset</Link>
@@ -187,7 +250,7 @@ export default async function AdminDebatesPage({ searchParams }: Props) {
               ))}
               {debates.length === 0 && (
                 <tr>
-                  <td colSpan={7} className="px-4 py-8 text-center text-sm text-foreground-muted">
+                  <td colSpan={10} className="px-4 py-8 text-center text-sm text-foreground-muted">
                     No debates found
                   </td>
                 </tr>

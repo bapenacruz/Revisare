@@ -26,6 +26,7 @@ interface Debate {
   winnerId: string | null;
   debaterAId: string;
   debaterBId: string;
+  _count: { spectatorMessages: number; debateComments: number; audienceVotes: number };
 }
 
 function statusBadge(debate: Debate) {
@@ -174,6 +175,15 @@ export function DebateRow({
         <td className="px-4 py-3 text-xs text-foreground-muted whitespace-nowrap">
           {new Date(debate.createdAt).toLocaleDateString()}
         </td>
+        <td className="px-4 py-3 text-xs text-foreground-muted text-center">
+          {debate._count.spectatorMessages}
+        </td>
+        <td className="px-4 py-3 text-xs text-foreground-muted text-center">
+          {debate._count.debateComments}
+        </td>
+        <td className="px-4 py-3 text-xs text-foreground-muted text-center">
+          {debate._count.audienceVotes}
+        </td>
         <td className="px-4 py-3 text-xs text-brand">
           {open ? "▲ Close" : "▼ Edit"}
         </td>
@@ -181,7 +191,7 @@ export function DebateRow({
 
       {open && (
         <tr className="bg-surface-raised border-t border-border">
-          <td colSpan={7} className="px-6 py-4">
+          <td colSpan={10} className="px-6 py-4">
             <div className="flex flex-wrap gap-6 items-start">
               {/* Motion */}
               <div className="flex flex-col gap-1 flex-1 min-w-48">
