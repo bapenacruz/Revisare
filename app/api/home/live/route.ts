@@ -7,7 +7,11 @@ export async function GET(req: NextRequest) {
   const cursor = req.nextUrl.searchParams.get("cursor") ?? undefined;
 
   const rows = await db.debate.findMany({
-    where: { status: "active" },
+    where: { 
+      status: "active",
+      isDeleted: false,
+      isHidden: false
+    },
     orderBy: { startedAt: "desc" },
     take: PAGE_SIZE + 1,
     ...(cursor ? { cursor: { id: cursor }, skip: 1 } : {}),

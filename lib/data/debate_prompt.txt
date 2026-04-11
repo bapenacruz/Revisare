@@ -156,4 +156,4 @@ If ANY issue → regenerate
 
 ## OUTPUT
 
-Return an array of debates matching the requested count.
+Return an array of debates matching the requested count in a downloadable .json file

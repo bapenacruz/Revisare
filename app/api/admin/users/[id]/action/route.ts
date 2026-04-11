@@ -82,7 +82,12 @@ export async function POST(req: NextRequest, { params }: RouteParams) {
       data: { adminId: session!.user!.id, targetId, action: "reset-password", reason: body.reason ?? null },
     });
 
-    return NextResponse.json({ success: true, resetUrl: isPlaceholder ? resetUrl : null, emailSent });
+    return NextResponse.json({ 
+      success: true, 
+      resetUrl: isPlaceholder ? resetUrl : null, 
+      emailSent,
+      message: emailSent ? "Reset email sent ✓" : isPlaceholder ? "Reset link generated ✓ (placeholder account)" : "Reset link generated ✓ (check SMTP configuration for email)"
+    });
   }
 
   const userUpdate: Record<string, unknown> = {};

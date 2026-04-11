@@ -13,11 +13,12 @@ interface Props {
     status?: string;
     category?: string;
     ranked?: string;
+    deleted?: string; // "true" | "false" (default "false")
     page?: string;
   }>;
 }
 
-const STATUS_OPTIONS = ["all", "pending", "active", "completed", "cancelled"];
+const STATUS_OPTIONS = ["all", "pending", "active", "completed", "cancelled", "deleted", "hidden"];
 
 export default async function AdminDebatesPage({ searchParams }: Props) {
   const {
@@ -25,6 +26,7 @@ export default async function AdminDebatesPage({ searchParams }: Props) {
     status = "all",
     category = "all",
     ranked = "all",
+    deleted = "false",
     page: pageStr = "1",
   } = await searchParams;
 
@@ -33,7 +35,26 @@ export default async function AdminDebatesPage({ searchParams }: Props) {
 
   const where: Record<string, unknown> = {};
   if (q) where.motion = { contains: q, mode: "insensitive" };
-  if (status !== "all") where.status = status;
+  
+  // Handle status filtering with deleted/hidden logic
+  if (status === "deleted") {
+    where.isDeleted = true;
+  } else if (status === "hidden") {
+    where.isHidden = true;
+    where.isDeleted = false; // hidden but not deleted
+  } else if (status !== "all") {
+    // Regular status + filter out deleted by default unless explicitly requested
+    where.status = status;
+    if (deleted !== "true") {
+      where.isDeleted = false;
+    }
+  } else {
+    // No specific status filter but apply deleted toggle
+    if (deleted !== "true") {
+      where.isDeleted = false;
+    }
+  }
+  
   if (category !== "all") where.categoryId = category;
   if (ranked === "yes") where.ranked = true;
   if (ranked === "no") where.ranked = false;
@@ -50,6 +71,8 @@ export default async function AdminDebatesPage({ searchParams }: Props) {
         categoryId: true,
         debaterAId: true,
         debaterBId: true,
+        isDeleted: true,
+        isHidden: true,
         category: { select: { label: true, emoji: true } },
         debaterA: { select: { username: true } },
         debaterB: { select: { username: true } },
@@ -67,7 +90,7 @@ export default async function AdminDebatesPage({ searchParams }: Props) {
   const pages = Math.ceil(total / limit);
 
   const buildUrl = (overrides: Record<string, string>) => {
-    const params = new URLSearchParams({ q, status, category, ranked, page: pageStr, ...overrides });
+    const params = new URLSearchParams({ q, status, category, ranked, deleted, page: pageStr, ...overrides });
     return `/admin/debates?${params.toString()}`;
   };
 
@@ -118,6 +141,14 @@ export default async function AdminDebatesPage({ searchParams }: Props) {
           <option value="all">Ranked + Exhibition</option>
           <option value="yes">Ranked only</option>
           <option value="no">Exhibition only</option>
+        </select>
+        <select
+          name="deleted"
+          defaultValue={deleted}
+          className="text-sm rounded border border-border bg-background text-foreground px-2 py-1.5"
+        >
+          <option value="false">Exclude deleted</option>
+          <option value="true">Include deleted</option>
         </select>
         <button
           type="submit"

@@ -17,6 +17,8 @@ interface Debate {
   categoryId: string;
   status: string;
   ranked: boolean;
+  isDeleted: boolean;
+  isHidden: boolean;
   createdAt: Date;
   category: { label: string; emoji: string };
   debaterA: { username: string } | null;
@@ -26,11 +28,19 @@ interface Debate {
   debaterBId: string;
 }
 
-function statusBadge(s: string) {
-  if (s === "completed") return "bg-green-500/10 text-green-400 border-green-500/20";
-  if (s === "active") return "bg-brand/10 text-brand border-brand/20";
-  if (s === "cancelled") return "bg-danger/10 text-danger border-danger/20";
+function statusBadge(debate: Debate) {
+  if (debate.isDeleted) return "bg-danger/10 text-danger border-danger/20";
+  if (debate.isHidden) return "bg-orange-500/10 text-orange-400 border-orange-500/20";
+  if (debate.status === "completed") return "bg-green-500/10 text-green-400 border-green-500/20";
+  if (debate.status === "active") return "bg-brand/10 text-brand border-brand/20";
+  if (debate.status === "cancelled") return "bg-danger/10 text-danger border-danger/20";
   return "bg-surface-overlay text-foreground-muted border-border";
+}
+
+function getDisplayStatus(debate: Debate) {
+  if (debate.isDeleted) return "deleted";
+  if (debate.isHidden) return "hidden";
+  return debate.status;
 }
 
 export function DebateRow({
@@ -46,7 +56,14 @@ export function DebateRow({
   const [categoryId, setCategoryId] = useState(debate.categoryId);
   const [saving, setSaving] = useState(false);
   const [rejudging, setRejudging] = useState(false);
+  const [deleting, setDeleting] = useState(false);
+  const [hiding, setHiding] = useState(false);
+  const [confirmDelete, setConfirmDelete] = useState(false);
+  const [localDeleted, setLocalDeleted] = useState(debate.isDeleted);
+  const [localHidden, setLocalHidden] = useState(debate.isHidden);
   const [msg, setMsg] = useState<string | null>(null);
+
+  const displayDebate = { ...debate, isDeleted: localDeleted, isHidden: localHidden };
 
   async function save() {
     setSaving(true);
@@ -82,6 +99,42 @@ export function DebateRow({
     }
   }
 
+  async function hideDebate() {
+    const newHiddenState = !localHidden;
+    setHiding(true);
+    setMsg(null);
+    const res = await fetch(`/api/admin/debates/${debate.id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ isHidden: newHiddenState }),
+    });
+    setHiding(false);
+    if (res.ok) {
+      setLocalHidden(newHiddenState);
+      setMsg(newHiddenState ? "Debate hidden ✓" : "Debate unhidden ✓");
+    } else {
+      const j = await res.json();
+      setMsg(j.error ?? "Hide/unhide failed");
+    }
+  }
+
+  async function deleteDebate() {
+    setDeleting(true);
+    setMsg(null);
+    const res = await fetch(`/api/admin/debates/${debate.id}`, {
+      method: "DELETE",
+    });
+    setDeleting(false);
+    setConfirmDelete(false);
+    if (res.ok) {
+      setLocalDeleted(true);
+      setMsg("Debate deleted ✓");
+    } else {
+      const j = await res.json();
+      setMsg(j.error ?? "Delete failed");
+    }
+  }
+
   return (
     <>
       <tr
@@ -111,8 +164,8 @@ export function DebateRow({
           </span>
         </td>
         <td className="px-4 py-3">
-          <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs border ${statusBadge(debate.status)}`}>
-            {debate.status}
+          <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs border ${statusBadge(displayDebate)}`}>
+            {getDisplayStatus(displayDebate)}
           </span>
         </td>
         <td className="px-4 py-3 text-xs text-foreground-muted">
@@ -177,6 +230,54 @@ export function DebateRow({
                     {rejudging ? "Rejudging…" : "Re-run AI Judgement"}
                   </button>
                 )}
+
+                {/* Hide/Unhide button */}
+                {!localDeleted && (
+                  <button
+                    onClick={(e) => { e.stopPropagation(); hideDebate(); }}
+                    disabled={hiding}
+                    className={`px-4 py-1.5 text-sm rounded border disabled:opacity-50 whitespace-nowrap ${
+                      localHidden 
+                        ? "bg-orange-500/10 border-orange-500/30 text-orange-400 hover:bg-orange-500/20" 
+                        : "bg-surface border-border text-foreground-muted hover:text-foreground"
+                    }`}
+                  >
+                    {hiding ? "Processing…" : localHidden ? "Unhide Debate" : "Hide Debate"}
+                  </button>
+                )}
+
+                {/* Delete button */}
+                {!localDeleted && (
+                  !confirmDelete ? (
+                    <button
+                      onClick={(e) => { e.stopPropagation(); setConfirmDelete(true); }}
+                      className="px-4 py-1.5 text-sm rounded bg-danger/10 border border-danger/30 text-danger hover:bg-danger/20"
+                    >
+                      Delete Debate
+                    </button>
+                  ) : (
+                    <div className="flex items-center gap-2">
+                      <button
+                        onClick={(e) => { e.stopPropagation(); deleteDebate(); }}
+                        disabled={deleting}
+                        className="px-4 py-1.5 text-sm rounded bg-danger text-white border-danger disabled:opacity-50"
+                      >
+                        {deleting ? "Deleting…" : "Confirm Delete"}
+                      </button>
+                      <button
+                        onClick={(e) => { e.stopPropagation(); setConfirmDelete(false); }}
+                        className="px-4 py-1.5 text-sm rounded bg-surface border border-border text-foreground-muted hover:text-foreground"
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  )
+                )}
+
+                {localDeleted && (
+                  <span className="text-sm text-foreground-muted italic">Debate deleted</span>
+                )}
+
                 {msg && <p className="text-xs text-foreground-muted">{msg}</p>}
               </div>
             </div>

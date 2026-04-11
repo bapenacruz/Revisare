@@ -6,35 +6,51 @@ import Link from "next/link";
 export const metadata = { title: "Admin Dashboard" };
 
 export default async function AdminDashboard() {
+  const now = new Date();
+  
   const [
     totalDebates,
+    hiddenDebates,
     pendingFlags,
+    activeUsers,
     suspendedUsers,
     bannedUsers,
-    totalUsers,
     recentActions,
   ] = await Promise.all([
-    db.debate.count(),
+    db.debate.count({ where: { isDeleted: false } }), // Exclude deleted, include hidden
+    db.debate.count({ where: { isHidden: true, isDeleted: false } }), // Hidden but not deleted
     db.integrityFlag.count({ where: { status: "pending" } }),
-    db.user.count({ where: { role: "suspended" } }),
-    db.user.count({ where: { role: "banned" } }),
-    db.user.count({ where: { role: { not: "exhibition" } } }),
+    db.user.count({ 
+      where: { 
+        isDeleted: false, 
+        role: { notIn: ["suspended", "banned"] } 
+      } 
+    }), // Active users only
+    db.user.count({ 
+      where: { 
+        role: "suspended", 
+        suspendedUntil: { gt: now },
+        isDeleted: false 
+      } 
+    }), // Currently suspended only
+    db.user.count({ where: { role: "banned", isDeleted: false } }), // Currently banned
     db.adminAction.findMany({ orderBy: { createdAt: "desc" }, take: 10 }),
   ]);
 
   const stats = [
-    { label: "Total Debates", value: totalDebates, href: null },
+    { label: "Total Debates", value: totalDebates, href: "/admin/debates" },
+    { label: "Hidden Debates", value: hiddenDebates, href: "/admin/debates?status=hidden" },
     { label: "Pending Flags", value: pendingFlags, href: "/admin/flags", urgent: pendingFlags > 0 },
-    { label: "Total Users", value: totalUsers, href: "/admin/users" },
-    { label: "Suspended", value: suspendedUsers, href: "/admin/users" },
-    { label: "Banned", value: bannedUsers, href: "/admin/users" },
+    { label: "Active Users", value: activeUsers, href: "/admin/users?status=active" },
+    { label: "Suspended", value: suspendedUsers, href: "/admin/users?status=suspended" },
+    { label: "Banned", value: bannedUsers, href: "/admin/users?status=banned" },
   ];
 
   return (
     <div>
       <h1 className="text-2xl font-bold text-foreground mb-6">Admin Dashboard</h1>
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 mb-8">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 mb-8">
         {stats.map((s) => (
           <div
             key={s.label}
@@ -66,6 +82,7 @@ export default async function AdminDashboard() {
             {[
               { href: "/admin/flags", label: "Review pending integrity flags →" },
               { href: "/admin/users", label: "Manage users →" },
+              { href: "/admin/debates", label: "Manage debates →" },
               { href: "/admin/categories", label: "Manage categories →" },
             ].map((a) => (
               <Link

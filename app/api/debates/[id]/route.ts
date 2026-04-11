@@ -90,9 +90,24 @@ async function fetchDebate(challengeId: string) {
 
 export async function GET(_req: NextRequest, { params }: RouteParams) {
   const { id: challengeId } = await params;
+  const session = await auth();
 
   let debate = await fetchDebate(challengeId);
   if (!debate) return NextResponse.json({ error: "Not found" }, { status: 404 });
+
+  // Check visibility: hidden or deleted debates are only accessible to participants and admins
+  const userId = session?.user?.id;
+  const userRole = (session?.user as { role?: string })?.role;
+  const isParticipant = userId && (debate.debaterAId === userId || debate.debaterBId === userId);
+  const isAdmin = userRole === "admin";
+
+  if (debate.isDeleted && !isAdmin) {
+    return NextResponse.json({ error: "Not found" }, { status: 404 });
+  }
+
+  if (debate.isHidden && !isParticipant && !isAdmin) {
+    return NextResponse.json({ error: "Not found" }, { status: 404 });
+  }
 
   debate = await maybeAdvancePhase(debate);
 

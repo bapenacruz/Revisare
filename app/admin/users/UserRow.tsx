@@ -38,13 +38,13 @@ const SUSPEND_OPTIONS = [
 
 export function UserRow({ user }: { user: User }) {
   const router = useRouter();
+  const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [reason, setReason] = useState("");
   const [suspendDays, setSuspendDays] = useState(7);
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [msg, setMsg] = useState<string | null>(null);
   const [resetLink, setResetLink] = useState<string | null>(null);
-  const [editingUsername, setEditingUsername] = useState(false);
   const [newUsername, setNewUsername] = useState(user.username);
   const [hideFromLeaderboard, setHideFromLeaderboard] = useState(user.hideFromLeaderboard);
   const [localDeleted, setLocalDeleted] = useState(user.isDeleted);
@@ -69,7 +69,7 @@ export function UserRow({ user }: { user: User }) {
     setLoading(false);
     if (action === "reset-password") {
       if (data.resetUrl) setResetLink(data.resetUrl);
-      setMsg(data.emailSent ? "Reset email sent ✓" : data.resetUrl ? "Reset link generated ✓" : "Done ✓");
+      setMsg(data.message || (data.emailSent ? "Reset email sent ✓" : data.resetUrl ? "Reset link generated ✓" : "Done ✓"));
     } else {
       setMsg(action === "warn" ? "Warning sent ✓" : "Done ✓");
     }
@@ -109,7 +109,6 @@ export function UserRow({ user }: { user: User }) {
     setLoading(false);
     if (res.ok) {
       setMsg("Username updated ✓");
-      setEditingUsername(false);
       router.refresh();
     } else {
       setMsg(data.error ?? "Failed to update username");
@@ -131,46 +130,22 @@ export function UserRow({ user }: { user: User }) {
     }
   }
 
-  const btnBase = "px-3 py-1 text-xs rounded border disabled:opacity-50 whitespace-nowrap";
-  const btnNeutral = `${btnBase} bg-surface border-border text-foreground-muted hover:text-foreground`;
-  const btnDanger = `${btnBase} bg-danger/10 border-danger/30 text-danger hover:bg-danger/20`;
-  const btnWarning = `${btnBase} bg-accent/10 border-accent/30 text-accent hover:bg-accent/20`;
-
   return (
     <>
-      <tr className="hover:bg-surface-raised/40 transition-colors">
+      <tr
+        className={`transition-colors cursor-pointer ${open ? "bg-surface-raised" : "hover:bg-surface-raised/40"}`}
+        onClick={() => { setOpen((v) => !v); setMsg(null); }}
+      >
         {/* Username */}
         <td className="px-4 py-3 font-medium text-foreground">
-          {editingUsername && isPlaceholder && !user.isDeleted ? (
-            <div className="flex items-center gap-1">
-              <input
-                className="text-xs rounded border border-border bg-background text-foreground px-2 py-0.5 w-32"
-                value={newUsername}
-                onChange={(e) => setNewUsername(e.target.value)}
-                onClick={(e) => e.stopPropagation()}
-              />
-              <button onClick={saveUsername} disabled={loading} className={`${btnBase} bg-brand/10 border-brand/30 text-brand`}>Save</button>
-              <button onClick={() => { setEditingUsername(false); setNewUsername(user.username); }} className={btnNeutral}>✕</button>
-            </div>
-          ) : (
-            <div className="flex items-center gap-1.5">
-              <Link href={`/profile/${user.username}`} target="_blank" className="hover:text-brand">{user.username}</Link>
-              {isPlaceholder && !user.isDeleted && (
-                <button
-                  onClick={() => setEditingUsername(true)}
-                  className="text-[10px] text-foreground-muted hover:text-foreground border border-border rounded px-1 py-0.5"
-                  title="Rename"
-                >
-                  ✎
-                </button>
-              )}
-            </div>
-          )}
+          <Link href={`/profile/${user.username}`} target="_blank" className="hover:text-brand" onClick={(e) => e.stopPropagation()}>
+            {user.username}
+          </Link>
         </td>
 
         {/* Type */}
         <td className="px-4 py-3">
-          <span className={`inline-flex px-2 py-0.5 rounded-full text-[10px] border ${isSynthetic ? "bg-surface-overlay text-foreground-muted border-border" : "bg-blue-500/10 text-blue-400 border-blue-500/20"}`}>
+          <span className={`inline-flex px-2 py-0.5 rounded text-xs border ${isSynthetic ? "bg-surface-overlay text-foreground-muted border-border" : "bg-blue-500/10 text-blue-400 border-blue-500/20"}`}>
             {isSynthetic ? "Synthetic" : "Real"}
           </span>
         </td>
@@ -178,9 +153,12 @@ export function UserRow({ user }: { user: User }) {
         {/* Email */}
         <td className="px-4 py-3 text-foreground-muted text-xs">{user.email}</td>
 
+        {/* Role */}
+        <td className="px-4 py-3 text-foreground-muted text-xs">{user.role}</td>
+
         {/* Status */}
         <td className="px-4 py-3">
-          <span className={`inline-flex px-2 py-0.5 rounded-full text-xs border whitespace-nowrap ${status.style}`}>
+          <span className={`inline-flex px-2 py-0.5 rounded text-xs border whitespace-nowrap ${status.style}`}>
             {status.label}
           </span>
         </td>
@@ -196,91 +174,177 @@ export function UserRow({ user }: { user: User }) {
           {new Date(user.createdAt).toLocaleDateString()}
         </td>
 
-        {/* Actions — all inline in one row */}
-        <td className="px-4 py-3">
-          {localDeleted ? (
-            <span className="text-xs text-foreground-muted italic">deleted</span>
-          ) : (
-            <div className="flex flex-wrap items-center gap-1.5">
-              {/* Reason input */}
-              <input
-                className="text-xs rounded border border-border bg-background text-foreground px-2 py-1 w-28"
-                placeholder="Reason…"
-                value={reason}
-                onChange={(e) => setReason(e.target.value)}
-              />
-
-              {/* Warn */}
-              <button onClick={() => apply("warn")} disabled={loading} className={btnNeutral}>Warn</button>
-
-              {/* Suspend / lift */}
-              {!isSuspended && !isBanned && (
-                <>
-                  <button onClick={() => apply("suspend")} disabled={loading} className={btnWarning}>Suspend</button>
-                  <select
-                    value={suspendDays}
-                    onChange={(e) => setSuspendDays(Number(e.target.value))}
-                    className="text-xs rounded border border-border bg-background text-foreground px-1.5 py-1"
-                  >
-                    {SUSPEND_OPTIONS.map((o) => (
-                      <option key={o.label} value={o.value}>{o.label}</option>
-                    ))}
-                  </select>
-                </>
-              )}
-              {(isSuspended || isBanned) && (
-                <button onClick={() => apply("unban")} disabled={loading} className={btnNeutral}>
-                  {isBanned ? "Unban" : "Lift Susp."}
-                </button>
-              )}
-
-              {/* Ban */}
-              {!isBanned && (
-                <button onClick={() => apply("ban")} disabled={loading} className={btnDanger}>Ban</button>
-              )}
-
-              {/* Delete */}
-              {!confirmDelete ? (
-                <button onClick={() => setConfirmDelete(true)} className={btnDanger}>Delete</button>
-              ) : (
-                <span className="flex items-center gap-1">
-                  <button onClick={deleteUser} disabled={loading} className={`${btnBase} bg-danger text-white border-danger`}>Confirm</button>
-                  <button onClick={() => setConfirmDelete(false)} className={btnNeutral}>✕</button>
-                </span>
-              )}
-
-              {/* Reset password */}
-              <button onClick={() => apply("reset-password")} disabled={loading} className={btnNeutral}>
-                Reset PWD
-              </button>
-
-              {/* Hide from leaderboard toggle */}
-              <button
-                onClick={toggleHideFromLeaderboard}
-                disabled={loading}
-                title={hideFromLeaderboard ? "Show on leaderboard" : "Hide from leaderboard"}
-                className={`${btnBase} ${hideFromLeaderboard ? "bg-orange-500/10 border-orange-500/30 text-orange-400" : btnNeutral}`}
-              >
-                {hideFromLeaderboard ? "Unhide" : "Hide LB"}
-              </button>
-            </div>
-          )}
-
-          {msg && (
-            <p className="text-xs text-foreground-muted mt-1">{msg}</p>
-          )}
-          {resetLink && (
-            <div className="mt-1">
-              <input
-                readOnly
-                value={resetLink}
-                className="text-xs rounded border border-border bg-background text-foreground px-2 py-0.5 w-64"
-                onClick={(e) => (e.target as HTMLInputElement).select()}
-              />
-            </div>
-          )}
+        {/* Actions toggle */}
+        <td className="px-4 py-3 text-xs text-brand">
+          {open ? "▲ Close" : "▼ Actions"}
         </td>
       </tr>
+
+      {open && (
+        <tr className="bg-surface-raised border-t border-border">
+          <td colSpan={9} className="px-6 py-4">
+            <div className="flex flex-wrap gap-6 items-start">
+              {/* Username editing (if synthetic) */}
+              {isPlaceholder && !localDeleted && (
+                <div className="flex flex-col gap-1">
+                  <label className="text-xs font-medium text-foreground-muted uppercase tracking-wide">Username</label>
+                  <div className="flex items-center gap-2">
+                    <input
+                      className="text-sm rounded border border-border bg-background text-foreground px-2 py-1.5 w-32"
+                      value={newUsername}
+                      onChange={(e) => setNewUsername(e.target.value)}
+                      onClick={(e) => e.stopPropagation()}
+                    />
+                    <button
+                      onClick={(e) => { e.stopPropagation(); saveUsername(); }}
+                      disabled={loading}
+                      className="px-3 py-1.5 text-sm rounded bg-brand/10 border border-brand/30 text-brand disabled:opacity-50"
+                    >
+                      Save
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {/* Action reason */}
+              <div className="flex flex-col gap-1">
+                <label className="text-xs font-medium text-foreground-muted uppercase tracking-wide">Reason</label>
+                <input
+                  className="text-sm rounded border border-border bg-background text-foreground px-2 py-1.5 w-48"
+                  placeholder="Optional reason for action"
+                  value={reason}
+                  onChange={(e) => setReason(e.target.value)}
+                  onClick={(e) => e.stopPropagation()}
+                />
+              </div>
+
+              {/* Actions */}
+              <div className="flex flex-col gap-2 pt-5">
+                {!localDeleted ? (
+                  <>
+                    <div className="flex items-center gap-2">
+                      <button
+                        onClick={(e) => { e.stopPropagation(); apply("warn"); }}
+                        disabled={loading}
+                        className="px-3 py-1.5 text-sm rounded bg-surface border border-border text-foreground-muted hover:text-foreground disabled:opacity-50"
+                      >
+                        Warn
+                      </button>
+                      
+                      {/* Suspend / lift */}
+                      {!isSuspended && !isBanned && (
+                        <>
+                          <button
+                            onClick={(e) => { e.stopPropagation(); apply("suspend"); }}
+                            disabled={loading}
+                            className="px-3 py-1.5 text-sm rounded bg-accent/10 border border-accent/30 text-accent hover:bg-accent/20 disabled:opacity-50"
+                          >
+                            Suspend
+                          </button>
+                          <select
+                            value={suspendDays}
+                            onChange={(e) => setSuspendDays(Number(e.target.value))}
+                            onClick={(e) => e.stopPropagation()}
+                            className="text-sm rounded border border-border bg-background text-foreground px-2 py-1.5"
+                          >
+                            {SUSPEND_OPTIONS.map((o) => (
+                              <option key={o.label} value={o.value}>{o.label}</option>
+                            ))}
+                          </select>
+                        </>
+                      )}
+                      {(isSuspended || isBanned) && (
+                        <button
+                          onClick={(e) => { e.stopPropagation(); apply("unban"); }}
+                          disabled={loading}
+                          className="px-3 py-1.5 text-sm rounded bg-surface border border-border text-foreground-muted hover:text-foreground disabled:opacity-50"
+                        >
+                          {isBanned ? "Unban" : "Lift Suspension"}
+                        </button>
+                      )}
+
+                      {/* Ban */}
+                      {!isBanned && (
+                        <button
+                          onClick={(e) => { e.stopPropagation(); apply("ban"); }}
+                          disabled={loading}
+                          className="px-3 py-1.5 text-sm rounded bg-danger/10 border border-danger/30 text-danger hover:bg-danger/20 disabled:opacity-50"
+                        >
+                          Ban
+                        </button>
+                      )}
+                    </div>
+
+                    <div className="flex items-center gap-2">
+                      {/* Reset password */}
+                      <button
+                        onClick={(e) => { e.stopPropagation(); apply("reset-password"); }}
+                        disabled={loading}
+                        className="px-3 py-1.5 text-sm rounded bg-surface border border-border text-foreground-muted hover:text-foreground disabled:opacity-50"
+                      >
+                        Reset Password
+                      </button>
+
+                      {/* Hide from leaderboard toggle */}
+                      <button
+                        onClick={(e) => { e.stopPropagation(); toggleHideFromLeaderboard(); }}
+                        disabled={loading}
+                        title={hideFromLeaderboard ? "Show on leaderboard" : "Hide from leaderboard"}
+                        className={`px-3 py-1.5 text-sm rounded border disabled:opacity-50 ${hideFromLeaderboard ? "bg-orange-500/10 border-orange-500/30 text-orange-400" : "bg-surface border-border text-foreground-muted hover:text-foreground"}`}
+                      >
+                        {hideFromLeaderboard ? "Show on Leaderboard" : "Hide from Leaderboard"}
+                      </button>
+
+                      {/* Delete */}
+                      {!confirmDelete ? (
+                        <button
+                          onClick={(e) => { e.stopPropagation(); setConfirmDelete(true); }}
+                          className="px-3 py-1.5 text-sm rounded bg-danger/10 border border-danger/30 text-danger hover:bg-danger/20"
+                        >
+                          Delete Account
+                        </button>
+                      ) : (
+                        <div className="flex items-center gap-2">
+                          <button
+                            onClick={(e) => { e.stopPropagation(); deleteUser(); }}
+                            disabled={loading}
+                            className="px-3 py-1.5 text-sm rounded bg-danger text-white border-danger disabled:opacity-50"
+                          >
+                            Confirm Delete
+                          </button>
+                          <button
+                            onClick={(e) => { e.stopPropagation(); setConfirmDelete(false); }}
+                            className="px-3 py-1.5 text-sm rounded bg-surface border border-border text-foreground-muted hover:text-foreground"
+                          >
+                            Cancel
+                          </button>
+                        </div>
+                      )}
+                    </div>
+                  </>
+                ) : (
+                  <span className="text-sm text-foreground-muted italic">User is deleted</span>
+                )}
+
+                {msg && (
+                  <p className="text-sm text-foreground-muted">{msg}</p>
+                )}
+                {resetLink && (
+                  <div className="mt-2">
+                    <label className="text-xs text-foreground-muted font-medium">Reset Link:</label>
+                    <input
+                      readOnly
+                      value={resetLink}
+                      className="mt-1 text-sm rounded border border-border bg-background text-foreground px-2 py-1.5 w-full font-mono"
+                      onClick={(e) => (e.target as HTMLInputElement).select()}
+                    />
+                  </div>
+                )}
+              </div>
+            </div>
+          </td>
+        </tr>
+      )}
     </>
   );
 }

@@ -67,7 +67,10 @@ export async function GET(request: NextRequest) {
   }
 
   const history = await db.debate.findMany({
-    where,
+    where: {
+      ...where,
+      isDeleted: false, // Show hidden debates to participants, but not deleted ones
+    },
     orderBy: { completedAt: "desc" },
     take: 50,
     select: {

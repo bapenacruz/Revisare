@@ -16,6 +16,7 @@ export async function GET(req: NextRequest) {
   const rows = await db.debate.findMany({
     where: {
       OR: [{ debaterAId: userId }, { debaterBId: userId }],
+      isDeleted: false, // Show hidden debates to participants, but not deleted ones
     },
     orderBy: { createdAt: "desc" },
     take: PAGE_SIZE + 1,

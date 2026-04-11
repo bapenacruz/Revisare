@@ -219,6 +219,8 @@ model Debate {
   format           String
   ranked           Boolean   @default(true)
   isPublic         Boolean   @default(true)
+  isDeleted        Boolean   @default(false)
+  isHidden         Boolean   @default(false)
   timerPreset      Int       @default(300)
   status           String    @default("pending")
   phase            String    @default("prep")

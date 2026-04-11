@@ -11,15 +11,14 @@ interface Props {
   searchParams: Promise<{
     q?: string;
     type?: string;   // "real" | "synthetic"
-    status?: string; // "active" | "suspended" | "banned" | "deleted"
+    status?: string; // "active" | "admin" | "suspended" | "banned" | "deleted"
     role?: string;   // "user" | "admin"
-    deleted?: string; // "true" | "false" (default "false")
     page?: string;
   }>;
 }
 
 export default async function AdminUsersPage({ searchParams }: Props) {
-  const { q = "", type = "", status = "", role = "", deleted = "false", page: pageStr = "1" } = await searchParams;
+  const { q = "", type = "", status = "", role = "", page: pageStr = "1" } = await searchParams;
   const page = Math.max(1, parseInt(pageStr, 10));
   const limit = 30;
 
@@ -45,13 +44,13 @@ export default async function AdminUsersPage({ searchParams }: Props) {
     conditions.push({ isDeleted: false, role: "banned" });
   } else if (status === "suspended") {
     conditions.push({ isDeleted: false, role: "suspended", suspendedUntil: { gt: now } });
+  } else if (status === "admin") {
+    conditions.push({ isDeleted: false, role: "admin" });
   } else if (status === "active") {
-    conditions.push({ isDeleted: false, NOT: [{ role: "banned" }, { role: "suspended" }] });
+    conditions.push({ isDeleted: false, NOT: [{ role: "banned" }, { role: "suspended" }, { role: "admin" }] });
   } else {
-    // No status filter — apply deleted toggle
-    if (deleted !== "true") {
-      conditions.push({ isDeleted: false });
-    }
+    // No status filter — default excludes deleted
+    conditions.push({ isDeleted: false });
   }
 
   // Role filter
@@ -90,7 +89,7 @@ export default async function AdminUsersPage({ searchParams }: Props) {
   const pages = Math.ceil(total / limit);
 
   // Build query string for pagination links
-  const qs = new URLSearchParams({ q, type, status, role, deleted }).toString();
+  const qs = new URLSearchParams({ q, type, status, role }).toString();
 
   return (
     <div>
@@ -125,6 +124,7 @@ export default async function AdminUsersPage({ searchParams }: Props) {
             <select name="status" defaultValue={status} className="h-8 px-2 text-sm rounded-[--radius] border border-border bg-background text-foreground">
               <option value="">Any</option>
               <option value="active">Active</option>
+              <option value="admin">Admin</option>
               <option value="suspended">Suspended</option>
               <option value="banned">Banned</option>
               <option value="deleted">Deleted</option>
@@ -137,14 +137,6 @@ export default async function AdminUsersPage({ searchParams }: Props) {
               <option value="">Any</option>
               <option value="admin">Admin</option>
               <option value="user">User</option>
-            </select>
-          </div>
-
-          <div className="flex flex-col gap-1">
-            <label className="text-xs text-foreground-muted uppercase tracking-wide font-medium">Show deleted</label>
-            <select name="deleted" defaultValue={deleted} className="h-8 px-2 text-sm rounded-[--radius] border border-border bg-background text-foreground">
-              <option value="false">No (default)</option>
-              <option value="true">Yes</option>
             </select>
           </div>
 
@@ -161,7 +153,7 @@ export default async function AdminUsersPage({ searchParams }: Props) {
         <table className="w-full text-sm">
           <thead className="bg-surface border-b border-border">
             <tr>
-              {["Username", "Type", "Email", "Status", "ELO", "W/L", "Joined", "Actions"].map((h) => (
+              {["Username", "Type", "Email", "Role", "Status", "ELO", "W/L", "Joined", "Actions"].map((h) => (
                 <th
                   key={h}
                   className="px-4 py-2.5 text-left text-xs font-semibold text-foreground-muted uppercase tracking-wide whitespace-nowrap"
@@ -174,7 +166,7 @@ export default async function AdminUsersPage({ searchParams }: Props) {
           <tbody className="divide-y divide-border">
             {users.length === 0 && (
               <tr>
-                <td colSpan={8} className="px-4 py-8 text-center text-foreground-muted text-sm">
+                <td colSpan={9} className="px-4 py-8 text-center text-foreground-muted text-sm">
                   No users found.
                 </td>
               </tr>
