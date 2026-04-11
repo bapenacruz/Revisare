@@ -46,11 +46,27 @@ export async function DELETE(
 
   const { id } = await params;
 
-  // Soft delete by setting isDeleted to true
+  const debate = await db.debate.findUnique({ where: { id } });
+  if (!debate) return NextResponse.json({ error: "Not found" }, { status: 404 });
+
+  // Soft delete
   const updated = await db.debate.update({ 
     where: { id }, 
     data: { isDeleted: true } 
   });
+
+  // Reverse wins/losses/ELO if it was a ranked completed debate with a winner
+  if (debate.ranked && debate.winnerId && debate.status === "completed" && !debate.isDeleted) {
+    const loserId = debate.winnerId === debate.debaterAId ? debate.debaterBId : debate.debaterAId;
+    await db.user.update({
+      where: { id: debate.winnerId },
+      data: { wins: { decrement: 1 }, elo: { decrement: 25 } },
+    });
+    await db.user.update({
+      where: { id: loserId },
+      data: { losses: { decrement: 1 }, elo: { increment: 25 } },
+    });
+  }
   
   return NextResponse.json({ ok: true, debate: updated });
 }

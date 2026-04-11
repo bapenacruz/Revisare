@@ -17,7 +17,7 @@ export default async function ExplorePage() {
       label: true,
       emoji: true,
       description: true,
-      _count: { select: { debates: true } },
+      _count: { select: { debates: { where: { isDeleted: false } } } },
     },
   });
 
