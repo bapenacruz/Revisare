@@ -424,10 +424,6 @@ export default async function ResultsPage({ params }: Props) {
           {/* Claim-by-claim checks */}
           {consensusEvidenceChecks.length > 0 && (
             <div>
-              <h3 className="text-sm font-semibold text-foreground mb-2 flex items-center gap-2">
-                Claim-by-Claim Verification
-
-              </h3>
               <div className="flex flex-col gap-2">
                 {consensusEvidenceChecks.map((ec, idx) => {
                   const isA = ec.debater === debate.debaterA.username;
