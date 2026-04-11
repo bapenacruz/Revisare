@@ -83,7 +83,7 @@ async function fetchDebate(challengeId: string) {
       turns: { orderBy: { submittedAt: "asc" } },
       judgeResults: true,
       spectatorMessages: { orderBy: { createdAt: "asc" }, take: 60 },
-      audienceVotes: { select: { votedForId: true } },
+      audienceVotes: { select: { votedForId: true, voterToken: true } },
     },
   });
 }
@@ -111,11 +111,26 @@ export async function GET(_req: NextRequest, { params }: RouteParams) {
 
   debate = await maybeAdvancePhase(debate);
 
-  // Tally audience votes
+  // Tally audience votes + resolve voter names for logged-in voters
   const voteTally: Record<string, number> = {};
   for (const v of debate!.audienceVotes) {
     voteTally[v.votedForId] = (voteTally[v.votedForId] ?? 0) + 1;
   }
+
+  // Resolve usernames for logged-in voters (voterToken === userId for auth'd users)
+  const voterTokens = debate!.audienceVotes.map((v) => v.voterToken);
+  const resolvedVoters =
+    voterTokens.length > 0
+      ? await db.user.findMany({
+          where: { id: { in: voterTokens } },
+          select: { id: true, username: true },
+        })
+      : [];
+  const voterUsernameMap = Object.fromEntries(resolvedVoters.map((u) => [u.id, u.username]));
+  const audienceVoterList = debate!.audienceVotes.map((v) => ({
+    username: voterUsernameMap[v.voterToken] ?? null,
+    votedForId: v.votedForId,
+  }));
 
   // Fetch spectator usernames
   const specUserIds = [
@@ -149,5 +164,6 @@ export async function GET(_req: NextRequest, { params }: RouteParams) {
     ...rest,
     spectatorMessages,
     audienceVotes: voteTally,
+    audienceVoterList,
   });
 }

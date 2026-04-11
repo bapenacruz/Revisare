@@ -88,6 +88,7 @@ interface DebateState {
   turns: Turn[];
   spectatorMessages: SpecMsg[];
   audienceVotes: Record<string, number>;
+  audienceVoterList: { username: string | null; votedForId: string }[];
   judgeResults: JudgeResult[];
 }
 
@@ -816,6 +817,7 @@ export default function ArenaPage() {
               totalVotes={totalVotes}
               me={me}
               onVote={fetchDebate}
+              voterList={debate.audienceVoterList}
             />
           )}
 
@@ -943,12 +945,14 @@ function AudienceVotePanel({
   totalVotes,
   me,
   onVote,
+  voterList = [],
 }: {
   challengeId: string;
   debate: DebateState;
   totalVotes: number;
   me: string | undefined;
   onVote: () => void;
+  voterList?: { username: string | null; votedForId: string }[];
 }) {
   const [voted, setVoted] = useState<string | null>(null);
   const [voteLoading, setVoteLoading] = useState(false);
@@ -1013,40 +1017,49 @@ function AudienceVotePanel({
           const p = pct(d.id);
           const isMyVote = voted === d.id;
           const isOtherVote = voted !== null && voted !== d.id;
+          const names = voterList
+            .filter((v) => v.votedForId === d.id && v.username)
+            .map((v) => v.username as string);
           return (
-            <button
-              key={d.id}
-              onClick={() => castVote(d.id)}
-              disabled={voteLoading}
-              title={isMyVote ? "Click again to remove your vote" : isOtherVote ? "Transfer your vote here" : undefined}
-              className={`w-full flex items-center gap-2 mb-2 p-2 rounded-[--radius] border transition-colors text-left ${
-                isMyVote
-                  ? "border-accent bg-accent/10 hover:bg-danger/10 hover:border-danger/40 cursor-pointer"
-                  : isOtherVote
-                    ? "border-border hover:border-brand/60 hover:bg-brand/5 bg-surface-raised cursor-pointer"
-                    : "border-border hover:border-brand/40 bg-surface-raised"
-              }`}
-            >
-              <Avatar initial={d.username[0]} size="sm" />
-              <div className="flex-1 min-w-0">
-                <div className="flex items-center justify-between mb-1">
-                  <span className="text-xs font-medium text-foreground truncate">
-                    {d.username}
-                    {isMyVote && <span className="ml-1.5 text-[10px] text-accent font-semibold">✓ your vote</span>}
-                  </span>
-                  <span className="text-xs text-foreground-muted shrink-0 ml-1">{p}%</span>
+            <div key={d.id} className="mb-2">
+              <button
+                onClick={() => castVote(d.id)}
+                disabled={voteLoading}
+                title={isMyVote ? "Click again to remove your vote" : isOtherVote ? "Transfer your vote here" : undefined}
+                className={`w-full flex items-center gap-2 p-2 rounded-[--radius] border transition-colors text-left ${
+                  isMyVote
+                    ? "border-accent bg-accent/10 hover:bg-danger/10 hover:border-danger/40 cursor-pointer"
+                    : isOtherVote
+                      ? "border-border hover:border-brand/60 hover:bg-brand/5 bg-surface-raised cursor-pointer"
+                      : "border-border hover:border-brand/40 bg-surface-raised"
+                }`}
+              >
+                <Avatar initial={d.username[0]} size="sm" />
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center justify-between mb-1">
+                    <span className="text-xs font-medium text-foreground truncate">
+                      {d.username}
+                      {isMyVote && <span className="ml-1.5 text-[10px] text-accent font-semibold">✓ your vote</span>}
+                    </span>
+                    <span className="text-xs text-foreground-muted shrink-0 ml-1">{p}%</span>
+                  </div>
+                  <div className="h-1 rounded-full bg-surface-overlay overflow-hidden">
+                    <div
+                      className="h-full rounded-full transition-all duration-500"
+                      style={{
+                        width: `${p}%`,
+                        backgroundColor: isProp ? "var(--brand)" : "var(--danger)",
+                      }}
+                    />
+                  </div>
                 </div>
-                <div className="h-1 rounded-full bg-surface-overlay overflow-hidden">
-                  <div
-                    className="h-full rounded-full transition-all duration-500"
-                    style={{
-                      width: `${p}%`,
-                      backgroundColor: isProp ? "var(--brand)" : "var(--danger)",
-                    }}
-                  />
-                </div>
-              </div>
-            </button>
+              </button>
+              {names.length > 0 && (
+                <p className="text-[10px] text-foreground-muted mt-1 pl-1">
+                  {names.join(", ")}
+                </p>
+              )}
+            </div>
           );
         })}
 
