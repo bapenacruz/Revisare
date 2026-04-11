@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/Button";
 import { Avatar } from "@/components/ui/Avatar";
 import { Card, CardBody } from "@/components/ui/Card";
 import { CoinFlip } from "@/components/debate/CoinFlip";
+import { PrivateFeedbackView } from "@/components/debate/PrivateFeedbackView";
 import { Modal } from "@/components/ui/Modal";
 import { CommentsSection } from "./results/CommentsSection";
 import { getPusherClient } from "@/lib/pusher-client";
@@ -639,7 +640,7 @@ export default function ArenaPage() {
                 {myPrivateFeedback && (
                   <div className="mt-4 pt-4 border-t border-border">
                     <p className="text-xs font-semibold text-foreground mb-1.5">🔒 Your Private Feedback</p>
-                    <p className="text-sm text-foreground-muted leading-relaxed">{myPrivateFeedback}</p>
+                    <PrivateFeedbackView text={myPrivateFeedback} />
                   </div>
                 )}
               </CardBody>

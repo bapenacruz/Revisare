@@ -8,6 +8,7 @@ import { Avatar } from "@/components/ui/Avatar";
 import { ROUND_LABEL, type RoundName } from "@/lib/debate-state";
 import { CommentsSection } from "./CommentsSection";
 import { Trophy, Gavel, ArrowLeft, Users, CheckCircle2, XCircle, AlertCircle, HelpCircle, Scale } from "lucide-react";
+import { PrivateFeedbackView } from "@/components/debate/PrivateFeedbackView";
 import type { DebaterScores, EvidenceCheck } from "@/lib/judging/types";
 import type { Metadata } from "next";
 
@@ -45,68 +46,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return { title: debate ? `Results: ${debate.motion.slice(0, 50)}` : "Results" };
 }
 
-/** Parses and renders the structured private feedback block */
-function PrivateFeedbackView({ text }: { text: string }) {
-  const SCORE_KEYS = ["factuality", "evidence_quality", "argument_strength", "rebuttal_quality", "clarity", "persuasiveness"];
-  const lines = text.split(/\n/);
-  const scores: { label: string; value: number }[] = [];
-  const narrative: string[] = [];
-
-  for (const line of lines) {
-    const trimmed = line.trim();
-    if (!trimmed) continue;
-    const scoreMatch = trimmed.match(/^(\w+):\s*(\d+)/);
-    if (scoreMatch && SCORE_KEYS.includes(scoreMatch[1])) {
-      scores.push({ label: scoreMatch[1].replace(/_/g, " "), value: parseInt(scoreMatch[2], 10) });
-    } else {
-      narrative.push(trimmed);
-    }
-  }
-
-  // If no structured scores found, just render as text
-  if (scores.length === 0) {
-    return <p className="text-sm text-foreground leading-relaxed whitespace-pre-wrap">{text}</p>;
-  }
-
-  return (
-    <div className="flex flex-col gap-4">
-      {/* Score bars */}
-      <div className="flex flex-col gap-2">
-        {scores.map(({ label, value }) => (
-          <div key={label} className="grid grid-cols-[10rem_1fr_2rem] items-center gap-2">
-            <span className="text-xs text-foreground-muted capitalize">{label}</span>
-            <div className="h-1.5 rounded-full bg-surface-overlay overflow-hidden">
-              <div
-                className={`h-full rounded-full transition-all ${value < 3 ? "bg-danger" : value < 5 ? "bg-amber-500" : "bg-brand"}`}
-                style={{ width: `${value * 10}%` }}
-              />
-            </div>
-            <span className={`text-xs font-bold tabular-nums text-right ${value < 3 ? "text-danger" : value < 5 ? "text-amber-500" : "text-foreground"}`}>{value}</span>
-          </div>
-        ))}
-      </div>
-      {/* Narrative lines */}
-      {narrative.length > 0 && (
-        <div className="flex flex-col gap-2 pt-2 border-t border-border">
-          {narrative.map((line, i) => {
-            const colonIdx = line.indexOf(":");
-            if (colonIdx > 0 && colonIdx < 30) {
-              const label = line.slice(0, colonIdx).trim();
-              const content = line.slice(colonIdx + 1).trim();
-              return (
-                <div key={i}>
-                  <span className="text-xs font-semibold text-foreground">{label}: </span>
-                  <span className="text-sm text-foreground-muted">{content}</span>
-                </div>
-              );
-            }
-            return <p key={i} className="text-sm text-foreground-muted">{line}</p>;
-          })}
-        </div>
-      )}
-    </div>
-  );
-}
 
 export default async function ResultsPage({ params }: Props) {
   const { id: challengeId } = await params;
