@@ -1,0 +1,19 @@
+.env
+.env.*
+.git
+.gitignore
+.next
+node_modules
+npm-debug.log*
+README.md
+*.md
+.DS_Store
+
+# scripts and local-only tools
+scripts/
+prompts/
+
+# test / coverage
+coverage/
+*.test.*
+*.spec.*
