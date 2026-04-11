@@ -45,6 +45,69 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return { title: debate ? `Results: ${debate.motion.slice(0, 50)}` : "Results" };
 }
 
+/** Parses and renders the structured private feedback block */
+function PrivateFeedbackView({ text }: { text: string }) {
+  const SCORE_KEYS = ["factuality", "evidence_quality", "argument_strength", "rebuttal_quality", "clarity", "persuasiveness"];
+  const lines = text.split(/\n/);
+  const scores: { label: string; value: number }[] = [];
+  const narrative: string[] = [];
+
+  for (const line of lines) {
+    const trimmed = line.trim();
+    if (!trimmed) continue;
+    const scoreMatch = trimmed.match(/^(\w+):\s*(\d+)/);
+    if (scoreMatch && SCORE_KEYS.includes(scoreMatch[1])) {
+      scores.push({ label: scoreMatch[1].replace(/_/g, " "), value: parseInt(scoreMatch[2], 10) });
+    } else {
+      narrative.push(trimmed);
+    }
+  }
+
+  // If no structured scores found, just render as text
+  if (scores.length === 0) {
+    return <p className="text-sm text-foreground leading-relaxed whitespace-pre-wrap">{text}</p>;
+  }
+
+  return (
+    <div className="flex flex-col gap-4">
+      {/* Score bars */}
+      <div className="flex flex-col gap-2">
+        {scores.map(({ label, value }) => (
+          <div key={label} className="grid grid-cols-[10rem_1fr_2rem] items-center gap-2">
+            <span className="text-xs text-foreground-muted capitalize">{label}</span>
+            <div className="h-1.5 rounded-full bg-surface-overlay overflow-hidden">
+              <div
+                className={`h-full rounded-full transition-all ${value < 3 ? "bg-danger" : value < 5 ? "bg-amber-500" : "bg-brand"}`}
+                style={{ width: `${value * 10}%` }}
+              />
+            </div>
+            <span className={`text-xs font-bold tabular-nums text-right ${value < 3 ? "text-danger" : value < 5 ? "text-amber-500" : "text-foreground"}`}>{value}</span>
+          </div>
+        ))}
+      </div>
+      {/* Narrative lines */}
+      {narrative.length > 0 && (
+        <div className="flex flex-col gap-2 pt-2 border-t border-border">
+          {narrative.map((line, i) => {
+            const colonIdx = line.indexOf(":");
+            if (colonIdx > 0 && colonIdx < 30) {
+              const label = line.slice(0, colonIdx).trim();
+              const content = line.slice(colonIdx + 1).trim();
+              return (
+                <div key={i}>
+                  <span className="text-xs font-semibold text-foreground">{label}: </span>
+                  <span className="text-sm text-foreground-muted">{content}</span>
+                </div>
+              );
+            }
+            return <p key={i} className="text-sm text-foreground-muted">{line}</p>;
+          })}
+        </div>
+      )}
+    </div>
+  );
+}
+
 export default async function ResultsPage({ params }: Props) {
   const { id: challengeId } = await params;
   const session = await auth();
@@ -338,9 +401,9 @@ export default async function ResultsPage({ params }: Props) {
             <div className="flex flex-col gap-3">
               <Card>
                 <CardBody>
-                  <p className="text-xs font-semibold text-brand mb-1">{debate.debaterA.username}</p>
+                  <p className="text-xs font-semibold text-brand mb-2">{debate.debaterA.username}</p>
                   {judgeResult?.privateFeedbackA ? (
-                    <pre className="text-sm font-mono text-foreground whitespace-pre-wrap leading-relaxed">{judgeResult.privateFeedbackA}</pre>
+                    <PrivateFeedbackView text={judgeResult.privateFeedbackA} />
                   ) : (
                     <p className="text-sm text-foreground-muted italic">Not generated yet.</p>
                   )}
@@ -348,9 +411,9 @@ export default async function ResultsPage({ params }: Props) {
               </Card>
               <Card>
                 <CardBody>
-                  <p className="text-xs font-semibold text-danger mb-1">{debate.debaterB.username}</p>
+                  <p className="text-xs font-semibold text-danger mb-2">{debate.debaterB.username}</p>
                   {judgeResult?.privateFeedbackB ? (
-                    <pre className="text-sm font-mono text-foreground whitespace-pre-wrap leading-relaxed">{judgeResult.privateFeedbackB}</pre>
+                    <PrivateFeedbackView text={judgeResult.privateFeedbackB} />
                   ) : (
                     <p className="text-sm text-foreground-muted italic">Not generated yet.</p>
                   )}
@@ -361,9 +424,9 @@ export default async function ResultsPage({ params }: Props) {
             <Card>
               <CardBody>
                 {myPrivateFeedback && myPrivateFeedback.trim().length > 0 ? (
-                  <pre className="text-sm font-mono text-foreground whitespace-pre-wrap leading-relaxed">{myPrivateFeedback}</pre>
+                  <PrivateFeedbackView text={myPrivateFeedback} />
                 ) : (
-                  <p className="text-sm text-foreground-muted italic">Private feedback has not been generated yet. An admin can regenerate it from the admin panel.</p>
+                  <p className="text-sm text-foreground-muted italic">Private feedback has not been generated yet.</p>
                 )}
               </CardBody>
             </Card>

@@ -559,7 +559,9 @@ export async function generateFeedbackOnly(
   const a = input.debaterA.username;
   const b = input.debaterB.username;
 
-  const systemPrompt = `You are an expert debate judge providing private performance feedback.
+  const extraInstruction = await getJudgePrompt("private_feedback");
+
+  const systemPrompt = `You are an expert debate judge providing private performance feedback.${extraInstruction ? `\n\nCOACHING STYLE: ${extraInstruction}` : ""}
 
 HARD RULES:
 - Output MUST be valid JSON with exactly two keys: "feedbackA" and "feedbackB"

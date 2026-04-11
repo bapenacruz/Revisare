@@ -80,26 +80,22 @@ export default function JudgePromptsPage() {
     }
   };
 
-  const seedDefaultPrompts = async () => {
+  const resetToDefaults = async () => {
+    if (!confirm("This will delete all saved prompts and reload the built-in defaults. Continue?")) return;
     setSeeding(true);
     setMessage("");
-    
     try {
-      const response = await fetch("/api/admin/judge-prompts/seed", {
-        method: "POST"
-      });
-
+      const response = await fetch("/api/admin/judge-prompts", { method: "DELETE" });
       if (response.ok) {
-        const data = await response.json();
-        setMessage(data.message);
-        loadPrompts(); // Reload prompts to show the new ones
-        setTimeout(() => setMessage(""), 5000);
+        setMessage("Reset to defaults. Reloading...");
+        await loadPrompts();
+        setTimeout(() => setMessage(""), 3000);
       } else {
-        throw new Error("Failed to seed prompts");
+        throw new Error("Failed to reset");
       }
     } catch (error) {
-      console.error("Error seeding prompts:", error);
-      setMessage("Failed to seed default prompts");
+      console.error("Error resetting prompts:", error);
+      setMessage("Failed to reset prompts");
     } finally {
       setSeeding(false);
     }
@@ -129,21 +125,19 @@ export default function JudgePromptsPage() {
         <div>
           <h1 className="text-3xl font-bold">Judge Prompts</h1>
           <p className="text-gray-600 mt-2">
-            Manage AI behavior and prompts for debate judging and feedback
+            Persona and style instructions appended to each judge. Do <strong>not</strong> include JSON schemas here — only coaching/style text.
           </p>
         </div>
         <div className="flex items-center gap-3">
-          {prompts.length === 0 && (
-            <Button 
-              onClick={seedDefaultPrompts} 
-              disabled={seeding}
-              className="bg-green-600 hover:bg-green-700"
-            >
-              {seeding ? "Seeding..." : "Seed Default Prompts"}
-            </Button>
-          )}
-          <Button 
-            onClick={savePrompts} 
+          <Button
+            onClick={resetToDefaults}
+            disabled={seeding}
+            className="bg-gray-600 hover:bg-gray-700"
+          >
+            {seeding ? "Resetting..." : "Reset to Defaults"}
+          </Button>
+          <Button
+            onClick={savePrompts}
             disabled={saving}
             className="bg-blue-600 hover:bg-blue-700"
           >
