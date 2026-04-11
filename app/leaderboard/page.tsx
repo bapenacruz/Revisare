@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { db } from "@/lib/db";
 import { Suspense } from "react";
 import { LeaderboardTable } from "@/components/features/profile/LeaderboardTable";

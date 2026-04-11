@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { Suspense } from "react";
 import { Hero } from "@/components/features/home/Hero";
 import { HomeTabs } from "@/components/features/home/HomeTabs";

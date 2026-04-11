@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { db } from "@/lib/db";
 import { Card, CardBody } from "@/components/ui/Card";
 import Link from "next/link";
