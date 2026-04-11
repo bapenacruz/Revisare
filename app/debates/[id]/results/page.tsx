@@ -8,6 +8,7 @@ import { Avatar } from "@/components/ui/Avatar";
 import { ROUND_LABEL, type RoundName } from "@/lib/debate-state";
 import { CommentsSection } from "./CommentsSection";
 import { AudienceVotePanel } from "./AudienceVotePanel";
+import { RetriggerJudgingButton } from "./RetriggerJudgingButton";
 import { Trophy, Gavel, Users, CheckCircle2, XCircle, AlertCircle, HelpCircle, Scale } from "lucide-react";
 import { PrivateFeedbackView } from "@/components/debate/PrivateFeedbackView";
 import { PrivateFeedbackSection } from "./PrivateFeedbackSection";
@@ -245,9 +246,17 @@ export default async function ResultsPage({ params }: Props) {
                   <span className="font-semibold text-foreground">AI judging in progress...</span>
                 </div>
                 <p className="text-xs text-foreground-muted">Results will be available shortly.</p>
+                {(isDebaterA || isDebaterB) && debate.completedAt && (
+                  <RetriggerJudgingButton challengeId={challengeId} completedAtIso={debate.completedAt.toISOString()} />
+                )}
               </div>
             ) : (
-              <p className="text-sm text-foreground-muted">No judge result available yet.</p>
+              <div>
+                <p className="text-sm text-foreground-muted">No judge result available yet.</p>
+                {(isDebaterA || isDebaterB) && debate.completedAt && (
+                  <RetriggerJudgingButton challengeId={challengeId} completedAtIso={debate.completedAt.toISOString()} />
+                )}
+              </div>
             )}
 
             {debate.forfeitedBy && (

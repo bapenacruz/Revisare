@@ -17,7 +17,7 @@ interface Category {
 const inputCls =
   "bg-surface border border-border rounded px-2 py-1 text-sm text-foreground focus:outline-none focus:border-brand w-full";
 
-export function CategoriesClient({ initial }: { initial: Category[] }) {
+export function CategoriesClient({ initial, debateCountMap }: { initial: Category[]; debateCountMap: Record<string, number> }) {
   const [categories, setCategories] = useState<Category[]>(initial);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editDraft, setEditDraft] = useState<Pick<Category, "label" | "emoji" | "description">>({
@@ -166,7 +166,7 @@ export function CategoriesClient({ initial }: { initial: Category[] }) {
         <table className="w-full text-sm">
           <thead className="bg-surface border-b border-border">
             <tr>
-              {["Category", "Slug", "Description", "Active", ""].map((h, i) => (
+              {["Category", "Slug", "Description", "Debates", "Active", ""].map((h, i) => (
                 <th
                   key={i}
                   className="px-4 py-2.5 text-left text-xs font-semibold text-foreground-muted uppercase tracking-wide"
@@ -213,6 +213,9 @@ export function CategoriesClient({ initial }: { initial: Category[] }) {
                         placeholder="Description"
                       />
                     </td>
+                    <td className="px-4 py-2 text-foreground-muted text-xs text-center">
+                      {debateCountMap[cat.id] ?? 0}
+                    </td>
                     <td className="px-4 py-2 text-center">
                       <button
                         onClick={() => toggleActive(cat)}
@@ -253,7 +256,7 @@ export function CategoriesClient({ initial }: { initial: Category[] }) {
                   </>
                 ) : deleteConfirmId === cat.id ? (
                   <>
-                    <td colSpan={4} className="px-4 py-3">
+                    <td colSpan={5} className="px-4 py-3">
                       <span className="text-sm text-danger font-medium">
                         Delete &quot;{cat.label}&quot;? All its debates and challenges will move
                         to Other.
@@ -292,6 +295,9 @@ export function CategoriesClient({ initial }: { initial: Category[] }) {
                     <td className="px-4 py-3 text-foreground-muted text-xs">{cat.slug}</td>
                     <td className="px-4 py-3 text-foreground-muted text-sm max-w-xs truncate">
                       {cat.description}
+                    </td>
+                    <td className="px-4 py-3 text-foreground-muted text-xs text-center">
+                      {debateCountMap[cat.id] ?? 0}
                     </td>
                     <td className="px-4 py-3 text-center">
                       <button
@@ -365,6 +371,7 @@ export function CategoriesClient({ initial }: { initial: Category[] }) {
                     placeholder="Description"
                   />
                 </td>
+                <td className="px-4 py-2 text-xs text-foreground-muted">—</td>
                 <td className="px-4 py-2" />
                 <td className="px-4 py-2">
                   <div className="flex items-center gap-1">

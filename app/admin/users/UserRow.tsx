@@ -17,6 +17,7 @@ interface User {
   wins: number;
   losses: number;
   createdAt: Date;
+  _count: { debaterA: number; debaterB: number };
 }
 
 function getStatus(u: User): { label: string; style: string } {
@@ -163,8 +164,14 @@ export function UserRow({ user }: { user: User }) {
         {/* ELO */}
         <td className="px-4 py-3 text-foreground-muted text-sm">{user.elo}</td>
 
-        {/* W/L */}
-        <td className="px-4 py-3 text-foreground-muted text-sm whitespace-nowrap">{user.wins}W / {user.losses}L</td>
+        {/* Wins */}
+        <td className="px-4 py-3 text-foreground-muted text-sm">{user.wins}</td>
+
+        {/* Losses */}
+        <td className="px-4 py-3 text-foreground-muted text-sm">{user.losses}</td>
+
+        {/* Debates */}
+        <td className="px-4 py-3 text-foreground-muted text-sm">{user._count.debaterA + user._count.debaterB}</td>
 
         {/* Joined */}
         <td className="px-4 py-3 text-foreground-muted text-xs whitespace-nowrap">
@@ -179,7 +186,7 @@ export function UserRow({ user }: { user: User }) {
 
       {open && (
         <tr className="bg-surface-raised border-t border-border">
-          <td colSpan={9} className="px-6 py-4">
+          <td colSpan={11} className="px-6 py-4">
             <div className="flex flex-wrap gap-6 items-start">
               {/* Username editing (if synthetic) */}
               {isPlaceholder && !localDeleted && (

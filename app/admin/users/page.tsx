@@ -15,12 +15,18 @@ interface Props {
     role?: string;       // "user" | "admin"
     joinedFrom?: string;
     joinedTo?: string;
+    minElo?: string;
+    maxElo?: string;
+    minWins?: string;
+    maxWins?: string;
+    minLosses?: string;
+    maxLosses?: string;
     page?: string;
   }>;
 }
 
 export default async function AdminUsersPage({ searchParams }: Props) {
-  const { q = "", type = "", status = "", role = "", joinedFrom = "", joinedTo = "", page: pageStr = "1" } = await searchParams;
+  const { q = "", type = "", status = "", role = "", joinedFrom = "", joinedTo = "", minElo = "", maxElo = "", minWins = "", maxWins = "", minLosses = "", maxLosses = "", page: pageStr = "1" } = await searchParams;
   const page = Math.max(1, parseInt(pageStr, 10));
   const limit = 30;
 
@@ -72,6 +78,30 @@ export default async function AdminUsersPage({ searchParams }: Props) {
     conditions.push({ createdAt: dateFilter });
   }
 
+  // ELO range
+  if (minElo || maxElo) {
+    const f: { gte?: number; lte?: number } = {};
+    if (minElo) f.gte = parseInt(minElo, 10);
+    if (maxElo) f.lte = parseInt(maxElo, 10);
+    conditions.push({ elo: f });
+  }
+
+  // Wins range
+  if (minWins || maxWins) {
+    const f: { gte?: number; lte?: number } = {};
+    if (minWins) f.gte = parseInt(minWins, 10);
+    if (maxWins) f.lte = parseInt(maxWins, 10);
+    conditions.push({ wins: f });
+  }
+
+  // Losses range
+  if (minLosses || maxLosses) {
+    const f: { gte?: number; lte?: number } = {};
+    if (minLosses) f.gte = parseInt(minLosses, 10);
+    if (maxLosses) f.lte = parseInt(maxLosses, 10);
+    conditions.push({ losses: f });
+  }
+
   const where: Prisma.UserWhereInput = conditions.length > 0 ? { AND: conditions } : {};
 
   const [users, total] = await Promise.all([
@@ -90,6 +120,7 @@ export default async function AdminUsersPage({ searchParams }: Props) {
         wins: true,
         losses: true,
         createdAt: true,
+        _count: { select: { debaterA: true, debaterB: true } },
       },
       orderBy: { createdAt: "desc" },
       skip: (page - 1) * limit,
@@ -101,7 +132,7 @@ export default async function AdminUsersPage({ searchParams }: Props) {
   const pages = Math.ceil(total / limit);
 
   // Build query string for pagination links
-  const qs = new URLSearchParams({ q, type, status, role, joinedFrom, joinedTo }).toString();
+  const qs = new URLSearchParams({ q, type, status, role, joinedFrom, joinedTo, minElo, maxElo, minWins, maxWins, minLosses, maxLosses }).toString();
 
   const thInput = "w-full h-7 px-2 text-xs rounded border border-border bg-background text-foreground placeholder:text-foreground-subtle";
   const thSelect = "w-full h-7 px-1 text-xs rounded border border-border bg-background text-foreground";
@@ -119,7 +150,7 @@ export default async function AdminUsersPage({ searchParams }: Props) {
             <thead className="bg-surface border-b border-border">
               {/* Column labels */}
               <tr>
-                {["Username", "Type", "Email", "Role", "Status", "ELO", "W/L", "Joined", "Actions"].map((h) => (
+                {["Username", "Type", "Email", "Role", "Status", "ELO", "Wins", "Losses", "Debates", "Joined", "Actions"].map((h) => (
                   <th key={h} className="px-4 py-2.5 text-left text-xs font-semibold text-foreground-muted uppercase tracking-wide whitespace-nowrap">
                     {h}
                   </th>
@@ -154,7 +185,24 @@ export default async function AdminUsersPage({ searchParams }: Props) {
                     <option value="deleted">Deleted</option>
                   </select>
                 </th>
-                <th className="px-2 py-2 font-normal" />
+                <th className="px-2 py-2 font-normal">
+                  <div className="flex flex-col gap-1">
+                    <input type="number" name="minElo" defaultValue={minElo} placeholder="Min" min={0} className={thInput} />
+                    <input type="number" name="maxElo" defaultValue={maxElo} placeholder="Max" min={0} className={thInput} />
+                  </div>
+                </th>
+                <th className="px-2 py-2 font-normal">
+                  <div className="flex flex-col gap-1">
+                    <input type="number" name="minWins" defaultValue={minWins} placeholder="Min" min={0} className={thInput} />
+                    <input type="number" name="maxWins" defaultValue={maxWins} placeholder="Max" min={0} className={thInput} />
+                  </div>
+                </th>
+                <th className="px-2 py-2 font-normal">
+                  <div className="flex flex-col gap-1">
+                    <input type="number" name="minLosses" defaultValue={minLosses} placeholder="Min" min={0} className={thInput} />
+                    <input type="number" name="maxLosses" defaultValue={maxLosses} placeholder="Max" min={0} className={thInput} />
+                  </div>
+                </th>
                 <th className="px-2 py-2 font-normal" />
                 <th className="px-2 py-2 font-normal">
                   <div className="flex flex-col gap-1">
@@ -173,7 +221,7 @@ export default async function AdminUsersPage({ searchParams }: Props) {
             <tbody className="divide-y divide-border">
               {users.length === 0 && (
                 <tr>
-                  <td colSpan={9} className="px-4 py-8 text-center text-foreground-muted text-sm">
+                  <td colSpan={11} className="px-4 py-8 text-center text-foreground-muted text-sm">
                     No users found.
                   </td>
                 </tr>

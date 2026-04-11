@@ -11,6 +11,7 @@ interface Props {
     status?: string;
     type?: string;
     flaggedUser?: string;
+    reporter?: string;
     dateFrom?: string;
     dateTo?: string;
     page?: string;
@@ -18,7 +19,7 @@ interface Props {
 }
 
 export default async function AdminFlagsPage({ searchParams }: Props) {
-  const { status = "pending", type = "", flaggedUser = "", dateFrom = "", dateTo = "", page: pageStr = "1" } = await searchParams;
+  const { status = "pending", type = "", flaggedUser = "", reporter = "", dateFrom = "", dateTo = "", page: pageStr = "1" } = await searchParams;
   const page = Math.max(1, parseInt(pageStr, 10));
   const limit = 25;
 
@@ -53,6 +54,19 @@ export default async function AdminFlagsPage({ searchParams }: Props) {
     }
   }
   void flaggedUserId;
+
+  // Resolve reporter text to userId
+  if (reporter) {
+    const found = await db.user.findFirst({
+      where: { username: { contains: reporter, mode: "insensitive" } },
+      select: { id: true },
+    });
+    if (found) {
+      conditions.push({ reporterId: found.id });
+    } else {
+      conditions.push({ reporterId: "__no_match__" });
+    }
+  }
 
   const where = conditions.length > 0 ? { AND: conditions } : {};
 
@@ -89,7 +103,7 @@ export default async function AdminFlagsPage({ searchParams }: Props) {
 
   const pages = Math.ceil(total / limit);
   const buildUrl = (overrides: Record<string, string>) => {
-    const params = new URLSearchParams({ status, type, flaggedUser, dateFrom, dateTo, page: pageStr, ...overrides });
+    const params = new URLSearchParams({ status, type, flaggedUser, reporter, dateFrom, dateTo, page: pageStr, ...overrides });
     return `/admin/flags?${params.toString()}`;
   };
 
@@ -123,7 +137,9 @@ export default async function AdminFlagsPage({ searchParams }: Props) {
                 <th className="px-2 py-2 font-normal">
                   <input name="flaggedUser" defaultValue={flaggedUser} placeholder="Username…" className={thInput} />
                 </th>
-                <th className="px-2 py-2 font-normal" />
+                <th className="px-2 py-2 font-normal">
+                  <input name="reporter" defaultValue={reporter} placeholder="Username…" className={thInput} />
+                </th>
                 <th className="px-2 py-2 font-normal" />
                 <th className="px-2 py-2 font-normal">
                   <select name="status" defaultValue={status} className={thSelect}>

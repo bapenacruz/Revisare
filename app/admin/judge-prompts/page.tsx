@@ -200,17 +200,6 @@ export default function JudgePromptsPage() {
           </Card>
         ))}
       </div>
-
-      <div className="mt-8 p-4 bg-gray-50 rounded-lg">
-        <h3 className="font-semibold mb-2">Usage Notes:</h3>
-        <ul className="text-sm text-gray-600 space-y-1">
-          <li>• <strong>Judge prompts</strong> control how each AI judge evaluates debates</li>
-          <li>• <strong>Private feedback</strong> generates personalized advice for debaters (only visible to them)</li>
-          <li>• <strong>Official result</strong> creates the public summary based on all judge evaluations</li>
-          <li>• Changes take effect immediately for new debates</li>
-          <li>• Use JSON format requirements in judge prompts to ensure proper parsing</li>
-        </ul>
-      </div>
     </div>
   );
 }
