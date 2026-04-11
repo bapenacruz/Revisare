@@ -1,88 +1,88 @@
 [
   {
-    "motion": "Data privacy should take priority over personalized convenience.",
-    "category_slug": "science-tech",
+    "motion": "This House Believes remote work is better than office work",
+    "category_slug": "society",
     "format": "standard",
     "ranked": false,
     "debaterA": {
-      "username": "quietstorm.soo",
+      "username": "bapenacruz",
       "side": "proposition"
     },
     "debaterB": {
-      "username": "heartland105",
+      "username": "west2016",
       "side": "opposition"
     },
     "turns": [
       {
-        "username": "quietstorm.soo",
+        "username": "bapenacruz",
         "roundName": "opening",
-        "content": "Honestly, this one is not even close for me. Personalized convenience is nice, sure. Faster apps, better suggestions, fewer clicks. Fine. But the cost is that companies keep building these giant profiles on people and most users barely understand the trade they are making. It is not just ads either. It is location, habits, sleep, money patterns, who you talk to. That starts to become power. And once that data exists, it gets sold, leaked, or quietly repurposed. Convenience is replaceable. Privacy really is not."
+        "content": "Look, once you actually work remote for a while, it is hard to argue going back makes sense. You cut commuting, you get your time back, and honestly you can focus way better without constant interruptions. People act like productivity drops, but for most roles it actually goes up. And on top of that, people are just less burned out. That matters."
       },
       {
-        "username": "heartland105",
+        "username": "west2016",
         "roundName": "opening",
-        "content": "Look, I think that sounds dramatic. People say privacy like it is some absolute thing, but in real life people choose convenience every single day because it genuinely improves life. Maps work better, shopping is easier, fraud detection improves, recommendations save time. This is obvious. Most people do not want clunky products just to defend some abstract principle they are not actively using. Privacy matters, yes, but putting it above everything else ignores how much value personalization creates."
+        "content": "I get the appeal, I really do, but I think people overcorrect on this. Offices are not just about work output, they are about collaboration, culture, and alignment. You lose a lot of that when everything is remote. Conversations become scheduled instead of natural. That slows things down in ways people do not always notice."
       },
       {
-        "username": "quietstorm.soo",
+        "username": "bapenacruz",
         "roundName": "rebuttal",
-        "content": "But that is exactly the trap. The value is immediate and the risk is delayed, so of course people click yes. That does not make it a fair trade. Also, we act like personalization only means convenience, when really it can shape behavior. Prices can change, feeds can narrow, choices can be nudged. You are not just being served, you are being steered. And if the default system depends on people giving up more and more data, then the system is built wrong."
+        "content": "But most of that so called collaboration is honestly just noise. Meetings that could be emails, interruptions that break your flow. Remote forces people to be more intentional. And if you need to collaborate, you still can. It just is not constant and draining."
       },
       {
-        "username": "heartland105",
+        "username": "west2016",
         "roundName": "rebuttal",
-        "content": "I get the concern, but you are treating bad implementation as proof the whole model is bad. The reality is, people do benefit in concrete ways right now. Elderly users, busy parents, people who are not very tech savvy, they all rely on friction being low. Stronger consent rules and better limits make more sense than saying privacy always comes first. Because if you do that too rigidly, you end up making products worse for normal users while power users are the only ones happy."
+        "content": "I think you are underestimating how much gets lost. Quick problem solving, mentorship, even just learning by being around experienced people. Those things do not translate cleanly online. Especially for newer employees, remote can feel isolating and slower for growth."
       },
       {
-        "username": "quietstorm.soo",
+        "username": "bapenacruz",
         "roundName": "closing",
-        "content": "For me the issue is simple. When convenience conflicts with privacy, privacy should win because it protects autonomy at the root level. A slightly better recommendation engine is not worth normalizing mass data extraction. Build useful products, yes. But build them with limits."
+        "content": "At the end of the day, work should fit into life, not the other way around. Remote gives people flexibility without killing productivity. The trade is worth it for most people."
       },
       {
-        "username": "heartland105",
+        "username": "west2016",
         "roundName": "closing",
-        "content": "I still think that puts the hierarchy in the wrong order. People live in the real world, not in a perfect theory of rights. Convenience is not trivial when it saves time, reduces mistakes, and makes tools usable. Protect privacy, absolutely. Just do not pretend convenience is some shallow extra when for many people it is the whole reason tech helps at all."
+        "content": "Flexibility is great, but not if it weakens how teams function long term. Offices still solve real problems that remote has not fully replaced."
       }
     ],
-    "winner_username": "quietstorm.soo",
-    "completed_at": "2026-04-11T07:34:19+00:00"
+    "winner_username": "bapenacruz",
+    "completed_at": "2026-04-11T07:48:35+00:00"
   },
   {
-    "motion": "Humans are bad by nature.",
-    "category_slug": "philosophy",
+    "motion": "This House Would ban smartphones for children under 14",
+    "category_slug": "society",
     "format": "quick",
     "ranked": false,
     "debaterA": {
-      "username": "marta_johnson",
-      "side": "proposition"
+      "username": "bapenacruz",
+      "side": "opposition"
     },
     "debaterB": {
-      "username": "realpeopleamman",
-      "side": "opposition"
+      "username": "west2016",
+      "side": "proposition"
     },
     "turns": [
       {
-        "username": "marta_johnson",
+        "username": "bapenacruz",
         "roundName": "opening",
-        "content": "Look, I do not think people are evil every second of every day, but bad by nature, yes, mostly. Strip away rules, consequences, social pressure, and what comes out first is selfishness. Honestly, we learn to cooperate because we have to. We do not start there. Kids grab, adults rationalize, groups turn cruel fast when they think they can get away with it. Civilization is basically damage control for what people already are."
+        "content": "I think banning them outright is too extreme. Yeah, there are issues, but smartphones are also how kids communicate, learn, and stay connected. The problem is not the device, it is how it is used. Parents should manage that, not a blanket ban."
       },
       {
-        "username": "realpeopleamman",
+        "username": "west2016",
         "roundName": "opening",
-        "content": "Honestly, I think that view confuses fear and survival with moral badness. People can be selfish, yes, but people also help each other constantly with no reward. Families sacrifice. Strangers rescue strangers. Communities rebuild after disasters. If humans were bad by nature, those things would be weird exceptions. They are not. Look, I think humans are mixed by nature, maybe fragile, maybe inconsistent, but not fundamentally bad."
+        "content": "I do not think it is extreme when you look at what is happening. Attention issues, social media pressure, exposure to things they are not ready for. These are not small problems. A clear boundary like under 14 gives kids time to develop without all that noise."
       },
       {
-        "username": "marta_johnson",
+        "username": "bapenacruz",
         "roundName": "rebuttal",
-        "content": "But even the good examples prove my point a little. We praise them because they stand out. Nobody headlines the thousand ordinary selfish acts because they are routine. And when stress rises, comfort drops, or resources get tight, the polite mask slips pretty quick. That tells you what is underneath."
+        "content": "But kids are still going to find ways around it, or feel left out socially. And not all usage is bad. There are educational tools, communication with family, safety reasons. A ban ignores the nuance."
       },
       {
-        "username": "realpeopleamman",
+        "username": "west2016",
         "roundName": "rebuttal",
-        "content": "I do not buy that. Pressure revealing selfishness does not mean selfishness is the core truth. It may just mean fear is powerful. The thing is, humans also show loyalty, tenderness, and fairness under pressure. You see both. So saying people are bad by nature goes too far. It picks the darkest evidence and calls it the essence."
+        "content": "Sure, no policy is perfect, but doing nothing is worse. You can still allow limited devices or controlled access, but smartphones specifically are too much, too early. Sometimes simple rules work better than hoping everyone manages it well."
       }
     ],
-    "winner_username": "realpeopleamman",
-    "completed_at": "2026-04-11T07:34:19+00:00"
+    "winner_username": "west2016",
+    "completed_at": "2026-04-11T07:48:35+00:00"
   }
 ]

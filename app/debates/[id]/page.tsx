@@ -637,7 +637,7 @@ export default function ArenaPage() {
                 )}
                 {myPrivateFeedback && (
                   <div className="mt-4 pt-4 border-t border-border">
-                    <p className="text-xs font-semibold text-foreground mb-1.5">\uD83C\uDF93 Your Private Feedback</p>
+                    <p className="text-xs font-semibold text-foreground mb-1.5">🔒 Your Private Feedback</p>
                     <p className="text-sm text-foreground-muted leading-relaxed">{myPrivateFeedback}</p>
                   </div>
                 )}
