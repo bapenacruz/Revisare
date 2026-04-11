@@ -35,7 +35,7 @@ export async function POST(
   });
 
   // If there were existing judge results with a winner, reverse the wins/losses
-  if (debateWithResults?.judgeResults.length > 0 && debateWithResults.winnerId && debateWithResults.ranked) {
+  if (debateWithResults?.judgeResults && debateWithResults.judgeResults.length > 0 && debateWithResults.winnerId && debateWithResults.ranked) {
     const winnerId = debateWithResults.winnerId;
     const loserId = winnerId === debateWithResults.debaterA.id ? debateWithResults.debaterB.id : debateWithResults.debaterA.id;
     
