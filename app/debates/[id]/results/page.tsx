@@ -229,7 +229,9 @@ export default async function ResultsPage({ params }: Props) {
                       wins
                     </span>
                   </div>
-                  <p className="text-xs text-foreground-muted">See the fact-check analysis below ↓</p>
+                  {judgeResult.explanation && (
+                    <p className="text-sm text-foreground-muted mt-2 leading-relaxed">{judgeResult.explanation}</p>
+                  )}
                 </div>
               ) : (
                 <div>
@@ -237,7 +239,9 @@ export default async function ResultsPage({ params }: Props) {
                     <span className="text-lg">🤝</span>
                     <span className="font-bold text-foreground">Tie</span>
                   </div>
-                  <p className="text-xs text-foreground-muted">See the fact-check analysis below ↓</p>
+                  {judgeResult.explanation && (
+                    <p className="text-sm text-foreground-muted mt-2 leading-relaxed">{judgeResult.explanation}</p>
+                  )}
                 </div>
               )
             ) : winner && debate.forfeitedBy ? (
