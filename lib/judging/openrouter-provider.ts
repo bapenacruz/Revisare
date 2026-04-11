@@ -179,10 +179,19 @@ function parseVerdict(raw: string, input: JudgeInput): SingleJudgeVerdict {
   const scoresA = parseScoresFromNew(scores?.[input.debaterA.username]);
   const scoresB = parseScoresFromNew(scores?.[input.debaterB.username]);
 
-  // Generate simple private feedback from winner reason
+  // Generate private feedback for both debaters
   const winnerReason = String(privateAssessment?.winner_reason ?? "");
-  const privateFeedbackA = winnerUsername === input.debaterA.username ? winnerReason : "";
-  const privateFeedbackB = winnerUsername === input.debaterB.username ? winnerReason : "";
+  const scoresObjA = scores?.[input.debaterA.username] as Record<string, unknown> | undefined;
+  const scoresObjB = scores?.[input.debaterB.username] as Record<string, unknown> | undefined;
+  const isWinnerA = winnerUsername === input.debaterA.username;
+  const privateFeedbackA = [
+    isWinnerA ? `You won this debate. ${winnerReason}` : `You lost this debate. ${winnerReason}`,
+    scoresObjA?.improvement ? `Improvement tip: ${scoresObjA.improvement}` : "",
+  ].filter(Boolean).join("\n\n");
+  const privateFeedbackB = [
+    !isWinnerA ? `You won this debate. ${winnerReason}` : `You lost this debate. ${winnerReason}`,
+    scoresObjB?.improvement ? `Improvement tip: ${scoresObjB.improvement}` : "",
+  ].filter(Boolean).join("\n\n");
 
   return {
     winnerId,

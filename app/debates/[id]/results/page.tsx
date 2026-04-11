@@ -328,12 +328,10 @@ export default async function ResultsPage({ params }: Props) {
         </Card>
       </div>
 
-      {/* Private coach feedback (visible only to the debater) */}
-      {myPrivateFeedback && (
+      {/* Private Feedback — only visible to the debater themselves */}
+      {myPrivateFeedback && myPrivateFeedback.trim().length > 0 && (
         <div className="mb-8">
-          <h2 className="text-lg font-bold text-foreground mb-3">
-            Your Private Feedback
-          </h2>
+          <h2 className="text-lg font-bold text-foreground mb-3">Private Feedback</h2>
           <Card>
             <CardBody>
               <pre className="text-sm font-mono text-foreground whitespace-pre-wrap leading-relaxed">{myPrivateFeedback}</pre>
@@ -512,20 +510,6 @@ export default async function ResultsPage({ params }: Props) {
               </div>
             </div>
           )}
-        </div>
-      )}
-
-      {/* Private coach feedback (visible only to the debater) */}
-      {myPrivateFeedback && (
-        <div className="mb-6">
-          <h2 className="text-lg font-bold text-foreground mb-3">
-            Your Private Feedback
-          </h2>
-          <Card>
-            <CardBody>
-              <pre className="text-sm font-mono text-foreground whitespace-pre-wrap leading-relaxed">{myPrivateFeedback}</pre>
-            </CardBody>
-          </Card>
         </div>
       )}
 
