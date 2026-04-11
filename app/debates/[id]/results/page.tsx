@@ -451,8 +451,7 @@ export default async function ResultsPage({ params }: Props) {
           </h2>
 
           {/* Full explanation as a fact-checking report */}
-            {judgeResult ? (
-              judgeResult.winnerId && judgeResult.explanation ? (
+            {judgeResult.winnerId && judgeResult.explanation ? (
                 <div>
                   <div className="flex items-center gap-2 mb-1">
                     <Trophy size={18} className="text-accent" />
