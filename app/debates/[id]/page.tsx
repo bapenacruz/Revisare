@@ -122,6 +122,7 @@ function useCountdown(targetMs: number | null): number {
 
 export default function ArenaPage() {
   const { id: challengeId } = useParams<{ id: string }>();
+  const router = useRouter();
   const { data: session, status: authStatus } = useSession();
 
   const [debate, setDebate] = useState<DebateState | null>(null);
