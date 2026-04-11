@@ -38,6 +38,9 @@ export async function judgeDebate(debateId: string): Promise<void> {
 
   const consensus = await runJudgePanel(input);
 
+  // Delete any previous judge results so rejudges don't accumulate rows
+  await db.judgeResult.deleteMany({ where: { debateId: debate.id } });
+
   // Store one JudgeResult per individual judge (with leaning label as judgeId)
   for (let i = 0; i < consensus.judgeVerdicts.length; i++) {
     const v = consensus.judgeVerdicts[i];
