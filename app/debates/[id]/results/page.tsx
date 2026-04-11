@@ -190,23 +190,23 @@ export default async function ResultsPage({ params }: Props) {
       <Card className="mb-6">
         <CardBody>
           <div className="flex items-center gap-4">
-            <div className="flex-1 flex items-center gap-3">
+            <Link href={`/users/${propositionUser.username}`} className="flex-1 flex items-center gap-3 hover:opacity-80 transition-opacity">
               <Avatar initial={propositionUser.username[0]} size="lg" />
               <div>
                 <p className="font-bold text-foreground">{propositionUser.username}</p>
                 <p className="text-xs text-brand font-medium">Proposition</p>
                 <p className="text-xs text-foreground-muted">{propositionUser.elo} ELO</p>
               </div>
-            </div>
+            </Link>
             <span className="text-2xl font-black text-foreground-subtle shrink-0">VS</span>
-            <div className="flex-1 flex items-center gap-3 justify-end text-right">
+            <Link href={`/users/${oppositionUser.username}`} className="flex-1 flex items-center gap-3 justify-end text-right hover:opacity-80 transition-opacity">
               <div>
                 <p className="font-bold text-foreground">{oppositionUser.username}</p>
                 <p className="text-xs text-danger font-medium">Opposition</p>
                 <p className="text-xs text-foreground-muted">{oppositionUser.elo} ELO</p>
               </div>
               <Avatar initial={oppositionUser.username[0]} size="lg" />
-            </div>
+            </Link>
           </div>
         </CardBody>
       </Card>
@@ -291,13 +291,15 @@ export default async function ResultsPage({ params }: Props) {
                   const isWinner = d.id === audiencePick;
                   return (
                     <div key={d.id} className="flex items-center gap-2">
-                      <Avatar initial={d.username[0]} size="sm" />
+                      <Link href={`/users/${d.username}`} className="hover:opacity-80 transition-opacity shrink-0">
+                        <Avatar initial={d.username[0]} size="sm" />
+                      </Link>
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center justify-between mb-0.5">
-                          <span className="text-xs font-medium text-foreground truncate">
+                          <Link href={`/users/${d.username}`} className="text-xs font-medium text-foreground truncate hover:text-brand transition-colors">
                             {d.username}
                             {isWinner && <span className="ml-1 text-accent">★</span>}
-                          </span>
+                          </Link>
                           <span className="text-xs text-foreground-muted shrink-0 ml-1">
                             {count} ({p}%)
                           </span>

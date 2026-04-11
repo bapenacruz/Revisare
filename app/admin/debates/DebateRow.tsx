@@ -73,7 +73,8 @@ export function DebateRow({
     const res = await fetch(`/api/admin/debates/${debate.id}/rejudge`, { method: "POST" });
     setRejudging(false);
     if (res.ok) {
-      setMsg("Rejudged ✓");
+      const j = await res.json();
+      setMsg(j.message ?? "Judging started ✓ — refresh in ~60s");
       router.refresh();
     } else {
       const j = await res.json();

@@ -394,12 +394,12 @@ export default function ArenaPage() {
             <CardBody className="py-3">
               <div className="flex items-center gap-3">
                 <div className="flex-1 min-w-0">
-                  <p className="font-semibold text-foreground text-sm truncate">{propositionUser.username}</p>
+                  <Link href={`/users/${propositionUser.username}`} className="font-semibold text-foreground text-sm truncate hover:text-brand transition-colors block">{propositionUser.username}</Link>
                   <p className="text-xs text-brand font-medium">Proposition (For)</p>
                 </div>
                 <div className="shrink-0 text-foreground-subtle font-bold text-xs px-2">VS</div>
                 <div className="flex-1 min-w-0 text-right">
-                  <p className="font-semibold text-foreground text-sm truncate">{oppositionUser.username}</p>
+                  <Link href={`/users/${oppositionUser.username}`} className="font-semibold text-foreground text-sm truncate hover:text-brand transition-colors block">{oppositionUser.username}</Link>
                   <p className="text-xs text-danger font-medium">Opposition (Against)</p>
                 </div>
               </div>
@@ -669,9 +669,9 @@ export default function ArenaPage() {
                         const isProp = speaker.id === propositionUser.id;
                         return (
                           <div key={turn.id} className={`flex gap-3 ${isA ? "flex-row" : "flex-row-reverse"}`}>
-                            <div className="shrink-0 mt-1">
+                            <Link href={`/users/${speaker.username}`} className="shrink-0 mt-1 hover:opacity-80 transition-opacity">
                               <Avatar initial={speaker.username[0]} size="sm" />
-                            </div>
+                            </Link>
                             <div
                               className={`max-w-[85%] rounded-[--radius-lg] px-4 py-3 ${
                                 isA
@@ -680,7 +680,7 @@ export default function ArenaPage() {
                               }`}
                             >
                               <div className="flex items-center gap-2 mb-1.5">
-                                <span className="text-xs font-semibold text-foreground">{speaker.username}</span>
+                                <Link href={`/users/${speaker.username}`} className="text-xs font-semibold text-foreground hover:text-brand transition-colors">{speaker.username}</Link>
                                 <span
                                   className={`text-[10px] font-bold uppercase tracking-wide ${isProp ? "text-brand" : "text-danger"}`}
                                 >

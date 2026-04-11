@@ -24,11 +24,11 @@ export async function POST(
   // Delete existing judge results so judgeDebate can store fresh ones
   await db.judgeResult.deleteMany({ where: { debateId: id } });
 
-  try {
-    await judgeDebate(id);
-    return NextResponse.json({ ok: true });
-  } catch (err) {
-    const message = err instanceof Error ? err.message : "Judging failed";
-    return NextResponse.json({ error: message }, { status: 500 });
-  }
+  // Fire off judging in background — Railway has a 30s HTTP timeout,
+  // the full 3-judge pipeline can take 60–120s, so we return 202 immediately.
+  void judgeDebate(id).catch((err) => {
+    console.error(`[rejudge] Background judging failed for debate ${id}:`, err);
+  });
+
+  return NextResponse.json({ ok: true, message: "Judging started in background. Results will appear in ~60s." });
 }
