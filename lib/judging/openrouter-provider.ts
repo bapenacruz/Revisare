@@ -27,14 +27,14 @@ async function getJudgePrompt(type: string): Promise<string> {
 function buildVerdictSchema(input: JudgeInput, summaryInstruction?: string): string {
   const a = input.debaterA.username;
   const b = input.debaterB.username;
-  const summaryDesc = summaryInstruction
-    ? `<3 to 5 sentences. ${summaryInstruction}>`
-    : `<3 to 5 concise sentences explaining why this user won in public-facing language>`;
-  return `{
+  const summaryRule = summaryInstruction
+    ? `\nMANDATORY RULE FOR public_result.summary — you MUST follow this exactly:\n${summaryInstruction}\n`
+    : "";
+  return `${summaryRule}{
   "winner_username": "<${a} or ${b}>",
   "public_result": {
     "winner_username": "<${a} or ${b}>",
-    "summary": "${summaryDesc}"
+    "summary": "<3 to 5 concise sentences explaining why this user won in public-facing language>"
   },
   "private_assessment": {
     "decision_summary": "<short internal summary of why the winner won>",
@@ -301,8 +301,11 @@ async function withRetry<T>(
 
 // ─── Shared system prompt ──────────────────────────────────────────────────────
 
+// buildJudgingRubric wraps the DB persona as a PREAMBLE before the factuality rules.
+// The persona can set tone/style; the rubric's factuality rules always apply and cannot be overridden.
 function buildJudgingRubric(extra: string): string {
-  return `You are an expert debate judge on the platform Arguably. You evaluate a full debate between two participants and produce ONE overall judgment.
+  const preamble = extra ? `JUDGE PERSONA — tone and style guidance for this evaluation:\n${extra}\n\n` : "";
+  return `${preamble}You are an expert debate judge on the platform Arguably. You evaluate a full debate between two participants and produce ONE overall judgment.
 
 CRITICAL OUTPUT RULES
 - Return ONLY valid JSON
@@ -342,8 +345,6 @@ CRITICAL SCORING RULES
 - A debater cannot win with false or unsupported core claims
 
 STEP 5 - Choose one winner based primarily on factual reliability.
-
-${extra}
 
 Respond with ONLY valid JSON — no markdown fences, no commentary — matching this schema exactly:
 `;
