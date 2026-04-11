@@ -19,6 +19,7 @@ export default async function LeaderboardPage({ searchParams }: PageProps) {
     db.user.findMany({
       where: {
         isExhibition: false,
+        isDeleted: false,
         ...(cat
           ? {
               OR: [

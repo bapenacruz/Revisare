@@ -62,8 +62,8 @@ export default async function ResultsPage({ params }: Props) {
   const debate = await db.debate.findUnique({
     where: { challengeId },
     include: {
-      debaterA: { select: { id: true, username: true, avatarUrl: true, elo: true } },
-      debaterB: { select: { id: true, username: true, avatarUrl: true, elo: true } },
+      debaterA: { select: { id: true, username: true, avatarUrl: true, elo: true, isDeleted: true } },
+      debaterB: { select: { id: true, username: true, avatarUrl: true, elo: true, isDeleted: true } },
       category: { select: { id: true, label: true, emoji: true, slug: true } },
       turns: { orderBy: { submittedAt: "asc" } },
       judgeResults: true,
@@ -515,7 +515,7 @@ export default async function ResultsPage({ params }: Props) {
           </Card>
 
           {/* Performance grading */}
-          {myScores && (
+          {myScores ? (
             <Card className="mb-3">
               <CardBody>
                 <p className="text-xs font-semibold uppercase tracking-wide text-foreground-muted mb-3">Performance Breakdown</p>
@@ -563,6 +563,13 @@ export default async function ResultsPage({ params }: Props) {
                     </span>
                   </div>
                 )}
+              </CardBody>
+            </Card>
+          ) : (
+            <Card className="mb-3">
+              <CardBody>
+                <p className="text-xs font-semibold uppercase tracking-wide text-foreground-muted mb-1">Performance Breakdown</p>
+                <p className="text-xs text-foreground-subtle">Score data unavailable for this debate. Future debates will include full scoring.</p>
               </CardBody>
             </Card>
           )}

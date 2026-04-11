@@ -28,6 +28,7 @@ export default async function AdminUsersPage({ searchParams }: Props) {
         email: true,
         role: true,
         isExhibition: true,
+        isDeleted: true,
         suspendedUntil: true,
         elo: true,
         wins: true,

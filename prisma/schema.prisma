@@ -70,6 +70,8 @@ model User {
   aiAssessmentUpdatedAt  DateTime?
   role               String    @default("user")
   isExhibition       Boolean   @default(false)
+  isDeleted          Boolean   @default(false)
+  deletedAt          DateTime?
   onboardingComplete Boolean   @default(false)
   suspendedUntil     DateTime?
   dob                DateTime?

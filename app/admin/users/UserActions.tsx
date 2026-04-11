@@ -8,6 +8,7 @@ interface User {
   username: string;
   role: string;
   suspendedUntil: string | null;
+  isDeleted: boolean;
 }
 
 export function UserActions({ user }: { user: User }) {
@@ -16,6 +17,7 @@ export function UserActions({ user }: { user: User }) {
   const [open, setOpen] = useState(false);
   const [reason, setReason] = useState("");
   const [days, setDays] = useState(7);
+  const [confirmDelete, setConfirmDelete] = useState(false);
 
   async function apply(action: string) {
     setLoading(true);
@@ -30,8 +32,21 @@ export function UserActions({ user }: { user: User }) {
     router.refresh();
   }
 
+  async function deleteUser() {
+    setLoading(true);
+    await fetch(`/api/admin/users/${user.id}`, { method: "DELETE" });
+    setLoading(false);
+    setConfirmDelete(false);
+    setOpen(false);
+    router.refresh();
+  }
+
   const isBanned = user.role === "banned";
   const isSuspended = user.role === "suspended";
+
+  if (user.isDeleted) {
+    return <span className="text-xs text-foreground-subtle italic">Deleted</span>;
+  }
 
   return (
     <div>
@@ -98,6 +113,33 @@ export function UserActions({ user }: { user: User }) {
                 Remove Restriction
               </button>
             )}
+            <div className="border-t border-border mt-1 pt-1">
+              {!confirmDelete ? (
+                <button
+                  onClick={() => setConfirmDelete(true)}
+                  disabled={loading}
+                  className="px-2 py-1 text-xs rounded bg-danger/10 border border-danger/30 text-danger hover:bg-danger/20 disabled:opacity-50 text-left w-full"
+                >
+                  Delete Account
+                </button>
+              ) : (
+                <div className="flex gap-1.5">
+                  <button
+                    onClick={deleteUser}
+                    disabled={loading}
+                    className="flex-1 px-2 py-1 text-xs rounded bg-danger text-white hover:bg-danger/80 disabled:opacity-50"
+                  >
+                    Confirm
+                  </button>
+                  <button
+                    onClick={() => setConfirmDelete(false)}
+                    className="flex-1 px-2 py-1 text-xs rounded bg-surface border border-border text-foreground-muted hover:text-foreground"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       )}
