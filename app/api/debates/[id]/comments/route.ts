@@ -15,13 +15,25 @@ export async function GET(_req: NextRequest, { params }: RouteParams) {
   });
   if (!debate) return NextResponse.json({ error: "Not found" }, { status: 404 });
 
-  const comments = await db.debateComment.findMany({
-    where: { debateId: debate.id },
-    orderBy: { createdAt: "asc" },
-    take: 200,
-  });
+  const [comments, spectatorMessages] = await Promise.all([
+    db.debateComment.findMany({
+      where: { debateId: debate.id },
+      orderBy: { createdAt: "asc" },
+      take: 200,
+    }),
+    db.spectatorMessage.findMany({
+      where: { debateId: debate.id },
+      orderBy: { createdAt: "asc" },
+      take: 500,
+    }),
+  ]);
 
-  const userIds = [...new Set(comments.map((c) => c.userId))];
+  const userIds = [
+    ...new Set([
+      ...comments.map((c) => c.userId),
+      ...spectatorMessages.filter((m) => m.userId).map((m) => m.userId as string),
+    ]),
+  ];
   const users =
     userIds.length > 0
       ? await db.user.findMany({
@@ -31,16 +43,34 @@ export async function GET(_req: NextRequest, { params }: RouteParams) {
       : [];
   const userMap = Object.fromEntries(users.map((u) => [u.id, u]));
 
-  return NextResponse.json(
-    comments.map((c) => ({
-      id: c.id,
-      userId: c.userId,
-      username: userMap[c.userId]?.username ?? "Unknown",
-      avatarUrl: userMap[c.userId]?.avatarUrl ?? null,
-      content: c.content,
-      createdAt: c.createdAt,
-    })),
+  const commentItems = comments.map((c) => ({
+    id: c.id,
+    userId: c.userId,
+    username: userMap[c.userId]?.username ?? "Unknown",
+    avatarUrl: userMap[c.userId]?.avatarUrl ?? null,
+    content: c.content,
+    createdAt: c.createdAt,
+    isLive: false,
+  }));
+
+  const liveItems = spectatorMessages.map((m) => ({
+    id: `live-${m.id}`,
+    userId: m.userId ?? null,
+    username: m.userId
+      ? (userMap[m.userId]?.username ?? m.guestName ?? "Guest")
+      : (m.guestName ?? "Guest"),
+    avatarUrl: m.userId ? (userMap[m.userId]?.avatarUrl ?? null) : null,
+    content: m.content,
+    createdAt: m.createdAt,
+    isLive: true,
+  }));
+
+  // Merge chronologically
+  const merged = [...commentItems, ...liveItems].sort(
+    (a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
   );
+
+  return NextResponse.json(merged);
 }
 
 export async function POST(req: NextRequest, { params }: RouteParams) {

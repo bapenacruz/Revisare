@@ -147,6 +147,7 @@ export default function ArenaPage() {
   const [guestName, setGuestName] = useState("");
   const [sendingSpec, setSendingSpec] = useState(false);
   const specEndRef = useRef<HTMLDivElement>(null);
+  const specContainerRef = useRef<HTMLDivElement>(null);
   const prevSpecCountRef = useRef(-1);
 
   // Fetch debate state
@@ -194,13 +195,19 @@ export default function ArenaPage() {
     setTurnError("");
   }, [debate?.currentTurnIndex]);
 
-  // Spectator chat scroll — only on new messages, not initial load
+  // Spectator chat scroll — only scroll when already near the bottom
   useEffect(() => {
     if (!debate) return;
     const count = debate.spectatorMessages.length;
     if (prevSpecCountRef.current === -1) { prevSpecCountRef.current = count; return; }
     if (count > prevSpecCountRef.current) {
-      specEndRef.current?.scrollIntoView({ behavior: "smooth" });
+      const container = specContainerRef.current;
+      if (container) {
+        const isNearBottom = container.scrollHeight - container.scrollTop - container.clientHeight < 80;
+        if (isNearBottom) {
+          specEndRef.current?.scrollIntoView({ behavior: "smooth" });
+        }
+      }
     }
     prevSpecCountRef.current = count;
   }, [debate?.spectatorMessages]);
@@ -846,6 +853,7 @@ export default function ArenaPage() {
                 </div>
 
                 <div
+                  ref={specContainerRef}
                   className="flex flex-col gap-1.5 p-3 overflow-y-auto"
                   style={{ minHeight: "120px", maxHeight: "260px" }}
                 >

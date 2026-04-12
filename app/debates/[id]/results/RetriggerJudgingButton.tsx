@@ -35,11 +35,15 @@ export function RetriggerJudgingButton({ challengeId, completedAtIso }: Props) {
   const inCooldown = lastTriggered > 0 && cooldownElapsed < COOLDOWN_MS;
 
   if (!initialReady) {
-    const waitSec = Math.ceil((INITIAL_WAIT_MS - elapsedSinceCompleted) / 1000);
     return (
-      <p className="text-xs text-foreground-muted">
-        AI judging check available in {waitSec}s…
-      </p>
+      <div className="mt-3">
+        <button
+          disabled
+          className="inline-flex items-center gap-2 px-3 py-1.5 text-xs rounded border border-border bg-surface text-foreground-muted opacity-40 cursor-not-allowed w-fit"
+        >
+          Request AI Judgment
+        </button>
+      </div>
     );
   }
 

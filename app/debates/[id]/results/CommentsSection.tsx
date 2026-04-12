@@ -10,11 +10,12 @@ import { MessageSquare, Send, Trash2 } from "lucide-react";
 
 interface Comment {
   id: string;
-  userId: string;
+  userId: string | null;
   username: string;
   avatarUrl: string | null;
   content: string;
   createdAt: string;
+  isLive: boolean;
 }
 
 export function CommentsSection({ challengeId }: { challengeId: string }) {
@@ -100,10 +101,16 @@ export function CommentsSection({ challengeId }: { challengeId: string }) {
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 mb-0.5">
                   <span className="text-sm font-semibold text-foreground">{c.username}</span>
+                  {c.isLive && (
+                    <span title="Sent during live debate" className="inline-flex items-center gap-1 text-[10px] font-medium text-danger">
+                      <span className="w-1.5 h-1.5 rounded-full bg-danger inline-block" />
+                      LIVE
+                    </span>
+                  )}
                   <span className="text-xs text-foreground-muted">
                     {new Date(c.createdAt).toLocaleDateString()}
                   </span>
-                  {session?.user?.id === c.userId && (
+                  {!c.isLive && session?.user?.id === c.userId && (
                     <button
                       onClick={() => deleteComment(c.id)}
                       disabled={deletingId === c.id}
