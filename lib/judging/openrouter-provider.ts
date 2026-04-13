@@ -478,7 +478,7 @@ export class ArbiterJudgingProvider implements IJudgingProvider {
       httpReferer: "https://arguably.app",
       appTitle: "Arguably Debate Platform",
     });
-    this.model = options.model ?? "openai/gpt-oss-120b";
+    this.model = options.model ?? "openai/gpt-4.1-mini";
   }
 
   async judgeWithPriorVerdicts(
@@ -569,7 +569,7 @@ export async function generateFeedbackOnly(
     httpReferer: "https://arguably.app",
     appTitle: "Arguably Debate Platform",
   });
-  const model = options.model ?? "openai/gpt-oss-120b";
+  const model = options.model ?? "openai/gpt-4.1-mini";
   const a = input.debaterA.username;
   const b = input.debaterB.username;
 

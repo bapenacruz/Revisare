@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.11.1",
-    "@openrouter/sdk": "^0.11.2",
+    "@openrouter/sdk": "^0.12.0",
     "@prisma/adapter-better-sqlite3": "^7.6.0",
     "@prisma/adapter-pg": "^7.7.0",
     "@prisma/client": "^7.6.0",
