@@ -144,6 +144,14 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         if (session.onboardingComplete !== undefined) {
           token.onboardingComplete = session.onboardingComplete;
         }
+        if (session.username !== undefined) {
+          // Re-fetch from DB to ensure we use the real saved value
+          const dbUser = await db.user.findUnique({
+            where: { id: token.id as string },
+            select: { username: true },
+          });
+          if (dbUser) token.username = dbUser.username;
+        }
       }
       return token;
     },

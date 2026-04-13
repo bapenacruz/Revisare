@@ -7,7 +7,7 @@ interface RouteParams {
 }
 
 export async function DELETE(_req: NextRequest, { params }: RouteParams) {
-  const { id: challengeId, commentId } = await params;
+  const { id: challengeId, commentId: rawCommentId } = await params;
   const session = await auth();
   if (!session?.user?.id) {
     return NextResponse.json({ error: "Unauthorised" }, { status: 401 });
@@ -21,14 +21,16 @@ export async function DELETE(_req: NextRequest, { params }: RouteParams) {
 
   const role = (session.user as { role?: string })?.role;
 
-  // Try DebateComment first
-  const comment = await db.debateComment.findUnique({
-    where: { id: commentId },
-    select: { id: true, userId: true, debateId: true },
-  });
+  // Live comments are prefixed with "live-"
+  const isLive = rawCommentId.startsWith("live-");
+  const commentId = isLive ? rawCommentId.slice(5) : rawCommentId;
 
-  if (comment) {
-    if (comment.debateId !== debate.id) {
+  if (!isLive) {
+    const comment = await db.debateComment.findUnique({
+      where: { id: commentId },
+      select: { id: true, userId: true, debateId: true },
+    });
+    if (!comment || comment.debateId !== debate.id) {
       return NextResponse.json({ error: "Comment not found" }, { status: 404 });
     }
     if (comment.userId !== session.user.id && role !== "admin") {
@@ -38,19 +40,17 @@ export async function DELETE(_req: NextRequest, { params }: RouteParams) {
     return NextResponse.json({ ok: true });
   }
 
-  // Fall back to SpectatorMessage
+  // SpectatorMessage
   const spectatorMsg = await db.spectatorMessage.findUnique({
     where: { id: commentId },
     select: { id: true, userId: true, debateId: true },
   });
-
   if (!spectatorMsg || spectatorMsg.debateId !== debate.id) {
     return NextResponse.json({ error: "Comment not found" }, { status: 404 });
   }
   if (spectatorMsg.userId !== session.user.id && role !== "admin") {
     return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }
-
   await db.spectatorMessage.delete({ where: { id: commentId } });
   return NextResponse.json({ ok: true });
 }

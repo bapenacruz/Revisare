@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { signOut } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import { Input, TextArea } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
@@ -32,6 +32,7 @@ interface EditProfileFormProps {
 
 export function EditProfileForm({ initial, allCategories }: EditProfileFormProps) {
   const router = useRouter();
+  const { update: updateSession } = useSession();
   const [form, setForm] = useState({
     username: initial.username,
     bio: initial.bio ?? "",
@@ -80,6 +81,11 @@ export function EditProfileForm({ initial, allCategories }: EditProfileFormProps
       setErrorMsg(data.error ?? "Failed to save.");
     } else {
       setStatus("saved");
+      // Sync the new username into the JWT/session immediately
+      if (form.username) {
+        await updateSession({ username: form.username });
+      }
+      router.refresh();
       setTimeout(() => setStatus("idle"), 3000);
     }
   };
