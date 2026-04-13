@@ -19,19 +19,38 @@ export async function DELETE(_req: NextRequest, { params }: RouteParams) {
   });
   if (!debate) return NextResponse.json({ error: "Not found" }, { status: 404 });
 
+  const role = (session.user as { role?: string })?.role;
+
+  // Try DebateComment first
   const comment = await db.debateComment.findUnique({
     where: { id: commentId },
     select: { id: true, userId: true, debateId: true },
   });
-  if (!comment || comment.debateId !== debate.id) {
-    return NextResponse.json({ error: "Comment not found" }, { status: 404 });
+
+  if (comment) {
+    if (comment.debateId !== debate.id) {
+      return NextResponse.json({ error: "Comment not found" }, { status: 404 });
+    }
+    if (comment.userId !== session.user.id && role !== "admin") {
+      return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+    }
+    await db.debateComment.delete({ where: { id: commentId } });
+    return NextResponse.json({ ok: true });
   }
 
-  const role = (session.user as { role?: string })?.role;
-  if (comment.userId !== session.user.id && role !== "admin") {
+  // Fall back to SpectatorMessage
+  const spectatorMsg = await db.spectatorMessage.findUnique({
+    where: { id: commentId },
+    select: { id: true, userId: true, debateId: true },
+  });
+
+  if (!spectatorMsg || spectatorMsg.debateId !== debate.id) {
+    return NextResponse.json({ error: "Comment not found" }, { status: 404 });
+  }
+  if (spectatorMsg.userId !== session.user.id && role !== "admin") {
     return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }
 
-  await db.debateComment.delete({ where: { id: commentId } });
+  await db.spectatorMessage.delete({ where: { id: commentId } });
   return NextResponse.json({ ok: true });
 }

@@ -110,7 +110,7 @@ export function CommentsSection({ challengeId }: { challengeId: string }) {
                   <span className="text-xs text-foreground-muted">
                     {new Date(c.createdAt).toLocaleDateString()}
                   </span>
-                  {!c.isLive && session?.user?.id === c.userId && (
+                  {session?.user?.id === c.userId && (
                     <button
                       onClick={() => deleteComment(c.id)}
                       disabled={deletingId === c.id}
