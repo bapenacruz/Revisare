@@ -56,6 +56,7 @@ export const ModelName = {
   VerificationToken: 'VerificationToken',
   User: 'User',
   Follow: 'Follow',
+  FollowRequest: 'FollowRequest',
   UserFavoriteCategory: 'UserFavoriteCategory',
   Category: 'Category',
   Challenge: 'Challenge',
@@ -153,6 +154,8 @@ export const UserScalarFieldEnum = {
   showLocation: 'showLocation',
   showFollowers: 'showFollowers',
   showComments: 'showComments',
+  isPrivate: 'isPrivate',
+  followApproval: 'followApproval',
   role: 'role',
   isExhibition: 'isExhibition',
   hideFromLeaderboard: 'hideFromLeaderboard',
@@ -181,6 +184,16 @@ export const FollowScalarFieldEnum = {
 } as const
 
 export type FollowScalarFieldEnum = (typeof FollowScalarFieldEnum)[keyof typeof FollowScalarFieldEnum]
+
+
+export const FollowRequestScalarFieldEnum = {
+  id: 'id',
+  requesterId: 'requesterId',
+  targetId: 'targetId',
+  createdAt: 'createdAt'
+} as const
+
+export type FollowRequestScalarFieldEnum = (typeof FollowRequestScalarFieldEnum)[keyof typeof FollowRequestScalarFieldEnum]
 
 
 export const UserFavoriteCategoryScalarFieldEnum = {

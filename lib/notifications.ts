@@ -12,6 +12,7 @@ export interface NotificationPayload {
   body: string;
   href?: string;
   challengeId?: string;
+  requestId?: string;
 }
 
 export async function createNotification(

@@ -61,6 +61,8 @@ export type UserMinAggregateOutputType = {
   showLocation: boolean | null
   showFollowers: boolean | null
   showComments: boolean | null
+  isPrivate: boolean | null
+  followApproval: boolean | null
   role: string | null
   isExhibition: boolean | null
   hideFromLeaderboard: boolean | null
@@ -100,6 +102,8 @@ export type UserMaxAggregateOutputType = {
   showLocation: boolean | null
   showFollowers: boolean | null
   showComments: boolean | null
+  isPrivate: boolean | null
+  followApproval: boolean | null
   role: string | null
   isExhibition: boolean | null
   hideFromLeaderboard: boolean | null
@@ -139,6 +143,8 @@ export type UserCountAggregateOutputType = {
   showLocation: number
   showFollowers: number
   showComments: number
+  isPrivate: number
+  followApproval: number
   role: number
   isExhibition: number
   hideFromLeaderboard: number
@@ -194,6 +200,8 @@ export type UserMinAggregateInputType = {
   showLocation?: true
   showFollowers?: true
   showComments?: true
+  isPrivate?: true
+  followApproval?: true
   role?: true
   isExhibition?: true
   hideFromLeaderboard?: true
@@ -233,6 +241,8 @@ export type UserMaxAggregateInputType = {
   showLocation?: true
   showFollowers?: true
   showComments?: true
+  isPrivate?: true
+  followApproval?: true
   role?: true
   isExhibition?: true
   hideFromLeaderboard?: true
@@ -272,6 +282,8 @@ export type UserCountAggregateInputType = {
   showLocation?: true
   showFollowers?: true
   showComments?: true
+  isPrivate?: true
+  followApproval?: true
   role?: true
   isExhibition?: true
   hideFromLeaderboard?: true
@@ -398,6 +410,8 @@ export type UserGroupByOutputType = {
   showLocation: boolean
   showFollowers: boolean
   showComments: boolean
+  isPrivate: boolean
+  followApproval: boolean
   role: string
   isExhibition: boolean
   hideFromLeaderboard: boolean
@@ -460,6 +474,8 @@ export type UserWhereInput = {
   showLocation?: Prisma.BoolFilter<"User"> | boolean
   showFollowers?: Prisma.BoolFilter<"User"> | boolean
   showComments?: Prisma.BoolFilter<"User"> | boolean
+  isPrivate?: Prisma.BoolFilter<"User"> | boolean
+  followApproval?: Prisma.BoolFilter<"User"> | boolean
   role?: Prisma.StringFilter<"User"> | string
   isExhibition?: Prisma.BoolFilter<"User"> | boolean
   hideFromLeaderboard?: Prisma.BoolFilter<"User"> | boolean
@@ -487,6 +503,8 @@ export type UserWhereInput = {
   joinRequests?: Prisma.JoinRequestListRelationFilter
   following?: Prisma.FollowListRelationFilter
   followers?: Prisma.FollowListRelationFilter
+  followRequestsSent?: Prisma.FollowRequestListRelationFilter
+  followRequestsReceived?: Prisma.FollowRequestListRelationFilter
   pushSubscriptions?: Prisma.PushSubscriptionListRelationFilter
   passwordResetTokens?: Prisma.PasswordResetTokenListRelationFilter
   debateWins?: Prisma.DebateResultListRelationFilter
@@ -515,6 +533,8 @@ export type UserOrderByWithRelationInput = {
   showLocation?: Prisma.SortOrder
   showFollowers?: Prisma.SortOrder
   showComments?: Prisma.SortOrder
+  isPrivate?: Prisma.SortOrder
+  followApproval?: Prisma.SortOrder
   role?: Prisma.SortOrder
   isExhibition?: Prisma.SortOrder
   hideFromLeaderboard?: Prisma.SortOrder
@@ -542,6 +562,8 @@ export type UserOrderByWithRelationInput = {
   joinRequests?: Prisma.JoinRequestOrderByRelationAggregateInput
   following?: Prisma.FollowOrderByRelationAggregateInput
   followers?: Prisma.FollowOrderByRelationAggregateInput
+  followRequestsSent?: Prisma.FollowRequestOrderByRelationAggregateInput
+  followRequestsReceived?: Prisma.FollowRequestOrderByRelationAggregateInput
   pushSubscriptions?: Prisma.PushSubscriptionOrderByRelationAggregateInput
   passwordResetTokens?: Prisma.PasswordResetTokenOrderByRelationAggregateInput
   debateWins?: Prisma.DebateResultOrderByRelationAggregateInput
@@ -573,6 +595,8 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   showLocation?: Prisma.BoolFilter<"User"> | boolean
   showFollowers?: Prisma.BoolFilter<"User"> | boolean
   showComments?: Prisma.BoolFilter<"User"> | boolean
+  isPrivate?: Prisma.BoolFilter<"User"> | boolean
+  followApproval?: Prisma.BoolFilter<"User"> | boolean
   role?: Prisma.StringFilter<"User"> | string
   isExhibition?: Prisma.BoolFilter<"User"> | boolean
   hideFromLeaderboard?: Prisma.BoolFilter<"User"> | boolean
@@ -600,6 +624,8 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   joinRequests?: Prisma.JoinRequestListRelationFilter
   following?: Prisma.FollowListRelationFilter
   followers?: Prisma.FollowListRelationFilter
+  followRequestsSent?: Prisma.FollowRequestListRelationFilter
+  followRequestsReceived?: Prisma.FollowRequestListRelationFilter
   pushSubscriptions?: Prisma.PushSubscriptionListRelationFilter
   passwordResetTokens?: Prisma.PasswordResetTokenListRelationFilter
   debateWins?: Prisma.DebateResultListRelationFilter
@@ -628,6 +654,8 @@ export type UserOrderByWithAggregationInput = {
   showLocation?: Prisma.SortOrder
   showFollowers?: Prisma.SortOrder
   showComments?: Prisma.SortOrder
+  isPrivate?: Prisma.SortOrder
+  followApproval?: Prisma.SortOrder
   role?: Prisma.SortOrder
   isExhibition?: Prisma.SortOrder
   hideFromLeaderboard?: Prisma.SortOrder
@@ -675,6 +703,8 @@ export type UserScalarWhereWithAggregatesInput = {
   showLocation?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   showFollowers?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   showComments?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
+  isPrivate?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
+  followApproval?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   role?: Prisma.StringWithAggregatesFilter<"User"> | string
   isExhibition?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   hideFromLeaderboard?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
@@ -714,6 +744,8 @@ export type UserCreateInput = {
   showLocation?: boolean
   showFollowers?: boolean
   showComments?: boolean
+  isPrivate?: boolean
+  followApproval?: boolean
   role?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
@@ -741,6 +773,8 @@ export type UserCreateInput = {
   joinRequests?: Prisma.JoinRequestCreateNestedManyWithoutUserInput
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
+  followRequestsSent?: Prisma.FollowRequestCreateNestedManyWithoutRequesterInput
+  followRequestsReceived?: Prisma.FollowRequestCreateNestedManyWithoutTargetInput
   pushSubscriptions?: Prisma.PushSubscriptionCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
   debateWins?: Prisma.DebateResultCreateNestedManyWithoutWinnerInput
@@ -769,6 +803,8 @@ export type UserUncheckedCreateInput = {
   showLocation?: boolean
   showFollowers?: boolean
   showComments?: boolean
+  isPrivate?: boolean
+  followApproval?: boolean
   role?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
@@ -796,6 +832,8 @@ export type UserUncheckedCreateInput = {
   joinRequests?: Prisma.JoinRequestUncheckedCreateNestedManyWithoutUserInput
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
+  followRequestsSent?: Prisma.FollowRequestUncheckedCreateNestedManyWithoutRequesterInput
+  followRequestsReceived?: Prisma.FollowRequestUncheckedCreateNestedManyWithoutTargetInput
   pushSubscriptions?: Prisma.PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
   debateWins?: Prisma.DebateResultUncheckedCreateNestedManyWithoutWinnerInput
@@ -824,6 +862,8 @@ export type UserUpdateInput = {
   showLocation?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showFollowers?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  followApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -851,6 +891,8 @@ export type UserUpdateInput = {
   joinRequests?: Prisma.JoinRequestUpdateManyWithoutUserNestedInput
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
+  followRequestsSent?: Prisma.FollowRequestUpdateManyWithoutRequesterNestedInput
+  followRequestsReceived?: Prisma.FollowRequestUpdateManyWithoutTargetNestedInput
   pushSubscriptions?: Prisma.PushSubscriptionUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
   debateWins?: Prisma.DebateResultUpdateManyWithoutWinnerNestedInput
@@ -879,6 +921,8 @@ export type UserUncheckedUpdateInput = {
   showLocation?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showFollowers?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  followApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -906,6 +950,8 @@ export type UserUncheckedUpdateInput = {
   joinRequests?: Prisma.JoinRequestUncheckedUpdateManyWithoutUserNestedInput
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
+  followRequestsSent?: Prisma.FollowRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  followRequestsReceived?: Prisma.FollowRequestUncheckedUpdateManyWithoutTargetNestedInput
   pushSubscriptions?: Prisma.PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   debateWins?: Prisma.DebateResultUncheckedUpdateManyWithoutWinnerNestedInput
@@ -934,6 +980,8 @@ export type UserCreateManyInput = {
   showLocation?: boolean
   showFollowers?: boolean
   showComments?: boolean
+  isPrivate?: boolean
+  followApproval?: boolean
   role?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
@@ -973,6 +1021,8 @@ export type UserUpdateManyMutationInput = {
   showLocation?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showFollowers?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  followApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1012,6 +1062,8 @@ export type UserUncheckedUpdateManyInput = {
   showLocation?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showFollowers?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  followApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1056,6 +1108,8 @@ export type UserCountOrderByAggregateInput = {
   showLocation?: Prisma.SortOrder
   showFollowers?: Prisma.SortOrder
   showComments?: Prisma.SortOrder
+  isPrivate?: Prisma.SortOrder
+  followApproval?: Prisma.SortOrder
   role?: Prisma.SortOrder
   isExhibition?: Prisma.SortOrder
   hideFromLeaderboard?: Prisma.SortOrder
@@ -1102,6 +1156,8 @@ export type UserMaxOrderByAggregateInput = {
   showLocation?: Prisma.SortOrder
   showFollowers?: Prisma.SortOrder
   showComments?: Prisma.SortOrder
+  isPrivate?: Prisma.SortOrder
+  followApproval?: Prisma.SortOrder
   role?: Prisma.SortOrder
   isExhibition?: Prisma.SortOrder
   hideFromLeaderboard?: Prisma.SortOrder
@@ -1141,6 +1197,8 @@ export type UserMinOrderByAggregateInput = {
   showLocation?: Prisma.SortOrder
   showFollowers?: Prisma.SortOrder
   showComments?: Prisma.SortOrder
+  isPrivate?: Prisma.SortOrder
+  followApproval?: Prisma.SortOrder
   role?: Prisma.SortOrder
   isExhibition?: Prisma.SortOrder
   hideFromLeaderboard?: Prisma.SortOrder
@@ -1241,6 +1299,34 @@ export type UserUpdateOneRequiredWithoutFollowersNestedInput = {
   upsert?: Prisma.UserUpsertWithoutFollowersInput
   connect?: Prisma.UserWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutFollowersInput, Prisma.UserUpdateWithoutFollowersInput>, Prisma.UserUncheckedUpdateWithoutFollowersInput>
+}
+
+export type UserCreateNestedOneWithoutFollowRequestsSentInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutFollowRequestsSentInput, Prisma.UserUncheckedCreateWithoutFollowRequestsSentInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutFollowRequestsSentInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutFollowRequestsReceivedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutFollowRequestsReceivedInput, Prisma.UserUncheckedCreateWithoutFollowRequestsReceivedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutFollowRequestsReceivedInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutFollowRequestsSentNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutFollowRequestsSentInput, Prisma.UserUncheckedCreateWithoutFollowRequestsSentInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutFollowRequestsSentInput
+  upsert?: Prisma.UserUpsertWithoutFollowRequestsSentInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutFollowRequestsSentInput, Prisma.UserUpdateWithoutFollowRequestsSentInput>, Prisma.UserUncheckedUpdateWithoutFollowRequestsSentInput>
+}
+
+export type UserUpdateOneRequiredWithoutFollowRequestsReceivedNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutFollowRequestsReceivedInput, Prisma.UserUncheckedCreateWithoutFollowRequestsReceivedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutFollowRequestsReceivedInput
+  upsert?: Prisma.UserUpsertWithoutFollowRequestsReceivedInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutFollowRequestsReceivedInput, Prisma.UserUpdateWithoutFollowRequestsReceivedInput>, Prisma.UserUncheckedUpdateWithoutFollowRequestsReceivedInput>
 }
 
 export type UserCreateNestedOneWithoutFavCategoriesInput = {
@@ -1436,6 +1522,8 @@ export type UserCreateWithoutAccountsInput = {
   showLocation?: boolean
   showFollowers?: boolean
   showComments?: boolean
+  isPrivate?: boolean
+  followApproval?: boolean
   role?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
@@ -1462,6 +1550,8 @@ export type UserCreateWithoutAccountsInput = {
   joinRequests?: Prisma.JoinRequestCreateNestedManyWithoutUserInput
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
+  followRequestsSent?: Prisma.FollowRequestCreateNestedManyWithoutRequesterInput
+  followRequestsReceived?: Prisma.FollowRequestCreateNestedManyWithoutTargetInput
   pushSubscriptions?: Prisma.PushSubscriptionCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
   debateWins?: Prisma.DebateResultCreateNestedManyWithoutWinnerInput
@@ -1490,6 +1580,8 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   showLocation?: boolean
   showFollowers?: boolean
   showComments?: boolean
+  isPrivate?: boolean
+  followApproval?: boolean
   role?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
@@ -1516,6 +1608,8 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   joinRequests?: Prisma.JoinRequestUncheckedCreateNestedManyWithoutUserInput
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
+  followRequestsSent?: Prisma.FollowRequestUncheckedCreateNestedManyWithoutRequesterInput
+  followRequestsReceived?: Prisma.FollowRequestUncheckedCreateNestedManyWithoutTargetInput
   pushSubscriptions?: Prisma.PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
   debateWins?: Prisma.DebateResultUncheckedCreateNestedManyWithoutWinnerInput
@@ -1560,6 +1654,8 @@ export type UserUpdateWithoutAccountsInput = {
   showLocation?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showFollowers?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  followApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1586,6 +1682,8 @@ export type UserUpdateWithoutAccountsInput = {
   joinRequests?: Prisma.JoinRequestUpdateManyWithoutUserNestedInput
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
+  followRequestsSent?: Prisma.FollowRequestUpdateManyWithoutRequesterNestedInput
+  followRequestsReceived?: Prisma.FollowRequestUpdateManyWithoutTargetNestedInput
   pushSubscriptions?: Prisma.PushSubscriptionUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
   debateWins?: Prisma.DebateResultUpdateManyWithoutWinnerNestedInput
@@ -1614,6 +1712,8 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   showLocation?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showFollowers?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  followApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1640,6 +1740,8 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   joinRequests?: Prisma.JoinRequestUncheckedUpdateManyWithoutUserNestedInput
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
+  followRequestsSent?: Prisma.FollowRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  followRequestsReceived?: Prisma.FollowRequestUncheckedUpdateManyWithoutTargetNestedInput
   pushSubscriptions?: Prisma.PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   debateWins?: Prisma.DebateResultUncheckedUpdateManyWithoutWinnerNestedInput
@@ -1668,6 +1770,8 @@ export type UserCreateWithoutSessionsInput = {
   showLocation?: boolean
   showFollowers?: boolean
   showComments?: boolean
+  isPrivate?: boolean
+  followApproval?: boolean
   role?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
@@ -1694,6 +1798,8 @@ export type UserCreateWithoutSessionsInput = {
   joinRequests?: Prisma.JoinRequestCreateNestedManyWithoutUserInput
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
+  followRequestsSent?: Prisma.FollowRequestCreateNestedManyWithoutRequesterInput
+  followRequestsReceived?: Prisma.FollowRequestCreateNestedManyWithoutTargetInput
   pushSubscriptions?: Prisma.PushSubscriptionCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
   debateWins?: Prisma.DebateResultCreateNestedManyWithoutWinnerInput
@@ -1722,6 +1828,8 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   showLocation?: boolean
   showFollowers?: boolean
   showComments?: boolean
+  isPrivate?: boolean
+  followApproval?: boolean
   role?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
@@ -1748,6 +1856,8 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   joinRequests?: Prisma.JoinRequestUncheckedCreateNestedManyWithoutUserInput
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
+  followRequestsSent?: Prisma.FollowRequestUncheckedCreateNestedManyWithoutRequesterInput
+  followRequestsReceived?: Prisma.FollowRequestUncheckedCreateNestedManyWithoutTargetInput
   pushSubscriptions?: Prisma.PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
   debateWins?: Prisma.DebateResultUncheckedCreateNestedManyWithoutWinnerInput
@@ -1792,6 +1902,8 @@ export type UserUpdateWithoutSessionsInput = {
   showLocation?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showFollowers?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  followApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1818,6 +1930,8 @@ export type UserUpdateWithoutSessionsInput = {
   joinRequests?: Prisma.JoinRequestUpdateManyWithoutUserNestedInput
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
+  followRequestsSent?: Prisma.FollowRequestUpdateManyWithoutRequesterNestedInput
+  followRequestsReceived?: Prisma.FollowRequestUpdateManyWithoutTargetNestedInput
   pushSubscriptions?: Prisma.PushSubscriptionUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
   debateWins?: Prisma.DebateResultUpdateManyWithoutWinnerNestedInput
@@ -1846,6 +1960,8 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   showLocation?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showFollowers?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  followApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1872,6 +1988,8 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   joinRequests?: Prisma.JoinRequestUncheckedUpdateManyWithoutUserNestedInput
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
+  followRequestsSent?: Prisma.FollowRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  followRequestsReceived?: Prisma.FollowRequestUncheckedUpdateManyWithoutTargetNestedInput
   pushSubscriptions?: Prisma.PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   debateWins?: Prisma.DebateResultUncheckedUpdateManyWithoutWinnerNestedInput
@@ -1900,6 +2018,8 @@ export type UserCreateWithoutFollowingInput = {
   showLocation?: boolean
   showFollowers?: boolean
   showComments?: boolean
+  isPrivate?: boolean
+  followApproval?: boolean
   role?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
@@ -1926,6 +2046,8 @@ export type UserCreateWithoutFollowingInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   joinRequests?: Prisma.JoinRequestCreateNestedManyWithoutUserInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
+  followRequestsSent?: Prisma.FollowRequestCreateNestedManyWithoutRequesterInput
+  followRequestsReceived?: Prisma.FollowRequestCreateNestedManyWithoutTargetInput
   pushSubscriptions?: Prisma.PushSubscriptionCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
   debateWins?: Prisma.DebateResultCreateNestedManyWithoutWinnerInput
@@ -1954,6 +2076,8 @@ export type UserUncheckedCreateWithoutFollowingInput = {
   showLocation?: boolean
   showFollowers?: boolean
   showComments?: boolean
+  isPrivate?: boolean
+  followApproval?: boolean
   role?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
@@ -1980,6 +2104,8 @@ export type UserUncheckedCreateWithoutFollowingInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   joinRequests?: Prisma.JoinRequestUncheckedCreateNestedManyWithoutUserInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
+  followRequestsSent?: Prisma.FollowRequestUncheckedCreateNestedManyWithoutRequesterInput
+  followRequestsReceived?: Prisma.FollowRequestUncheckedCreateNestedManyWithoutTargetInput
   pushSubscriptions?: Prisma.PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
   debateWins?: Prisma.DebateResultUncheckedCreateNestedManyWithoutWinnerInput
@@ -2013,6 +2139,8 @@ export type UserCreateWithoutFollowersInput = {
   showLocation?: boolean
   showFollowers?: boolean
   showComments?: boolean
+  isPrivate?: boolean
+  followApproval?: boolean
   role?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
@@ -2039,6 +2167,8 @@ export type UserCreateWithoutFollowersInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   joinRequests?: Prisma.JoinRequestCreateNestedManyWithoutUserInput
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
+  followRequestsSent?: Prisma.FollowRequestCreateNestedManyWithoutRequesterInput
+  followRequestsReceived?: Prisma.FollowRequestCreateNestedManyWithoutTargetInput
   pushSubscriptions?: Prisma.PushSubscriptionCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
   debateWins?: Prisma.DebateResultCreateNestedManyWithoutWinnerInput
@@ -2067,6 +2197,8 @@ export type UserUncheckedCreateWithoutFollowersInput = {
   showLocation?: boolean
   showFollowers?: boolean
   showComments?: boolean
+  isPrivate?: boolean
+  followApproval?: boolean
   role?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
@@ -2093,6 +2225,8 @@ export type UserUncheckedCreateWithoutFollowersInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   joinRequests?: Prisma.JoinRequestUncheckedCreateNestedManyWithoutUserInput
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
+  followRequestsSent?: Prisma.FollowRequestUncheckedCreateNestedManyWithoutRequesterInput
+  followRequestsReceived?: Prisma.FollowRequestUncheckedCreateNestedManyWithoutTargetInput
   pushSubscriptions?: Prisma.PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
   debateWins?: Prisma.DebateResultUncheckedCreateNestedManyWithoutWinnerInput
@@ -2137,6 +2271,8 @@ export type UserUpdateWithoutFollowingInput = {
   showLocation?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showFollowers?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  followApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -2163,6 +2299,8 @@ export type UserUpdateWithoutFollowingInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   joinRequests?: Prisma.JoinRequestUpdateManyWithoutUserNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
+  followRequestsSent?: Prisma.FollowRequestUpdateManyWithoutRequesterNestedInput
+  followRequestsReceived?: Prisma.FollowRequestUpdateManyWithoutTargetNestedInput
   pushSubscriptions?: Prisma.PushSubscriptionUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
   debateWins?: Prisma.DebateResultUpdateManyWithoutWinnerNestedInput
@@ -2191,6 +2329,8 @@ export type UserUncheckedUpdateWithoutFollowingInput = {
   showLocation?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showFollowers?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  followApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -2217,6 +2357,8 @@ export type UserUncheckedUpdateWithoutFollowingInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   joinRequests?: Prisma.JoinRequestUncheckedUpdateManyWithoutUserNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
+  followRequestsSent?: Prisma.FollowRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  followRequestsReceived?: Prisma.FollowRequestUncheckedUpdateManyWithoutTargetNestedInput
   pushSubscriptions?: Prisma.PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   debateWins?: Prisma.DebateResultUncheckedUpdateManyWithoutWinnerNestedInput
@@ -2256,6 +2398,8 @@ export type UserUpdateWithoutFollowersInput = {
   showLocation?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showFollowers?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  followApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -2282,6 +2426,8 @@ export type UserUpdateWithoutFollowersInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   joinRequests?: Prisma.JoinRequestUpdateManyWithoutUserNestedInput
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
+  followRequestsSent?: Prisma.FollowRequestUpdateManyWithoutRequesterNestedInput
+  followRequestsReceived?: Prisma.FollowRequestUpdateManyWithoutTargetNestedInput
   pushSubscriptions?: Prisma.PushSubscriptionUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
   debateWins?: Prisma.DebateResultUpdateManyWithoutWinnerNestedInput
@@ -2310,6 +2456,8 @@ export type UserUncheckedUpdateWithoutFollowersInput = {
   showLocation?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showFollowers?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  followApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -2336,6 +2484,504 @@ export type UserUncheckedUpdateWithoutFollowersInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   joinRequests?: Prisma.JoinRequestUncheckedUpdateManyWithoutUserNestedInput
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
+  followRequestsSent?: Prisma.FollowRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  followRequestsReceived?: Prisma.FollowRequestUncheckedUpdateManyWithoutTargetNestedInput
+  pushSubscriptions?: Prisma.PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  debateWins?: Prisma.DebateResultUncheckedUpdateManyWithoutWinnerNestedInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  debateComments?: Prisma.DebateCommentUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutFollowRequestsSentInput = {
+  id?: string
+  email: string
+  emailVerified?: Date | string | null
+  username: string
+  hashedPassword?: string | null
+  bio?: string | null
+  avatarUrl?: string | null
+  country?: string | null
+  twitterHandle?: string | null
+  threadsHandle?: string | null
+  truthSocialHandle?: string | null
+  blueskyHandle?: string | null
+  mastodonHandle?: string | null
+  websiteUrl?: string | null
+  lastUsernameChange?: Date | string | null
+  aiAssessment?: string | null
+  aiAssessmentUpdatedAt?: Date | string | null
+  showLocation?: boolean
+  showFollowers?: boolean
+  showComments?: boolean
+  isPrivate?: boolean
+  followApproval?: boolean
+  role?: string
+  isExhibition?: boolean
+  hideFromLeaderboard?: boolean
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
+  onboardingComplete?: boolean
+  suspendedUntil?: Date | string | null
+  dob?: Date | string | null
+  gender?: string | null
+  region?: string | null
+  elo?: number
+  rankedDebatesPlayed?: number
+  wins?: number
+  losses?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  favCategories?: Prisma.UserFavoriteCategoryCreateNestedManyWithoutUserInput
+  debaterA?: Prisma.DebateCreateNestedManyWithoutDebaterAInput
+  debaterB?: Prisma.DebateCreateNestedManyWithoutDebaterBInput
+  challengesSent?: Prisma.ChallengeCreateNestedManyWithoutCreatorInput
+  challengesReceived?: Prisma.ChallengeCreateNestedManyWithoutTargetInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  joinRequests?: Prisma.JoinRequestCreateNestedManyWithoutUserInput
+  following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
+  followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
+  followRequestsReceived?: Prisma.FollowRequestCreateNestedManyWithoutTargetInput
+  pushSubscriptions?: Prisma.PushSubscriptionCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  debateWins?: Prisma.DebateResultCreateNestedManyWithoutWinnerInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionCreateNestedManyWithoutUserInput
+  debateComments?: Prisma.DebateCommentCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutFollowRequestsSentInput = {
+  id?: string
+  email: string
+  emailVerified?: Date | string | null
+  username: string
+  hashedPassword?: string | null
+  bio?: string | null
+  avatarUrl?: string | null
+  country?: string | null
+  twitterHandle?: string | null
+  threadsHandle?: string | null
+  truthSocialHandle?: string | null
+  blueskyHandle?: string | null
+  mastodonHandle?: string | null
+  websiteUrl?: string | null
+  lastUsernameChange?: Date | string | null
+  aiAssessment?: string | null
+  aiAssessmentUpdatedAt?: Date | string | null
+  showLocation?: boolean
+  showFollowers?: boolean
+  showComments?: boolean
+  isPrivate?: boolean
+  followApproval?: boolean
+  role?: string
+  isExhibition?: boolean
+  hideFromLeaderboard?: boolean
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
+  onboardingComplete?: boolean
+  suspendedUntil?: Date | string | null
+  dob?: Date | string | null
+  gender?: string | null
+  region?: string | null
+  elo?: number
+  rankedDebatesPlayed?: number
+  wins?: number
+  losses?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  favCategories?: Prisma.UserFavoriteCategoryUncheckedCreateNestedManyWithoutUserInput
+  debaterA?: Prisma.DebateUncheckedCreateNestedManyWithoutDebaterAInput
+  debaterB?: Prisma.DebateUncheckedCreateNestedManyWithoutDebaterBInput
+  challengesSent?: Prisma.ChallengeUncheckedCreateNestedManyWithoutCreatorInput
+  challengesReceived?: Prisma.ChallengeUncheckedCreateNestedManyWithoutTargetInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  joinRequests?: Prisma.JoinRequestUncheckedCreateNestedManyWithoutUserInput
+  following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
+  followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
+  followRequestsReceived?: Prisma.FollowRequestUncheckedCreateNestedManyWithoutTargetInput
+  pushSubscriptions?: Prisma.PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  debateWins?: Prisma.DebateResultUncheckedCreateNestedManyWithoutWinnerInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionUncheckedCreateNestedManyWithoutUserInput
+  debateComments?: Prisma.DebateCommentUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutFollowRequestsSentInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutFollowRequestsSentInput, Prisma.UserUncheckedCreateWithoutFollowRequestsSentInput>
+}
+
+export type UserCreateWithoutFollowRequestsReceivedInput = {
+  id?: string
+  email: string
+  emailVerified?: Date | string | null
+  username: string
+  hashedPassword?: string | null
+  bio?: string | null
+  avatarUrl?: string | null
+  country?: string | null
+  twitterHandle?: string | null
+  threadsHandle?: string | null
+  truthSocialHandle?: string | null
+  blueskyHandle?: string | null
+  mastodonHandle?: string | null
+  websiteUrl?: string | null
+  lastUsernameChange?: Date | string | null
+  aiAssessment?: string | null
+  aiAssessmentUpdatedAt?: Date | string | null
+  showLocation?: boolean
+  showFollowers?: boolean
+  showComments?: boolean
+  isPrivate?: boolean
+  followApproval?: boolean
+  role?: string
+  isExhibition?: boolean
+  hideFromLeaderboard?: boolean
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
+  onboardingComplete?: boolean
+  suspendedUntil?: Date | string | null
+  dob?: Date | string | null
+  gender?: string | null
+  region?: string | null
+  elo?: number
+  rankedDebatesPlayed?: number
+  wins?: number
+  losses?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  favCategories?: Prisma.UserFavoriteCategoryCreateNestedManyWithoutUserInput
+  debaterA?: Prisma.DebateCreateNestedManyWithoutDebaterAInput
+  debaterB?: Prisma.DebateCreateNestedManyWithoutDebaterBInput
+  challengesSent?: Prisma.ChallengeCreateNestedManyWithoutCreatorInput
+  challengesReceived?: Prisma.ChallengeCreateNestedManyWithoutTargetInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  joinRequests?: Prisma.JoinRequestCreateNestedManyWithoutUserInput
+  following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
+  followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
+  followRequestsSent?: Prisma.FollowRequestCreateNestedManyWithoutRequesterInput
+  pushSubscriptions?: Prisma.PushSubscriptionCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  debateWins?: Prisma.DebateResultCreateNestedManyWithoutWinnerInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionCreateNestedManyWithoutUserInput
+  debateComments?: Prisma.DebateCommentCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutFollowRequestsReceivedInput = {
+  id?: string
+  email: string
+  emailVerified?: Date | string | null
+  username: string
+  hashedPassword?: string | null
+  bio?: string | null
+  avatarUrl?: string | null
+  country?: string | null
+  twitterHandle?: string | null
+  threadsHandle?: string | null
+  truthSocialHandle?: string | null
+  blueskyHandle?: string | null
+  mastodonHandle?: string | null
+  websiteUrl?: string | null
+  lastUsernameChange?: Date | string | null
+  aiAssessment?: string | null
+  aiAssessmentUpdatedAt?: Date | string | null
+  showLocation?: boolean
+  showFollowers?: boolean
+  showComments?: boolean
+  isPrivate?: boolean
+  followApproval?: boolean
+  role?: string
+  isExhibition?: boolean
+  hideFromLeaderboard?: boolean
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
+  onboardingComplete?: boolean
+  suspendedUntil?: Date | string | null
+  dob?: Date | string | null
+  gender?: string | null
+  region?: string | null
+  elo?: number
+  rankedDebatesPlayed?: number
+  wins?: number
+  losses?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  favCategories?: Prisma.UserFavoriteCategoryUncheckedCreateNestedManyWithoutUserInput
+  debaterA?: Prisma.DebateUncheckedCreateNestedManyWithoutDebaterAInput
+  debaterB?: Prisma.DebateUncheckedCreateNestedManyWithoutDebaterBInput
+  challengesSent?: Prisma.ChallengeUncheckedCreateNestedManyWithoutCreatorInput
+  challengesReceived?: Prisma.ChallengeUncheckedCreateNestedManyWithoutTargetInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  joinRequests?: Prisma.JoinRequestUncheckedCreateNestedManyWithoutUserInput
+  following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
+  followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
+  followRequestsSent?: Prisma.FollowRequestUncheckedCreateNestedManyWithoutRequesterInput
+  pushSubscriptions?: Prisma.PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  debateWins?: Prisma.DebateResultUncheckedCreateNestedManyWithoutWinnerInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionUncheckedCreateNestedManyWithoutUserInput
+  debateComments?: Prisma.DebateCommentUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutFollowRequestsReceivedInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutFollowRequestsReceivedInput, Prisma.UserUncheckedCreateWithoutFollowRequestsReceivedInput>
+}
+
+export type UserUpsertWithoutFollowRequestsSentInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutFollowRequestsSentInput, Prisma.UserUncheckedUpdateWithoutFollowRequestsSentInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutFollowRequestsSentInput, Prisma.UserUncheckedCreateWithoutFollowRequestsSentInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutFollowRequestsSentInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutFollowRequestsSentInput, Prisma.UserUncheckedUpdateWithoutFollowRequestsSentInput>
+}
+
+export type UserUpdateWithoutFollowRequestsSentInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  hashedPassword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  twitterHandle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  threadsHandle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  truthSocialHandle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  blueskyHandle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mastodonHandle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  websiteUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastUsernameChange?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiAssessment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiAssessmentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showLocation?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showFollowers?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  followApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  role?: Prisma.StringFieldUpdateOperationsInput | string
+  isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  onboardingComplete?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dob?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  elo?: Prisma.IntFieldUpdateOperationsInput | number
+  rankedDebatesPlayed?: Prisma.IntFieldUpdateOperationsInput | number
+  wins?: Prisma.IntFieldUpdateOperationsInput | number
+  losses?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  favCategories?: Prisma.UserFavoriteCategoryUpdateManyWithoutUserNestedInput
+  debaterA?: Prisma.DebateUpdateManyWithoutDebaterANestedInput
+  debaterB?: Prisma.DebateUpdateManyWithoutDebaterBNestedInput
+  challengesSent?: Prisma.ChallengeUpdateManyWithoutCreatorNestedInput
+  challengesReceived?: Prisma.ChallengeUpdateManyWithoutTargetNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  joinRequests?: Prisma.JoinRequestUpdateManyWithoutUserNestedInput
+  following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
+  followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
+  followRequestsReceived?: Prisma.FollowRequestUpdateManyWithoutTargetNestedInput
+  pushSubscriptions?: Prisma.PushSubscriptionUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  debateWins?: Prisma.DebateResultUpdateManyWithoutWinnerNestedInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionUpdateManyWithoutUserNestedInput
+  debateComments?: Prisma.DebateCommentUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutFollowRequestsSentInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  hashedPassword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  twitterHandle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  threadsHandle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  truthSocialHandle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  blueskyHandle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mastodonHandle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  websiteUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastUsernameChange?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiAssessment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiAssessmentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showLocation?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showFollowers?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  followApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  role?: Prisma.StringFieldUpdateOperationsInput | string
+  isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  onboardingComplete?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dob?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  elo?: Prisma.IntFieldUpdateOperationsInput | number
+  rankedDebatesPlayed?: Prisma.IntFieldUpdateOperationsInput | number
+  wins?: Prisma.IntFieldUpdateOperationsInput | number
+  losses?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  favCategories?: Prisma.UserFavoriteCategoryUncheckedUpdateManyWithoutUserNestedInput
+  debaterA?: Prisma.DebateUncheckedUpdateManyWithoutDebaterANestedInput
+  debaterB?: Prisma.DebateUncheckedUpdateManyWithoutDebaterBNestedInput
+  challengesSent?: Prisma.ChallengeUncheckedUpdateManyWithoutCreatorNestedInput
+  challengesReceived?: Prisma.ChallengeUncheckedUpdateManyWithoutTargetNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  joinRequests?: Prisma.JoinRequestUncheckedUpdateManyWithoutUserNestedInput
+  following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
+  followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
+  followRequestsReceived?: Prisma.FollowRequestUncheckedUpdateManyWithoutTargetNestedInput
+  pushSubscriptions?: Prisma.PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  debateWins?: Prisma.DebateResultUncheckedUpdateManyWithoutWinnerNestedInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  debateComments?: Prisma.DebateCommentUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserUpsertWithoutFollowRequestsReceivedInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutFollowRequestsReceivedInput, Prisma.UserUncheckedUpdateWithoutFollowRequestsReceivedInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutFollowRequestsReceivedInput, Prisma.UserUncheckedCreateWithoutFollowRequestsReceivedInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutFollowRequestsReceivedInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutFollowRequestsReceivedInput, Prisma.UserUncheckedUpdateWithoutFollowRequestsReceivedInput>
+}
+
+export type UserUpdateWithoutFollowRequestsReceivedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  hashedPassword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  twitterHandle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  threadsHandle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  truthSocialHandle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  blueskyHandle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mastodonHandle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  websiteUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastUsernameChange?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiAssessment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiAssessmentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showLocation?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showFollowers?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  followApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  role?: Prisma.StringFieldUpdateOperationsInput | string
+  isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  onboardingComplete?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dob?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  elo?: Prisma.IntFieldUpdateOperationsInput | number
+  rankedDebatesPlayed?: Prisma.IntFieldUpdateOperationsInput | number
+  wins?: Prisma.IntFieldUpdateOperationsInput | number
+  losses?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  favCategories?: Prisma.UserFavoriteCategoryUpdateManyWithoutUserNestedInput
+  debaterA?: Prisma.DebateUpdateManyWithoutDebaterANestedInput
+  debaterB?: Prisma.DebateUpdateManyWithoutDebaterBNestedInput
+  challengesSent?: Prisma.ChallengeUpdateManyWithoutCreatorNestedInput
+  challengesReceived?: Prisma.ChallengeUpdateManyWithoutTargetNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  joinRequests?: Prisma.JoinRequestUpdateManyWithoutUserNestedInput
+  following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
+  followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
+  followRequestsSent?: Prisma.FollowRequestUpdateManyWithoutRequesterNestedInput
+  pushSubscriptions?: Prisma.PushSubscriptionUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  debateWins?: Prisma.DebateResultUpdateManyWithoutWinnerNestedInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionUpdateManyWithoutUserNestedInput
+  debateComments?: Prisma.DebateCommentUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutFollowRequestsReceivedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  hashedPassword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  twitterHandle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  threadsHandle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  truthSocialHandle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  blueskyHandle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mastodonHandle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  websiteUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastUsernameChange?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiAssessment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiAssessmentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showLocation?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showFollowers?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  followApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  role?: Prisma.StringFieldUpdateOperationsInput | string
+  isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  onboardingComplete?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dob?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  elo?: Prisma.IntFieldUpdateOperationsInput | number
+  rankedDebatesPlayed?: Prisma.IntFieldUpdateOperationsInput | number
+  wins?: Prisma.IntFieldUpdateOperationsInput | number
+  losses?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  favCategories?: Prisma.UserFavoriteCategoryUncheckedUpdateManyWithoutUserNestedInput
+  debaterA?: Prisma.DebateUncheckedUpdateManyWithoutDebaterANestedInput
+  debaterB?: Prisma.DebateUncheckedUpdateManyWithoutDebaterBNestedInput
+  challengesSent?: Prisma.ChallengeUncheckedUpdateManyWithoutCreatorNestedInput
+  challengesReceived?: Prisma.ChallengeUncheckedUpdateManyWithoutTargetNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  joinRequests?: Prisma.JoinRequestUncheckedUpdateManyWithoutUserNestedInput
+  following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
+  followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
+  followRequestsSent?: Prisma.FollowRequestUncheckedUpdateManyWithoutRequesterNestedInput
   pushSubscriptions?: Prisma.PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   debateWins?: Prisma.DebateResultUncheckedUpdateManyWithoutWinnerNestedInput
@@ -2364,6 +3010,8 @@ export type UserCreateWithoutFavCategoriesInput = {
   showLocation?: boolean
   showFollowers?: boolean
   showComments?: boolean
+  isPrivate?: boolean
+  followApproval?: boolean
   role?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
@@ -2390,6 +3038,8 @@ export type UserCreateWithoutFavCategoriesInput = {
   joinRequests?: Prisma.JoinRequestCreateNestedManyWithoutUserInput
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
+  followRequestsSent?: Prisma.FollowRequestCreateNestedManyWithoutRequesterInput
+  followRequestsReceived?: Prisma.FollowRequestCreateNestedManyWithoutTargetInput
   pushSubscriptions?: Prisma.PushSubscriptionCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
   debateWins?: Prisma.DebateResultCreateNestedManyWithoutWinnerInput
@@ -2418,6 +3068,8 @@ export type UserUncheckedCreateWithoutFavCategoriesInput = {
   showLocation?: boolean
   showFollowers?: boolean
   showComments?: boolean
+  isPrivate?: boolean
+  followApproval?: boolean
   role?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
@@ -2444,6 +3096,8 @@ export type UserUncheckedCreateWithoutFavCategoriesInput = {
   joinRequests?: Prisma.JoinRequestUncheckedCreateNestedManyWithoutUserInput
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
+  followRequestsSent?: Prisma.FollowRequestUncheckedCreateNestedManyWithoutRequesterInput
+  followRequestsReceived?: Prisma.FollowRequestUncheckedCreateNestedManyWithoutTargetInput
   pushSubscriptions?: Prisma.PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
   debateWins?: Prisma.DebateResultUncheckedCreateNestedManyWithoutWinnerInput
@@ -2488,6 +3142,8 @@ export type UserUpdateWithoutFavCategoriesInput = {
   showLocation?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showFollowers?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  followApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -2514,6 +3170,8 @@ export type UserUpdateWithoutFavCategoriesInput = {
   joinRequests?: Prisma.JoinRequestUpdateManyWithoutUserNestedInput
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
+  followRequestsSent?: Prisma.FollowRequestUpdateManyWithoutRequesterNestedInput
+  followRequestsReceived?: Prisma.FollowRequestUpdateManyWithoutTargetNestedInput
   pushSubscriptions?: Prisma.PushSubscriptionUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
   debateWins?: Prisma.DebateResultUpdateManyWithoutWinnerNestedInput
@@ -2542,6 +3200,8 @@ export type UserUncheckedUpdateWithoutFavCategoriesInput = {
   showLocation?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showFollowers?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  followApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -2568,6 +3228,8 @@ export type UserUncheckedUpdateWithoutFavCategoriesInput = {
   joinRequests?: Prisma.JoinRequestUncheckedUpdateManyWithoutUserNestedInput
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
+  followRequestsSent?: Prisma.FollowRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  followRequestsReceived?: Prisma.FollowRequestUncheckedUpdateManyWithoutTargetNestedInput
   pushSubscriptions?: Prisma.PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   debateWins?: Prisma.DebateResultUncheckedUpdateManyWithoutWinnerNestedInput
@@ -2596,6 +3258,8 @@ export type UserCreateWithoutChallengesSentInput = {
   showLocation?: boolean
   showFollowers?: boolean
   showComments?: boolean
+  isPrivate?: boolean
+  followApproval?: boolean
   role?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
@@ -2622,6 +3286,8 @@ export type UserCreateWithoutChallengesSentInput = {
   joinRequests?: Prisma.JoinRequestCreateNestedManyWithoutUserInput
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
+  followRequestsSent?: Prisma.FollowRequestCreateNestedManyWithoutRequesterInput
+  followRequestsReceived?: Prisma.FollowRequestCreateNestedManyWithoutTargetInput
   pushSubscriptions?: Prisma.PushSubscriptionCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
   debateWins?: Prisma.DebateResultCreateNestedManyWithoutWinnerInput
@@ -2650,6 +3316,8 @@ export type UserUncheckedCreateWithoutChallengesSentInput = {
   showLocation?: boolean
   showFollowers?: boolean
   showComments?: boolean
+  isPrivate?: boolean
+  followApproval?: boolean
   role?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
@@ -2676,6 +3344,8 @@ export type UserUncheckedCreateWithoutChallengesSentInput = {
   joinRequests?: Prisma.JoinRequestUncheckedCreateNestedManyWithoutUserInput
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
+  followRequestsSent?: Prisma.FollowRequestUncheckedCreateNestedManyWithoutRequesterInput
+  followRequestsReceived?: Prisma.FollowRequestUncheckedCreateNestedManyWithoutTargetInput
   pushSubscriptions?: Prisma.PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
   debateWins?: Prisma.DebateResultUncheckedCreateNestedManyWithoutWinnerInput
@@ -2709,6 +3379,8 @@ export type UserCreateWithoutChallengesReceivedInput = {
   showLocation?: boolean
   showFollowers?: boolean
   showComments?: boolean
+  isPrivate?: boolean
+  followApproval?: boolean
   role?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
@@ -2735,6 +3407,8 @@ export type UserCreateWithoutChallengesReceivedInput = {
   joinRequests?: Prisma.JoinRequestCreateNestedManyWithoutUserInput
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
+  followRequestsSent?: Prisma.FollowRequestCreateNestedManyWithoutRequesterInput
+  followRequestsReceived?: Prisma.FollowRequestCreateNestedManyWithoutTargetInput
   pushSubscriptions?: Prisma.PushSubscriptionCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
   debateWins?: Prisma.DebateResultCreateNestedManyWithoutWinnerInput
@@ -2763,6 +3437,8 @@ export type UserUncheckedCreateWithoutChallengesReceivedInput = {
   showLocation?: boolean
   showFollowers?: boolean
   showComments?: boolean
+  isPrivate?: boolean
+  followApproval?: boolean
   role?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
@@ -2789,6 +3465,8 @@ export type UserUncheckedCreateWithoutChallengesReceivedInput = {
   joinRequests?: Prisma.JoinRequestUncheckedCreateNestedManyWithoutUserInput
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
+  followRequestsSent?: Prisma.FollowRequestUncheckedCreateNestedManyWithoutRequesterInput
+  followRequestsReceived?: Prisma.FollowRequestUncheckedCreateNestedManyWithoutTargetInput
   pushSubscriptions?: Prisma.PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
   debateWins?: Prisma.DebateResultUncheckedCreateNestedManyWithoutWinnerInput
@@ -2833,6 +3511,8 @@ export type UserUpdateWithoutChallengesSentInput = {
   showLocation?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showFollowers?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  followApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -2859,6 +3539,8 @@ export type UserUpdateWithoutChallengesSentInput = {
   joinRequests?: Prisma.JoinRequestUpdateManyWithoutUserNestedInput
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
+  followRequestsSent?: Prisma.FollowRequestUpdateManyWithoutRequesterNestedInput
+  followRequestsReceived?: Prisma.FollowRequestUpdateManyWithoutTargetNestedInput
   pushSubscriptions?: Prisma.PushSubscriptionUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
   debateWins?: Prisma.DebateResultUpdateManyWithoutWinnerNestedInput
@@ -2887,6 +3569,8 @@ export type UserUncheckedUpdateWithoutChallengesSentInput = {
   showLocation?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showFollowers?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  followApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -2913,6 +3597,8 @@ export type UserUncheckedUpdateWithoutChallengesSentInput = {
   joinRequests?: Prisma.JoinRequestUncheckedUpdateManyWithoutUserNestedInput
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
+  followRequestsSent?: Prisma.FollowRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  followRequestsReceived?: Prisma.FollowRequestUncheckedUpdateManyWithoutTargetNestedInput
   pushSubscriptions?: Prisma.PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   debateWins?: Prisma.DebateResultUncheckedUpdateManyWithoutWinnerNestedInput
@@ -2952,6 +3638,8 @@ export type UserUpdateWithoutChallengesReceivedInput = {
   showLocation?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showFollowers?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  followApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -2978,6 +3666,8 @@ export type UserUpdateWithoutChallengesReceivedInput = {
   joinRequests?: Prisma.JoinRequestUpdateManyWithoutUserNestedInput
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
+  followRequestsSent?: Prisma.FollowRequestUpdateManyWithoutRequesterNestedInput
+  followRequestsReceived?: Prisma.FollowRequestUpdateManyWithoutTargetNestedInput
   pushSubscriptions?: Prisma.PushSubscriptionUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
   debateWins?: Prisma.DebateResultUpdateManyWithoutWinnerNestedInput
@@ -3006,6 +3696,8 @@ export type UserUncheckedUpdateWithoutChallengesReceivedInput = {
   showLocation?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showFollowers?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  followApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -3032,6 +3724,8 @@ export type UserUncheckedUpdateWithoutChallengesReceivedInput = {
   joinRequests?: Prisma.JoinRequestUncheckedUpdateManyWithoutUserNestedInput
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
+  followRequestsSent?: Prisma.FollowRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  followRequestsReceived?: Prisma.FollowRequestUncheckedUpdateManyWithoutTargetNestedInput
   pushSubscriptions?: Prisma.PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   debateWins?: Prisma.DebateResultUncheckedUpdateManyWithoutWinnerNestedInput
@@ -3060,6 +3754,8 @@ export type UserCreateWithoutJoinRequestsInput = {
   showLocation?: boolean
   showFollowers?: boolean
   showComments?: boolean
+  isPrivate?: boolean
+  followApproval?: boolean
   role?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
@@ -3086,6 +3782,8 @@ export type UserCreateWithoutJoinRequestsInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
+  followRequestsSent?: Prisma.FollowRequestCreateNestedManyWithoutRequesterInput
+  followRequestsReceived?: Prisma.FollowRequestCreateNestedManyWithoutTargetInput
   pushSubscriptions?: Prisma.PushSubscriptionCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
   debateWins?: Prisma.DebateResultCreateNestedManyWithoutWinnerInput
@@ -3114,6 +3812,8 @@ export type UserUncheckedCreateWithoutJoinRequestsInput = {
   showLocation?: boolean
   showFollowers?: boolean
   showComments?: boolean
+  isPrivate?: boolean
+  followApproval?: boolean
   role?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
@@ -3140,6 +3840,8 @@ export type UserUncheckedCreateWithoutJoinRequestsInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
+  followRequestsSent?: Prisma.FollowRequestUncheckedCreateNestedManyWithoutRequesterInput
+  followRequestsReceived?: Prisma.FollowRequestUncheckedCreateNestedManyWithoutTargetInput
   pushSubscriptions?: Prisma.PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
   debateWins?: Prisma.DebateResultUncheckedCreateNestedManyWithoutWinnerInput
@@ -3184,6 +3886,8 @@ export type UserUpdateWithoutJoinRequestsInput = {
   showLocation?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showFollowers?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  followApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -3210,6 +3914,8 @@ export type UserUpdateWithoutJoinRequestsInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
+  followRequestsSent?: Prisma.FollowRequestUpdateManyWithoutRequesterNestedInput
+  followRequestsReceived?: Prisma.FollowRequestUpdateManyWithoutTargetNestedInput
   pushSubscriptions?: Prisma.PushSubscriptionUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
   debateWins?: Prisma.DebateResultUpdateManyWithoutWinnerNestedInput
@@ -3238,6 +3944,8 @@ export type UserUncheckedUpdateWithoutJoinRequestsInput = {
   showLocation?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showFollowers?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  followApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -3264,6 +3972,8 @@ export type UserUncheckedUpdateWithoutJoinRequestsInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
+  followRequestsSent?: Prisma.FollowRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  followRequestsReceived?: Prisma.FollowRequestUncheckedUpdateManyWithoutTargetNestedInput
   pushSubscriptions?: Prisma.PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   debateWins?: Prisma.DebateResultUncheckedUpdateManyWithoutWinnerNestedInput
@@ -3292,6 +4002,8 @@ export type UserCreateWithoutDebaterAInput = {
   showLocation?: boolean
   showFollowers?: boolean
   showComments?: boolean
+  isPrivate?: boolean
+  followApproval?: boolean
   role?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
@@ -3318,6 +4030,8 @@ export type UserCreateWithoutDebaterAInput = {
   joinRequests?: Prisma.JoinRequestCreateNestedManyWithoutUserInput
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
+  followRequestsSent?: Prisma.FollowRequestCreateNestedManyWithoutRequesterInput
+  followRequestsReceived?: Prisma.FollowRequestCreateNestedManyWithoutTargetInput
   pushSubscriptions?: Prisma.PushSubscriptionCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
   debateWins?: Prisma.DebateResultCreateNestedManyWithoutWinnerInput
@@ -3346,6 +4060,8 @@ export type UserUncheckedCreateWithoutDebaterAInput = {
   showLocation?: boolean
   showFollowers?: boolean
   showComments?: boolean
+  isPrivate?: boolean
+  followApproval?: boolean
   role?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
@@ -3372,6 +4088,8 @@ export type UserUncheckedCreateWithoutDebaterAInput = {
   joinRequests?: Prisma.JoinRequestUncheckedCreateNestedManyWithoutUserInput
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
+  followRequestsSent?: Prisma.FollowRequestUncheckedCreateNestedManyWithoutRequesterInput
+  followRequestsReceived?: Prisma.FollowRequestUncheckedCreateNestedManyWithoutTargetInput
   pushSubscriptions?: Prisma.PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
   debateWins?: Prisma.DebateResultUncheckedCreateNestedManyWithoutWinnerInput
@@ -3405,6 +4123,8 @@ export type UserCreateWithoutDebaterBInput = {
   showLocation?: boolean
   showFollowers?: boolean
   showComments?: boolean
+  isPrivate?: boolean
+  followApproval?: boolean
   role?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
@@ -3431,6 +4151,8 @@ export type UserCreateWithoutDebaterBInput = {
   joinRequests?: Prisma.JoinRequestCreateNestedManyWithoutUserInput
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
+  followRequestsSent?: Prisma.FollowRequestCreateNestedManyWithoutRequesterInput
+  followRequestsReceived?: Prisma.FollowRequestCreateNestedManyWithoutTargetInput
   pushSubscriptions?: Prisma.PushSubscriptionCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
   debateWins?: Prisma.DebateResultCreateNestedManyWithoutWinnerInput
@@ -3459,6 +4181,8 @@ export type UserUncheckedCreateWithoutDebaterBInput = {
   showLocation?: boolean
   showFollowers?: boolean
   showComments?: boolean
+  isPrivate?: boolean
+  followApproval?: boolean
   role?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
@@ -3485,6 +4209,8 @@ export type UserUncheckedCreateWithoutDebaterBInput = {
   joinRequests?: Prisma.JoinRequestUncheckedCreateNestedManyWithoutUserInput
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
+  followRequestsSent?: Prisma.FollowRequestUncheckedCreateNestedManyWithoutRequesterInput
+  followRequestsReceived?: Prisma.FollowRequestUncheckedCreateNestedManyWithoutTargetInput
   pushSubscriptions?: Prisma.PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
   debateWins?: Prisma.DebateResultUncheckedCreateNestedManyWithoutWinnerInput
@@ -3529,6 +4255,8 @@ export type UserUpdateWithoutDebaterAInput = {
   showLocation?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showFollowers?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  followApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -3555,6 +4283,8 @@ export type UserUpdateWithoutDebaterAInput = {
   joinRequests?: Prisma.JoinRequestUpdateManyWithoutUserNestedInput
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
+  followRequestsSent?: Prisma.FollowRequestUpdateManyWithoutRequesterNestedInput
+  followRequestsReceived?: Prisma.FollowRequestUpdateManyWithoutTargetNestedInput
   pushSubscriptions?: Prisma.PushSubscriptionUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
   debateWins?: Prisma.DebateResultUpdateManyWithoutWinnerNestedInput
@@ -3583,6 +4313,8 @@ export type UserUncheckedUpdateWithoutDebaterAInput = {
   showLocation?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showFollowers?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  followApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -3609,6 +4341,8 @@ export type UserUncheckedUpdateWithoutDebaterAInput = {
   joinRequests?: Prisma.JoinRequestUncheckedUpdateManyWithoutUserNestedInput
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
+  followRequestsSent?: Prisma.FollowRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  followRequestsReceived?: Prisma.FollowRequestUncheckedUpdateManyWithoutTargetNestedInput
   pushSubscriptions?: Prisma.PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   debateWins?: Prisma.DebateResultUncheckedUpdateManyWithoutWinnerNestedInput
@@ -3648,6 +4382,8 @@ export type UserUpdateWithoutDebaterBInput = {
   showLocation?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showFollowers?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  followApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -3674,6 +4410,8 @@ export type UserUpdateWithoutDebaterBInput = {
   joinRequests?: Prisma.JoinRequestUpdateManyWithoutUserNestedInput
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
+  followRequestsSent?: Prisma.FollowRequestUpdateManyWithoutRequesterNestedInput
+  followRequestsReceived?: Prisma.FollowRequestUpdateManyWithoutTargetNestedInput
   pushSubscriptions?: Prisma.PushSubscriptionUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
   debateWins?: Prisma.DebateResultUpdateManyWithoutWinnerNestedInput
@@ -3702,6 +4440,8 @@ export type UserUncheckedUpdateWithoutDebaterBInput = {
   showLocation?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showFollowers?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  followApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -3728,6 +4468,8 @@ export type UserUncheckedUpdateWithoutDebaterBInput = {
   joinRequests?: Prisma.JoinRequestUncheckedUpdateManyWithoutUserNestedInput
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
+  followRequestsSent?: Prisma.FollowRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  followRequestsReceived?: Prisma.FollowRequestUncheckedUpdateManyWithoutTargetNestedInput
   pushSubscriptions?: Prisma.PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   debateWins?: Prisma.DebateResultUncheckedUpdateManyWithoutWinnerNestedInput
@@ -3756,6 +4498,8 @@ export type UserCreateWithoutDebateCommentsInput = {
   showLocation?: boolean
   showFollowers?: boolean
   showComments?: boolean
+  isPrivate?: boolean
+  followApproval?: boolean
   role?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
@@ -3783,6 +4527,8 @@ export type UserCreateWithoutDebateCommentsInput = {
   joinRequests?: Prisma.JoinRequestCreateNestedManyWithoutUserInput
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
+  followRequestsSent?: Prisma.FollowRequestCreateNestedManyWithoutRequesterInput
+  followRequestsReceived?: Prisma.FollowRequestCreateNestedManyWithoutTargetInput
   pushSubscriptions?: Prisma.PushSubscriptionCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
   debateWins?: Prisma.DebateResultCreateNestedManyWithoutWinnerInput
@@ -3810,6 +4556,8 @@ export type UserUncheckedCreateWithoutDebateCommentsInput = {
   showLocation?: boolean
   showFollowers?: boolean
   showComments?: boolean
+  isPrivate?: boolean
+  followApproval?: boolean
   role?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
@@ -3837,6 +4585,8 @@ export type UserUncheckedCreateWithoutDebateCommentsInput = {
   joinRequests?: Prisma.JoinRequestUncheckedCreateNestedManyWithoutUserInput
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
+  followRequestsSent?: Prisma.FollowRequestUncheckedCreateNestedManyWithoutRequesterInput
+  followRequestsReceived?: Prisma.FollowRequestUncheckedCreateNestedManyWithoutTargetInput
   pushSubscriptions?: Prisma.PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
   debateWins?: Prisma.DebateResultUncheckedCreateNestedManyWithoutWinnerInput
@@ -3880,6 +4630,8 @@ export type UserUpdateWithoutDebateCommentsInput = {
   showLocation?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showFollowers?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  followApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -3907,6 +4659,8 @@ export type UserUpdateWithoutDebateCommentsInput = {
   joinRequests?: Prisma.JoinRequestUpdateManyWithoutUserNestedInput
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
+  followRequestsSent?: Prisma.FollowRequestUpdateManyWithoutRequesterNestedInput
+  followRequestsReceived?: Prisma.FollowRequestUpdateManyWithoutTargetNestedInput
   pushSubscriptions?: Prisma.PushSubscriptionUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
   debateWins?: Prisma.DebateResultUpdateManyWithoutWinnerNestedInput
@@ -3934,6 +4688,8 @@ export type UserUncheckedUpdateWithoutDebateCommentsInput = {
   showLocation?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showFollowers?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  followApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -3961,6 +4717,8 @@ export type UserUncheckedUpdateWithoutDebateCommentsInput = {
   joinRequests?: Prisma.JoinRequestUncheckedUpdateManyWithoutUserNestedInput
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
+  followRequestsSent?: Prisma.FollowRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  followRequestsReceived?: Prisma.FollowRequestUncheckedUpdateManyWithoutTargetNestedInput
   pushSubscriptions?: Prisma.PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   debateWins?: Prisma.DebateResultUncheckedUpdateManyWithoutWinnerNestedInput
@@ -3988,6 +4746,8 @@ export type UserCreateWithoutCommentSubscriptionsInput = {
   showLocation?: boolean
   showFollowers?: boolean
   showComments?: boolean
+  isPrivate?: boolean
+  followApproval?: boolean
   role?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
@@ -4015,6 +4775,8 @@ export type UserCreateWithoutCommentSubscriptionsInput = {
   joinRequests?: Prisma.JoinRequestCreateNestedManyWithoutUserInput
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
+  followRequestsSent?: Prisma.FollowRequestCreateNestedManyWithoutRequesterInput
+  followRequestsReceived?: Prisma.FollowRequestCreateNestedManyWithoutTargetInput
   pushSubscriptions?: Prisma.PushSubscriptionCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
   debateWins?: Prisma.DebateResultCreateNestedManyWithoutWinnerInput
@@ -4042,6 +4804,8 @@ export type UserUncheckedCreateWithoutCommentSubscriptionsInput = {
   showLocation?: boolean
   showFollowers?: boolean
   showComments?: boolean
+  isPrivate?: boolean
+  followApproval?: boolean
   role?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
@@ -4069,6 +4833,8 @@ export type UserUncheckedCreateWithoutCommentSubscriptionsInput = {
   joinRequests?: Prisma.JoinRequestUncheckedCreateNestedManyWithoutUserInput
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
+  followRequestsSent?: Prisma.FollowRequestUncheckedCreateNestedManyWithoutRequesterInput
+  followRequestsReceived?: Prisma.FollowRequestUncheckedCreateNestedManyWithoutTargetInput
   pushSubscriptions?: Prisma.PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
   debateWins?: Prisma.DebateResultUncheckedCreateNestedManyWithoutWinnerInput
@@ -4112,6 +4878,8 @@ export type UserUpdateWithoutCommentSubscriptionsInput = {
   showLocation?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showFollowers?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  followApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -4139,6 +4907,8 @@ export type UserUpdateWithoutCommentSubscriptionsInput = {
   joinRequests?: Prisma.JoinRequestUpdateManyWithoutUserNestedInput
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
+  followRequestsSent?: Prisma.FollowRequestUpdateManyWithoutRequesterNestedInput
+  followRequestsReceived?: Prisma.FollowRequestUpdateManyWithoutTargetNestedInput
   pushSubscriptions?: Prisma.PushSubscriptionUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
   debateWins?: Prisma.DebateResultUpdateManyWithoutWinnerNestedInput
@@ -4166,6 +4936,8 @@ export type UserUncheckedUpdateWithoutCommentSubscriptionsInput = {
   showLocation?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showFollowers?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  followApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -4193,6 +4965,8 @@ export type UserUncheckedUpdateWithoutCommentSubscriptionsInput = {
   joinRequests?: Prisma.JoinRequestUncheckedUpdateManyWithoutUserNestedInput
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
+  followRequestsSent?: Prisma.FollowRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  followRequestsReceived?: Prisma.FollowRequestUncheckedUpdateManyWithoutTargetNestedInput
   pushSubscriptions?: Prisma.PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   debateWins?: Prisma.DebateResultUncheckedUpdateManyWithoutWinnerNestedInput
@@ -4220,6 +4994,8 @@ export type UserCreateWithoutNotificationsInput = {
   showLocation?: boolean
   showFollowers?: boolean
   showComments?: boolean
+  isPrivate?: boolean
+  followApproval?: boolean
   role?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
@@ -4246,6 +5022,8 @@ export type UserCreateWithoutNotificationsInput = {
   joinRequests?: Prisma.JoinRequestCreateNestedManyWithoutUserInput
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
+  followRequestsSent?: Prisma.FollowRequestCreateNestedManyWithoutRequesterInput
+  followRequestsReceived?: Prisma.FollowRequestCreateNestedManyWithoutTargetInput
   pushSubscriptions?: Prisma.PushSubscriptionCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
   debateWins?: Prisma.DebateResultCreateNestedManyWithoutWinnerInput
@@ -4274,6 +5052,8 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   showLocation?: boolean
   showFollowers?: boolean
   showComments?: boolean
+  isPrivate?: boolean
+  followApproval?: boolean
   role?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
@@ -4300,6 +5080,8 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   joinRequests?: Prisma.JoinRequestUncheckedCreateNestedManyWithoutUserInput
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
+  followRequestsSent?: Prisma.FollowRequestUncheckedCreateNestedManyWithoutRequesterInput
+  followRequestsReceived?: Prisma.FollowRequestUncheckedCreateNestedManyWithoutTargetInput
   pushSubscriptions?: Prisma.PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
   debateWins?: Prisma.DebateResultUncheckedCreateNestedManyWithoutWinnerInput
@@ -4344,6 +5126,8 @@ export type UserUpdateWithoutNotificationsInput = {
   showLocation?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showFollowers?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  followApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -4370,6 +5154,8 @@ export type UserUpdateWithoutNotificationsInput = {
   joinRequests?: Prisma.JoinRequestUpdateManyWithoutUserNestedInput
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
+  followRequestsSent?: Prisma.FollowRequestUpdateManyWithoutRequesterNestedInput
+  followRequestsReceived?: Prisma.FollowRequestUpdateManyWithoutTargetNestedInput
   pushSubscriptions?: Prisma.PushSubscriptionUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
   debateWins?: Prisma.DebateResultUpdateManyWithoutWinnerNestedInput
@@ -4398,6 +5184,8 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   showLocation?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showFollowers?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  followApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -4424,6 +5212,8 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   joinRequests?: Prisma.JoinRequestUncheckedUpdateManyWithoutUserNestedInput
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
+  followRequestsSent?: Prisma.FollowRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  followRequestsReceived?: Prisma.FollowRequestUncheckedUpdateManyWithoutTargetNestedInput
   pushSubscriptions?: Prisma.PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   debateWins?: Prisma.DebateResultUncheckedUpdateManyWithoutWinnerNestedInput
@@ -4452,6 +5242,8 @@ export type UserCreateWithoutPushSubscriptionsInput = {
   showLocation?: boolean
   showFollowers?: boolean
   showComments?: boolean
+  isPrivate?: boolean
+  followApproval?: boolean
   role?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
@@ -4479,6 +5271,8 @@ export type UserCreateWithoutPushSubscriptionsInput = {
   joinRequests?: Prisma.JoinRequestCreateNestedManyWithoutUserInput
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
+  followRequestsSent?: Prisma.FollowRequestCreateNestedManyWithoutRequesterInput
+  followRequestsReceived?: Prisma.FollowRequestCreateNestedManyWithoutTargetInput
   passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
   debateWins?: Prisma.DebateResultCreateNestedManyWithoutWinnerInput
   commentSubscriptions?: Prisma.DebateCommentSubscriptionCreateNestedManyWithoutUserInput
@@ -4506,6 +5300,8 @@ export type UserUncheckedCreateWithoutPushSubscriptionsInput = {
   showLocation?: boolean
   showFollowers?: boolean
   showComments?: boolean
+  isPrivate?: boolean
+  followApproval?: boolean
   role?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
@@ -4533,6 +5329,8 @@ export type UserUncheckedCreateWithoutPushSubscriptionsInput = {
   joinRequests?: Prisma.JoinRequestUncheckedCreateNestedManyWithoutUserInput
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
+  followRequestsSent?: Prisma.FollowRequestUncheckedCreateNestedManyWithoutRequesterInput
+  followRequestsReceived?: Prisma.FollowRequestUncheckedCreateNestedManyWithoutTargetInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
   debateWins?: Prisma.DebateResultUncheckedCreateNestedManyWithoutWinnerInput
   commentSubscriptions?: Prisma.DebateCommentSubscriptionUncheckedCreateNestedManyWithoutUserInput
@@ -4576,6 +5374,8 @@ export type UserUpdateWithoutPushSubscriptionsInput = {
   showLocation?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showFollowers?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  followApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -4603,6 +5403,8 @@ export type UserUpdateWithoutPushSubscriptionsInput = {
   joinRequests?: Prisma.JoinRequestUpdateManyWithoutUserNestedInput
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
+  followRequestsSent?: Prisma.FollowRequestUpdateManyWithoutRequesterNestedInput
+  followRequestsReceived?: Prisma.FollowRequestUpdateManyWithoutTargetNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
   debateWins?: Prisma.DebateResultUpdateManyWithoutWinnerNestedInput
   commentSubscriptions?: Prisma.DebateCommentSubscriptionUpdateManyWithoutUserNestedInput
@@ -4630,6 +5432,8 @@ export type UserUncheckedUpdateWithoutPushSubscriptionsInput = {
   showLocation?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showFollowers?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  followApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -4657,6 +5461,8 @@ export type UserUncheckedUpdateWithoutPushSubscriptionsInput = {
   joinRequests?: Prisma.JoinRequestUncheckedUpdateManyWithoutUserNestedInput
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
+  followRequestsSent?: Prisma.FollowRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  followRequestsReceived?: Prisma.FollowRequestUncheckedUpdateManyWithoutTargetNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   debateWins?: Prisma.DebateResultUncheckedUpdateManyWithoutWinnerNestedInput
   commentSubscriptions?: Prisma.DebateCommentSubscriptionUncheckedUpdateManyWithoutUserNestedInput
@@ -4684,6 +5490,8 @@ export type UserCreateWithoutPasswordResetTokensInput = {
   showLocation?: boolean
   showFollowers?: boolean
   showComments?: boolean
+  isPrivate?: boolean
+  followApproval?: boolean
   role?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
@@ -4711,6 +5519,8 @@ export type UserCreateWithoutPasswordResetTokensInput = {
   joinRequests?: Prisma.JoinRequestCreateNestedManyWithoutUserInput
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
+  followRequestsSent?: Prisma.FollowRequestCreateNestedManyWithoutRequesterInput
+  followRequestsReceived?: Prisma.FollowRequestCreateNestedManyWithoutTargetInput
   pushSubscriptions?: Prisma.PushSubscriptionCreateNestedManyWithoutUserInput
   debateWins?: Prisma.DebateResultCreateNestedManyWithoutWinnerInput
   commentSubscriptions?: Prisma.DebateCommentSubscriptionCreateNestedManyWithoutUserInput
@@ -4738,6 +5548,8 @@ export type UserUncheckedCreateWithoutPasswordResetTokensInput = {
   showLocation?: boolean
   showFollowers?: boolean
   showComments?: boolean
+  isPrivate?: boolean
+  followApproval?: boolean
   role?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
@@ -4765,6 +5577,8 @@ export type UserUncheckedCreateWithoutPasswordResetTokensInput = {
   joinRequests?: Prisma.JoinRequestUncheckedCreateNestedManyWithoutUserInput
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
+  followRequestsSent?: Prisma.FollowRequestUncheckedCreateNestedManyWithoutRequesterInput
+  followRequestsReceived?: Prisma.FollowRequestUncheckedCreateNestedManyWithoutTargetInput
   pushSubscriptions?: Prisma.PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   debateWins?: Prisma.DebateResultUncheckedCreateNestedManyWithoutWinnerInput
   commentSubscriptions?: Prisma.DebateCommentSubscriptionUncheckedCreateNestedManyWithoutUserInput
@@ -4808,6 +5622,8 @@ export type UserUpdateWithoutPasswordResetTokensInput = {
   showLocation?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showFollowers?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  followApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -4835,6 +5651,8 @@ export type UserUpdateWithoutPasswordResetTokensInput = {
   joinRequests?: Prisma.JoinRequestUpdateManyWithoutUserNestedInput
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
+  followRequestsSent?: Prisma.FollowRequestUpdateManyWithoutRequesterNestedInput
+  followRequestsReceived?: Prisma.FollowRequestUpdateManyWithoutTargetNestedInput
   pushSubscriptions?: Prisma.PushSubscriptionUpdateManyWithoutUserNestedInput
   debateWins?: Prisma.DebateResultUpdateManyWithoutWinnerNestedInput
   commentSubscriptions?: Prisma.DebateCommentSubscriptionUpdateManyWithoutUserNestedInput
@@ -4862,6 +5680,8 @@ export type UserUncheckedUpdateWithoutPasswordResetTokensInput = {
   showLocation?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showFollowers?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  followApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -4889,6 +5709,8 @@ export type UserUncheckedUpdateWithoutPasswordResetTokensInput = {
   joinRequests?: Prisma.JoinRequestUncheckedUpdateManyWithoutUserNestedInput
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
+  followRequestsSent?: Prisma.FollowRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  followRequestsReceived?: Prisma.FollowRequestUncheckedUpdateManyWithoutTargetNestedInput
   pushSubscriptions?: Prisma.PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   debateWins?: Prisma.DebateResultUncheckedUpdateManyWithoutWinnerNestedInput
   commentSubscriptions?: Prisma.DebateCommentSubscriptionUncheckedUpdateManyWithoutUserNestedInput
@@ -4916,6 +5738,8 @@ export type UserCreateWithoutDebateWinsInput = {
   showLocation?: boolean
   showFollowers?: boolean
   showComments?: boolean
+  isPrivate?: boolean
+  followApproval?: boolean
   role?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
@@ -4943,6 +5767,8 @@ export type UserCreateWithoutDebateWinsInput = {
   joinRequests?: Prisma.JoinRequestCreateNestedManyWithoutUserInput
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
+  followRequestsSent?: Prisma.FollowRequestCreateNestedManyWithoutRequesterInput
+  followRequestsReceived?: Prisma.FollowRequestCreateNestedManyWithoutTargetInput
   pushSubscriptions?: Prisma.PushSubscriptionCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
   commentSubscriptions?: Prisma.DebateCommentSubscriptionCreateNestedManyWithoutUserInput
@@ -4970,6 +5796,8 @@ export type UserUncheckedCreateWithoutDebateWinsInput = {
   showLocation?: boolean
   showFollowers?: boolean
   showComments?: boolean
+  isPrivate?: boolean
+  followApproval?: boolean
   role?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
@@ -4997,6 +5825,8 @@ export type UserUncheckedCreateWithoutDebateWinsInput = {
   joinRequests?: Prisma.JoinRequestUncheckedCreateNestedManyWithoutUserInput
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
+  followRequestsSent?: Prisma.FollowRequestUncheckedCreateNestedManyWithoutRequesterInput
+  followRequestsReceived?: Prisma.FollowRequestUncheckedCreateNestedManyWithoutTargetInput
   pushSubscriptions?: Prisma.PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
   commentSubscriptions?: Prisma.DebateCommentSubscriptionUncheckedCreateNestedManyWithoutUserInput
@@ -5040,6 +5870,8 @@ export type UserUpdateWithoutDebateWinsInput = {
   showLocation?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showFollowers?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  followApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -5067,6 +5899,8 @@ export type UserUpdateWithoutDebateWinsInput = {
   joinRequests?: Prisma.JoinRequestUpdateManyWithoutUserNestedInput
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
+  followRequestsSent?: Prisma.FollowRequestUpdateManyWithoutRequesterNestedInput
+  followRequestsReceived?: Prisma.FollowRequestUpdateManyWithoutTargetNestedInput
   pushSubscriptions?: Prisma.PushSubscriptionUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
   commentSubscriptions?: Prisma.DebateCommentSubscriptionUpdateManyWithoutUserNestedInput
@@ -5094,6 +5928,8 @@ export type UserUncheckedUpdateWithoutDebateWinsInput = {
   showLocation?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showFollowers?: Prisma.BoolFieldUpdateOperationsInput | boolean
   showComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  followApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -5121,6 +5957,8 @@ export type UserUncheckedUpdateWithoutDebateWinsInput = {
   joinRequests?: Prisma.JoinRequestUncheckedUpdateManyWithoutUserNestedInput
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
+  followRequestsSent?: Prisma.FollowRequestUncheckedUpdateManyWithoutRequesterNestedInput
+  followRequestsReceived?: Prisma.FollowRequestUncheckedUpdateManyWithoutTargetNestedInput
   pushSubscriptions?: Prisma.PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   commentSubscriptions?: Prisma.DebateCommentSubscriptionUncheckedUpdateManyWithoutUserNestedInput
@@ -5144,6 +5982,8 @@ export type UserCountOutputType = {
   joinRequests: number
   following: number
   followers: number
+  followRequestsSent: number
+  followRequestsReceived: number
   pushSubscriptions: number
   passwordResetTokens: number
   debateWins: number
@@ -5163,6 +6003,8 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   joinRequests?: boolean | UserCountOutputTypeCountJoinRequestsArgs
   following?: boolean | UserCountOutputTypeCountFollowingArgs
   followers?: boolean | UserCountOutputTypeCountFollowersArgs
+  followRequestsSent?: boolean | UserCountOutputTypeCountFollowRequestsSentArgs
+  followRequestsReceived?: boolean | UserCountOutputTypeCountFollowRequestsReceivedArgs
   pushSubscriptions?: boolean | UserCountOutputTypeCountPushSubscriptionsArgs
   passwordResetTokens?: boolean | UserCountOutputTypeCountPasswordResetTokensArgs
   debateWins?: boolean | UserCountOutputTypeCountDebateWinsArgs
@@ -5260,6 +6102,20 @@ export type UserCountOutputTypeCountFollowersArgs<ExtArgs extends runtime.Types.
 /**
  * UserCountOutputType without action
  */
+export type UserCountOutputTypeCountFollowRequestsSentArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.FollowRequestWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountFollowRequestsReceivedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.FollowRequestWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
 export type UserCountOutputTypeCountPushSubscriptionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.PushSubscriptionWhereInput
 }
@@ -5314,6 +6170,8 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   showLocation?: boolean
   showFollowers?: boolean
   showComments?: boolean
+  isPrivate?: boolean
+  followApproval?: boolean
   role?: boolean
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
@@ -5341,6 +6199,8 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   joinRequests?: boolean | Prisma.User$joinRequestsArgs<ExtArgs>
   following?: boolean | Prisma.User$followingArgs<ExtArgs>
   followers?: boolean | Prisma.User$followersArgs<ExtArgs>
+  followRequestsSent?: boolean | Prisma.User$followRequestsSentArgs<ExtArgs>
+  followRequestsReceived?: boolean | Prisma.User$followRequestsReceivedArgs<ExtArgs>
   pushSubscriptions?: boolean | Prisma.User$pushSubscriptionsArgs<ExtArgs>
   passwordResetTokens?: boolean | Prisma.User$passwordResetTokensArgs<ExtArgs>
   debateWins?: boolean | Prisma.User$debateWinsArgs<ExtArgs>
@@ -5370,6 +6230,8 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   showLocation?: boolean
   showFollowers?: boolean
   showComments?: boolean
+  isPrivate?: boolean
+  followApproval?: boolean
   role?: boolean
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
@@ -5409,6 +6271,8 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   showLocation?: boolean
   showFollowers?: boolean
   showComments?: boolean
+  isPrivate?: boolean
+  followApproval?: boolean
   role?: boolean
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
@@ -5448,6 +6312,8 @@ export type UserSelectScalar = {
   showLocation?: boolean
   showFollowers?: boolean
   showComments?: boolean
+  isPrivate?: boolean
+  followApproval?: boolean
   role?: boolean
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
@@ -5466,7 +6332,7 @@ export type UserSelectScalar = {
   updatedAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "emailVerified" | "username" | "hashedPassword" | "bio" | "avatarUrl" | "country" | "twitterHandle" | "threadsHandle" | "truthSocialHandle" | "blueskyHandle" | "mastodonHandle" | "websiteUrl" | "lastUsernameChange" | "aiAssessment" | "aiAssessmentUpdatedAt" | "showLocation" | "showFollowers" | "showComments" | "role" | "isExhibition" | "hideFromLeaderboard" | "isDeleted" | "deletedAt" | "onboardingComplete" | "suspendedUntil" | "dob" | "gender" | "region" | "elo" | "rankedDebatesPlayed" | "wins" | "losses" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "emailVerified" | "username" | "hashedPassword" | "bio" | "avatarUrl" | "country" | "twitterHandle" | "threadsHandle" | "truthSocialHandle" | "blueskyHandle" | "mastodonHandle" | "websiteUrl" | "lastUsernameChange" | "aiAssessment" | "aiAssessmentUpdatedAt" | "showLocation" | "showFollowers" | "showComments" | "isPrivate" | "followApproval" | "role" | "isExhibition" | "hideFromLeaderboard" | "isDeleted" | "deletedAt" | "onboardingComplete" | "suspendedUntil" | "dob" | "gender" | "region" | "elo" | "rankedDebatesPlayed" | "wins" | "losses" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
@@ -5479,6 +6345,8 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   joinRequests?: boolean | Prisma.User$joinRequestsArgs<ExtArgs>
   following?: boolean | Prisma.User$followingArgs<ExtArgs>
   followers?: boolean | Prisma.User$followersArgs<ExtArgs>
+  followRequestsSent?: boolean | Prisma.User$followRequestsSentArgs<ExtArgs>
+  followRequestsReceived?: boolean | Prisma.User$followRequestsReceivedArgs<ExtArgs>
   pushSubscriptions?: boolean | Prisma.User$pushSubscriptionsArgs<ExtArgs>
   passwordResetTokens?: boolean | Prisma.User$passwordResetTokensArgs<ExtArgs>
   debateWins?: boolean | Prisma.User$debateWinsArgs<ExtArgs>
@@ -5503,6 +6371,8 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     joinRequests: Prisma.$JoinRequestPayload<ExtArgs>[]
     following: Prisma.$FollowPayload<ExtArgs>[]
     followers: Prisma.$FollowPayload<ExtArgs>[]
+    followRequestsSent: Prisma.$FollowRequestPayload<ExtArgs>[]
+    followRequestsReceived: Prisma.$FollowRequestPayload<ExtArgs>[]
     pushSubscriptions: Prisma.$PushSubscriptionPayload<ExtArgs>[]
     passwordResetTokens: Prisma.$PasswordResetTokenPayload<ExtArgs>[]
     debateWins: Prisma.$DebateResultPayload<ExtArgs>[]
@@ -5530,6 +6400,8 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     showLocation: boolean
     showFollowers: boolean
     showComments: boolean
+    isPrivate: boolean
+    followApproval: boolean
     role: string
     isExhibition: boolean
     hideFromLeaderboard: boolean
@@ -5951,6 +6823,8 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   joinRequests<T extends Prisma.User$joinRequestsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$joinRequestsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$JoinRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   following<T extends Prisma.User$followingArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$followingArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FollowPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   followers<T extends Prisma.User$followersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$followersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FollowPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  followRequestsSent<T extends Prisma.User$followRequestsSentArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$followRequestsSentArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FollowRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  followRequestsReceived<T extends Prisma.User$followRequestsReceivedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$followRequestsReceivedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FollowRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   pushSubscriptions<T extends Prisma.User$pushSubscriptionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$pushSubscriptionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PushSubscriptionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   passwordResetTokens<T extends Prisma.User$passwordResetTokensArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$passwordResetTokensArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PasswordResetTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   debateWins<T extends Prisma.User$debateWinsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$debateWinsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DebateResultPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -6005,6 +6879,8 @@ export interface UserFieldRefs {
   readonly showLocation: Prisma.FieldRef<"User", 'Boolean'>
   readonly showFollowers: Prisma.FieldRef<"User", 'Boolean'>
   readonly showComments: Prisma.FieldRef<"User", 'Boolean'>
+  readonly isPrivate: Prisma.FieldRef<"User", 'Boolean'>
+  readonly followApproval: Prisma.FieldRef<"User", 'Boolean'>
   readonly role: Prisma.FieldRef<"User", 'String'>
   readonly isExhibition: Prisma.FieldRef<"User", 'Boolean'>
   readonly hideFromLeaderboard: Prisma.FieldRef<"User", 'Boolean'>
@@ -6675,6 +7551,54 @@ export type User$followersArgs<ExtArgs extends runtime.Types.Extensions.Internal
   take?: number
   skip?: number
   distinct?: Prisma.FollowScalarFieldEnum | Prisma.FollowScalarFieldEnum[]
+}
+
+/**
+ * User.followRequestsSent
+ */
+export type User$followRequestsSentArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the FollowRequest
+   */
+  select?: Prisma.FollowRequestSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the FollowRequest
+   */
+  omit?: Prisma.FollowRequestOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FollowRequestInclude<ExtArgs> | null
+  where?: Prisma.FollowRequestWhereInput
+  orderBy?: Prisma.FollowRequestOrderByWithRelationInput | Prisma.FollowRequestOrderByWithRelationInput[]
+  cursor?: Prisma.FollowRequestWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.FollowRequestScalarFieldEnum | Prisma.FollowRequestScalarFieldEnum[]
+}
+
+/**
+ * User.followRequestsReceived
+ */
+export type User$followRequestsReceivedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the FollowRequest
+   */
+  select?: Prisma.FollowRequestSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the FollowRequest
+   */
+  omit?: Prisma.FollowRequestOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FollowRequestInclude<ExtArgs> | null
+  where?: Prisma.FollowRequestWhereInput
+  orderBy?: Prisma.FollowRequestOrderByWithRelationInput | Prisma.FollowRequestOrderByWithRelationInput[]
+  cursor?: Prisma.FollowRequestWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.FollowRequestScalarFieldEnum | Prisma.FollowRequestScalarFieldEnum[]
 }
 
 /**

@@ -47,6 +47,8 @@ export default async function ProfilePage({ searchParams }: { searchParams: Prom
         showLocation: true,
         showFollowers: true,
         showComments: true,
+        isPrivate: true,
+        followApproval: true,
         favCategories: {
           select: {
             category: {
@@ -177,7 +179,7 @@ export default async function ProfilePage({ searchParams }: { searchParams: Prom
                     <Card key={c.id}>
                       <CardBody className="py-3 px-4">
                         <a
-                          href={`/debates/${c.debate.challengeId}/results`}
+                          href={`/debates/${c.debate.challengeId}/results#comment-${c.id}`}
                           className="block hover:opacity-80 transition-opacity"
                         >
                           <p className="text-xs text-foreground-muted mb-1 line-clamp-1">

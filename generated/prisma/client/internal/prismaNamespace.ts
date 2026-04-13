@@ -389,6 +389,7 @@ export const ModelName = {
   VerificationToken: 'VerificationToken',
   User: 'User',
   Follow: 'Follow',
+  FollowRequest: 'FollowRequest',
   UserFavoriteCategory: 'UserFavoriteCategory',
   Category: 'Category',
   Challenge: 'Challenge',
@@ -425,7 +426,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "account" | "session" | "verificationToken" | "user" | "follow" | "userFavoriteCategory" | "category" | "challenge" | "joinRequest" | "lobbyChatMessage" | "debate" | "audienceVote" | "debateComment" | "debateCommentSubscription" | "debateTurn" | "judgeResult" | "spectatorMessage" | "notification" | "integrityFlag" | "suspiciousTurnSignal" | "pushSubscription" | "passwordResetToken" | "adminAction" | "judgePrompt" | "debateResult" | "contactMessage"
+    modelProps: "account" | "session" | "verificationToken" | "user" | "follow" | "followRequest" | "userFavoriteCategory" | "category" | "challenge" | "joinRequest" | "lobbyChatMessage" | "debate" | "audienceVote" | "debateComment" | "debateCommentSubscription" | "debateTurn" | "judgeResult" | "spectatorMessage" | "notification" | "integrityFlag" | "suspiciousTurnSignal" | "pushSubscription" | "passwordResetToken" | "adminAction" | "judgePrompt" | "debateResult" | "contactMessage"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -796,6 +797,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.FollowCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.FollowCountAggregateOutputType> | number
+        }
+      }
+    }
+    FollowRequest: {
+      payload: Prisma.$FollowRequestPayload<ExtArgs>
+      fields: Prisma.FollowRequestFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.FollowRequestFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FollowRequestPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.FollowRequestFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FollowRequestPayload>
+        }
+        findFirst: {
+          args: Prisma.FollowRequestFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FollowRequestPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.FollowRequestFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FollowRequestPayload>
+        }
+        findMany: {
+          args: Prisma.FollowRequestFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FollowRequestPayload>[]
+        }
+        create: {
+          args: Prisma.FollowRequestCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FollowRequestPayload>
+        }
+        createMany: {
+          args: Prisma.FollowRequestCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.FollowRequestCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FollowRequestPayload>[]
+        }
+        delete: {
+          args: Prisma.FollowRequestDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FollowRequestPayload>
+        }
+        update: {
+          args: Prisma.FollowRequestUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FollowRequestPayload>
+        }
+        deleteMany: {
+          args: Prisma.FollowRequestDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.FollowRequestUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.FollowRequestUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FollowRequestPayload>[]
+        }
+        upsert: {
+          args: Prisma.FollowRequestUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FollowRequestPayload>
+        }
+        aggregate: {
+          args: Prisma.FollowRequestAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateFollowRequest>
+        }
+        groupBy: {
+          args: Prisma.FollowRequestGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.FollowRequestGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.FollowRequestCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.FollowRequestCountAggregateOutputType> | number
         }
       }
     }
@@ -2450,6 +2525,8 @@ export const UserScalarFieldEnum = {
   showLocation: 'showLocation',
   showFollowers: 'showFollowers',
   showComments: 'showComments',
+  isPrivate: 'isPrivate',
+  followApproval: 'followApproval',
   role: 'role',
   isExhibition: 'isExhibition',
   hideFromLeaderboard: 'hideFromLeaderboard',
@@ -2478,6 +2555,16 @@ export const FollowScalarFieldEnum = {
 } as const
 
 export type FollowScalarFieldEnum = (typeof FollowScalarFieldEnum)[keyof typeof FollowScalarFieldEnum]
+
+
+export const FollowRequestScalarFieldEnum = {
+  id: 'id',
+  requesterId: 'requesterId',
+  targetId: 'targetId',
+  createdAt: 'createdAt'
+} as const
+
+export type FollowRequestScalarFieldEnum = (typeof FollowRequestScalarFieldEnum)[keyof typeof FollowRequestScalarFieldEnum]
 
 
 export const UserFavoriteCategoryScalarFieldEnum = {
@@ -2998,6 +3085,7 @@ export type GlobalOmitConfig = {
   verificationToken?: Prisma.VerificationTokenOmit
   user?: Prisma.UserOmit
   follow?: Prisma.FollowOmit
+  followRequest?: Prisma.FollowRequestOmit
   userFavoriteCategory?: Prisma.UserFavoriteCategoryOmit
   category?: Prisma.CategoryOmit
   challenge?: Prisma.ChallengeOmit

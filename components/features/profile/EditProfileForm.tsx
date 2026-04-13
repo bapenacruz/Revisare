@@ -25,9 +25,8 @@ interface EditProfileFormProps {
     mastodonHandle?: string | null;
     websiteUrl?: string | null;
     lastUsernameChange?: Date | string | null;
-    showLocation?: boolean | null;
-    showFollowers?: boolean | null;
-    showComments?: boolean | null;
+    isPrivate?: boolean | null;
+    followApproval?: boolean | null;
     favCategories: Array<{ category: { id: string; slug: string; label: string; emoji: string } }>;
   };
   allCategories: Array<{ id: string; slug: string; label: string; emoji: string }>;
@@ -49,9 +48,8 @@ export function EditProfileForm({ initial, allCategories }: EditProfileFormProps
     blueskyHandle: initial.blueskyHandle ?? "",
     mastodonHandle: initial.mastodonHandle ?? "",
     websiteUrl: initial.websiteUrl ?? "",
-    showLocation: initial.showLocation ?? true,
-    showFollowers: initial.showFollowers ?? true,
-    showComments: initial.showComments ?? true,
+    isPrivate: initial.isPrivate ?? false,
+    followApproval: initial.followApproval ?? false,
   });
   const [selectedCats, setSelectedCats] = useState<string[]>(
     initial.favCategories.map((fc) => fc.category.id)
@@ -237,23 +235,23 @@ export function EditProfileForm({ initial, allCategories }: EditProfileFormProps
 
       {/* Privacy settings */}
       <div>
-        <label className="text-sm font-medium text-foreground mb-2 block">
-          Privacy
-        </label>
+        <label className="text-sm font-medium text-foreground mb-2 block">Privacy</label>
         <div className="flex flex-col gap-3">
           {([
-            { key: "showLocation", label: "Show my location on public profile" },
-            { key: "showFollowers", label: "Show my followers & following" },
-            { key: "showComments", label: "Show my comments on public profile" },
-          ] as const).map(({ key, label }) => (
-            <label key={key} className="flex items-center justify-between gap-3 cursor-pointer">
-              <span className="text-sm text-foreground-muted">{label}</span>
+            { key: "isPrivate" as const, label: "Private profile", hint: "Only followers can see your followers, following, and comments lists" },
+            { key: "followApproval" as const, label: "Approve follow requests", hint: "New followers require your approval before they can follow you" },
+          ]).map(({ key, label, hint }) => (
+            <label key={key} className="flex items-start justify-between gap-3 cursor-pointer">
+              <div>
+                <p className="text-sm text-foreground">{label}</p>
+                <p className="text-xs text-foreground-muted mt-0.5">{hint}</p>
+              </div>
               <button
                 type="button"
                 role="switch"
                 aria-checked={form[key]}
                 onClick={() => setForm((f) => ({ ...f, [key]: !f[key] }))}
-                className={`relative inline-flex h-5 w-9 shrink-0 rounded-full border-2 border-transparent transition-colors focus:outline-none ${
+                className={`relative inline-flex h-5 w-9 shrink-0 mt-0.5 rounded-full border-2 border-transparent transition-colors focus:outline-none ${
                   form[key] ? "bg-brand" : "bg-border"
                 }`}
               >

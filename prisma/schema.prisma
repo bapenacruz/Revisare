@@ -71,6 +71,8 @@ model User {
   showLocation       Boolean   @default(true)
   showFollowers      Boolean   @default(true)
   showComments       Boolean   @default(true)
+  isPrivate          Boolean   @default(false)
+  followApproval     Boolean   @default(false)
   role               String    @default("user")
   isExhibition         Boolean   @default(false)
   hideFromLeaderboard  Boolean   @default(false)
@@ -99,6 +101,8 @@ model User {
   joinRequests       JoinRequest[]
   following          Follow[] @relation("Follower")
   followers          Follow[] @relation("Following")
+  followRequestsSent     FollowRequest[] @relation("FollowRequestsSent")
+  followRequestsReceived FollowRequest[] @relation("FollowRequestsReceived")
   pushSubscriptions  PushSubscription[]
   passwordResetTokens PasswordResetToken[]
   debateWins         DebateResult[] @relation("DebateWinner")
@@ -119,6 +123,22 @@ model Follow {
   following   User @relation("Following", fields: [followingId], references: [id], onDelete: Cascade)
 
   @@id([followerId, followingId])
+}
+
+// ============================================================
+// Follow requests (when followApproval is enabled)
+// ============================================================
+
+model FollowRequest {
+  id          String   @id @default(cuid())
+  requesterId String
+  targetId    String
+  createdAt   DateTime @default(now())
+
+  requester   User @relation("FollowRequestsSent",     fields: [requesterId], references: [id], onDelete: Cascade)
+  target      User @relation("FollowRequestsReceived", fields: [targetId],    references: [id], onDelete: Cascade)
+
+  @@unique([requesterId, targetId])
 }
 
 // ============================================================

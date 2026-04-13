@@ -43,6 +43,11 @@ export type User = Prisma.UserModel
  */
 export type Follow = Prisma.FollowModel
 /**
+ * Model FollowRequest
+ * 
+ */
+export type FollowRequest = Prisma.FollowRequestModel
+/**
  * Model UserFavoriteCategory
  * 
  */

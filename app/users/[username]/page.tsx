@@ -34,9 +34,8 @@ export default async function PublicProfilePage({ params }: Props) {
       wins: true,
       losses: true,
       createdAt: true,
-      showLocation: true,
-      showFollowers: true,
-      showComments: true,
+      isPrivate: true,
+      followApproval: true,
       favCategories: {
         select: { category: { select: { id: true, label: true, emoji: true } } },
       },
@@ -48,18 +47,31 @@ export default async function PublicProfilePage({ params }: Props) {
 
   // Is the logged-in user already following this profile?
   let isFollowing = false;
+  let isPendingRequest = false;
   const isSelf = session?.user?.id === user.id;
   if (session?.user?.id && !isSelf) {
-    const follow = await db.follow.findUnique({
-      where: {
-        followerId_followingId: {
-          followerId: session.user.id,
-          followingId: user.id,
+    const [follow, pendingReq] = await Promise.all([
+      db.follow.findUnique({
+        where: {
+          followerId_followingId: {
+            followerId: session.user.id,
+            followingId: user.id,
+          },
         },
-      },
-      select: { followerId: true },
-    });
+        select: { followerId: true },
+      }),
+      db.followRequest.findUnique({
+        where: {
+          requesterId_targetId: {
+            requesterId: session.user.id,
+            targetId: user.id,
+          },
+        },
+        select: { id: true },
+      }),
+    ]);
     isFollowing = !!follow;
+    isPendingRequest = !isFollowing && !!pendingReq;
   }
 
   const recentDebates = await db.debate.findMany({
@@ -96,7 +108,7 @@ export default async function PublicProfilePage({ params }: Props) {
             <div className="flex flex-col sm:flex-row sm:items-center gap-3 mb-2">
               <div>
                 <h1 className="text-xl font-bold text-foreground">{user.username}</h1>
-                {user.showLocation !== false && user.country && (
+                {user.country && (
                   <p className="text-xs text-foreground-muted flex items-center justify-center sm:justify-start gap-1 mt-0.5">
                     <MapPin size={11} />
                     {[user.region, user.country].filter(Boolean).join(", ")}
@@ -104,7 +116,7 @@ export default async function PublicProfilePage({ params }: Props) {
                 )}
               </div>
               {!isSelf && session?.user && (
-                <FollowButton username={user.username} initialFollowing={isFollowing} />
+                <FollowButton username={user.username} initialFollowing={isFollowing} initialPending={isPendingRequest} />
               )}
               {!isSelf && !session?.user && (
                 <Link
@@ -120,32 +132,32 @@ export default async function PublicProfilePage({ params }: Props) {
               <p className="text-sm text-foreground-muted leading-relaxed mb-3">{user.bio}</p>
             )}
 
-            {/* Follower counts */}
-            <div className="flex items-center justify-center sm:justify-start gap-4 text-sm mb-3">
-              {user.showFollowers !== false ? (
-                <>
-                  <Link href={`/users/${user.username}/followers`} className="hover:underline">
-                    <span className="font-semibold text-foreground">{user._count.followers}</span>{" "}
-                    <span className="text-foreground-muted">followers</span>
-                  </Link>
-                  <Link href={`/users/${user.username}/following`} className="hover:underline">
-                    <span className="font-semibold text-foreground">{user._count.following}</span>{" "}
-                    <span className="text-foreground-muted">following</span>
-                  </Link>
-                </>
+            {/* Follower counts — lists only visible to followers on private profiles */}
+            {(() => {
+              const canSeeLists = isSelf || !user.isPrivate || isFollowing;
+              const followersEl = canSeeLists ? (
+                <Link href={`/users/${user.username}/followers`} className="hover:underline">
+                  <span className="font-semibold text-foreground">{user._count.followers}</span>{" "}
+                  <span className="text-foreground-muted">followers</span>
+                </Link>
               ) : (
-                <>
-                  <span>
-                    <span className="font-semibold text-foreground">{user._count.followers}</span>{" "}
-                    <span className="text-foreground-muted">followers</span>
-                  </span>
-                  <span>
-                    <span className="font-semibold text-foreground">{user._count.following}</span>{" "}
-                    <span className="text-foreground-muted">following</span>
-                  </span>
-                </>
-              )}
-              {user.showComments !== false ? (
+                <span>
+                  <span className="font-semibold text-foreground">{user._count.followers}</span>{" "}
+                  <span className="text-foreground-muted">followers</span>
+                </span>
+              );
+              const followingEl = canSeeLists ? (
+                <Link href={`/users/${user.username}/following`} className="hover:underline">
+                  <span className="font-semibold text-foreground">{user._count.following}</span>{" "}
+                  <span className="text-foreground-muted">following</span>
+                </Link>
+              ) : (
+                <span>
+                  <span className="font-semibold text-foreground">{user._count.following}</span>{" "}
+                  <span className="text-foreground-muted">following</span>
+                </span>
+              );
+              const commentsEl = canSeeLists ? (
                 <Link href={`/users/${user.username}/comments`} className="hover:underline">
                   <span className="font-semibold text-foreground">{user._count.debateComments}</span>{" "}
                   <span className="text-foreground-muted">comments</span>
@@ -155,8 +167,15 @@ export default async function PublicProfilePage({ params }: Props) {
                   <span className="font-semibold text-foreground">{user._count.debateComments}</span>{" "}
                   <span className="text-foreground-muted">comments</span>
                 </span>
-              )}
-            </div>
+              );
+              return (
+                <div className="flex items-center justify-center sm:justify-start gap-4 text-sm mb-3">
+                  {followersEl}
+                  {followingEl}
+                  {commentsEl}
+                </div>
+              );
+            })()}
 
             {/* Stats */}
             <div className="flex items-center justify-center sm:justify-start gap-3 flex-wrap">

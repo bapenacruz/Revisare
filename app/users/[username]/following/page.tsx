@@ -23,11 +23,30 @@ export default async function FollowingPage({ params }: Props) {
     select: {
       id: true,
       username: true,
-      showFollowers: true,
+      isPrivate: true,
     },
   });
 
   if (!user) notFound();
+
+  // Gate: private profiles only show this list to their followers
+  const session = await import("@/lib/auth").then((m) => m.auth());
+  const viewerId = session?.user?.id;
+  if (user.isPrivate && viewerId !== user.id) {
+    const isFollower = viewerId
+      ? !!(await db.follow.findUnique({
+          where: { followerId_followingId: { followerId: viewerId, followingId: user.id } },
+          select: { followerId: true },
+        }))
+      : false;
+    if (!isFollower) {
+      return (
+        <div className="mx-auto max-w-xl px-4 sm:px-6 py-20 text-center">
+          <p className="text-foreground-muted">This profile is private.</p>
+        </div>
+      );
+    }
+  }
 
   const following = await db.follow.findMany({
     where: { followerId: user.id },

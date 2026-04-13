@@ -3,13 +3,14 @@
 import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import { useSession } from "@/components/providers/SessionProvider";
-import { Bell, CheckCheck } from "lucide-react";
+import { Bell, CheckCheck, UserCheck, UserX } from "lucide-react";
 
 interface NotifPayload {
   title: string;
   body: string;
   href?: string;
   type: string;
+  requestId?: string;
 }
 interface Notif {
   id: string;
@@ -26,6 +27,8 @@ const TYPE_ICON: Record<string, string> = {
   featured_debate: "⭐",
   opponent_forfeit: "🏳️",
   integrity_action: "🛡️",
+  new_comment: "💬",
+  follow_request: "🤝",
 };
 
 const TYPE_LABELS: Record<string, string> = {
@@ -35,6 +38,8 @@ const TYPE_LABELS: Record<string, string> = {
   featured_debate: "Featured",
   opponent_forfeit: "Forfeits",
   integrity_action: "Moderation",
+  new_comment: "Comments",
+  follow_request: "Follow Requests",
 };
 
 const ALL_TYPES = Object.keys(TYPE_LABELS);
@@ -47,6 +52,7 @@ export default function NotificationsPage() {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [unreadCount, setUnreadCount] = useState(0);
+  const [processingRequest, setProcessingRequest] = useState<string | null>(null);
 
   const fetchNotifs = useCallback(() => {
     if (!session) return;
@@ -83,6 +89,25 @@ export default function NotificationsPage() {
     await fetch("/api/notifications", { method: "PATCH", body: "{}" });
     setNotifs((prev) => prev.map((n) => ({ ...n, read: true })));
     setUnreadCount(0);
+  }
+
+  async function handleFollowRequest(notifId: string, requestId: string, action: "accept" | "reject") {
+    if (processingRequest) return;
+    setProcessingRequest(requestId);
+    try {
+      const res = await fetch(`/api/follow-requests/${requestId}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action }),
+      });
+      if (res.ok) {
+        // Remove the notification from the list
+        setNotifs((prev) => prev.filter((n) => n.id !== notifId));
+        setUnreadCount((c) => Math.max(0, c - 1));
+      }
+    } finally {
+      setProcessingRequest(null);
+    }
   }
 
   if (!session) {
@@ -148,6 +173,39 @@ export default function NotificationsPage() {
         <div className="flex flex-col divide-y divide-border rounded-[--radius] border border-border overflow-hidden">
           {notifs.map((n) => {
             const icon = TYPE_ICON[n.type] ?? "🔔";
+
+            // Follow request: special rendering with Accept/Reject
+            if (n.type === "follow_request" && n.payload.requestId) {
+              const rid = n.payload.requestId;
+              return (
+                <div key={n.id} className={`flex gap-3 px-4 py-4 ${n.read ? "bg-surface" : "bg-brand-dim/20"}`}>
+                  <span className="text-xl shrink-0">{icon}</span>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-semibold text-foreground leading-tight">{n.payload.title}</p>
+                    <p className="text-sm text-foreground-muted mt-0.5 leading-snug">{n.payload.body}</p>
+                    <p className="text-xs text-foreground-subtle mt-1.5">{new Date(n.createdAt).toLocaleString()}</p>
+                    <div className="flex gap-2 mt-2">
+                      <button
+                        onClick={() => handleFollowRequest(n.id, rid, "accept")}
+                        disabled={!!processingRequest}
+                        className="flex items-center gap-1 px-3 py-1 rounded text-xs font-medium bg-brand text-white hover:bg-brand/80 disabled:opacity-50 transition-colors"
+                      >
+                        <UserCheck size={11} /> Accept
+                      </button>
+                      <button
+                        onClick={() => handleFollowRequest(n.id, rid, "reject")}
+                        disabled={!!processingRequest}
+                        className="flex items-center gap-1 px-3 py-1 rounded text-xs font-medium bg-surface-raised border border-border text-foreground-muted hover:text-foreground disabled:opacity-50 transition-colors"
+                      >
+                        <UserX size={11} /> Decline
+                      </button>
+                    </div>
+                  </div>
+                  {!n.read && <span className="shrink-0 mt-1 w-2 h-2 rounded-full bg-brand" />}
+                </div>
+              );
+            }
+
             const content = (
               <div className={`flex gap-3 px-4 py-4 transition-colors ${n.read ? "bg-surface" : "bg-brand-dim/20"}`}>
                 <span className="text-xl shrink-0">{icon}</span>

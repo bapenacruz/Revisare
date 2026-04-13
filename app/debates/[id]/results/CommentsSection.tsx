@@ -29,6 +29,7 @@ export function CommentsSection({ challengeId }: { challengeId: string }) {
   const [togglingSubscription, setTogglingSubscription] = useState(false);
   const prevCountRef = useRef(-1);
   const endRef = useRef<HTMLDivElement>(null);
+  const hasScrolledToHash = useRef(false);
 
   const fetchComments = useCallback(async () => {
     const res = await fetch(`/api/debates/${challengeId}/comments`);
@@ -72,7 +73,20 @@ export function CommentsSection({ challengeId }: { challengeId: string }) {
   // Scroll on new comments (not initial load)
   useEffect(() => {
     const count = comments.length;
-    if (prevCountRef.current === -1) { prevCountRef.current = count; return; }
+    if (prevCountRef.current === -1) {
+      prevCountRef.current = count;
+      // Scroll to a specific comment if the URL has a hash like #comment-{id}
+      if (!hasScrolledToHash.current && typeof window !== "undefined") {
+        const hash = window.location.hash.slice(1);
+        if (hash.startsWith("comment-")) {
+          hasScrolledToHash.current = true;
+          setTimeout(() => {
+            document.getElementById(hash)?.scrollIntoView({ behavior: "smooth", block: "center" });
+          }, 150);
+        }
+      }
+      return;
+    }
     if (count > prevCountRef.current) {
       endRef.current?.scrollIntoView({ behavior: "smooth" });
     }
@@ -137,7 +151,7 @@ export function CommentsSection({ challengeId }: { challengeId: string }) {
       ) : (
         <div className="flex flex-col gap-4 mb-6">
           {comments.map((c) => (
-            <div key={c.id} className="flex gap-3 group">
+            <div key={c.id} id={`comment-${c.id}`} className="flex gap-3 group scroll-mt-20 target:bg-brand-dim/30 rounded-lg -mx-2 px-2 py-1 transition-colors">
               <Avatar initial={c.username[0]} size="sm" />
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 mb-0.5">
