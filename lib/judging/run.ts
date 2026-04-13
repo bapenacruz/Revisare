@@ -6,11 +6,27 @@ import { generateFeedbackOnly } from "./openrouter-provider";
 import type { JudgeInput } from "./types";
 import { computeNewRating, DEFAULT_ELO } from "@/lib/elo";
 
+/** In-process set to prevent concurrent judging of the same debate. */
+const inFlightJudging = new Set<string>();
+
 /**
  * Full judging pipeline for a completed debate.
  * Fetches turns, runs judge panel, stores results, updates ELO, fires notifications.
  */
 export async function judgeDebate(debateId: string): Promise<void> {
+  if (inFlightJudging.has(debateId)) {
+    console.log(`[judgeDebate] Already in-flight for ${debateId}, skipping.`);
+    return;
+  }
+  inFlightJudging.add(debateId);
+  try {
+    await _judgeDebate(debateId);
+  } finally {
+    inFlightJudging.delete(debateId);
+  }
+}
+
+async function _judgeDebate(debateId: string): Promise<void> {
   const debate = await db.debate.findUnique({
     where: { id: debateId },
     include: {

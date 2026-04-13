@@ -82,7 +82,7 @@ export const JUDGE_CONFIGS: JudgeConfig[] = [
     label: "ChatGPT",
     apiKeyEnv: "JUDGE_C_API_KEY",
     modelEnv: "JUDGE_C_MODEL",
-    defaultModel: "openai/gpt-oss-120b",
+    defaultModel: "openai/gpt-4.1-mini",
   },
 ];
 

@@ -146,9 +146,7 @@ export default function ArenaPage() {
   const [specDraft, setSpecDraft] = useState("");
   const [guestName, setGuestName] = useState("");
   const [sendingSpec, setSendingSpec] = useState(false);
-  const specEndRef = useRef<HTMLDivElement>(null);
   const specContainerRef = useRef<HTMLDivElement>(null);
-  const prevSpecCountRef = useRef(-1);
 
   // Fetch debate state
   const fetchDebate = useCallback(async () => {
@@ -194,23 +192,6 @@ export default function ArenaPage() {
     setDraft("");
     setTurnError("");
   }, [debate?.currentTurnIndex]);
-
-  // Spectator chat scroll — only scroll when already near the bottom
-  useEffect(() => {
-    if (!debate) return;
-    const count = debate.spectatorMessages.length;
-    if (prevSpecCountRef.current === -1) { prevSpecCountRef.current = count; return; }
-    if (count > prevSpecCountRef.current) {
-      const container = specContainerRef.current;
-      if (container) {
-        const isNearBottom = container.scrollHeight - container.scrollTop - container.clientHeight < 80;
-        if (isNearBottom) {
-          specEndRef.current?.scrollIntoView({ behavior: "smooth" });
-        }
-      }
-    }
-    prevSpecCountRef.current = count;
-  }, [debate?.spectatorMessages]);
 
   // Timer countdown values
   const timerEndMs = debate?.phase === "typing" && debate.timerStartedAt
@@ -866,7 +847,6 @@ export default function ArenaPage() {
                       <span className="text-foreground-muted break-words">{m.content}</span>
                     </div>
                   ))}
-                  <div ref={specEndRef} />
                 </div>
 
                 {isParticipant && debate.status === "active" ? (
