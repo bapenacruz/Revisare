@@ -22,6 +22,9 @@ const profileUpdateSchema = z.object({
   mastodonHandle: z.string().max(100).optional(),
   websiteUrl: z.string().url().max(200).optional().or(z.literal("")),
   favCategoryIds: z.array(z.string()).max(5).optional(),
+  showLocation: z.boolean().optional(),
+  showFollowers: z.boolean().optional(),
+  showComments: z.boolean().optional(),
 });
 
 export async function PATCH(request: Request) {

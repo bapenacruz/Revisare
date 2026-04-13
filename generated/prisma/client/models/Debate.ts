@@ -422,6 +422,7 @@ export type DebateWhereInput = {
   audienceVotes?: Prisma.AudienceVoteListRelationFilter
   debateComments?: Prisma.DebateCommentListRelationFilter
   result?: Prisma.XOR<Prisma.DebateResultNullableScalarRelationFilter, Prisma.DebateResultWhereInput> | null
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionListRelationFilter
 }
 
 export type DebateOrderByWithRelationInput = {
@@ -464,6 +465,7 @@ export type DebateOrderByWithRelationInput = {
   audienceVotes?: Prisma.AudienceVoteOrderByRelationAggregateInput
   debateComments?: Prisma.DebateCommentOrderByRelationAggregateInput
   result?: Prisma.DebateResultOrderByWithRelationInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionOrderByRelationAggregateInput
 }
 
 export type DebateWhereUniqueInput = Prisma.AtLeast<{
@@ -509,6 +511,7 @@ export type DebateWhereUniqueInput = Prisma.AtLeast<{
   audienceVotes?: Prisma.AudienceVoteListRelationFilter
   debateComments?: Prisma.DebateCommentListRelationFilter
   result?: Prisma.XOR<Prisma.DebateResultNullableScalarRelationFilter, Prisma.DebateResultWhereInput> | null
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionListRelationFilter
 }, "id" | "challengeId">
 
 export type DebateOrderByWithAggregationInput = {
@@ -619,6 +622,7 @@ export type DebateCreateInput = {
   audienceVotes?: Prisma.AudienceVoteCreateNestedManyWithoutDebateInput
   debateComments?: Prisma.DebateCommentCreateNestedManyWithoutDebateInput
   result?: Prisma.DebateResultCreateNestedOneWithoutDebateInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionCreateNestedManyWithoutDebateInput
 }
 
 export type DebateUncheckedCreateInput = {
@@ -657,6 +661,7 @@ export type DebateUncheckedCreateInput = {
   audienceVotes?: Prisma.AudienceVoteUncheckedCreateNestedManyWithoutDebateInput
   debateComments?: Prisma.DebateCommentUncheckedCreateNestedManyWithoutDebateInput
   result?: Prisma.DebateResultUncheckedCreateNestedOneWithoutDebateInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionUncheckedCreateNestedManyWithoutDebateInput
 }
 
 export type DebateUpdateInput = {
@@ -695,6 +700,7 @@ export type DebateUpdateInput = {
   audienceVotes?: Prisma.AudienceVoteUpdateManyWithoutDebateNestedInput
   debateComments?: Prisma.DebateCommentUpdateManyWithoutDebateNestedInput
   result?: Prisma.DebateResultUpdateOneWithoutDebateNestedInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionUpdateManyWithoutDebateNestedInput
 }
 
 export type DebateUncheckedUpdateInput = {
@@ -733,6 +739,7 @@ export type DebateUncheckedUpdateInput = {
   audienceVotes?: Prisma.AudienceVoteUncheckedUpdateManyWithoutDebateNestedInput
   debateComments?: Prisma.DebateCommentUncheckedUpdateManyWithoutDebateNestedInput
   result?: Prisma.DebateResultUncheckedUpdateOneWithoutDebateNestedInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionUncheckedUpdateManyWithoutDebateNestedInput
 }
 
 export type DebateCreateManyInput = {
@@ -1139,6 +1146,20 @@ export type DebateUpdateOneRequiredWithoutDebateCommentsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.DebateUpdateToOneWithWhereWithoutDebateCommentsInput, Prisma.DebateUpdateWithoutDebateCommentsInput>, Prisma.DebateUncheckedUpdateWithoutDebateCommentsInput>
 }
 
+export type DebateCreateNestedOneWithoutCommentSubscriptionsInput = {
+  create?: Prisma.XOR<Prisma.DebateCreateWithoutCommentSubscriptionsInput, Prisma.DebateUncheckedCreateWithoutCommentSubscriptionsInput>
+  connectOrCreate?: Prisma.DebateCreateOrConnectWithoutCommentSubscriptionsInput
+  connect?: Prisma.DebateWhereUniqueInput
+}
+
+export type DebateUpdateOneRequiredWithoutCommentSubscriptionsNestedInput = {
+  create?: Prisma.XOR<Prisma.DebateCreateWithoutCommentSubscriptionsInput, Prisma.DebateUncheckedCreateWithoutCommentSubscriptionsInput>
+  connectOrCreate?: Prisma.DebateCreateOrConnectWithoutCommentSubscriptionsInput
+  upsert?: Prisma.DebateUpsertWithoutCommentSubscriptionsInput
+  connect?: Prisma.DebateWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.DebateUpdateToOneWithWhereWithoutCommentSubscriptionsInput, Prisma.DebateUpdateWithoutCommentSubscriptionsInput>, Prisma.DebateUncheckedUpdateWithoutCommentSubscriptionsInput>
+}
+
 export type DebateCreateNestedOneWithoutTurnsInput = {
   create?: Prisma.XOR<Prisma.DebateCreateWithoutTurnsInput, Prisma.DebateUncheckedCreateWithoutTurnsInput>
   connectOrCreate?: Prisma.DebateCreateOrConnectWithoutTurnsInput
@@ -1230,6 +1251,7 @@ export type DebateCreateWithoutDebaterAInput = {
   audienceVotes?: Prisma.AudienceVoteCreateNestedManyWithoutDebateInput
   debateComments?: Prisma.DebateCommentCreateNestedManyWithoutDebateInput
   result?: Prisma.DebateResultCreateNestedOneWithoutDebateInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionCreateNestedManyWithoutDebateInput
 }
 
 export type DebateUncheckedCreateWithoutDebaterAInput = {
@@ -1267,6 +1289,7 @@ export type DebateUncheckedCreateWithoutDebaterAInput = {
   audienceVotes?: Prisma.AudienceVoteUncheckedCreateNestedManyWithoutDebateInput
   debateComments?: Prisma.DebateCommentUncheckedCreateNestedManyWithoutDebateInput
   result?: Prisma.DebateResultUncheckedCreateNestedOneWithoutDebateInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionUncheckedCreateNestedManyWithoutDebateInput
 }
 
 export type DebateCreateOrConnectWithoutDebaterAInput = {
@@ -1314,6 +1337,7 @@ export type DebateCreateWithoutDebaterBInput = {
   audienceVotes?: Prisma.AudienceVoteCreateNestedManyWithoutDebateInput
   debateComments?: Prisma.DebateCommentCreateNestedManyWithoutDebateInput
   result?: Prisma.DebateResultCreateNestedOneWithoutDebateInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionCreateNestedManyWithoutDebateInput
 }
 
 export type DebateUncheckedCreateWithoutDebaterBInput = {
@@ -1351,6 +1375,7 @@ export type DebateUncheckedCreateWithoutDebaterBInput = {
   audienceVotes?: Prisma.AudienceVoteUncheckedCreateNestedManyWithoutDebateInput
   debateComments?: Prisma.DebateCommentUncheckedCreateNestedManyWithoutDebateInput
   result?: Prisma.DebateResultUncheckedCreateNestedOneWithoutDebateInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionUncheckedCreateNestedManyWithoutDebateInput
 }
 
 export type DebateCreateOrConnectWithoutDebaterBInput = {
@@ -1465,6 +1490,7 @@ export type DebateCreateWithoutCategoryInput = {
   audienceVotes?: Prisma.AudienceVoteCreateNestedManyWithoutDebateInput
   debateComments?: Prisma.DebateCommentCreateNestedManyWithoutDebateInput
   result?: Prisma.DebateResultCreateNestedOneWithoutDebateInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionCreateNestedManyWithoutDebateInput
 }
 
 export type DebateUncheckedCreateWithoutCategoryInput = {
@@ -1502,6 +1528,7 @@ export type DebateUncheckedCreateWithoutCategoryInput = {
   audienceVotes?: Prisma.AudienceVoteUncheckedCreateNestedManyWithoutDebateInput
   debateComments?: Prisma.DebateCommentUncheckedCreateNestedManyWithoutDebateInput
   result?: Prisma.DebateResultUncheckedCreateNestedOneWithoutDebateInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionUncheckedCreateNestedManyWithoutDebateInput
 }
 
 export type DebateCreateOrConnectWithoutCategoryInput = {
@@ -1565,6 +1592,7 @@ export type DebateCreateWithoutChallengeInput = {
   audienceVotes?: Prisma.AudienceVoteCreateNestedManyWithoutDebateInput
   debateComments?: Prisma.DebateCommentCreateNestedManyWithoutDebateInput
   result?: Prisma.DebateResultCreateNestedOneWithoutDebateInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionCreateNestedManyWithoutDebateInput
 }
 
 export type DebateUncheckedCreateWithoutChallengeInput = {
@@ -1602,6 +1630,7 @@ export type DebateUncheckedCreateWithoutChallengeInput = {
   audienceVotes?: Prisma.AudienceVoteUncheckedCreateNestedManyWithoutDebateInput
   debateComments?: Prisma.DebateCommentUncheckedCreateNestedManyWithoutDebateInput
   result?: Prisma.DebateResultUncheckedCreateNestedOneWithoutDebateInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionUncheckedCreateNestedManyWithoutDebateInput
 }
 
 export type DebateCreateOrConnectWithoutChallengeInput = {
@@ -1655,6 +1684,7 @@ export type DebateUpdateWithoutChallengeInput = {
   audienceVotes?: Prisma.AudienceVoteUpdateManyWithoutDebateNestedInput
   debateComments?: Prisma.DebateCommentUpdateManyWithoutDebateNestedInput
   result?: Prisma.DebateResultUpdateOneWithoutDebateNestedInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionUpdateManyWithoutDebateNestedInput
 }
 
 export type DebateUncheckedUpdateWithoutChallengeInput = {
@@ -1692,6 +1722,7 @@ export type DebateUncheckedUpdateWithoutChallengeInput = {
   audienceVotes?: Prisma.AudienceVoteUncheckedUpdateManyWithoutDebateNestedInput
   debateComments?: Prisma.DebateCommentUncheckedUpdateManyWithoutDebateNestedInput
   result?: Prisma.DebateResultUncheckedUpdateOneWithoutDebateNestedInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionUncheckedUpdateManyWithoutDebateNestedInput
 }
 
 export type DebateCreateWithoutAudienceVotesInput = {
@@ -1729,6 +1760,7 @@ export type DebateCreateWithoutAudienceVotesInput = {
   spectatorMessages?: Prisma.SpectatorMessageCreateNestedManyWithoutDebateInput
   debateComments?: Prisma.DebateCommentCreateNestedManyWithoutDebateInput
   result?: Prisma.DebateResultCreateNestedOneWithoutDebateInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionCreateNestedManyWithoutDebateInput
 }
 
 export type DebateUncheckedCreateWithoutAudienceVotesInput = {
@@ -1766,6 +1798,7 @@ export type DebateUncheckedCreateWithoutAudienceVotesInput = {
   spectatorMessages?: Prisma.SpectatorMessageUncheckedCreateNestedManyWithoutDebateInput
   debateComments?: Prisma.DebateCommentUncheckedCreateNestedManyWithoutDebateInput
   result?: Prisma.DebateResultUncheckedCreateNestedOneWithoutDebateInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionUncheckedCreateNestedManyWithoutDebateInput
 }
 
 export type DebateCreateOrConnectWithoutAudienceVotesInput = {
@@ -1819,6 +1852,7 @@ export type DebateUpdateWithoutAudienceVotesInput = {
   spectatorMessages?: Prisma.SpectatorMessageUpdateManyWithoutDebateNestedInput
   debateComments?: Prisma.DebateCommentUpdateManyWithoutDebateNestedInput
   result?: Prisma.DebateResultUpdateOneWithoutDebateNestedInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionUpdateManyWithoutDebateNestedInput
 }
 
 export type DebateUncheckedUpdateWithoutAudienceVotesInput = {
@@ -1856,6 +1890,7 @@ export type DebateUncheckedUpdateWithoutAudienceVotesInput = {
   spectatorMessages?: Prisma.SpectatorMessageUncheckedUpdateManyWithoutDebateNestedInput
   debateComments?: Prisma.DebateCommentUncheckedUpdateManyWithoutDebateNestedInput
   result?: Prisma.DebateResultUncheckedUpdateOneWithoutDebateNestedInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionUncheckedUpdateManyWithoutDebateNestedInput
 }
 
 export type DebateCreateWithoutDebateCommentsInput = {
@@ -1893,6 +1928,7 @@ export type DebateCreateWithoutDebateCommentsInput = {
   spectatorMessages?: Prisma.SpectatorMessageCreateNestedManyWithoutDebateInput
   audienceVotes?: Prisma.AudienceVoteCreateNestedManyWithoutDebateInput
   result?: Prisma.DebateResultCreateNestedOneWithoutDebateInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionCreateNestedManyWithoutDebateInput
 }
 
 export type DebateUncheckedCreateWithoutDebateCommentsInput = {
@@ -1930,6 +1966,7 @@ export type DebateUncheckedCreateWithoutDebateCommentsInput = {
   spectatorMessages?: Prisma.SpectatorMessageUncheckedCreateNestedManyWithoutDebateInput
   audienceVotes?: Prisma.AudienceVoteUncheckedCreateNestedManyWithoutDebateInput
   result?: Prisma.DebateResultUncheckedCreateNestedOneWithoutDebateInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionUncheckedCreateNestedManyWithoutDebateInput
 }
 
 export type DebateCreateOrConnectWithoutDebateCommentsInput = {
@@ -1983,6 +2020,7 @@ export type DebateUpdateWithoutDebateCommentsInput = {
   spectatorMessages?: Prisma.SpectatorMessageUpdateManyWithoutDebateNestedInput
   audienceVotes?: Prisma.AudienceVoteUpdateManyWithoutDebateNestedInput
   result?: Prisma.DebateResultUpdateOneWithoutDebateNestedInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionUpdateManyWithoutDebateNestedInput
 }
 
 export type DebateUncheckedUpdateWithoutDebateCommentsInput = {
@@ -2019,6 +2057,175 @@ export type DebateUncheckedUpdateWithoutDebateCommentsInput = {
   judgeResults?: Prisma.JudgeResultUncheckedUpdateManyWithoutDebateNestedInput
   spectatorMessages?: Prisma.SpectatorMessageUncheckedUpdateManyWithoutDebateNestedInput
   audienceVotes?: Prisma.AudienceVoteUncheckedUpdateManyWithoutDebateNestedInput
+  result?: Prisma.DebateResultUncheckedUpdateOneWithoutDebateNestedInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionUncheckedUpdateManyWithoutDebateNestedInput
+}
+
+export type DebateCreateWithoutCommentSubscriptionsInput = {
+  id?: string
+  motion: string
+  format: string
+  ranked?: boolean
+  isPublic?: boolean
+  isDeleted?: boolean
+  isHidden?: boolean
+  timerPreset?: number
+  status?: string
+  phase?: string
+  winnerId?: string | null
+  coinFlipWinnerId?: string | null
+  currentTurnIndex?: number
+  currentUserId?: string | null
+  timerStartedAt?: Date | string | null
+  prepEndsAt?: Date | string | null
+  secondChancePending?: boolean
+  secondChanceRequesterId?: string | null
+  secondChanceUserId?: string | null
+  secondChanceExpiresAt?: Date | string | null
+  forfeitedBy?: string | null
+  startedAt?: Date | string | null
+  completedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  challenge: Prisma.ChallengeCreateNestedOneWithoutDebateInput
+  category: Prisma.CategoryCreateNestedOneWithoutDebatesInput
+  debaterA: Prisma.UserCreateNestedOneWithoutDebaterAInput
+  debaterB: Prisma.UserCreateNestedOneWithoutDebaterBInput
+  turns?: Prisma.DebateTurnCreateNestedManyWithoutDebateInput
+  judgeResults?: Prisma.JudgeResultCreateNestedManyWithoutDebateInput
+  spectatorMessages?: Prisma.SpectatorMessageCreateNestedManyWithoutDebateInput
+  audienceVotes?: Prisma.AudienceVoteCreateNestedManyWithoutDebateInput
+  debateComments?: Prisma.DebateCommentCreateNestedManyWithoutDebateInput
+  result?: Prisma.DebateResultCreateNestedOneWithoutDebateInput
+}
+
+export type DebateUncheckedCreateWithoutCommentSubscriptionsInput = {
+  id?: string
+  challengeId: string
+  categoryId: string
+  motion: string
+  format: string
+  ranked?: boolean
+  isPublic?: boolean
+  isDeleted?: boolean
+  isHidden?: boolean
+  timerPreset?: number
+  status?: string
+  phase?: string
+  debaterAId: string
+  debaterBId: string
+  winnerId?: string | null
+  coinFlipWinnerId?: string | null
+  currentTurnIndex?: number
+  currentUserId?: string | null
+  timerStartedAt?: Date | string | null
+  prepEndsAt?: Date | string | null
+  secondChancePending?: boolean
+  secondChanceRequesterId?: string | null
+  secondChanceUserId?: string | null
+  secondChanceExpiresAt?: Date | string | null
+  forfeitedBy?: string | null
+  startedAt?: Date | string | null
+  completedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  turns?: Prisma.DebateTurnUncheckedCreateNestedManyWithoutDebateInput
+  judgeResults?: Prisma.JudgeResultUncheckedCreateNestedManyWithoutDebateInput
+  spectatorMessages?: Prisma.SpectatorMessageUncheckedCreateNestedManyWithoutDebateInput
+  audienceVotes?: Prisma.AudienceVoteUncheckedCreateNestedManyWithoutDebateInput
+  debateComments?: Prisma.DebateCommentUncheckedCreateNestedManyWithoutDebateInput
+  result?: Prisma.DebateResultUncheckedCreateNestedOneWithoutDebateInput
+}
+
+export type DebateCreateOrConnectWithoutCommentSubscriptionsInput = {
+  where: Prisma.DebateWhereUniqueInput
+  create: Prisma.XOR<Prisma.DebateCreateWithoutCommentSubscriptionsInput, Prisma.DebateUncheckedCreateWithoutCommentSubscriptionsInput>
+}
+
+export type DebateUpsertWithoutCommentSubscriptionsInput = {
+  update: Prisma.XOR<Prisma.DebateUpdateWithoutCommentSubscriptionsInput, Prisma.DebateUncheckedUpdateWithoutCommentSubscriptionsInput>
+  create: Prisma.XOR<Prisma.DebateCreateWithoutCommentSubscriptionsInput, Prisma.DebateUncheckedCreateWithoutCommentSubscriptionsInput>
+  where?: Prisma.DebateWhereInput
+}
+
+export type DebateUpdateToOneWithWhereWithoutCommentSubscriptionsInput = {
+  where?: Prisma.DebateWhereInput
+  data: Prisma.XOR<Prisma.DebateUpdateWithoutCommentSubscriptionsInput, Prisma.DebateUncheckedUpdateWithoutCommentSubscriptionsInput>
+}
+
+export type DebateUpdateWithoutCommentSubscriptionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  motion?: Prisma.StringFieldUpdateOperationsInput | string
+  format?: Prisma.StringFieldUpdateOperationsInput | string
+  ranked?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  timerPreset?: Prisma.IntFieldUpdateOperationsInput | number
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  phase?: Prisma.StringFieldUpdateOperationsInput | string
+  winnerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coinFlipWinnerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  currentTurnIndex?: Prisma.IntFieldUpdateOperationsInput | number
+  currentUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timerStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prepEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  secondChancePending?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  secondChanceRequesterId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondChanceUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondChanceExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  forfeitedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  challenge?: Prisma.ChallengeUpdateOneRequiredWithoutDebateNestedInput
+  category?: Prisma.CategoryUpdateOneRequiredWithoutDebatesNestedInput
+  debaterA?: Prisma.UserUpdateOneRequiredWithoutDebaterANestedInput
+  debaterB?: Prisma.UserUpdateOneRequiredWithoutDebaterBNestedInput
+  turns?: Prisma.DebateTurnUpdateManyWithoutDebateNestedInput
+  judgeResults?: Prisma.JudgeResultUpdateManyWithoutDebateNestedInput
+  spectatorMessages?: Prisma.SpectatorMessageUpdateManyWithoutDebateNestedInput
+  audienceVotes?: Prisma.AudienceVoteUpdateManyWithoutDebateNestedInput
+  debateComments?: Prisma.DebateCommentUpdateManyWithoutDebateNestedInput
+  result?: Prisma.DebateResultUpdateOneWithoutDebateNestedInput
+}
+
+export type DebateUncheckedUpdateWithoutCommentSubscriptionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  challengeId?: Prisma.StringFieldUpdateOperationsInput | string
+  categoryId?: Prisma.StringFieldUpdateOperationsInput | string
+  motion?: Prisma.StringFieldUpdateOperationsInput | string
+  format?: Prisma.StringFieldUpdateOperationsInput | string
+  ranked?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  timerPreset?: Prisma.IntFieldUpdateOperationsInput | number
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  phase?: Prisma.StringFieldUpdateOperationsInput | string
+  debaterAId?: Prisma.StringFieldUpdateOperationsInput | string
+  debaterBId?: Prisma.StringFieldUpdateOperationsInput | string
+  winnerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coinFlipWinnerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  currentTurnIndex?: Prisma.IntFieldUpdateOperationsInput | number
+  currentUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timerStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  prepEndsAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  secondChancePending?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  secondChanceRequesterId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondChanceUserId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  secondChanceExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  forfeitedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  turns?: Prisma.DebateTurnUncheckedUpdateManyWithoutDebateNestedInput
+  judgeResults?: Prisma.JudgeResultUncheckedUpdateManyWithoutDebateNestedInput
+  spectatorMessages?: Prisma.SpectatorMessageUncheckedUpdateManyWithoutDebateNestedInput
+  audienceVotes?: Prisma.AudienceVoteUncheckedUpdateManyWithoutDebateNestedInput
+  debateComments?: Prisma.DebateCommentUncheckedUpdateManyWithoutDebateNestedInput
   result?: Prisma.DebateResultUncheckedUpdateOneWithoutDebateNestedInput
 }
 
@@ -2057,6 +2264,7 @@ export type DebateCreateWithoutTurnsInput = {
   audienceVotes?: Prisma.AudienceVoteCreateNestedManyWithoutDebateInput
   debateComments?: Prisma.DebateCommentCreateNestedManyWithoutDebateInput
   result?: Prisma.DebateResultCreateNestedOneWithoutDebateInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionCreateNestedManyWithoutDebateInput
 }
 
 export type DebateUncheckedCreateWithoutTurnsInput = {
@@ -2094,6 +2302,7 @@ export type DebateUncheckedCreateWithoutTurnsInput = {
   audienceVotes?: Prisma.AudienceVoteUncheckedCreateNestedManyWithoutDebateInput
   debateComments?: Prisma.DebateCommentUncheckedCreateNestedManyWithoutDebateInput
   result?: Prisma.DebateResultUncheckedCreateNestedOneWithoutDebateInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionUncheckedCreateNestedManyWithoutDebateInput
 }
 
 export type DebateCreateOrConnectWithoutTurnsInput = {
@@ -2147,6 +2356,7 @@ export type DebateUpdateWithoutTurnsInput = {
   audienceVotes?: Prisma.AudienceVoteUpdateManyWithoutDebateNestedInput
   debateComments?: Prisma.DebateCommentUpdateManyWithoutDebateNestedInput
   result?: Prisma.DebateResultUpdateOneWithoutDebateNestedInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionUpdateManyWithoutDebateNestedInput
 }
 
 export type DebateUncheckedUpdateWithoutTurnsInput = {
@@ -2184,6 +2394,7 @@ export type DebateUncheckedUpdateWithoutTurnsInput = {
   audienceVotes?: Prisma.AudienceVoteUncheckedUpdateManyWithoutDebateNestedInput
   debateComments?: Prisma.DebateCommentUncheckedUpdateManyWithoutDebateNestedInput
   result?: Prisma.DebateResultUncheckedUpdateOneWithoutDebateNestedInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionUncheckedUpdateManyWithoutDebateNestedInput
 }
 
 export type DebateCreateWithoutJudgeResultsInput = {
@@ -2221,6 +2432,7 @@ export type DebateCreateWithoutJudgeResultsInput = {
   audienceVotes?: Prisma.AudienceVoteCreateNestedManyWithoutDebateInput
   debateComments?: Prisma.DebateCommentCreateNestedManyWithoutDebateInput
   result?: Prisma.DebateResultCreateNestedOneWithoutDebateInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionCreateNestedManyWithoutDebateInput
 }
 
 export type DebateUncheckedCreateWithoutJudgeResultsInput = {
@@ -2258,6 +2470,7 @@ export type DebateUncheckedCreateWithoutJudgeResultsInput = {
   audienceVotes?: Prisma.AudienceVoteUncheckedCreateNestedManyWithoutDebateInput
   debateComments?: Prisma.DebateCommentUncheckedCreateNestedManyWithoutDebateInput
   result?: Prisma.DebateResultUncheckedCreateNestedOneWithoutDebateInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionUncheckedCreateNestedManyWithoutDebateInput
 }
 
 export type DebateCreateOrConnectWithoutJudgeResultsInput = {
@@ -2311,6 +2524,7 @@ export type DebateUpdateWithoutJudgeResultsInput = {
   audienceVotes?: Prisma.AudienceVoteUpdateManyWithoutDebateNestedInput
   debateComments?: Prisma.DebateCommentUpdateManyWithoutDebateNestedInput
   result?: Prisma.DebateResultUpdateOneWithoutDebateNestedInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionUpdateManyWithoutDebateNestedInput
 }
 
 export type DebateUncheckedUpdateWithoutJudgeResultsInput = {
@@ -2348,6 +2562,7 @@ export type DebateUncheckedUpdateWithoutJudgeResultsInput = {
   audienceVotes?: Prisma.AudienceVoteUncheckedUpdateManyWithoutDebateNestedInput
   debateComments?: Prisma.DebateCommentUncheckedUpdateManyWithoutDebateNestedInput
   result?: Prisma.DebateResultUncheckedUpdateOneWithoutDebateNestedInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionUncheckedUpdateManyWithoutDebateNestedInput
 }
 
 export type DebateCreateWithoutSpectatorMessagesInput = {
@@ -2385,6 +2600,7 @@ export type DebateCreateWithoutSpectatorMessagesInput = {
   audienceVotes?: Prisma.AudienceVoteCreateNestedManyWithoutDebateInput
   debateComments?: Prisma.DebateCommentCreateNestedManyWithoutDebateInput
   result?: Prisma.DebateResultCreateNestedOneWithoutDebateInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionCreateNestedManyWithoutDebateInput
 }
 
 export type DebateUncheckedCreateWithoutSpectatorMessagesInput = {
@@ -2422,6 +2638,7 @@ export type DebateUncheckedCreateWithoutSpectatorMessagesInput = {
   audienceVotes?: Prisma.AudienceVoteUncheckedCreateNestedManyWithoutDebateInput
   debateComments?: Prisma.DebateCommentUncheckedCreateNestedManyWithoutDebateInput
   result?: Prisma.DebateResultUncheckedCreateNestedOneWithoutDebateInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionUncheckedCreateNestedManyWithoutDebateInput
 }
 
 export type DebateCreateOrConnectWithoutSpectatorMessagesInput = {
@@ -2475,6 +2692,7 @@ export type DebateUpdateWithoutSpectatorMessagesInput = {
   audienceVotes?: Prisma.AudienceVoteUpdateManyWithoutDebateNestedInput
   debateComments?: Prisma.DebateCommentUpdateManyWithoutDebateNestedInput
   result?: Prisma.DebateResultUpdateOneWithoutDebateNestedInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionUpdateManyWithoutDebateNestedInput
 }
 
 export type DebateUncheckedUpdateWithoutSpectatorMessagesInput = {
@@ -2512,6 +2730,7 @@ export type DebateUncheckedUpdateWithoutSpectatorMessagesInput = {
   audienceVotes?: Prisma.AudienceVoteUncheckedUpdateManyWithoutDebateNestedInput
   debateComments?: Prisma.DebateCommentUncheckedUpdateManyWithoutDebateNestedInput
   result?: Prisma.DebateResultUncheckedUpdateOneWithoutDebateNestedInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionUncheckedUpdateManyWithoutDebateNestedInput
 }
 
 export type DebateCreateWithoutResultInput = {
@@ -2549,6 +2768,7 @@ export type DebateCreateWithoutResultInput = {
   spectatorMessages?: Prisma.SpectatorMessageCreateNestedManyWithoutDebateInput
   audienceVotes?: Prisma.AudienceVoteCreateNestedManyWithoutDebateInput
   debateComments?: Prisma.DebateCommentCreateNestedManyWithoutDebateInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionCreateNestedManyWithoutDebateInput
 }
 
 export type DebateUncheckedCreateWithoutResultInput = {
@@ -2586,6 +2806,7 @@ export type DebateUncheckedCreateWithoutResultInput = {
   spectatorMessages?: Prisma.SpectatorMessageUncheckedCreateNestedManyWithoutDebateInput
   audienceVotes?: Prisma.AudienceVoteUncheckedCreateNestedManyWithoutDebateInput
   debateComments?: Prisma.DebateCommentUncheckedCreateNestedManyWithoutDebateInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionUncheckedCreateNestedManyWithoutDebateInput
 }
 
 export type DebateCreateOrConnectWithoutResultInput = {
@@ -2639,6 +2860,7 @@ export type DebateUpdateWithoutResultInput = {
   spectatorMessages?: Prisma.SpectatorMessageUpdateManyWithoutDebateNestedInput
   audienceVotes?: Prisma.AudienceVoteUpdateManyWithoutDebateNestedInput
   debateComments?: Prisma.DebateCommentUpdateManyWithoutDebateNestedInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionUpdateManyWithoutDebateNestedInput
 }
 
 export type DebateUncheckedUpdateWithoutResultInput = {
@@ -2676,6 +2898,7 @@ export type DebateUncheckedUpdateWithoutResultInput = {
   spectatorMessages?: Prisma.SpectatorMessageUncheckedUpdateManyWithoutDebateNestedInput
   audienceVotes?: Prisma.AudienceVoteUncheckedUpdateManyWithoutDebateNestedInput
   debateComments?: Prisma.DebateCommentUncheckedUpdateManyWithoutDebateNestedInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionUncheckedUpdateManyWithoutDebateNestedInput
 }
 
 export type DebateCreateManyDebaterAInput = {
@@ -2775,6 +2998,7 @@ export type DebateUpdateWithoutDebaterAInput = {
   audienceVotes?: Prisma.AudienceVoteUpdateManyWithoutDebateNestedInput
   debateComments?: Prisma.DebateCommentUpdateManyWithoutDebateNestedInput
   result?: Prisma.DebateResultUpdateOneWithoutDebateNestedInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionUpdateManyWithoutDebateNestedInput
 }
 
 export type DebateUncheckedUpdateWithoutDebaterAInput = {
@@ -2812,6 +3036,7 @@ export type DebateUncheckedUpdateWithoutDebaterAInput = {
   audienceVotes?: Prisma.AudienceVoteUncheckedUpdateManyWithoutDebateNestedInput
   debateComments?: Prisma.DebateCommentUncheckedUpdateManyWithoutDebateNestedInput
   result?: Prisma.DebateResultUncheckedUpdateOneWithoutDebateNestedInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionUncheckedUpdateManyWithoutDebateNestedInput
 }
 
 export type DebateUncheckedUpdateManyWithoutDebaterAInput = {
@@ -2880,6 +3105,7 @@ export type DebateUpdateWithoutDebaterBInput = {
   audienceVotes?: Prisma.AudienceVoteUpdateManyWithoutDebateNestedInput
   debateComments?: Prisma.DebateCommentUpdateManyWithoutDebateNestedInput
   result?: Prisma.DebateResultUpdateOneWithoutDebateNestedInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionUpdateManyWithoutDebateNestedInput
 }
 
 export type DebateUncheckedUpdateWithoutDebaterBInput = {
@@ -2917,6 +3143,7 @@ export type DebateUncheckedUpdateWithoutDebaterBInput = {
   audienceVotes?: Prisma.AudienceVoteUncheckedUpdateManyWithoutDebateNestedInput
   debateComments?: Prisma.DebateCommentUncheckedUpdateManyWithoutDebateNestedInput
   result?: Prisma.DebateResultUncheckedUpdateOneWithoutDebateNestedInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionUncheckedUpdateManyWithoutDebateNestedInput
 }
 
 export type DebateUncheckedUpdateManyWithoutDebaterBInput = {
@@ -3016,6 +3243,7 @@ export type DebateUpdateWithoutCategoryInput = {
   audienceVotes?: Prisma.AudienceVoteUpdateManyWithoutDebateNestedInput
   debateComments?: Prisma.DebateCommentUpdateManyWithoutDebateNestedInput
   result?: Prisma.DebateResultUpdateOneWithoutDebateNestedInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionUpdateManyWithoutDebateNestedInput
 }
 
 export type DebateUncheckedUpdateWithoutCategoryInput = {
@@ -3053,6 +3281,7 @@ export type DebateUncheckedUpdateWithoutCategoryInput = {
   audienceVotes?: Prisma.AudienceVoteUncheckedUpdateManyWithoutDebateNestedInput
   debateComments?: Prisma.DebateCommentUncheckedUpdateManyWithoutDebateNestedInput
   result?: Prisma.DebateResultUncheckedUpdateOneWithoutDebateNestedInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionUncheckedUpdateManyWithoutDebateNestedInput
 }
 
 export type DebateUncheckedUpdateManyWithoutCategoryInput = {
@@ -3097,6 +3326,7 @@ export type DebateCountOutputType = {
   spectatorMessages: number
   audienceVotes: number
   debateComments: number
+  commentSubscriptions: number
 }
 
 export type DebateCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -3105,6 +3335,7 @@ export type DebateCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions
   spectatorMessages?: boolean | DebateCountOutputTypeCountSpectatorMessagesArgs
   audienceVotes?: boolean | DebateCountOutputTypeCountAudienceVotesArgs
   debateComments?: boolean | DebateCountOutputTypeCountDebateCommentsArgs
+  commentSubscriptions?: boolean | DebateCountOutputTypeCountCommentSubscriptionsArgs
 }
 
 /**
@@ -3152,6 +3383,13 @@ export type DebateCountOutputTypeCountDebateCommentsArgs<ExtArgs extends runtime
   where?: Prisma.DebateCommentWhereInput
 }
 
+/**
+ * DebateCountOutputType without action
+ */
+export type DebateCountOutputTypeCountCommentSubscriptionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.DebateCommentSubscriptionWhereInput
+}
+
 
 export type DebateSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -3193,6 +3431,7 @@ export type DebateSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   audienceVotes?: boolean | Prisma.Debate$audienceVotesArgs<ExtArgs>
   debateComments?: boolean | Prisma.Debate$debateCommentsArgs<ExtArgs>
   result?: boolean | Prisma.Debate$resultArgs<ExtArgs>
+  commentSubscriptions?: boolean | Prisma.Debate$commentSubscriptionsArgs<ExtArgs>
   _count?: boolean | Prisma.DebateCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["debate"]>
 
@@ -3312,6 +3551,7 @@ export type DebateInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   audienceVotes?: boolean | Prisma.Debate$audienceVotesArgs<ExtArgs>
   debateComments?: boolean | Prisma.Debate$debateCommentsArgs<ExtArgs>
   result?: boolean | Prisma.Debate$resultArgs<ExtArgs>
+  commentSubscriptions?: boolean | Prisma.Debate$commentSubscriptionsArgs<ExtArgs>
   _count?: boolean | Prisma.DebateCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type DebateIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -3340,6 +3580,7 @@ export type $DebatePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     audienceVotes: Prisma.$AudienceVotePayload<ExtArgs>[]
     debateComments: Prisma.$DebateCommentPayload<ExtArgs>[]
     result: Prisma.$DebateResultPayload<ExtArgs> | null
+    commentSubscriptions: Prisma.$DebateCommentSubscriptionPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -3775,6 +4016,7 @@ export interface Prisma__DebateClient<T, Null = never, ExtArgs extends runtime.T
   audienceVotes<T extends Prisma.Debate$audienceVotesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Debate$audienceVotesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AudienceVotePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   debateComments<T extends Prisma.Debate$debateCommentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Debate$debateCommentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DebateCommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   result<T extends Prisma.Debate$resultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Debate$resultArgs<ExtArgs>>): Prisma.Prisma__DebateResultClient<runtime.Types.Result.GetResult<Prisma.$DebateResultPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  commentSubscriptions<T extends Prisma.Debate$commentSubscriptionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Debate$commentSubscriptionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DebateCommentSubscriptionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4370,6 +4612,30 @@ export type Debate$resultArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    */
   include?: Prisma.DebateResultInclude<ExtArgs> | null
   where?: Prisma.DebateResultWhereInput
+}
+
+/**
+ * Debate.commentSubscriptions
+ */
+export type Debate$commentSubscriptionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the DebateCommentSubscription
+   */
+  select?: Prisma.DebateCommentSubscriptionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the DebateCommentSubscription
+   */
+  omit?: Prisma.DebateCommentSubscriptionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DebateCommentSubscriptionInclude<ExtArgs> | null
+  where?: Prisma.DebateCommentSubscriptionWhereInput
+  orderBy?: Prisma.DebateCommentSubscriptionOrderByWithRelationInput | Prisma.DebateCommentSubscriptionOrderByWithRelationInput[]
+  cursor?: Prisma.DebateCommentSubscriptionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.DebateCommentSubscriptionScalarFieldEnum | Prisma.DebateCommentSubscriptionScalarFieldEnum[]
 }
 
 /**

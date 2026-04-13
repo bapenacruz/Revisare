@@ -6,7 +6,7 @@ import Link from "next/link";
 import { Card, CardBody } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { Avatar } from "@/components/ui/Avatar";
-import { MessageSquare, Send, Trash2 } from "lucide-react";
+import { Bell, BellOff, MessageSquare, Send, Trash2 } from "lucide-react";
 
 interface Comment {
   id: string;
@@ -25,6 +25,8 @@ export function CommentsSection({ challengeId }: { challengeId: string }) {
   const [posting, setPosting] = useState(false);
   const [error, setError] = useState("");
   const [deletingId, setDeletingId] = useState<string | null>(null);
+  const [subscribed, setSubscribed] = useState(false);
+  const [togglingSubscription, setTogglingSubscription] = useState(false);
   const prevCountRef = useRef(-1);
   const endRef = useRef<HTMLDivElement>(null);
 
@@ -41,6 +43,31 @@ export function CommentsSection({ challengeId }: { challengeId: string }) {
     const poll = setInterval(fetchComments, 10_000);
     return () => clearInterval(poll);
   }, [fetchComments]);
+
+  // Fetch subscription status on mount
+  useEffect(() => {
+    if (!session?.user?.id) return;
+    fetch(`/api/debates/${challengeId}/comment-subscriptions`)
+      .then((r) => r.json())
+      .then((data) => setSubscribed(!!data.subscribed))
+      .catch(() => {});
+  }, [challengeId, session?.user?.id]);
+
+  async function toggleSubscription() {
+    if (togglingSubscription) return;
+    setTogglingSubscription(true);
+    try {
+      if (subscribed) {
+        await fetch(`/api/debates/${challengeId}/comment-subscriptions`, { method: "DELETE" });
+        setSubscribed(false);
+      } else {
+        await fetch(`/api/debates/${challengeId}/comment-subscriptions`, { method: "POST" });
+        setSubscribed(true);
+      }
+    } finally {
+      setTogglingSubscription(false);
+    }
+  }
 
   // Scroll on new comments (not initial load)
   useEffect(() => {
@@ -89,6 +116,20 @@ export function CommentsSection({ challengeId }: { challengeId: string }) {
         <MessageSquare size={16} className="text-foreground-muted" />
         <h2 className="text-lg font-bold text-foreground">Comments</h2>
         <span className="text-sm text-foreground-muted">({comments.length})</span>
+        {session?.user?.id && (
+          <button
+            onClick={toggleSubscription}
+            disabled={togglingSubscription}
+            title={subscribed ? "Mute notifications for this debate" : "Get notified of new comments"}
+            className="ml-auto flex items-center gap-1.5 text-xs text-foreground-muted hover:text-foreground transition-colors px-2 py-1 rounded hover:bg-surface-raised disabled:opacity-50"
+          >
+            {subscribed ? (
+              <><Bell size={13} className="text-brand" /><span className="text-brand">Notifying</span></>
+            ) : (
+              <><BellOff size={13} /><span>Muted</span></>
+            )}
+          </button>
+        )}
       </div>
 
       {comments.length === 0 ? (

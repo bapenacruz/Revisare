@@ -397,6 +397,7 @@ export const ModelName = {
   Debate: 'Debate',
   AudienceVote: 'AudienceVote',
   DebateComment: 'DebateComment',
+  DebateCommentSubscription: 'DebateCommentSubscription',
   DebateTurn: 'DebateTurn',
   JudgeResult: 'JudgeResult',
   SpectatorMessage: 'SpectatorMessage',
@@ -407,7 +408,8 @@ export const ModelName = {
   PasswordResetToken: 'PasswordResetToken',
   AdminAction: 'AdminAction',
   JudgePrompt: 'JudgePrompt',
-  DebateResult: 'DebateResult'
+  DebateResult: 'DebateResult',
+  ContactMessage: 'ContactMessage'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -423,7 +425,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "account" | "session" | "verificationToken" | "user" | "follow" | "userFavoriteCategory" | "category" | "challenge" | "joinRequest" | "lobbyChatMessage" | "debate" | "audienceVote" | "debateComment" | "debateTurn" | "judgeResult" | "spectatorMessage" | "notification" | "integrityFlag" | "suspiciousTurnSignal" | "pushSubscription" | "passwordResetToken" | "adminAction" | "judgePrompt" | "debateResult"
+    modelProps: "account" | "session" | "verificationToken" | "user" | "follow" | "userFavoriteCategory" | "category" | "challenge" | "joinRequest" | "lobbyChatMessage" | "debate" | "audienceVote" | "debateComment" | "debateCommentSubscription" | "debateTurn" | "judgeResult" | "spectatorMessage" | "notification" | "integrityFlag" | "suspiciousTurnSignal" | "pushSubscription" | "passwordResetToken" | "adminAction" | "judgePrompt" | "debateResult" | "contactMessage"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1389,6 +1391,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    DebateCommentSubscription: {
+      payload: Prisma.$DebateCommentSubscriptionPayload<ExtArgs>
+      fields: Prisma.DebateCommentSubscriptionFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.DebateCommentSubscriptionFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DebateCommentSubscriptionPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.DebateCommentSubscriptionFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DebateCommentSubscriptionPayload>
+        }
+        findFirst: {
+          args: Prisma.DebateCommentSubscriptionFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DebateCommentSubscriptionPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.DebateCommentSubscriptionFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DebateCommentSubscriptionPayload>
+        }
+        findMany: {
+          args: Prisma.DebateCommentSubscriptionFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DebateCommentSubscriptionPayload>[]
+        }
+        create: {
+          args: Prisma.DebateCommentSubscriptionCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DebateCommentSubscriptionPayload>
+        }
+        createMany: {
+          args: Prisma.DebateCommentSubscriptionCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.DebateCommentSubscriptionCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DebateCommentSubscriptionPayload>[]
+        }
+        delete: {
+          args: Prisma.DebateCommentSubscriptionDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DebateCommentSubscriptionPayload>
+        }
+        update: {
+          args: Prisma.DebateCommentSubscriptionUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DebateCommentSubscriptionPayload>
+        }
+        deleteMany: {
+          args: Prisma.DebateCommentSubscriptionDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.DebateCommentSubscriptionUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.DebateCommentSubscriptionUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DebateCommentSubscriptionPayload>[]
+        }
+        upsert: {
+          args: Prisma.DebateCommentSubscriptionUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DebateCommentSubscriptionPayload>
+        }
+        aggregate: {
+          args: Prisma.DebateCommentSubscriptionAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateDebateCommentSubscription>
+        }
+        groupBy: {
+          args: Prisma.DebateCommentSubscriptionGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DebateCommentSubscriptionGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.DebateCommentSubscriptionCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DebateCommentSubscriptionCountAggregateOutputType> | number
+        }
+      }
+    }
     DebateTurn: {
       payload: Prisma.$DebateTurnPayload<ExtArgs>
       fields: Prisma.DebateTurnFieldRefs
@@ -2203,6 +2279,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    ContactMessage: {
+      payload: Prisma.$ContactMessagePayload<ExtArgs>
+      fields: Prisma.ContactMessageFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ContactMessageFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContactMessagePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ContactMessageFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContactMessagePayload>
+        }
+        findFirst: {
+          args: Prisma.ContactMessageFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContactMessagePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ContactMessageFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContactMessagePayload>
+        }
+        findMany: {
+          args: Prisma.ContactMessageFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContactMessagePayload>[]
+        }
+        create: {
+          args: Prisma.ContactMessageCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContactMessagePayload>
+        }
+        createMany: {
+          args: Prisma.ContactMessageCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ContactMessageCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContactMessagePayload>[]
+        }
+        delete: {
+          args: Prisma.ContactMessageDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContactMessagePayload>
+        }
+        update: {
+          args: Prisma.ContactMessageUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContactMessagePayload>
+        }
+        deleteMany: {
+          args: Prisma.ContactMessageDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ContactMessageUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ContactMessageUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContactMessagePayload>[]
+        }
+        upsert: {
+          args: Prisma.ContactMessageUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContactMessagePayload>
+        }
+        aggregate: {
+          args: Prisma.ContactMessageAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateContactMessage>
+        }
+        groupBy: {
+          args: Prisma.ContactMessageGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ContactMessageGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ContactMessageCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ContactMessageCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -2297,6 +2447,9 @@ export const UserScalarFieldEnum = {
   lastUsernameChange: 'lastUsernameChange',
   aiAssessment: 'aiAssessment',
   aiAssessmentUpdatedAt: 'aiAssessmentUpdatedAt',
+  showLocation: 'showLocation',
+  showFollowers: 'showFollowers',
+  showComments: 'showComments',
   role: 'role',
   isExhibition: 'isExhibition',
   hideFromLeaderboard: 'hideFromLeaderboard',
@@ -2451,6 +2604,15 @@ export const DebateCommentScalarFieldEnum = {
 export type DebateCommentScalarFieldEnum = (typeof DebateCommentScalarFieldEnum)[keyof typeof DebateCommentScalarFieldEnum]
 
 
+export const DebateCommentSubscriptionScalarFieldEnum = {
+  userId: 'userId',
+  debateId: 'debateId',
+  createdAt: 'createdAt'
+} as const
+
+export type DebateCommentSubscriptionScalarFieldEnum = (typeof DebateCommentSubscriptionScalarFieldEnum)[keyof typeof DebateCommentSubscriptionScalarFieldEnum]
+
+
 export const DebateTurnScalarFieldEnum = {
   id: 'id',
   debateId: 'debateId',
@@ -2597,6 +2759,21 @@ export const DebateResultScalarFieldEnum = {
 } as const
 
 export type DebateResultScalarFieldEnum = (typeof DebateResultScalarFieldEnum)[keyof typeof DebateResultScalarFieldEnum]
+
+
+export const ContactMessageScalarFieldEnum = {
+  id: 'id',
+  category: 'category',
+  email: 'email',
+  subject: 'subject',
+  message: 'message',
+  attachments: 'attachments',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ContactMessageScalarFieldEnum = (typeof ContactMessageScalarFieldEnum)[keyof typeof ContactMessageScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -2829,6 +3006,7 @@ export type GlobalOmitConfig = {
   debate?: Prisma.DebateOmit
   audienceVote?: Prisma.AudienceVoteOmit
   debateComment?: Prisma.DebateCommentOmit
+  debateCommentSubscription?: Prisma.DebateCommentSubscriptionOmit
   debateTurn?: Prisma.DebateTurnOmit
   judgeResult?: Prisma.JudgeResultOmit
   spectatorMessage?: Prisma.SpectatorMessageOmit
@@ -2840,6 +3018,7 @@ export type GlobalOmitConfig = {
   adminAction?: Prisma.AdminActionOmit
   judgePrompt?: Prisma.JudgePromptOmit
   debateResult?: Prisma.DebateResultOmit
+  contactMessage?: Prisma.ContactMessageOmit
 }
 
 /* Types for Logging */

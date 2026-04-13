@@ -83,6 +83,11 @@ export type AudienceVote = Prisma.AudienceVoteModel
  */
 export type DebateComment = Prisma.DebateCommentModel
 /**
+ * Model DebateCommentSubscription
+ * 
+ */
+export type DebateCommentSubscription = Prisma.DebateCommentSubscriptionModel
+/**
  * Model DebateTurn
  * 
  */
@@ -137,3 +142,8 @@ export type JudgePrompt = Prisma.JudgePromptModel
  * 
  */
 export type DebateResult = Prisma.DebateResultModel
+/**
+ * Model ContactMessage
+ * 
+ */
+export type ContactMessage = Prisma.ContactMessageModel

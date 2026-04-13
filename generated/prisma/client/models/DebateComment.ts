@@ -183,6 +183,7 @@ export type DebateCommentWhereInput = {
   content?: Prisma.StringFilter<"DebateComment"> | string
   createdAt?: Prisma.DateTimeFilter<"DebateComment"> | Date | string
   debate?: Prisma.XOR<Prisma.DebateScalarRelationFilter, Prisma.DebateWhereInput>
+  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
 
 export type DebateCommentOrderByWithRelationInput = {
@@ -192,6 +193,7 @@ export type DebateCommentOrderByWithRelationInput = {
   content?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   debate?: Prisma.DebateOrderByWithRelationInput
+  user?: Prisma.UserOrderByWithRelationInput
 }
 
 export type DebateCommentWhereUniqueInput = Prisma.AtLeast<{
@@ -204,6 +206,7 @@ export type DebateCommentWhereUniqueInput = Prisma.AtLeast<{
   content?: Prisma.StringFilter<"DebateComment"> | string
   createdAt?: Prisma.DateTimeFilter<"DebateComment"> | Date | string
   debate?: Prisma.XOR<Prisma.DebateScalarRelationFilter, Prisma.DebateWhereInput>
+  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }, "id">
 
 export type DebateCommentOrderByWithAggregationInput = {
@@ -230,10 +233,10 @@ export type DebateCommentScalarWhereWithAggregatesInput = {
 
 export type DebateCommentCreateInput = {
   id?: string
-  userId: string
   content: string
   createdAt?: Date | string
   debate: Prisma.DebateCreateNestedOneWithoutDebateCommentsInput
+  user: Prisma.UserCreateNestedOneWithoutDebateCommentsInput
 }
 
 export type DebateCommentUncheckedCreateInput = {
@@ -246,10 +249,10 @@ export type DebateCommentUncheckedCreateInput = {
 
 export type DebateCommentUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  userId?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   debate?: Prisma.DebateUpdateOneRequiredWithoutDebateCommentsNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutDebateCommentsNestedInput
 }
 
 export type DebateCommentUncheckedUpdateInput = {
@@ -270,7 +273,6 @@ export type DebateCommentCreateManyInput = {
 
 export type DebateCommentUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  userId?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -317,6 +319,48 @@ export type DebateCommentMinOrderByAggregateInput = {
   createdAt?: Prisma.SortOrder
 }
 
+export type DebateCommentCreateNestedManyWithoutUserInput = {
+  create?: Prisma.XOR<Prisma.DebateCommentCreateWithoutUserInput, Prisma.DebateCommentUncheckedCreateWithoutUserInput> | Prisma.DebateCommentCreateWithoutUserInput[] | Prisma.DebateCommentUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.DebateCommentCreateOrConnectWithoutUserInput | Prisma.DebateCommentCreateOrConnectWithoutUserInput[]
+  createMany?: Prisma.DebateCommentCreateManyUserInputEnvelope
+  connect?: Prisma.DebateCommentWhereUniqueInput | Prisma.DebateCommentWhereUniqueInput[]
+}
+
+export type DebateCommentUncheckedCreateNestedManyWithoutUserInput = {
+  create?: Prisma.XOR<Prisma.DebateCommentCreateWithoutUserInput, Prisma.DebateCommentUncheckedCreateWithoutUserInput> | Prisma.DebateCommentCreateWithoutUserInput[] | Prisma.DebateCommentUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.DebateCommentCreateOrConnectWithoutUserInput | Prisma.DebateCommentCreateOrConnectWithoutUserInput[]
+  createMany?: Prisma.DebateCommentCreateManyUserInputEnvelope
+  connect?: Prisma.DebateCommentWhereUniqueInput | Prisma.DebateCommentWhereUniqueInput[]
+}
+
+export type DebateCommentUpdateManyWithoutUserNestedInput = {
+  create?: Prisma.XOR<Prisma.DebateCommentCreateWithoutUserInput, Prisma.DebateCommentUncheckedCreateWithoutUserInput> | Prisma.DebateCommentCreateWithoutUserInput[] | Prisma.DebateCommentUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.DebateCommentCreateOrConnectWithoutUserInput | Prisma.DebateCommentCreateOrConnectWithoutUserInput[]
+  upsert?: Prisma.DebateCommentUpsertWithWhereUniqueWithoutUserInput | Prisma.DebateCommentUpsertWithWhereUniqueWithoutUserInput[]
+  createMany?: Prisma.DebateCommentCreateManyUserInputEnvelope
+  set?: Prisma.DebateCommentWhereUniqueInput | Prisma.DebateCommentWhereUniqueInput[]
+  disconnect?: Prisma.DebateCommentWhereUniqueInput | Prisma.DebateCommentWhereUniqueInput[]
+  delete?: Prisma.DebateCommentWhereUniqueInput | Prisma.DebateCommentWhereUniqueInput[]
+  connect?: Prisma.DebateCommentWhereUniqueInput | Prisma.DebateCommentWhereUniqueInput[]
+  update?: Prisma.DebateCommentUpdateWithWhereUniqueWithoutUserInput | Prisma.DebateCommentUpdateWithWhereUniqueWithoutUserInput[]
+  updateMany?: Prisma.DebateCommentUpdateManyWithWhereWithoutUserInput | Prisma.DebateCommentUpdateManyWithWhereWithoutUserInput[]
+  deleteMany?: Prisma.DebateCommentScalarWhereInput | Prisma.DebateCommentScalarWhereInput[]
+}
+
+export type DebateCommentUncheckedUpdateManyWithoutUserNestedInput = {
+  create?: Prisma.XOR<Prisma.DebateCommentCreateWithoutUserInput, Prisma.DebateCommentUncheckedCreateWithoutUserInput> | Prisma.DebateCommentCreateWithoutUserInput[] | Prisma.DebateCommentUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.DebateCommentCreateOrConnectWithoutUserInput | Prisma.DebateCommentCreateOrConnectWithoutUserInput[]
+  upsert?: Prisma.DebateCommentUpsertWithWhereUniqueWithoutUserInput | Prisma.DebateCommentUpsertWithWhereUniqueWithoutUserInput[]
+  createMany?: Prisma.DebateCommentCreateManyUserInputEnvelope
+  set?: Prisma.DebateCommentWhereUniqueInput | Prisma.DebateCommentWhereUniqueInput[]
+  disconnect?: Prisma.DebateCommentWhereUniqueInput | Prisma.DebateCommentWhereUniqueInput[]
+  delete?: Prisma.DebateCommentWhereUniqueInput | Prisma.DebateCommentWhereUniqueInput[]
+  connect?: Prisma.DebateCommentWhereUniqueInput | Prisma.DebateCommentWhereUniqueInput[]
+  update?: Prisma.DebateCommentUpdateWithWhereUniqueWithoutUserInput | Prisma.DebateCommentUpdateWithWhereUniqueWithoutUserInput[]
+  updateMany?: Prisma.DebateCommentUpdateManyWithWhereWithoutUserInput | Prisma.DebateCommentUpdateManyWithWhereWithoutUserInput[]
+  deleteMany?: Prisma.DebateCommentScalarWhereInput | Prisma.DebateCommentScalarWhereInput[]
+}
+
 export type DebateCommentCreateNestedManyWithoutDebateInput = {
   create?: Prisma.XOR<Prisma.DebateCommentCreateWithoutDebateInput, Prisma.DebateCommentUncheckedCreateWithoutDebateInput> | Prisma.DebateCommentCreateWithoutDebateInput[] | Prisma.DebateCommentUncheckedCreateWithoutDebateInput[]
   connectOrCreate?: Prisma.DebateCommentCreateOrConnectWithoutDebateInput | Prisma.DebateCommentCreateOrConnectWithoutDebateInput[]
@@ -359,11 +403,62 @@ export type DebateCommentUncheckedUpdateManyWithoutDebateNestedInput = {
   deleteMany?: Prisma.DebateCommentScalarWhereInput | Prisma.DebateCommentScalarWhereInput[]
 }
 
-export type DebateCommentCreateWithoutDebateInput = {
+export type DebateCommentCreateWithoutUserInput = {
   id?: string
-  userId: string
   content: string
   createdAt?: Date | string
+  debate: Prisma.DebateCreateNestedOneWithoutDebateCommentsInput
+}
+
+export type DebateCommentUncheckedCreateWithoutUserInput = {
+  id?: string
+  debateId: string
+  content: string
+  createdAt?: Date | string
+}
+
+export type DebateCommentCreateOrConnectWithoutUserInput = {
+  where: Prisma.DebateCommentWhereUniqueInput
+  create: Prisma.XOR<Prisma.DebateCommentCreateWithoutUserInput, Prisma.DebateCommentUncheckedCreateWithoutUserInput>
+}
+
+export type DebateCommentCreateManyUserInputEnvelope = {
+  data: Prisma.DebateCommentCreateManyUserInput | Prisma.DebateCommentCreateManyUserInput[]
+  skipDuplicates?: boolean
+}
+
+export type DebateCommentUpsertWithWhereUniqueWithoutUserInput = {
+  where: Prisma.DebateCommentWhereUniqueInput
+  update: Prisma.XOR<Prisma.DebateCommentUpdateWithoutUserInput, Prisma.DebateCommentUncheckedUpdateWithoutUserInput>
+  create: Prisma.XOR<Prisma.DebateCommentCreateWithoutUserInput, Prisma.DebateCommentUncheckedCreateWithoutUserInput>
+}
+
+export type DebateCommentUpdateWithWhereUniqueWithoutUserInput = {
+  where: Prisma.DebateCommentWhereUniqueInput
+  data: Prisma.XOR<Prisma.DebateCommentUpdateWithoutUserInput, Prisma.DebateCommentUncheckedUpdateWithoutUserInput>
+}
+
+export type DebateCommentUpdateManyWithWhereWithoutUserInput = {
+  where: Prisma.DebateCommentScalarWhereInput
+  data: Prisma.XOR<Prisma.DebateCommentUpdateManyMutationInput, Prisma.DebateCommentUncheckedUpdateManyWithoutUserInput>
+}
+
+export type DebateCommentScalarWhereInput = {
+  AND?: Prisma.DebateCommentScalarWhereInput | Prisma.DebateCommentScalarWhereInput[]
+  OR?: Prisma.DebateCommentScalarWhereInput[]
+  NOT?: Prisma.DebateCommentScalarWhereInput | Prisma.DebateCommentScalarWhereInput[]
+  id?: Prisma.StringFilter<"DebateComment"> | string
+  debateId?: Prisma.StringFilter<"DebateComment"> | string
+  userId?: Prisma.StringFilter<"DebateComment"> | string
+  content?: Prisma.StringFilter<"DebateComment"> | string
+  createdAt?: Prisma.DateTimeFilter<"DebateComment"> | Date | string
+}
+
+export type DebateCommentCreateWithoutDebateInput = {
+  id?: string
+  content: string
+  createdAt?: Date | string
+  user: Prisma.UserCreateNestedOneWithoutDebateCommentsInput
 }
 
 export type DebateCommentUncheckedCreateWithoutDebateInput = {
@@ -399,15 +494,32 @@ export type DebateCommentUpdateManyWithWhereWithoutDebateInput = {
   data: Prisma.XOR<Prisma.DebateCommentUpdateManyMutationInput, Prisma.DebateCommentUncheckedUpdateManyWithoutDebateInput>
 }
 
-export type DebateCommentScalarWhereInput = {
-  AND?: Prisma.DebateCommentScalarWhereInput | Prisma.DebateCommentScalarWhereInput[]
-  OR?: Prisma.DebateCommentScalarWhereInput[]
-  NOT?: Prisma.DebateCommentScalarWhereInput | Prisma.DebateCommentScalarWhereInput[]
-  id?: Prisma.StringFilter<"DebateComment"> | string
-  debateId?: Prisma.StringFilter<"DebateComment"> | string
-  userId?: Prisma.StringFilter<"DebateComment"> | string
-  content?: Prisma.StringFilter<"DebateComment"> | string
-  createdAt?: Prisma.DateTimeFilter<"DebateComment"> | Date | string
+export type DebateCommentCreateManyUserInput = {
+  id?: string
+  debateId: string
+  content: string
+  createdAt?: Date | string
+}
+
+export type DebateCommentUpdateWithoutUserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  content?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  debate?: Prisma.DebateUpdateOneRequiredWithoutDebateCommentsNestedInput
+}
+
+export type DebateCommentUncheckedUpdateWithoutUserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  debateId?: Prisma.StringFieldUpdateOperationsInput | string
+  content?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type DebateCommentUncheckedUpdateManyWithoutUserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  debateId?: Prisma.StringFieldUpdateOperationsInput | string
+  content?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type DebateCommentCreateManyDebateInput = {
@@ -419,9 +531,9 @@ export type DebateCommentCreateManyDebateInput = {
 
 export type DebateCommentUpdateWithoutDebateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  userId?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneRequiredWithoutDebateCommentsNestedInput
 }
 
 export type DebateCommentUncheckedUpdateWithoutDebateInput = {
@@ -447,6 +559,7 @@ export type DebateCommentSelect<ExtArgs extends runtime.Types.Extensions.Interna
   content?: boolean
   createdAt?: boolean
   debate?: boolean | Prisma.DebateDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["debateComment"]>
 
 export type DebateCommentSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -456,6 +569,7 @@ export type DebateCommentSelectCreateManyAndReturn<ExtArgs extends runtime.Types
   content?: boolean
   createdAt?: boolean
   debate?: boolean | Prisma.DebateDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["debateComment"]>
 
 export type DebateCommentSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -465,6 +579,7 @@ export type DebateCommentSelectUpdateManyAndReturn<ExtArgs extends runtime.Types
   content?: boolean
   createdAt?: boolean
   debate?: boolean | Prisma.DebateDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["debateComment"]>
 
 export type DebateCommentSelectScalar = {
@@ -478,18 +593,22 @@ export type DebateCommentSelectScalar = {
 export type DebateCommentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "debateId" | "userId" | "content" | "createdAt", ExtArgs["result"]["debateComment"]>
 export type DebateCommentInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   debate?: boolean | Prisma.DebateDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type DebateCommentIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   debate?: boolean | Prisma.DebateDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type DebateCommentIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   debate?: boolean | Prisma.DebateDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 
 export type $DebateCommentPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "DebateComment"
   objects: {
     debate: Prisma.$DebatePayload<ExtArgs>
+    user: Prisma.$UserPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -892,6 +1011,7 @@ readonly fields: DebateCommentFieldRefs;
 export interface Prisma__DebateCommentClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   debate<T extends Prisma.DebateDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.DebateDefaultArgs<ExtArgs>>): Prisma.Prisma__DebateClient<runtime.Types.Result.GetResult<Prisma.$DebatePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.

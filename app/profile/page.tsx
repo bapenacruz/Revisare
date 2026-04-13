@@ -20,9 +20,9 @@ export default async function ProfilePage({ searchParams }: { searchParams: Prom
   }
 
   const { tab } = await searchParams;
-  const defaultTab = ["following", "followers", "assessment", "edit"].includes(tab ?? "") ? tab! : "following";
+  const defaultTab = ["following", "followers", "comments", "assessment", "edit"].includes(tab ?? "") ? tab! : "following";
 
-  const [user, categories, followersData, followingData] = await Promise.all([
+  const [user, categories, followersData, followingData, myComments] = await Promise.all([
     db.user.findUnique({
       where: { id: session.user.id },
       select: {
@@ -44,6 +44,9 @@ export default async function ProfilePage({ searchParams }: { searchParams: Prom
         createdAt: true,
         aiAssessment: true,
         aiAssessmentUpdatedAt: true,
+        showLocation: true,
+        showFollowers: true,
+        showComments: true,
         favCategories: {
           select: {
             category: {
@@ -67,6 +70,22 @@ export default async function ProfilePage({ searchParams }: { searchParams: Prom
       where: { followerId: session.user.id },
       select: { following: { select: { id: true, username: true, elo: true, country: true } } },
       orderBy: { createdAt: "desc" },
+    }),
+    db.debateComment.findMany({
+      where: { userId: session.user.id },
+      orderBy: { createdAt: "desc" },
+      take: 100,
+      select: {
+        id: true,
+        content: true,
+        createdAt: true,
+        debate: {
+          select: {
+            challengeId: true,
+            motion: true,
+          },
+        },
+      },
     }),
   ]);
 
@@ -125,6 +144,12 @@ export default async function ProfilePage({ searchParams }: { searchParams: Prom
                   <span className="ml-1 text-[10px] text-foreground-subtle">({followersData.length})</span>
                 )}
               </TabTrigger>
+              <TabTrigger id="comments">
+                Comments
+                {myComments.length > 0 && (
+                  <span className="ml-1 text-[10px] text-foreground-subtle">({myComments.length})</span>
+                )}
+              </TabTrigger>
               <TabTrigger id="assessment">Assessment</TabTrigger>
               <TabTrigger id="edit">Edit Profile</TabTrigger>
             </TabList>
@@ -141,6 +166,37 @@ export default async function ProfilePage({ searchParams }: { searchParams: Prom
                 users={followersData.map((f) => f.follower)}
                 emptyMessage="No followers yet."
               />
+            </TabPanel>
+
+            <TabPanel id="comments">
+              {myComments.length === 0 ? (
+                <p className="text-sm text-foreground-muted py-6 text-center">No comments yet.</p>
+              ) : (
+                <div className="flex flex-col gap-3">
+                  {myComments.map((c) => (
+                    <Card key={c.id}>
+                      <CardBody className="py-3 px-4">
+                        <a
+                          href={`/debates/${c.debate.challengeId}/results`}
+                          className="block hover:opacity-80 transition-opacity"
+                        >
+                          <p className="text-xs text-foreground-muted mb-1 line-clamp-1">
+                            {c.debate.motion}
+                          </p>
+                          <p className="text-sm text-foreground leading-relaxed">{c.content}</p>
+                          <p className="text-xs text-foreground-subtle mt-1.5">
+                            {new Date(c.createdAt).toLocaleDateString("en-US", {
+                              month: "short",
+                              day: "numeric",
+                              year: "numeric",
+                            })}
+                          </p>
+                        </a>
+                      </CardBody>
+                    </Card>
+                  ))}
+                </div>
+              )}
             </TabPanel>
 
             <TabPanel id="edit">

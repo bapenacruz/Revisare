@@ -7,7 +7,8 @@ export type NotificationType =
   | "rematch_request"
   | "new_follower"
   | "featured_debate"
-  | "opponent_forfeit";
+  | "opponent_forfeit"
+  | "new_comment";
 
 /** The only types shown in the notifications UI and counted in the bell badge. */
 export const VISIBLE_NOTIFICATION_TYPES: NotificationType[] = [
@@ -17,4 +18,5 @@ export const VISIBLE_NOTIFICATION_TYPES: NotificationType[] = [
   "featured_debate",
   "opponent_forfeit",
   "integrity_action",
+  "new_comment",
 ];

@@ -34,10 +34,13 @@ export default async function PublicProfilePage({ params }: Props) {
       wins: true,
       losses: true,
       createdAt: true,
+      showLocation: true,
+      showFollowers: true,
+      showComments: true,
       favCategories: {
         select: { category: { select: { id: true, label: true, emoji: true } } },
       },
-      _count: { select: { followers: true, following: true } },
+      _count: { select: { followers: true, following: true, debateComments: true } },
     },
   });
 
@@ -93,7 +96,7 @@ export default async function PublicProfilePage({ params }: Props) {
             <div className="flex flex-col sm:flex-row sm:items-center gap-3 mb-2">
               <div>
                 <h1 className="text-xl font-bold text-foreground">{user.username}</h1>
-                {user.country && (
+                {user.showLocation !== false && user.country && (
                   <p className="text-xs text-foreground-muted flex items-center justify-center sm:justify-start gap-1 mt-0.5">
                     <MapPin size={11} />
                     {[user.region, user.country].filter(Boolean).join(", ")}
@@ -119,14 +122,40 @@ export default async function PublicProfilePage({ params }: Props) {
 
             {/* Follower counts */}
             <div className="flex items-center justify-center sm:justify-start gap-4 text-sm mb-3">
-              <span>
-                <span className="font-semibold text-foreground">{user._count.followers}</span>{" "}
-                <span className="text-foreground-muted">followers</span>
-              </span>
-              <span>
-                <span className="font-semibold text-foreground">{user._count.following}</span>{" "}
-                <span className="text-foreground-muted">following</span>
-              </span>
+              {user.showFollowers !== false ? (
+                <>
+                  <Link href={`/users/${user.username}/followers`} className="hover:underline">
+                    <span className="font-semibold text-foreground">{user._count.followers}</span>{" "}
+                    <span className="text-foreground-muted">followers</span>
+                  </Link>
+                  <Link href={`/users/${user.username}/following`} className="hover:underline">
+                    <span className="font-semibold text-foreground">{user._count.following}</span>{" "}
+                    <span className="text-foreground-muted">following</span>
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <span>
+                    <span className="font-semibold text-foreground">{user._count.followers}</span>{" "}
+                    <span className="text-foreground-muted">followers</span>
+                  </span>
+                  <span>
+                    <span className="font-semibold text-foreground">{user._count.following}</span>{" "}
+                    <span className="text-foreground-muted">following</span>
+                  </span>
+                </>
+              )}
+              {user.showComments !== false ? (
+                <Link href={`/users/${user.username}/comments`} className="hover:underline">
+                  <span className="font-semibold text-foreground">{user._count.debateComments}</span>{" "}
+                  <span className="text-foreground-muted">comments</span>
+                </Link>
+              ) : (
+                <span>
+                  <span className="font-semibold text-foreground">{user._count.debateComments}</span>{" "}
+                  <span className="text-foreground-muted">comments</span>
+                </span>
+              )}
             </div>
 
             {/* Stats */}

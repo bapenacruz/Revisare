@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
+import { createNotification } from "@/lib/notifications";
 
 interface RouteParams {
   params: Promise<{ id: string }>;
@@ -82,7 +83,7 @@ export async function POST(req: NextRequest, { params }: RouteParams) {
 
   const debate = await db.debate.findUnique({
     where: { challengeId },
-    select: { id: true, status: true },
+    select: { id: true, status: true, challengeId: true, debaterAId: true, debaterBId: true },
   });
   if (!debate) return NextResponse.json({ error: "Not found" }, { status: 404 });
   if (debate.status !== "completed") {
@@ -98,6 +99,48 @@ export async function POST(req: NextRequest, { params }: RouteParams) {
   const comment = await db.debateComment.create({
     data: { debateId: debate.id, userId: session.user.id, content },
   });
+
+  // Auto-subscribe the commenter (upsert - idempotent)
+  await db.debateCommentSubscription.upsert({
+    where: { userId_debateId: { userId: session.user.id, debateId: debate.id } },
+    create: { userId: session.user.id, debateId: debate.id },
+    update: {},
+  });
+
+  // Auto-subscribe participants if this is the first comment on the debate
+  const commentCount = await db.debateComment.count({ where: { debateId: debate.id } });
+  if (commentCount === 1) {
+    const participantIds = [debate.debaterAId, debate.debaterBId].filter(
+      (pid): pid is string => !!pid && pid !== session.user.id,
+    );
+    await Promise.all(
+      participantIds.map((pid) =>
+        db.debateCommentSubscription.upsert({
+          where: { userId_debateId: { userId: pid, debateId: debate.id } },
+          create: { userId: pid, debateId: debate.id },
+          update: {},
+        }),
+      ),
+    );
+  }
+
+  // Notify all subscribers except the commenter
+  const subscribers = await db.debateCommentSubscription.findMany({
+    where: { debateId: debate.id, userId: { not: session.user.id } },
+    select: { userId: true },
+  });
+  const commenterName = session.user.name ?? session.user.email ?? "Someone";
+  await Promise.all(
+    subscribers.map((sub) =>
+      createNotification(sub.userId, {
+        type: "new_comment",
+        title: "New comment on a debate",
+        body: `${commenterName} commented on a debate you're following.`,
+        href: `/debates/${debate.challengeId}/results`,
+        challengeId: debate.challengeId,
+      }),
+    ),
+  );
 
   return NextResponse.json({ id: comment.id });
 }

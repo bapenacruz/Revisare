@@ -25,6 +25,9 @@ interface EditProfileFormProps {
     mastodonHandle?: string | null;
     websiteUrl?: string | null;
     lastUsernameChange?: Date | string | null;
+    showLocation?: boolean | null;
+    showFollowers?: boolean | null;
+    showComments?: boolean | null;
     favCategories: Array<{ category: { id: string; slug: string; label: string; emoji: string } }>;
   };
   allCategories: Array<{ id: string; slug: string; label: string; emoji: string }>;
@@ -46,6 +49,9 @@ export function EditProfileForm({ initial, allCategories }: EditProfileFormProps
     blueskyHandle: initial.blueskyHandle ?? "",
     mastodonHandle: initial.mastodonHandle ?? "",
     websiteUrl: initial.websiteUrl ?? "",
+    showLocation: initial.showLocation ?? true,
+    showFollowers: initial.showFollowers ?? true,
+    showComments: initial.showComments ?? true,
   });
   const [selectedCats, setSelectedCats] = useState<string[]>(
     initial.favCategories.map((fc) => fc.category.id)
@@ -226,6 +232,39 @@ export function EditProfileForm({ initial, allCategories }: EditProfileFormProps
               </button>
             );
           })}
+        </div>
+      </div>
+
+      {/* Privacy settings */}
+      <div>
+        <label className="text-sm font-medium text-foreground mb-2 block">
+          Privacy
+        </label>
+        <div className="flex flex-col gap-3">
+          {([
+            { key: "showLocation", label: "Show my location on public profile" },
+            { key: "showFollowers", label: "Show my followers & following" },
+            { key: "showComments", label: "Show my comments on public profile" },
+          ] as const).map(({ key, label }) => (
+            <label key={key} className="flex items-center justify-between gap-3 cursor-pointer">
+              <span className="text-sm text-foreground-muted">{label}</span>
+              <button
+                type="button"
+                role="switch"
+                aria-checked={form[key]}
+                onClick={() => setForm((f) => ({ ...f, [key]: !f[key] }))}
+                className={`relative inline-flex h-5 w-9 shrink-0 rounded-full border-2 border-transparent transition-colors focus:outline-none ${
+                  form[key] ? "bg-brand" : "bg-border"
+                }`}
+              >
+                <span
+                  className={`pointer-events-none inline-block h-4 w-4 rounded-full bg-white shadow ring-0 transition-transform ${
+                    form[key] ? "translate-x-4" : "translate-x-0"
+                  }`}
+                />
+              </button>
+            </label>
+          ))}
         </div>
       </div>
 

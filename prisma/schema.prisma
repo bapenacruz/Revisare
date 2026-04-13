@@ -68,6 +68,9 @@ model User {
   lastUsernameChange DateTime?
   aiAssessment           String?
   aiAssessmentUpdatedAt  DateTime?
+  showLocation       Boolean   @default(true)
+  showFollowers      Boolean   @default(true)
+  showComments       Boolean   @default(true)
   role               String    @default("user")
   isExhibition         Boolean   @default(false)
   hideFromLeaderboard  Boolean   @default(false)
@@ -99,6 +102,8 @@ model User {
   pushSubscriptions  PushSubscription[]
   passwordResetTokens PasswordResetToken[]
   debateWins         DebateResult[] @relation("DebateWinner")
+  commentSubscriptions DebateCommentSubscription[]
+  debateComments     DebateComment[]
 }
 
 // ============================================================
@@ -254,6 +259,7 @@ model Debate {
   audienceVotes     AudienceVote[]
   debateComments    DebateComment[]
   result            DebateResult?
+  commentSubscriptions DebateCommentSubscription[]
 }
 
 // ============================================================
@@ -284,6 +290,22 @@ model DebateComment {
   createdAt DateTime @default(now())
 
   debate    Debate   @relation(fields: [debateId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+// ============================================================
+// Comment notification subscriptions
+// ============================================================
+
+model DebateCommentSubscription {
+  userId    String
+  debateId  String
+  createdAt DateTime @default(now())
+
+  user      User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  debate    Debate @relation(fields: [debateId], references: [id], onDelete: Cascade)
+
+  @@id([userId, debateId])
 }
 
 // ============================================================

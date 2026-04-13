@@ -64,6 +64,7 @@ export const ModelName = {
   Debate: 'Debate',
   AudienceVote: 'AudienceVote',
   DebateComment: 'DebateComment',
+  DebateCommentSubscription: 'DebateCommentSubscription',
   DebateTurn: 'DebateTurn',
   JudgeResult: 'JudgeResult',
   SpectatorMessage: 'SpectatorMessage',
@@ -74,7 +75,8 @@ export const ModelName = {
   PasswordResetToken: 'PasswordResetToken',
   AdminAction: 'AdminAction',
   JudgePrompt: 'JudgePrompt',
-  DebateResult: 'DebateResult'
+  DebateResult: 'DebateResult',
+  ContactMessage: 'ContactMessage'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -148,6 +150,9 @@ export const UserScalarFieldEnum = {
   lastUsernameChange: 'lastUsernameChange',
   aiAssessment: 'aiAssessment',
   aiAssessmentUpdatedAt: 'aiAssessmentUpdatedAt',
+  showLocation: 'showLocation',
+  showFollowers: 'showFollowers',
+  showComments: 'showComments',
   role: 'role',
   isExhibition: 'isExhibition',
   hideFromLeaderboard: 'hideFromLeaderboard',
@@ -302,6 +307,15 @@ export const DebateCommentScalarFieldEnum = {
 export type DebateCommentScalarFieldEnum = (typeof DebateCommentScalarFieldEnum)[keyof typeof DebateCommentScalarFieldEnum]
 
 
+export const DebateCommentSubscriptionScalarFieldEnum = {
+  userId: 'userId',
+  debateId: 'debateId',
+  createdAt: 'createdAt'
+} as const
+
+export type DebateCommentSubscriptionScalarFieldEnum = (typeof DebateCommentSubscriptionScalarFieldEnum)[keyof typeof DebateCommentSubscriptionScalarFieldEnum]
+
+
 export const DebateTurnScalarFieldEnum = {
   id: 'id',
   debateId: 'debateId',
@@ -448,6 +462,21 @@ export const DebateResultScalarFieldEnum = {
 } as const
 
 export type DebateResultScalarFieldEnum = (typeof DebateResultScalarFieldEnum)[keyof typeof DebateResultScalarFieldEnum]
+
+
+export const ContactMessageScalarFieldEnum = {
+  id: 'id',
+  category: 'category',
+  email: 'email',
+  subject: 'subject',
+  message: 'message',
+  attachments: 'attachments',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ContactMessageScalarFieldEnum = (typeof ContactMessageScalarFieldEnum)[keyof typeof ContactMessageScalarFieldEnum]
 
 
 export const SortOrder = {

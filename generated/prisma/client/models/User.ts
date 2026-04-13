@@ -58,6 +58,9 @@ export type UserMinAggregateOutputType = {
   lastUsernameChange: Date | null
   aiAssessment: string | null
   aiAssessmentUpdatedAt: Date | null
+  showLocation: boolean | null
+  showFollowers: boolean | null
+  showComments: boolean | null
   role: string | null
   isExhibition: boolean | null
   hideFromLeaderboard: boolean | null
@@ -94,6 +97,9 @@ export type UserMaxAggregateOutputType = {
   lastUsernameChange: Date | null
   aiAssessment: string | null
   aiAssessmentUpdatedAt: Date | null
+  showLocation: boolean | null
+  showFollowers: boolean | null
+  showComments: boolean | null
   role: string | null
   isExhibition: boolean | null
   hideFromLeaderboard: boolean | null
@@ -130,6 +136,9 @@ export type UserCountAggregateOutputType = {
   lastUsernameChange: number
   aiAssessment: number
   aiAssessmentUpdatedAt: number
+  showLocation: number
+  showFollowers: number
+  showComments: number
   role: number
   isExhibition: number
   hideFromLeaderboard: number
@@ -182,6 +191,9 @@ export type UserMinAggregateInputType = {
   lastUsernameChange?: true
   aiAssessment?: true
   aiAssessmentUpdatedAt?: true
+  showLocation?: true
+  showFollowers?: true
+  showComments?: true
   role?: true
   isExhibition?: true
   hideFromLeaderboard?: true
@@ -218,6 +230,9 @@ export type UserMaxAggregateInputType = {
   lastUsernameChange?: true
   aiAssessment?: true
   aiAssessmentUpdatedAt?: true
+  showLocation?: true
+  showFollowers?: true
+  showComments?: true
   role?: true
   isExhibition?: true
   hideFromLeaderboard?: true
@@ -254,6 +269,9 @@ export type UserCountAggregateInputType = {
   lastUsernameChange?: true
   aiAssessment?: true
   aiAssessmentUpdatedAt?: true
+  showLocation?: true
+  showFollowers?: true
+  showComments?: true
   role?: true
   isExhibition?: true
   hideFromLeaderboard?: true
@@ -377,6 +395,9 @@ export type UserGroupByOutputType = {
   lastUsernameChange: Date | null
   aiAssessment: string | null
   aiAssessmentUpdatedAt: Date | null
+  showLocation: boolean
+  showFollowers: boolean
+  showComments: boolean
   role: string
   isExhibition: boolean
   hideFromLeaderboard: boolean
@@ -436,6 +457,9 @@ export type UserWhereInput = {
   lastUsernameChange?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   aiAssessment?: Prisma.StringNullableFilter<"User"> | string | null
   aiAssessmentUpdatedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  showLocation?: Prisma.BoolFilter<"User"> | boolean
+  showFollowers?: Prisma.BoolFilter<"User"> | boolean
+  showComments?: Prisma.BoolFilter<"User"> | boolean
   role?: Prisma.StringFilter<"User"> | string
   isExhibition?: Prisma.BoolFilter<"User"> | boolean
   hideFromLeaderboard?: Prisma.BoolFilter<"User"> | boolean
@@ -466,6 +490,8 @@ export type UserWhereInput = {
   pushSubscriptions?: Prisma.PushSubscriptionListRelationFilter
   passwordResetTokens?: Prisma.PasswordResetTokenListRelationFilter
   debateWins?: Prisma.DebateResultListRelationFilter
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionListRelationFilter
+  debateComments?: Prisma.DebateCommentListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -486,6 +512,9 @@ export type UserOrderByWithRelationInput = {
   lastUsernameChange?: Prisma.SortOrderInput | Prisma.SortOrder
   aiAssessment?: Prisma.SortOrderInput | Prisma.SortOrder
   aiAssessmentUpdatedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  showLocation?: Prisma.SortOrder
+  showFollowers?: Prisma.SortOrder
+  showComments?: Prisma.SortOrder
   role?: Prisma.SortOrder
   isExhibition?: Prisma.SortOrder
   hideFromLeaderboard?: Prisma.SortOrder
@@ -516,6 +545,8 @@ export type UserOrderByWithRelationInput = {
   pushSubscriptions?: Prisma.PushSubscriptionOrderByRelationAggregateInput
   passwordResetTokens?: Prisma.PasswordResetTokenOrderByRelationAggregateInput
   debateWins?: Prisma.DebateResultOrderByRelationAggregateInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionOrderByRelationAggregateInput
+  debateComments?: Prisma.DebateCommentOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -539,6 +570,9 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   lastUsernameChange?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   aiAssessment?: Prisma.StringNullableFilter<"User"> | string | null
   aiAssessmentUpdatedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  showLocation?: Prisma.BoolFilter<"User"> | boolean
+  showFollowers?: Prisma.BoolFilter<"User"> | boolean
+  showComments?: Prisma.BoolFilter<"User"> | boolean
   role?: Prisma.StringFilter<"User"> | string
   isExhibition?: Prisma.BoolFilter<"User"> | boolean
   hideFromLeaderboard?: Prisma.BoolFilter<"User"> | boolean
@@ -569,6 +603,8 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   pushSubscriptions?: Prisma.PushSubscriptionListRelationFilter
   passwordResetTokens?: Prisma.PasswordResetTokenListRelationFilter
   debateWins?: Prisma.DebateResultListRelationFilter
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionListRelationFilter
+  debateComments?: Prisma.DebateCommentListRelationFilter
 }, "id" | "email" | "username">
 
 export type UserOrderByWithAggregationInput = {
@@ -589,6 +625,9 @@ export type UserOrderByWithAggregationInput = {
   lastUsernameChange?: Prisma.SortOrderInput | Prisma.SortOrder
   aiAssessment?: Prisma.SortOrderInput | Prisma.SortOrder
   aiAssessmentUpdatedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  showLocation?: Prisma.SortOrder
+  showFollowers?: Prisma.SortOrder
+  showComments?: Prisma.SortOrder
   role?: Prisma.SortOrder
   isExhibition?: Prisma.SortOrder
   hideFromLeaderboard?: Prisma.SortOrder
@@ -633,6 +672,9 @@ export type UserScalarWhereWithAggregatesInput = {
   lastUsernameChange?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   aiAssessment?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   aiAssessmentUpdatedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+  showLocation?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
+  showFollowers?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
+  showComments?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   role?: Prisma.StringWithAggregatesFilter<"User"> | string
   isExhibition?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   hideFromLeaderboard?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
@@ -669,6 +711,9 @@ export type UserCreateInput = {
   lastUsernameChange?: Date | string | null
   aiAssessment?: string | null
   aiAssessmentUpdatedAt?: Date | string | null
+  showLocation?: boolean
+  showFollowers?: boolean
+  showComments?: boolean
   role?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
@@ -699,6 +744,8 @@ export type UserCreateInput = {
   pushSubscriptions?: Prisma.PushSubscriptionCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
   debateWins?: Prisma.DebateResultCreateNestedManyWithoutWinnerInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionCreateNestedManyWithoutUserInput
+  debateComments?: Prisma.DebateCommentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -719,6 +766,9 @@ export type UserUncheckedCreateInput = {
   lastUsernameChange?: Date | string | null
   aiAssessment?: string | null
   aiAssessmentUpdatedAt?: Date | string | null
+  showLocation?: boolean
+  showFollowers?: boolean
+  showComments?: boolean
   role?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
@@ -749,6 +799,8 @@ export type UserUncheckedCreateInput = {
   pushSubscriptions?: Prisma.PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
   debateWins?: Prisma.DebateResultUncheckedCreateNestedManyWithoutWinnerInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionUncheckedCreateNestedManyWithoutUserInput
+  debateComments?: Prisma.DebateCommentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -769,6 +821,9 @@ export type UserUpdateInput = {
   lastUsernameChange?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiAssessment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiAssessmentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showLocation?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showFollowers?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -799,6 +854,8 @@ export type UserUpdateInput = {
   pushSubscriptions?: Prisma.PushSubscriptionUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
   debateWins?: Prisma.DebateResultUpdateManyWithoutWinnerNestedInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionUpdateManyWithoutUserNestedInput
+  debateComments?: Prisma.DebateCommentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -819,6 +876,9 @@ export type UserUncheckedUpdateInput = {
   lastUsernameChange?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiAssessment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiAssessmentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showLocation?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showFollowers?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -849,6 +909,8 @@ export type UserUncheckedUpdateInput = {
   pushSubscriptions?: Prisma.PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   debateWins?: Prisma.DebateResultUncheckedUpdateManyWithoutWinnerNestedInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  debateComments?: Prisma.DebateCommentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -869,6 +931,9 @@ export type UserCreateManyInput = {
   lastUsernameChange?: Date | string | null
   aiAssessment?: string | null
   aiAssessmentUpdatedAt?: Date | string | null
+  showLocation?: boolean
+  showFollowers?: boolean
+  showComments?: boolean
   role?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
@@ -905,6 +970,9 @@ export type UserUpdateManyMutationInput = {
   lastUsernameChange?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiAssessment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiAssessmentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showLocation?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showFollowers?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -941,6 +1009,9 @@ export type UserUncheckedUpdateManyInput = {
   lastUsernameChange?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiAssessment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiAssessmentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showLocation?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showFollowers?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -982,6 +1053,9 @@ export type UserCountOrderByAggregateInput = {
   lastUsernameChange?: Prisma.SortOrder
   aiAssessment?: Prisma.SortOrder
   aiAssessmentUpdatedAt?: Prisma.SortOrder
+  showLocation?: Prisma.SortOrder
+  showFollowers?: Prisma.SortOrder
+  showComments?: Prisma.SortOrder
   role?: Prisma.SortOrder
   isExhibition?: Prisma.SortOrder
   hideFromLeaderboard?: Prisma.SortOrder
@@ -1025,6 +1099,9 @@ export type UserMaxOrderByAggregateInput = {
   lastUsernameChange?: Prisma.SortOrder
   aiAssessment?: Prisma.SortOrder
   aiAssessmentUpdatedAt?: Prisma.SortOrder
+  showLocation?: Prisma.SortOrder
+  showFollowers?: Prisma.SortOrder
+  showComments?: Prisma.SortOrder
   role?: Prisma.SortOrder
   isExhibition?: Prisma.SortOrder
   hideFromLeaderboard?: Prisma.SortOrder
@@ -1061,6 +1138,9 @@ export type UserMinOrderByAggregateInput = {
   lastUsernameChange?: Prisma.SortOrder
   aiAssessment?: Prisma.SortOrder
   aiAssessmentUpdatedAt?: Prisma.SortOrder
+  showLocation?: Prisma.SortOrder
+  showFollowers?: Prisma.SortOrder
+  showComments?: Prisma.SortOrder
   role?: Prisma.SortOrder
   isExhibition?: Prisma.SortOrder
   hideFromLeaderboard?: Prisma.SortOrder
@@ -1249,6 +1329,34 @@ export type UserUpdateOneRequiredWithoutDebaterBNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutDebaterBInput, Prisma.UserUpdateWithoutDebaterBInput>, Prisma.UserUncheckedUpdateWithoutDebaterBInput>
 }
 
+export type UserCreateNestedOneWithoutDebateCommentsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutDebateCommentsInput, Prisma.UserUncheckedCreateWithoutDebateCommentsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDebateCommentsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutDebateCommentsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutDebateCommentsInput, Prisma.UserUncheckedCreateWithoutDebateCommentsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDebateCommentsInput
+  upsert?: Prisma.UserUpsertWithoutDebateCommentsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutDebateCommentsInput, Prisma.UserUpdateWithoutDebateCommentsInput>, Prisma.UserUncheckedUpdateWithoutDebateCommentsInput>
+}
+
+export type UserCreateNestedOneWithoutCommentSubscriptionsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCommentSubscriptionsInput, Prisma.UserUncheckedCreateWithoutCommentSubscriptionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCommentSubscriptionsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutCommentSubscriptionsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCommentSubscriptionsInput, Prisma.UserUncheckedCreateWithoutCommentSubscriptionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCommentSubscriptionsInput
+  upsert?: Prisma.UserUpsertWithoutCommentSubscriptionsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCommentSubscriptionsInput, Prisma.UserUpdateWithoutCommentSubscriptionsInput>, Prisma.UserUncheckedUpdateWithoutCommentSubscriptionsInput>
+}
+
 export type UserCreateNestedOneWithoutNotificationsInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutNotificationsInput, Prisma.UserUncheckedCreateWithoutNotificationsInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutNotificationsInput
@@ -1325,6 +1433,9 @@ export type UserCreateWithoutAccountsInput = {
   lastUsernameChange?: Date | string | null
   aiAssessment?: string | null
   aiAssessmentUpdatedAt?: Date | string | null
+  showLocation?: boolean
+  showFollowers?: boolean
+  showComments?: boolean
   role?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
@@ -1354,6 +1465,8 @@ export type UserCreateWithoutAccountsInput = {
   pushSubscriptions?: Prisma.PushSubscriptionCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
   debateWins?: Prisma.DebateResultCreateNestedManyWithoutWinnerInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionCreateNestedManyWithoutUserInput
+  debateComments?: Prisma.DebateCommentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAccountsInput = {
@@ -1374,6 +1487,9 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   lastUsernameChange?: Date | string | null
   aiAssessment?: string | null
   aiAssessmentUpdatedAt?: Date | string | null
+  showLocation?: boolean
+  showFollowers?: boolean
+  showComments?: boolean
   role?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
@@ -1403,6 +1519,8 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   pushSubscriptions?: Prisma.PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
   debateWins?: Prisma.DebateResultUncheckedCreateNestedManyWithoutWinnerInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionUncheckedCreateNestedManyWithoutUserInput
+  debateComments?: Prisma.DebateCommentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAccountsInput = {
@@ -1439,6 +1557,9 @@ export type UserUpdateWithoutAccountsInput = {
   lastUsernameChange?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiAssessment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiAssessmentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showLocation?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showFollowers?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1468,6 +1589,8 @@ export type UserUpdateWithoutAccountsInput = {
   pushSubscriptions?: Prisma.PushSubscriptionUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
   debateWins?: Prisma.DebateResultUpdateManyWithoutWinnerNestedInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionUpdateManyWithoutUserNestedInput
+  debateComments?: Prisma.DebateCommentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -1488,6 +1611,9 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   lastUsernameChange?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiAssessment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiAssessmentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showLocation?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showFollowers?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1517,6 +1643,8 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   pushSubscriptions?: Prisma.PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   debateWins?: Prisma.DebateResultUncheckedUpdateManyWithoutWinnerNestedInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  debateComments?: Prisma.DebateCommentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSessionsInput = {
@@ -1537,6 +1665,9 @@ export type UserCreateWithoutSessionsInput = {
   lastUsernameChange?: Date | string | null
   aiAssessment?: string | null
   aiAssessmentUpdatedAt?: Date | string | null
+  showLocation?: boolean
+  showFollowers?: boolean
+  showComments?: boolean
   role?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
@@ -1566,6 +1697,8 @@ export type UserCreateWithoutSessionsInput = {
   pushSubscriptions?: Prisma.PushSubscriptionCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
   debateWins?: Prisma.DebateResultCreateNestedManyWithoutWinnerInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionCreateNestedManyWithoutUserInput
+  debateComments?: Prisma.DebateCommentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSessionsInput = {
@@ -1586,6 +1719,9 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   lastUsernameChange?: Date | string | null
   aiAssessment?: string | null
   aiAssessmentUpdatedAt?: Date | string | null
+  showLocation?: boolean
+  showFollowers?: boolean
+  showComments?: boolean
   role?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
@@ -1615,6 +1751,8 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   pushSubscriptions?: Prisma.PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
   debateWins?: Prisma.DebateResultUncheckedCreateNestedManyWithoutWinnerInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionUncheckedCreateNestedManyWithoutUserInput
+  debateComments?: Prisma.DebateCommentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSessionsInput = {
@@ -1651,6 +1789,9 @@ export type UserUpdateWithoutSessionsInput = {
   lastUsernameChange?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiAssessment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiAssessmentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showLocation?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showFollowers?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1680,6 +1821,8 @@ export type UserUpdateWithoutSessionsInput = {
   pushSubscriptions?: Prisma.PushSubscriptionUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
   debateWins?: Prisma.DebateResultUpdateManyWithoutWinnerNestedInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionUpdateManyWithoutUserNestedInput
+  debateComments?: Prisma.DebateCommentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -1700,6 +1843,9 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   lastUsernameChange?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiAssessment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiAssessmentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showLocation?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showFollowers?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1729,6 +1875,8 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   pushSubscriptions?: Prisma.PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   debateWins?: Prisma.DebateResultUncheckedUpdateManyWithoutWinnerNestedInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  debateComments?: Prisma.DebateCommentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutFollowingInput = {
@@ -1749,6 +1897,9 @@ export type UserCreateWithoutFollowingInput = {
   lastUsernameChange?: Date | string | null
   aiAssessment?: string | null
   aiAssessmentUpdatedAt?: Date | string | null
+  showLocation?: boolean
+  showFollowers?: boolean
+  showComments?: boolean
   role?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
@@ -1778,6 +1929,8 @@ export type UserCreateWithoutFollowingInput = {
   pushSubscriptions?: Prisma.PushSubscriptionCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
   debateWins?: Prisma.DebateResultCreateNestedManyWithoutWinnerInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionCreateNestedManyWithoutUserInput
+  debateComments?: Prisma.DebateCommentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutFollowingInput = {
@@ -1798,6 +1951,9 @@ export type UserUncheckedCreateWithoutFollowingInput = {
   lastUsernameChange?: Date | string | null
   aiAssessment?: string | null
   aiAssessmentUpdatedAt?: Date | string | null
+  showLocation?: boolean
+  showFollowers?: boolean
+  showComments?: boolean
   role?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
@@ -1827,6 +1983,8 @@ export type UserUncheckedCreateWithoutFollowingInput = {
   pushSubscriptions?: Prisma.PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
   debateWins?: Prisma.DebateResultUncheckedCreateNestedManyWithoutWinnerInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionUncheckedCreateNestedManyWithoutUserInput
+  debateComments?: Prisma.DebateCommentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutFollowingInput = {
@@ -1852,6 +2010,9 @@ export type UserCreateWithoutFollowersInput = {
   lastUsernameChange?: Date | string | null
   aiAssessment?: string | null
   aiAssessmentUpdatedAt?: Date | string | null
+  showLocation?: boolean
+  showFollowers?: boolean
+  showComments?: boolean
   role?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
@@ -1881,6 +2042,8 @@ export type UserCreateWithoutFollowersInput = {
   pushSubscriptions?: Prisma.PushSubscriptionCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
   debateWins?: Prisma.DebateResultCreateNestedManyWithoutWinnerInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionCreateNestedManyWithoutUserInput
+  debateComments?: Prisma.DebateCommentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutFollowersInput = {
@@ -1901,6 +2064,9 @@ export type UserUncheckedCreateWithoutFollowersInput = {
   lastUsernameChange?: Date | string | null
   aiAssessment?: string | null
   aiAssessmentUpdatedAt?: Date | string | null
+  showLocation?: boolean
+  showFollowers?: boolean
+  showComments?: boolean
   role?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
@@ -1930,6 +2096,8 @@ export type UserUncheckedCreateWithoutFollowersInput = {
   pushSubscriptions?: Prisma.PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
   debateWins?: Prisma.DebateResultUncheckedCreateNestedManyWithoutWinnerInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionUncheckedCreateNestedManyWithoutUserInput
+  debateComments?: Prisma.DebateCommentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutFollowersInput = {
@@ -1966,6 +2134,9 @@ export type UserUpdateWithoutFollowingInput = {
   lastUsernameChange?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiAssessment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiAssessmentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showLocation?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showFollowers?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1995,6 +2166,8 @@ export type UserUpdateWithoutFollowingInput = {
   pushSubscriptions?: Prisma.PushSubscriptionUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
   debateWins?: Prisma.DebateResultUpdateManyWithoutWinnerNestedInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionUpdateManyWithoutUserNestedInput
+  debateComments?: Prisma.DebateCommentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutFollowingInput = {
@@ -2015,6 +2188,9 @@ export type UserUncheckedUpdateWithoutFollowingInput = {
   lastUsernameChange?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiAssessment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiAssessmentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showLocation?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showFollowers?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -2044,6 +2220,8 @@ export type UserUncheckedUpdateWithoutFollowingInput = {
   pushSubscriptions?: Prisma.PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   debateWins?: Prisma.DebateResultUncheckedUpdateManyWithoutWinnerNestedInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  debateComments?: Prisma.DebateCommentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutFollowersInput = {
@@ -2075,6 +2253,9 @@ export type UserUpdateWithoutFollowersInput = {
   lastUsernameChange?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiAssessment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiAssessmentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showLocation?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showFollowers?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -2104,6 +2285,8 @@ export type UserUpdateWithoutFollowersInput = {
   pushSubscriptions?: Prisma.PushSubscriptionUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
   debateWins?: Prisma.DebateResultUpdateManyWithoutWinnerNestedInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionUpdateManyWithoutUserNestedInput
+  debateComments?: Prisma.DebateCommentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutFollowersInput = {
@@ -2124,6 +2307,9 @@ export type UserUncheckedUpdateWithoutFollowersInput = {
   lastUsernameChange?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiAssessment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiAssessmentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showLocation?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showFollowers?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -2153,6 +2339,8 @@ export type UserUncheckedUpdateWithoutFollowersInput = {
   pushSubscriptions?: Prisma.PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   debateWins?: Prisma.DebateResultUncheckedUpdateManyWithoutWinnerNestedInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  debateComments?: Prisma.DebateCommentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutFavCategoriesInput = {
@@ -2173,6 +2361,9 @@ export type UserCreateWithoutFavCategoriesInput = {
   lastUsernameChange?: Date | string | null
   aiAssessment?: string | null
   aiAssessmentUpdatedAt?: Date | string | null
+  showLocation?: boolean
+  showFollowers?: boolean
+  showComments?: boolean
   role?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
@@ -2202,6 +2393,8 @@ export type UserCreateWithoutFavCategoriesInput = {
   pushSubscriptions?: Prisma.PushSubscriptionCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
   debateWins?: Prisma.DebateResultCreateNestedManyWithoutWinnerInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionCreateNestedManyWithoutUserInput
+  debateComments?: Prisma.DebateCommentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutFavCategoriesInput = {
@@ -2222,6 +2415,9 @@ export type UserUncheckedCreateWithoutFavCategoriesInput = {
   lastUsernameChange?: Date | string | null
   aiAssessment?: string | null
   aiAssessmentUpdatedAt?: Date | string | null
+  showLocation?: boolean
+  showFollowers?: boolean
+  showComments?: boolean
   role?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
@@ -2251,6 +2447,8 @@ export type UserUncheckedCreateWithoutFavCategoriesInput = {
   pushSubscriptions?: Prisma.PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
   debateWins?: Prisma.DebateResultUncheckedCreateNestedManyWithoutWinnerInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionUncheckedCreateNestedManyWithoutUserInput
+  debateComments?: Prisma.DebateCommentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutFavCategoriesInput = {
@@ -2287,6 +2485,9 @@ export type UserUpdateWithoutFavCategoriesInput = {
   lastUsernameChange?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiAssessment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiAssessmentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showLocation?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showFollowers?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -2316,6 +2517,8 @@ export type UserUpdateWithoutFavCategoriesInput = {
   pushSubscriptions?: Prisma.PushSubscriptionUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
   debateWins?: Prisma.DebateResultUpdateManyWithoutWinnerNestedInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionUpdateManyWithoutUserNestedInput
+  debateComments?: Prisma.DebateCommentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutFavCategoriesInput = {
@@ -2336,6 +2539,9 @@ export type UserUncheckedUpdateWithoutFavCategoriesInput = {
   lastUsernameChange?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiAssessment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiAssessmentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showLocation?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showFollowers?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -2365,6 +2571,8 @@ export type UserUncheckedUpdateWithoutFavCategoriesInput = {
   pushSubscriptions?: Prisma.PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   debateWins?: Prisma.DebateResultUncheckedUpdateManyWithoutWinnerNestedInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  debateComments?: Prisma.DebateCommentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutChallengesSentInput = {
@@ -2385,6 +2593,9 @@ export type UserCreateWithoutChallengesSentInput = {
   lastUsernameChange?: Date | string | null
   aiAssessment?: string | null
   aiAssessmentUpdatedAt?: Date | string | null
+  showLocation?: boolean
+  showFollowers?: boolean
+  showComments?: boolean
   role?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
@@ -2414,6 +2625,8 @@ export type UserCreateWithoutChallengesSentInput = {
   pushSubscriptions?: Prisma.PushSubscriptionCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
   debateWins?: Prisma.DebateResultCreateNestedManyWithoutWinnerInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionCreateNestedManyWithoutUserInput
+  debateComments?: Prisma.DebateCommentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutChallengesSentInput = {
@@ -2434,6 +2647,9 @@ export type UserUncheckedCreateWithoutChallengesSentInput = {
   lastUsernameChange?: Date | string | null
   aiAssessment?: string | null
   aiAssessmentUpdatedAt?: Date | string | null
+  showLocation?: boolean
+  showFollowers?: boolean
+  showComments?: boolean
   role?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
@@ -2463,6 +2679,8 @@ export type UserUncheckedCreateWithoutChallengesSentInput = {
   pushSubscriptions?: Prisma.PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
   debateWins?: Prisma.DebateResultUncheckedCreateNestedManyWithoutWinnerInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionUncheckedCreateNestedManyWithoutUserInput
+  debateComments?: Prisma.DebateCommentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutChallengesSentInput = {
@@ -2488,6 +2706,9 @@ export type UserCreateWithoutChallengesReceivedInput = {
   lastUsernameChange?: Date | string | null
   aiAssessment?: string | null
   aiAssessmentUpdatedAt?: Date | string | null
+  showLocation?: boolean
+  showFollowers?: boolean
+  showComments?: boolean
   role?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
@@ -2517,6 +2738,8 @@ export type UserCreateWithoutChallengesReceivedInput = {
   pushSubscriptions?: Prisma.PushSubscriptionCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
   debateWins?: Prisma.DebateResultCreateNestedManyWithoutWinnerInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionCreateNestedManyWithoutUserInput
+  debateComments?: Prisma.DebateCommentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutChallengesReceivedInput = {
@@ -2537,6 +2760,9 @@ export type UserUncheckedCreateWithoutChallengesReceivedInput = {
   lastUsernameChange?: Date | string | null
   aiAssessment?: string | null
   aiAssessmentUpdatedAt?: Date | string | null
+  showLocation?: boolean
+  showFollowers?: boolean
+  showComments?: boolean
   role?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
@@ -2566,6 +2792,8 @@ export type UserUncheckedCreateWithoutChallengesReceivedInput = {
   pushSubscriptions?: Prisma.PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
   debateWins?: Prisma.DebateResultUncheckedCreateNestedManyWithoutWinnerInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionUncheckedCreateNestedManyWithoutUserInput
+  debateComments?: Prisma.DebateCommentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutChallengesReceivedInput = {
@@ -2602,6 +2830,9 @@ export type UserUpdateWithoutChallengesSentInput = {
   lastUsernameChange?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiAssessment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiAssessmentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showLocation?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showFollowers?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -2631,6 +2862,8 @@ export type UserUpdateWithoutChallengesSentInput = {
   pushSubscriptions?: Prisma.PushSubscriptionUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
   debateWins?: Prisma.DebateResultUpdateManyWithoutWinnerNestedInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionUpdateManyWithoutUserNestedInput
+  debateComments?: Prisma.DebateCommentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutChallengesSentInput = {
@@ -2651,6 +2884,9 @@ export type UserUncheckedUpdateWithoutChallengesSentInput = {
   lastUsernameChange?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiAssessment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiAssessmentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showLocation?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showFollowers?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -2680,6 +2916,8 @@ export type UserUncheckedUpdateWithoutChallengesSentInput = {
   pushSubscriptions?: Prisma.PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   debateWins?: Prisma.DebateResultUncheckedUpdateManyWithoutWinnerNestedInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  debateComments?: Prisma.DebateCommentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutChallengesReceivedInput = {
@@ -2711,6 +2949,9 @@ export type UserUpdateWithoutChallengesReceivedInput = {
   lastUsernameChange?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiAssessment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiAssessmentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showLocation?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showFollowers?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -2740,6 +2981,8 @@ export type UserUpdateWithoutChallengesReceivedInput = {
   pushSubscriptions?: Prisma.PushSubscriptionUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
   debateWins?: Prisma.DebateResultUpdateManyWithoutWinnerNestedInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionUpdateManyWithoutUserNestedInput
+  debateComments?: Prisma.DebateCommentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutChallengesReceivedInput = {
@@ -2760,6 +3003,9 @@ export type UserUncheckedUpdateWithoutChallengesReceivedInput = {
   lastUsernameChange?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiAssessment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiAssessmentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showLocation?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showFollowers?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -2789,6 +3035,8 @@ export type UserUncheckedUpdateWithoutChallengesReceivedInput = {
   pushSubscriptions?: Prisma.PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   debateWins?: Prisma.DebateResultUncheckedUpdateManyWithoutWinnerNestedInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  debateComments?: Prisma.DebateCommentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutJoinRequestsInput = {
@@ -2809,6 +3057,9 @@ export type UserCreateWithoutJoinRequestsInput = {
   lastUsernameChange?: Date | string | null
   aiAssessment?: string | null
   aiAssessmentUpdatedAt?: Date | string | null
+  showLocation?: boolean
+  showFollowers?: boolean
+  showComments?: boolean
   role?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
@@ -2838,6 +3089,8 @@ export type UserCreateWithoutJoinRequestsInput = {
   pushSubscriptions?: Prisma.PushSubscriptionCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
   debateWins?: Prisma.DebateResultCreateNestedManyWithoutWinnerInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionCreateNestedManyWithoutUserInput
+  debateComments?: Prisma.DebateCommentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutJoinRequestsInput = {
@@ -2858,6 +3111,9 @@ export type UserUncheckedCreateWithoutJoinRequestsInput = {
   lastUsernameChange?: Date | string | null
   aiAssessment?: string | null
   aiAssessmentUpdatedAt?: Date | string | null
+  showLocation?: boolean
+  showFollowers?: boolean
+  showComments?: boolean
   role?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
@@ -2887,6 +3143,8 @@ export type UserUncheckedCreateWithoutJoinRequestsInput = {
   pushSubscriptions?: Prisma.PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
   debateWins?: Prisma.DebateResultUncheckedCreateNestedManyWithoutWinnerInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionUncheckedCreateNestedManyWithoutUserInput
+  debateComments?: Prisma.DebateCommentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutJoinRequestsInput = {
@@ -2923,6 +3181,9 @@ export type UserUpdateWithoutJoinRequestsInput = {
   lastUsernameChange?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiAssessment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiAssessmentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showLocation?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showFollowers?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -2952,6 +3213,8 @@ export type UserUpdateWithoutJoinRequestsInput = {
   pushSubscriptions?: Prisma.PushSubscriptionUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
   debateWins?: Prisma.DebateResultUpdateManyWithoutWinnerNestedInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionUpdateManyWithoutUserNestedInput
+  debateComments?: Prisma.DebateCommentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutJoinRequestsInput = {
@@ -2972,6 +3235,9 @@ export type UserUncheckedUpdateWithoutJoinRequestsInput = {
   lastUsernameChange?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiAssessment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiAssessmentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showLocation?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showFollowers?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -3001,6 +3267,8 @@ export type UserUncheckedUpdateWithoutJoinRequestsInput = {
   pushSubscriptions?: Prisma.PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   debateWins?: Prisma.DebateResultUncheckedUpdateManyWithoutWinnerNestedInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  debateComments?: Prisma.DebateCommentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutDebaterAInput = {
@@ -3021,6 +3289,9 @@ export type UserCreateWithoutDebaterAInput = {
   lastUsernameChange?: Date | string | null
   aiAssessment?: string | null
   aiAssessmentUpdatedAt?: Date | string | null
+  showLocation?: boolean
+  showFollowers?: boolean
+  showComments?: boolean
   role?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
@@ -3050,6 +3321,8 @@ export type UserCreateWithoutDebaterAInput = {
   pushSubscriptions?: Prisma.PushSubscriptionCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
   debateWins?: Prisma.DebateResultCreateNestedManyWithoutWinnerInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionCreateNestedManyWithoutUserInput
+  debateComments?: Prisma.DebateCommentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutDebaterAInput = {
@@ -3070,6 +3343,9 @@ export type UserUncheckedCreateWithoutDebaterAInput = {
   lastUsernameChange?: Date | string | null
   aiAssessment?: string | null
   aiAssessmentUpdatedAt?: Date | string | null
+  showLocation?: boolean
+  showFollowers?: boolean
+  showComments?: boolean
   role?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
@@ -3099,6 +3375,8 @@ export type UserUncheckedCreateWithoutDebaterAInput = {
   pushSubscriptions?: Prisma.PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
   debateWins?: Prisma.DebateResultUncheckedCreateNestedManyWithoutWinnerInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionUncheckedCreateNestedManyWithoutUserInput
+  debateComments?: Prisma.DebateCommentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutDebaterAInput = {
@@ -3124,6 +3402,9 @@ export type UserCreateWithoutDebaterBInput = {
   lastUsernameChange?: Date | string | null
   aiAssessment?: string | null
   aiAssessmentUpdatedAt?: Date | string | null
+  showLocation?: boolean
+  showFollowers?: boolean
+  showComments?: boolean
   role?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
@@ -3153,6 +3434,8 @@ export type UserCreateWithoutDebaterBInput = {
   pushSubscriptions?: Prisma.PushSubscriptionCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
   debateWins?: Prisma.DebateResultCreateNestedManyWithoutWinnerInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionCreateNestedManyWithoutUserInput
+  debateComments?: Prisma.DebateCommentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutDebaterBInput = {
@@ -3173,6 +3456,9 @@ export type UserUncheckedCreateWithoutDebaterBInput = {
   lastUsernameChange?: Date | string | null
   aiAssessment?: string | null
   aiAssessmentUpdatedAt?: Date | string | null
+  showLocation?: boolean
+  showFollowers?: boolean
+  showComments?: boolean
   role?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
@@ -3202,6 +3488,8 @@ export type UserUncheckedCreateWithoutDebaterBInput = {
   pushSubscriptions?: Prisma.PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
   debateWins?: Prisma.DebateResultUncheckedCreateNestedManyWithoutWinnerInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionUncheckedCreateNestedManyWithoutUserInput
+  debateComments?: Prisma.DebateCommentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutDebaterBInput = {
@@ -3238,6 +3526,9 @@ export type UserUpdateWithoutDebaterAInput = {
   lastUsernameChange?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiAssessment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiAssessmentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showLocation?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showFollowers?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -3267,6 +3558,8 @@ export type UserUpdateWithoutDebaterAInput = {
   pushSubscriptions?: Prisma.PushSubscriptionUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
   debateWins?: Prisma.DebateResultUpdateManyWithoutWinnerNestedInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionUpdateManyWithoutUserNestedInput
+  debateComments?: Prisma.DebateCommentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDebaterAInput = {
@@ -3287,6 +3580,9 @@ export type UserUncheckedUpdateWithoutDebaterAInput = {
   lastUsernameChange?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiAssessment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiAssessmentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showLocation?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showFollowers?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -3316,6 +3612,8 @@ export type UserUncheckedUpdateWithoutDebaterAInput = {
   pushSubscriptions?: Prisma.PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   debateWins?: Prisma.DebateResultUncheckedUpdateManyWithoutWinnerNestedInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  debateComments?: Prisma.DebateCommentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutDebaterBInput = {
@@ -3347,6 +3645,9 @@ export type UserUpdateWithoutDebaterBInput = {
   lastUsernameChange?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiAssessment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiAssessmentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showLocation?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showFollowers?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -3376,6 +3677,8 @@ export type UserUpdateWithoutDebaterBInput = {
   pushSubscriptions?: Prisma.PushSubscriptionUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
   debateWins?: Prisma.DebateResultUpdateManyWithoutWinnerNestedInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionUpdateManyWithoutUserNestedInput
+  debateComments?: Prisma.DebateCommentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDebaterBInput = {
@@ -3396,6 +3699,9 @@ export type UserUncheckedUpdateWithoutDebaterBInput = {
   lastUsernameChange?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiAssessment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiAssessmentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showLocation?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showFollowers?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -3425,6 +3731,472 @@ export type UserUncheckedUpdateWithoutDebaterBInput = {
   pushSubscriptions?: Prisma.PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   debateWins?: Prisma.DebateResultUncheckedUpdateManyWithoutWinnerNestedInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  debateComments?: Prisma.DebateCommentUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutDebateCommentsInput = {
+  id?: string
+  email: string
+  emailVerified?: Date | string | null
+  username: string
+  hashedPassword?: string | null
+  bio?: string | null
+  avatarUrl?: string | null
+  country?: string | null
+  twitterHandle?: string | null
+  threadsHandle?: string | null
+  truthSocialHandle?: string | null
+  blueskyHandle?: string | null
+  mastodonHandle?: string | null
+  websiteUrl?: string | null
+  lastUsernameChange?: Date | string | null
+  aiAssessment?: string | null
+  aiAssessmentUpdatedAt?: Date | string | null
+  showLocation?: boolean
+  showFollowers?: boolean
+  showComments?: boolean
+  role?: string
+  isExhibition?: boolean
+  hideFromLeaderboard?: boolean
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
+  onboardingComplete?: boolean
+  suspendedUntil?: Date | string | null
+  dob?: Date | string | null
+  gender?: string | null
+  region?: string | null
+  elo?: number
+  rankedDebatesPlayed?: number
+  wins?: number
+  losses?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  favCategories?: Prisma.UserFavoriteCategoryCreateNestedManyWithoutUserInput
+  debaterA?: Prisma.DebateCreateNestedManyWithoutDebaterAInput
+  debaterB?: Prisma.DebateCreateNestedManyWithoutDebaterBInput
+  challengesSent?: Prisma.ChallengeCreateNestedManyWithoutCreatorInput
+  challengesReceived?: Prisma.ChallengeCreateNestedManyWithoutTargetInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  joinRequests?: Prisma.JoinRequestCreateNestedManyWithoutUserInput
+  following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
+  followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
+  pushSubscriptions?: Prisma.PushSubscriptionCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  debateWins?: Prisma.DebateResultCreateNestedManyWithoutWinnerInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutDebateCommentsInput = {
+  id?: string
+  email: string
+  emailVerified?: Date | string | null
+  username: string
+  hashedPassword?: string | null
+  bio?: string | null
+  avatarUrl?: string | null
+  country?: string | null
+  twitterHandle?: string | null
+  threadsHandle?: string | null
+  truthSocialHandle?: string | null
+  blueskyHandle?: string | null
+  mastodonHandle?: string | null
+  websiteUrl?: string | null
+  lastUsernameChange?: Date | string | null
+  aiAssessment?: string | null
+  aiAssessmentUpdatedAt?: Date | string | null
+  showLocation?: boolean
+  showFollowers?: boolean
+  showComments?: boolean
+  role?: string
+  isExhibition?: boolean
+  hideFromLeaderboard?: boolean
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
+  onboardingComplete?: boolean
+  suspendedUntil?: Date | string | null
+  dob?: Date | string | null
+  gender?: string | null
+  region?: string | null
+  elo?: number
+  rankedDebatesPlayed?: number
+  wins?: number
+  losses?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  favCategories?: Prisma.UserFavoriteCategoryUncheckedCreateNestedManyWithoutUserInput
+  debaterA?: Prisma.DebateUncheckedCreateNestedManyWithoutDebaterAInput
+  debaterB?: Prisma.DebateUncheckedCreateNestedManyWithoutDebaterBInput
+  challengesSent?: Prisma.ChallengeUncheckedCreateNestedManyWithoutCreatorInput
+  challengesReceived?: Prisma.ChallengeUncheckedCreateNestedManyWithoutTargetInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  joinRequests?: Prisma.JoinRequestUncheckedCreateNestedManyWithoutUserInput
+  following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
+  followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
+  pushSubscriptions?: Prisma.PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  debateWins?: Prisma.DebateResultUncheckedCreateNestedManyWithoutWinnerInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutDebateCommentsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutDebateCommentsInput, Prisma.UserUncheckedCreateWithoutDebateCommentsInput>
+}
+
+export type UserUpsertWithoutDebateCommentsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutDebateCommentsInput, Prisma.UserUncheckedUpdateWithoutDebateCommentsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutDebateCommentsInput, Prisma.UserUncheckedCreateWithoutDebateCommentsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutDebateCommentsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutDebateCommentsInput, Prisma.UserUncheckedUpdateWithoutDebateCommentsInput>
+}
+
+export type UserUpdateWithoutDebateCommentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  hashedPassword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  twitterHandle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  threadsHandle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  truthSocialHandle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  blueskyHandle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mastodonHandle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  websiteUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastUsernameChange?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiAssessment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiAssessmentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showLocation?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showFollowers?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  role?: Prisma.StringFieldUpdateOperationsInput | string
+  isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  onboardingComplete?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dob?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  elo?: Prisma.IntFieldUpdateOperationsInput | number
+  rankedDebatesPlayed?: Prisma.IntFieldUpdateOperationsInput | number
+  wins?: Prisma.IntFieldUpdateOperationsInput | number
+  losses?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  favCategories?: Prisma.UserFavoriteCategoryUpdateManyWithoutUserNestedInput
+  debaterA?: Prisma.DebateUpdateManyWithoutDebaterANestedInput
+  debaterB?: Prisma.DebateUpdateManyWithoutDebaterBNestedInput
+  challengesSent?: Prisma.ChallengeUpdateManyWithoutCreatorNestedInput
+  challengesReceived?: Prisma.ChallengeUpdateManyWithoutTargetNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  joinRequests?: Prisma.JoinRequestUpdateManyWithoutUserNestedInput
+  following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
+  followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
+  pushSubscriptions?: Prisma.PushSubscriptionUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  debateWins?: Prisma.DebateResultUpdateManyWithoutWinnerNestedInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutDebateCommentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  hashedPassword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  twitterHandle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  threadsHandle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  truthSocialHandle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  blueskyHandle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mastodonHandle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  websiteUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastUsernameChange?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiAssessment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiAssessmentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showLocation?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showFollowers?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  role?: Prisma.StringFieldUpdateOperationsInput | string
+  isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  onboardingComplete?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dob?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  elo?: Prisma.IntFieldUpdateOperationsInput | number
+  rankedDebatesPlayed?: Prisma.IntFieldUpdateOperationsInput | number
+  wins?: Prisma.IntFieldUpdateOperationsInput | number
+  losses?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  favCategories?: Prisma.UserFavoriteCategoryUncheckedUpdateManyWithoutUserNestedInput
+  debaterA?: Prisma.DebateUncheckedUpdateManyWithoutDebaterANestedInput
+  debaterB?: Prisma.DebateUncheckedUpdateManyWithoutDebaterBNestedInput
+  challengesSent?: Prisma.ChallengeUncheckedUpdateManyWithoutCreatorNestedInput
+  challengesReceived?: Prisma.ChallengeUncheckedUpdateManyWithoutTargetNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  joinRequests?: Prisma.JoinRequestUncheckedUpdateManyWithoutUserNestedInput
+  following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
+  followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
+  pushSubscriptions?: Prisma.PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  debateWins?: Prisma.DebateResultUncheckedUpdateManyWithoutWinnerNestedInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutCommentSubscriptionsInput = {
+  id?: string
+  email: string
+  emailVerified?: Date | string | null
+  username: string
+  hashedPassword?: string | null
+  bio?: string | null
+  avatarUrl?: string | null
+  country?: string | null
+  twitterHandle?: string | null
+  threadsHandle?: string | null
+  truthSocialHandle?: string | null
+  blueskyHandle?: string | null
+  mastodonHandle?: string | null
+  websiteUrl?: string | null
+  lastUsernameChange?: Date | string | null
+  aiAssessment?: string | null
+  aiAssessmentUpdatedAt?: Date | string | null
+  showLocation?: boolean
+  showFollowers?: boolean
+  showComments?: boolean
+  role?: string
+  isExhibition?: boolean
+  hideFromLeaderboard?: boolean
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
+  onboardingComplete?: boolean
+  suspendedUntil?: Date | string | null
+  dob?: Date | string | null
+  gender?: string | null
+  region?: string | null
+  elo?: number
+  rankedDebatesPlayed?: number
+  wins?: number
+  losses?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  favCategories?: Prisma.UserFavoriteCategoryCreateNestedManyWithoutUserInput
+  debaterA?: Prisma.DebateCreateNestedManyWithoutDebaterAInput
+  debaterB?: Prisma.DebateCreateNestedManyWithoutDebaterBInput
+  challengesSent?: Prisma.ChallengeCreateNestedManyWithoutCreatorInput
+  challengesReceived?: Prisma.ChallengeCreateNestedManyWithoutTargetInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  joinRequests?: Prisma.JoinRequestCreateNestedManyWithoutUserInput
+  following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
+  followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
+  pushSubscriptions?: Prisma.PushSubscriptionCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  debateWins?: Prisma.DebateResultCreateNestedManyWithoutWinnerInput
+  debateComments?: Prisma.DebateCommentCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutCommentSubscriptionsInput = {
+  id?: string
+  email: string
+  emailVerified?: Date | string | null
+  username: string
+  hashedPassword?: string | null
+  bio?: string | null
+  avatarUrl?: string | null
+  country?: string | null
+  twitterHandle?: string | null
+  threadsHandle?: string | null
+  truthSocialHandle?: string | null
+  blueskyHandle?: string | null
+  mastodonHandle?: string | null
+  websiteUrl?: string | null
+  lastUsernameChange?: Date | string | null
+  aiAssessment?: string | null
+  aiAssessmentUpdatedAt?: Date | string | null
+  showLocation?: boolean
+  showFollowers?: boolean
+  showComments?: boolean
+  role?: string
+  isExhibition?: boolean
+  hideFromLeaderboard?: boolean
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
+  onboardingComplete?: boolean
+  suspendedUntil?: Date | string | null
+  dob?: Date | string | null
+  gender?: string | null
+  region?: string | null
+  elo?: number
+  rankedDebatesPlayed?: number
+  wins?: number
+  losses?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  favCategories?: Prisma.UserFavoriteCategoryUncheckedCreateNestedManyWithoutUserInput
+  debaterA?: Prisma.DebateUncheckedCreateNestedManyWithoutDebaterAInput
+  debaterB?: Prisma.DebateUncheckedCreateNestedManyWithoutDebaterBInput
+  challengesSent?: Prisma.ChallengeUncheckedCreateNestedManyWithoutCreatorInput
+  challengesReceived?: Prisma.ChallengeUncheckedCreateNestedManyWithoutTargetInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  joinRequests?: Prisma.JoinRequestUncheckedCreateNestedManyWithoutUserInput
+  following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
+  followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
+  pushSubscriptions?: Prisma.PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  debateWins?: Prisma.DebateResultUncheckedCreateNestedManyWithoutWinnerInput
+  debateComments?: Prisma.DebateCommentUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutCommentSubscriptionsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutCommentSubscriptionsInput, Prisma.UserUncheckedCreateWithoutCommentSubscriptionsInput>
+}
+
+export type UserUpsertWithoutCommentSubscriptionsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutCommentSubscriptionsInput, Prisma.UserUncheckedUpdateWithoutCommentSubscriptionsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutCommentSubscriptionsInput, Prisma.UserUncheckedCreateWithoutCommentSubscriptionsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutCommentSubscriptionsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutCommentSubscriptionsInput, Prisma.UserUncheckedUpdateWithoutCommentSubscriptionsInput>
+}
+
+export type UserUpdateWithoutCommentSubscriptionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  hashedPassword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  twitterHandle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  threadsHandle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  truthSocialHandle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  blueskyHandle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mastodonHandle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  websiteUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastUsernameChange?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiAssessment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiAssessmentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showLocation?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showFollowers?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  role?: Prisma.StringFieldUpdateOperationsInput | string
+  isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  onboardingComplete?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dob?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  elo?: Prisma.IntFieldUpdateOperationsInput | number
+  rankedDebatesPlayed?: Prisma.IntFieldUpdateOperationsInput | number
+  wins?: Prisma.IntFieldUpdateOperationsInput | number
+  losses?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  favCategories?: Prisma.UserFavoriteCategoryUpdateManyWithoutUserNestedInput
+  debaterA?: Prisma.DebateUpdateManyWithoutDebaterANestedInput
+  debaterB?: Prisma.DebateUpdateManyWithoutDebaterBNestedInput
+  challengesSent?: Prisma.ChallengeUpdateManyWithoutCreatorNestedInput
+  challengesReceived?: Prisma.ChallengeUpdateManyWithoutTargetNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  joinRequests?: Prisma.JoinRequestUpdateManyWithoutUserNestedInput
+  following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
+  followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
+  pushSubscriptions?: Prisma.PushSubscriptionUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  debateWins?: Prisma.DebateResultUpdateManyWithoutWinnerNestedInput
+  debateComments?: Prisma.DebateCommentUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutCommentSubscriptionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  hashedPassword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  twitterHandle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  threadsHandle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  truthSocialHandle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  blueskyHandle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mastodonHandle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  websiteUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastUsernameChange?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  aiAssessment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  aiAssessmentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showLocation?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showFollowers?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  role?: Prisma.StringFieldUpdateOperationsInput | string
+  isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  onboardingComplete?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  dob?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gender?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  region?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  elo?: Prisma.IntFieldUpdateOperationsInput | number
+  rankedDebatesPlayed?: Prisma.IntFieldUpdateOperationsInput | number
+  wins?: Prisma.IntFieldUpdateOperationsInput | number
+  losses?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  favCategories?: Prisma.UserFavoriteCategoryUncheckedUpdateManyWithoutUserNestedInput
+  debaterA?: Prisma.DebateUncheckedUpdateManyWithoutDebaterANestedInput
+  debaterB?: Prisma.DebateUncheckedUpdateManyWithoutDebaterBNestedInput
+  challengesSent?: Prisma.ChallengeUncheckedUpdateManyWithoutCreatorNestedInput
+  challengesReceived?: Prisma.ChallengeUncheckedUpdateManyWithoutTargetNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  joinRequests?: Prisma.JoinRequestUncheckedUpdateManyWithoutUserNestedInput
+  following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
+  followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
+  pushSubscriptions?: Prisma.PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  debateWins?: Prisma.DebateResultUncheckedUpdateManyWithoutWinnerNestedInput
+  debateComments?: Prisma.DebateCommentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutNotificationsInput = {
@@ -3445,6 +4217,9 @@ export type UserCreateWithoutNotificationsInput = {
   lastUsernameChange?: Date | string | null
   aiAssessment?: string | null
   aiAssessmentUpdatedAt?: Date | string | null
+  showLocation?: boolean
+  showFollowers?: boolean
+  showComments?: boolean
   role?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
@@ -3474,6 +4249,8 @@ export type UserCreateWithoutNotificationsInput = {
   pushSubscriptions?: Prisma.PushSubscriptionCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
   debateWins?: Prisma.DebateResultCreateNestedManyWithoutWinnerInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionCreateNestedManyWithoutUserInput
+  debateComments?: Prisma.DebateCommentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -3494,6 +4271,9 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   lastUsernameChange?: Date | string | null
   aiAssessment?: string | null
   aiAssessmentUpdatedAt?: Date | string | null
+  showLocation?: boolean
+  showFollowers?: boolean
+  showComments?: boolean
   role?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
@@ -3523,6 +4303,8 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   pushSubscriptions?: Prisma.PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
   debateWins?: Prisma.DebateResultUncheckedCreateNestedManyWithoutWinnerInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionUncheckedCreateNestedManyWithoutUserInput
+  debateComments?: Prisma.DebateCommentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -3559,6 +4341,9 @@ export type UserUpdateWithoutNotificationsInput = {
   lastUsernameChange?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiAssessment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiAssessmentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showLocation?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showFollowers?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -3588,6 +4373,8 @@ export type UserUpdateWithoutNotificationsInput = {
   pushSubscriptions?: Prisma.PushSubscriptionUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
   debateWins?: Prisma.DebateResultUpdateManyWithoutWinnerNestedInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionUpdateManyWithoutUserNestedInput
+  debateComments?: Prisma.DebateCommentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -3608,6 +4395,9 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   lastUsernameChange?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiAssessment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiAssessmentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showLocation?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showFollowers?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -3637,6 +4427,8 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   pushSubscriptions?: Prisma.PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   debateWins?: Prisma.DebateResultUncheckedUpdateManyWithoutWinnerNestedInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  debateComments?: Prisma.DebateCommentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutPushSubscriptionsInput = {
@@ -3657,6 +4449,9 @@ export type UserCreateWithoutPushSubscriptionsInput = {
   lastUsernameChange?: Date | string | null
   aiAssessment?: string | null
   aiAssessmentUpdatedAt?: Date | string | null
+  showLocation?: boolean
+  showFollowers?: boolean
+  showComments?: boolean
   role?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
@@ -3686,6 +4481,8 @@ export type UserCreateWithoutPushSubscriptionsInput = {
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
   debateWins?: Prisma.DebateResultCreateNestedManyWithoutWinnerInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionCreateNestedManyWithoutUserInput
+  debateComments?: Prisma.DebateCommentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPushSubscriptionsInput = {
@@ -3706,6 +4503,9 @@ export type UserUncheckedCreateWithoutPushSubscriptionsInput = {
   lastUsernameChange?: Date | string | null
   aiAssessment?: string | null
   aiAssessmentUpdatedAt?: Date | string | null
+  showLocation?: boolean
+  showFollowers?: boolean
+  showComments?: boolean
   role?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
@@ -3735,6 +4535,8 @@ export type UserUncheckedCreateWithoutPushSubscriptionsInput = {
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
   debateWins?: Prisma.DebateResultUncheckedCreateNestedManyWithoutWinnerInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionUncheckedCreateNestedManyWithoutUserInput
+  debateComments?: Prisma.DebateCommentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPushSubscriptionsInput = {
@@ -3771,6 +4573,9 @@ export type UserUpdateWithoutPushSubscriptionsInput = {
   lastUsernameChange?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiAssessment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiAssessmentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showLocation?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showFollowers?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -3800,6 +4605,8 @@ export type UserUpdateWithoutPushSubscriptionsInput = {
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
   debateWins?: Prisma.DebateResultUpdateManyWithoutWinnerNestedInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionUpdateManyWithoutUserNestedInput
+  debateComments?: Prisma.DebateCommentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPushSubscriptionsInput = {
@@ -3820,6 +4627,9 @@ export type UserUncheckedUpdateWithoutPushSubscriptionsInput = {
   lastUsernameChange?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiAssessment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiAssessmentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showLocation?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showFollowers?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -3849,6 +4659,8 @@ export type UserUncheckedUpdateWithoutPushSubscriptionsInput = {
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   debateWins?: Prisma.DebateResultUncheckedUpdateManyWithoutWinnerNestedInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  debateComments?: Prisma.DebateCommentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutPasswordResetTokensInput = {
@@ -3869,6 +4681,9 @@ export type UserCreateWithoutPasswordResetTokensInput = {
   lastUsernameChange?: Date | string | null
   aiAssessment?: string | null
   aiAssessmentUpdatedAt?: Date | string | null
+  showLocation?: boolean
+  showFollowers?: boolean
+  showComments?: boolean
   role?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
@@ -3898,6 +4713,8 @@ export type UserCreateWithoutPasswordResetTokensInput = {
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   pushSubscriptions?: Prisma.PushSubscriptionCreateNestedManyWithoutUserInput
   debateWins?: Prisma.DebateResultCreateNestedManyWithoutWinnerInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionCreateNestedManyWithoutUserInput
+  debateComments?: Prisma.DebateCommentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPasswordResetTokensInput = {
@@ -3918,6 +4735,9 @@ export type UserUncheckedCreateWithoutPasswordResetTokensInput = {
   lastUsernameChange?: Date | string | null
   aiAssessment?: string | null
   aiAssessmentUpdatedAt?: Date | string | null
+  showLocation?: boolean
+  showFollowers?: boolean
+  showComments?: boolean
   role?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
@@ -3947,6 +4767,8 @@ export type UserUncheckedCreateWithoutPasswordResetTokensInput = {
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   pushSubscriptions?: Prisma.PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   debateWins?: Prisma.DebateResultUncheckedCreateNestedManyWithoutWinnerInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionUncheckedCreateNestedManyWithoutUserInput
+  debateComments?: Prisma.DebateCommentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPasswordResetTokensInput = {
@@ -3983,6 +4805,9 @@ export type UserUpdateWithoutPasswordResetTokensInput = {
   lastUsernameChange?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiAssessment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiAssessmentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showLocation?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showFollowers?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -4012,6 +4837,8 @@ export type UserUpdateWithoutPasswordResetTokensInput = {
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   pushSubscriptions?: Prisma.PushSubscriptionUpdateManyWithoutUserNestedInput
   debateWins?: Prisma.DebateResultUpdateManyWithoutWinnerNestedInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionUpdateManyWithoutUserNestedInput
+  debateComments?: Prisma.DebateCommentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPasswordResetTokensInput = {
@@ -4032,6 +4859,9 @@ export type UserUncheckedUpdateWithoutPasswordResetTokensInput = {
   lastUsernameChange?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiAssessment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiAssessmentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showLocation?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showFollowers?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -4061,6 +4891,8 @@ export type UserUncheckedUpdateWithoutPasswordResetTokensInput = {
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   pushSubscriptions?: Prisma.PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   debateWins?: Prisma.DebateResultUncheckedUpdateManyWithoutWinnerNestedInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  debateComments?: Prisma.DebateCommentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutDebateWinsInput = {
@@ -4081,6 +4913,9 @@ export type UserCreateWithoutDebateWinsInput = {
   lastUsernameChange?: Date | string | null
   aiAssessment?: string | null
   aiAssessmentUpdatedAt?: Date | string | null
+  showLocation?: boolean
+  showFollowers?: boolean
+  showComments?: boolean
   role?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
@@ -4110,6 +4945,8 @@ export type UserCreateWithoutDebateWinsInput = {
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   pushSubscriptions?: Prisma.PushSubscriptionCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionCreateNestedManyWithoutUserInput
+  debateComments?: Prisma.DebateCommentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutDebateWinsInput = {
@@ -4130,6 +4967,9 @@ export type UserUncheckedCreateWithoutDebateWinsInput = {
   lastUsernameChange?: Date | string | null
   aiAssessment?: string | null
   aiAssessmentUpdatedAt?: Date | string | null
+  showLocation?: boolean
+  showFollowers?: boolean
+  showComments?: boolean
   role?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
@@ -4159,6 +4999,8 @@ export type UserUncheckedCreateWithoutDebateWinsInput = {
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   pushSubscriptions?: Prisma.PushSubscriptionUncheckedCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionUncheckedCreateNestedManyWithoutUserInput
+  debateComments?: Prisma.DebateCommentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutDebateWinsInput = {
@@ -4195,6 +5037,9 @@ export type UserUpdateWithoutDebateWinsInput = {
   lastUsernameChange?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiAssessment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiAssessmentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showLocation?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showFollowers?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -4224,6 +5069,8 @@ export type UserUpdateWithoutDebateWinsInput = {
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   pushSubscriptions?: Prisma.PushSubscriptionUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionUpdateManyWithoutUserNestedInput
+  debateComments?: Prisma.DebateCommentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDebateWinsInput = {
@@ -4244,6 +5091,9 @@ export type UserUncheckedUpdateWithoutDebateWinsInput = {
   lastUsernameChange?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   aiAssessment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   aiAssessmentUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  showLocation?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showFollowers?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  showComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -4273,6 +5123,8 @@ export type UserUncheckedUpdateWithoutDebateWinsInput = {
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   pushSubscriptions?: Prisma.PushSubscriptionUncheckedUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  commentSubscriptions?: Prisma.DebateCommentSubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  debateComments?: Prisma.DebateCommentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -4295,6 +5147,8 @@ export type UserCountOutputType = {
   pushSubscriptions: number
   passwordResetTokens: number
   debateWins: number
+  commentSubscriptions: number
+  debateComments: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -4312,6 +5166,8 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   pushSubscriptions?: boolean | UserCountOutputTypeCountPushSubscriptionsArgs
   passwordResetTokens?: boolean | UserCountOutputTypeCountPasswordResetTokensArgs
   debateWins?: boolean | UserCountOutputTypeCountDebateWinsArgs
+  commentSubscriptions?: boolean | UserCountOutputTypeCountCommentSubscriptionsArgs
+  debateComments?: boolean | UserCountOutputTypeCountDebateCommentsArgs
 }
 
 /**
@@ -4422,6 +5278,20 @@ export type UserCountOutputTypeCountDebateWinsArgs<ExtArgs extends runtime.Types
   where?: Prisma.DebateResultWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountCommentSubscriptionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.DebateCommentSubscriptionWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountDebateCommentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.DebateCommentWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -4441,6 +5311,9 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   lastUsernameChange?: boolean
   aiAssessment?: boolean
   aiAssessmentUpdatedAt?: boolean
+  showLocation?: boolean
+  showFollowers?: boolean
+  showComments?: boolean
   role?: boolean
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
@@ -4471,6 +5344,8 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   pushSubscriptions?: boolean | Prisma.User$pushSubscriptionsArgs<ExtArgs>
   passwordResetTokens?: boolean | Prisma.User$passwordResetTokensArgs<ExtArgs>
   debateWins?: boolean | Prisma.User$debateWinsArgs<ExtArgs>
+  commentSubscriptions?: boolean | Prisma.User$commentSubscriptionsArgs<ExtArgs>
+  debateComments?: boolean | Prisma.User$debateCommentsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -4492,6 +5367,9 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   lastUsernameChange?: boolean
   aiAssessment?: boolean
   aiAssessmentUpdatedAt?: boolean
+  showLocation?: boolean
+  showFollowers?: boolean
+  showComments?: boolean
   role?: boolean
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
@@ -4528,6 +5406,9 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   lastUsernameChange?: boolean
   aiAssessment?: boolean
   aiAssessmentUpdatedAt?: boolean
+  showLocation?: boolean
+  showFollowers?: boolean
+  showComments?: boolean
   role?: boolean
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
@@ -4564,6 +5445,9 @@ export type UserSelectScalar = {
   lastUsernameChange?: boolean
   aiAssessment?: boolean
   aiAssessmentUpdatedAt?: boolean
+  showLocation?: boolean
+  showFollowers?: boolean
+  showComments?: boolean
   role?: boolean
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
@@ -4582,7 +5466,7 @@ export type UserSelectScalar = {
   updatedAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "emailVerified" | "username" | "hashedPassword" | "bio" | "avatarUrl" | "country" | "twitterHandle" | "threadsHandle" | "truthSocialHandle" | "blueskyHandle" | "mastodonHandle" | "websiteUrl" | "lastUsernameChange" | "aiAssessment" | "aiAssessmentUpdatedAt" | "role" | "isExhibition" | "hideFromLeaderboard" | "isDeleted" | "deletedAt" | "onboardingComplete" | "suspendedUntil" | "dob" | "gender" | "region" | "elo" | "rankedDebatesPlayed" | "wins" | "losses" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "emailVerified" | "username" | "hashedPassword" | "bio" | "avatarUrl" | "country" | "twitterHandle" | "threadsHandle" | "truthSocialHandle" | "blueskyHandle" | "mastodonHandle" | "websiteUrl" | "lastUsernameChange" | "aiAssessment" | "aiAssessmentUpdatedAt" | "showLocation" | "showFollowers" | "showComments" | "role" | "isExhibition" | "hideFromLeaderboard" | "isDeleted" | "deletedAt" | "onboardingComplete" | "suspendedUntil" | "dob" | "gender" | "region" | "elo" | "rankedDebatesPlayed" | "wins" | "losses" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
@@ -4598,6 +5482,8 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   pushSubscriptions?: boolean | Prisma.User$pushSubscriptionsArgs<ExtArgs>
   passwordResetTokens?: boolean | Prisma.User$passwordResetTokensArgs<ExtArgs>
   debateWins?: boolean | Prisma.User$debateWinsArgs<ExtArgs>
+  commentSubscriptions?: boolean | Prisma.User$commentSubscriptionsArgs<ExtArgs>
+  debateComments?: boolean | Prisma.User$debateCommentsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -4620,6 +5506,8 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     pushSubscriptions: Prisma.$PushSubscriptionPayload<ExtArgs>[]
     passwordResetTokens: Prisma.$PasswordResetTokenPayload<ExtArgs>[]
     debateWins: Prisma.$DebateResultPayload<ExtArgs>[]
+    commentSubscriptions: Prisma.$DebateCommentSubscriptionPayload<ExtArgs>[]
+    debateComments: Prisma.$DebateCommentPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -4639,6 +5527,9 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     lastUsernameChange: Date | null
     aiAssessment: string | null
     aiAssessmentUpdatedAt: Date | null
+    showLocation: boolean
+    showFollowers: boolean
+    showComments: boolean
     role: string
     isExhibition: boolean
     hideFromLeaderboard: boolean
@@ -5063,6 +5954,8 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   pushSubscriptions<T extends Prisma.User$pushSubscriptionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$pushSubscriptionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PushSubscriptionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   passwordResetTokens<T extends Prisma.User$passwordResetTokensArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$passwordResetTokensArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PasswordResetTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   debateWins<T extends Prisma.User$debateWinsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$debateWinsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DebateResultPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  commentSubscriptions<T extends Prisma.User$commentSubscriptionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$commentSubscriptionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DebateCommentSubscriptionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  debateComments<T extends Prisma.User$debateCommentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$debateCommentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DebateCommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5109,6 +6002,9 @@ export interface UserFieldRefs {
   readonly lastUsernameChange: Prisma.FieldRef<"User", 'DateTime'>
   readonly aiAssessment: Prisma.FieldRef<"User", 'String'>
   readonly aiAssessmentUpdatedAt: Prisma.FieldRef<"User", 'DateTime'>
+  readonly showLocation: Prisma.FieldRef<"User", 'Boolean'>
+  readonly showFollowers: Prisma.FieldRef<"User", 'Boolean'>
+  readonly showComments: Prisma.FieldRef<"User", 'Boolean'>
   readonly role: Prisma.FieldRef<"User", 'String'>
   readonly isExhibition: Prisma.FieldRef<"User", 'Boolean'>
   readonly hideFromLeaderboard: Prisma.FieldRef<"User", 'Boolean'>
@@ -5851,6 +6747,54 @@ export type User$debateWinsArgs<ExtArgs extends runtime.Types.Extensions.Interna
   take?: number
   skip?: number
   distinct?: Prisma.DebateResultScalarFieldEnum | Prisma.DebateResultScalarFieldEnum[]
+}
+
+/**
+ * User.commentSubscriptions
+ */
+export type User$commentSubscriptionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the DebateCommentSubscription
+   */
+  select?: Prisma.DebateCommentSubscriptionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the DebateCommentSubscription
+   */
+  omit?: Prisma.DebateCommentSubscriptionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DebateCommentSubscriptionInclude<ExtArgs> | null
+  where?: Prisma.DebateCommentSubscriptionWhereInput
+  orderBy?: Prisma.DebateCommentSubscriptionOrderByWithRelationInput | Prisma.DebateCommentSubscriptionOrderByWithRelationInput[]
+  cursor?: Prisma.DebateCommentSubscriptionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.DebateCommentSubscriptionScalarFieldEnum | Prisma.DebateCommentSubscriptionScalarFieldEnum[]
+}
+
+/**
+ * User.debateComments
+ */
+export type User$debateCommentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the DebateComment
+   */
+  select?: Prisma.DebateCommentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the DebateComment
+   */
+  omit?: Prisma.DebateCommentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DebateCommentInclude<ExtArgs> | null
+  where?: Prisma.DebateCommentWhereInput
+  orderBy?: Prisma.DebateCommentOrderByWithRelationInput | Prisma.DebateCommentOrderByWithRelationInput[]
+  cursor?: Prisma.DebateCommentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.DebateCommentScalarFieldEnum | Prisma.DebateCommentScalarFieldEnum[]
 }
 
 /**
