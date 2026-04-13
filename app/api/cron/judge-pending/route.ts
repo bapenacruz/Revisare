@@ -44,18 +44,13 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ ok: true, processed: 0 });
   }
 
-  const results: Array<{ id: string; status: "ok" | "error"; error?: string }> = [];
-
+  // Fire all in background — return immediately so the HTTP request doesn't timeout.
+  // In-flight lock in judgeDebate() prevents duplicate runs for the same debate.
   for (const debate of pending) {
-    try {
-      await judgeDebate(debate.id);
-      results.push({ id: debate.id, status: "ok" });
-    } catch (err) {
-      const message = err instanceof Error ? err.message : String(err);
+    void judgeDebate(debate.id).catch((err) => {
       console.error(`[cron/judge-pending] Failed for debate ${debate.id}:`, err);
-      results.push({ id: debate.id, status: "error", error: message });
-    }
+    });
   }
 
-  return NextResponse.json({ ok: true, processed: results.length, results });
+  return NextResponse.json({ ok: true, queued: pending.length, ids: pending.map((d) => d.id) });
 }
