@@ -4,10 +4,11 @@ import { db } from "@/lib/db";
 import { pusherTrigger, CHANNELS, EVENTS } from "@/lib/pusher";
 import {
   getTurnSequence,
-  MIN_CHARS,
-  MAX_CHARS,
+  getMinChars,
+  getMaxChars,
   SECOND_CHANCE_WINDOW_SECONDS,
   getRoundTimer,
+  type RoundName,
 } from "@/lib/debate-state";
 import { judgeDebate } from "@/lib/judging";
 
@@ -36,16 +37,26 @@ export async function POST(req: NextRequest, { params }: RouteParams) {
     return NextResponse.json({ error: "Not your turn" }, { status: 403 });
   }
 
-  // Content validation
-  if (content.length > MAX_CHARS) {
+  // Compute turn sequence once — used for validation and state advance
+  const sequence = getTurnSequence(
+    debate.format,
+    debate.coinFlipWinnerId!,
+    debate.debaterAId,
+    debate.debaterBId,
+  );
+  const currentSpec = sequence[debate.currentTurnIndex];
+  const roundMaxChars = getMaxChars(currentSpec?.roundName as RoundName ?? "opening");
+  const roundMinChars = getMinChars(currentSpec?.roundName as RoundName ?? "opening");
+
+  if (content.length > roundMaxChars) {
     return NextResponse.json(
-      { error: `Response exceeds maximum ${MAX_CHARS} characters.` },
+      { error: `Response exceeds maximum ${roundMaxChars} characters for this phase.` },
       { status: 400 },
     );
   }
-  if (!autoSubmit && content.length < MIN_CHARS) {
+  if (!autoSubmit && content.length < roundMinChars) {
     return NextResponse.json(
-      { error: `Response must be at least ${MIN_CHARS} characters.` },
+      { error: `Response must be at least ${roundMinChars} characters for this phase.` },
       { status: 400 },
     );
   }
@@ -115,13 +126,6 @@ export async function POST(req: NextRequest, { params }: RouteParams) {
   }
 
   // Save the turn
-  const sequence = getTurnSequence(
-    debate.format,
-    debate.coinFlipWinnerId!,
-    debate.debaterAId,
-    debate.debaterBId,
-  );
-  const currentSpec = sequence[debate.currentTurnIndex];
 
   await db.debateTurn.create({
     data: {

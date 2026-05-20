@@ -1,6 +1,8 @@
 export interface JudgeInput {
   motion: string;
   format: string;
+  /** Category slug used to determine judging style (evidence vs reasoning) */
+  categorySlug?: string;
   debaterA: { id: string; username: string };
   debaterB: { id: string; username: string };
   /** Who won the coin flip (goes first = Proposition) */

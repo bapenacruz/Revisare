@@ -34,6 +34,7 @@ async function _judgeDebate(debateId: string): Promise<void> {
       debaterB: { select: { id: true, username: true, elo: true, rankedDebatesPlayed: true } },
       turns: { orderBy: { submittedAt: "asc" } },
       challenge: { select: { id: true } },
+      category: { select: { slug: true } },
     },
   });
 
@@ -43,6 +44,7 @@ async function _judgeDebate(debateId: string): Promise<void> {
   const input: JudgeInput = {
     motion: debate.motion,
     format: debate.format,
+    categorySlug: debate.category?.slug,
     debaterA: debate.debaterA,
     debaterB: debate.debaterB,
     coinFlipWinnerId: debate.coinFlipWinnerId ?? debate.debaterAId,

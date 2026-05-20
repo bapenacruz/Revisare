@@ -18,8 +18,9 @@ import {
   getTurnSequence,
   formatTimer,
   ROUND_LABEL,
-  MIN_CHARS,
-  MAX_CHARS,
+  ROUND_HINT,
+  getMinChars,
+  getMaxChars,
   type RoundName,
 } from "@/lib/debate-state";
 
@@ -236,8 +237,9 @@ export default function ArenaPage() {
 
   async function submitTurn(auto = false) {
     if (submitting) return;
-    if (!auto && draft.trim().length < MIN_CHARS) {
-      setTurnError(`Minimum ${MIN_CHARS} characters required.`);
+    const minChars = getMinChars(currentSpec?.roundName as RoundName ?? "opening");
+    if (!auto && draft.trim().length < minChars) {
+      setTurnError(`Minimum ${minChars} characters required for this phase.`);
       return;
     }
     setTurnError("");
@@ -350,11 +352,17 @@ export default function ArenaPage() {
       : [];
   const currentSpec = sequence[debate.currentTurnIndex];
 
-  // Group submitted turns by round
-  const roundGroups: Record<RoundName, Turn[]> = { opening: [], rebuttal: [], closing: [] };
+  // Group submitted turns by round (all 5 possible round names incl. legacy "closing")
+  const roundGroups: Record<RoundName, Turn[]> = { opening: [], crossfire: [], rebuttal: [], summary: [], closing: [] };
   for (const t of debate.turns) {
     roundGroups[t.roundName as RoundName].push(t);
   }
+
+  // Per-round char limits for the current phase
+  const curRoundName = currentSpec?.roundName as RoundName ?? "opening";
+  const curMinChars  = getMinChars(curRoundName);
+  const curMaxChars  = getMaxChars(curRoundName);
+  const curHint      = ROUND_HINT[curRoundName];
 
   return (
     <div className="mx-auto max-w-4xl px-4 sm:px-6 py-8">
@@ -491,12 +499,18 @@ export default function ArenaPage() {
                 {/* My turn textarea */}
                 {debate.currentUserId === me && (
                   <div className="flex flex-col gap-3">
+                    {/* Phase hint */}
+                    {curHint && (
+                      <div className="p-3 rounded-[--radius] bg-brand/8 border border-brand/20">
+                        <p className="text-xs text-brand leading-relaxed">{curHint}</p>
+                      </div>
+                    )}
                     <textarea
                       className="w-full min-h-[180px] p-4 rounded-[--radius] bg-surface-raised border border-border text-foreground placeholder:text-foreground-subtle resize-y focus:outline-none focus:border-brand transition-colors text-sm"
-                      placeholder={`Write your ${ROUND_LABEL[currentSpec.roundName as RoundName].toLowerCase()} here\u2026`}
+                      placeholder={`Write your ${ROUND_LABEL[curRoundName].toLowerCase()}\u2026`}
                       value={draft}
                       onChange={(e) => {
-                        if (e.target.value.length <= MAX_CHARS) {
+                        if (e.target.value.length <= curMaxChars) {
                           setDraft(e.target.value);
                           setTurnError("");
                         }
@@ -505,16 +519,16 @@ export default function ArenaPage() {
                     />
                     <div className="flex items-center justify-between">
                       <span className="text-xs text-foreground-muted">
-                        {draft.length}/{MAX_CHARS}
-                        {draft.length > 0 && draft.length < MIN_CHARS && (
+                        {draft.length}/{curMaxChars}
+                        {draft.length > 0 && draft.length < curMinChars && (
                           <span className="text-warning ml-2">
-                            ({MIN_CHARS - draft.length} more to submit)
+                            ({curMinChars - draft.length} more to submit)
                           </span>
                         )}
                       </span>
                       <Button
                         onClick={() => submitTurn(false)}
-                        disabled={submitting || draft.trim().length < MIN_CHARS}
+                        disabled={submitting || draft.trim().length < curMinChars}
                         size="sm"
                       >
                         <Send size={14} className="mr-1.5" />

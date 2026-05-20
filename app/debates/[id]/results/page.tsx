@@ -89,10 +89,12 @@ export default async function ResultsPage({ params }: Props) {
         ? debate.debaterB
         : null;
 
-  // Group turns by round
+  // Group turns by round (covers all phases including legacy "closing" rows)
   const roundGroups: Record<RoundName, typeof debate.turns> = {
     opening: [],
+    crossfire: [],
     rebuttal: [],
+    summary: [],
     closing: [],
   };
   for (const t of debate.turns) {
@@ -487,7 +489,7 @@ export default async function ResultsPage({ params }: Props) {
           <Card><CardBody><p className="text-foreground-muted text-sm text-center py-4">No turns were recorded.</p></CardBody></Card>
         ) : (
           <div className="flex flex-col gap-6">
-            {(["opening", "rebuttal", "closing"] as RoundName[]).map((round) => {
+            {(["opening", "crossfire", "rebuttal", "summary", "closing"] as RoundName[]).map((round) => {
               const turns = roundGroups[round];
               if (turns.length === 0) return null;
               return (

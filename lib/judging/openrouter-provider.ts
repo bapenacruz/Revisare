@@ -24,6 +24,21 @@ async function getJudgePrompt(type: string): Promise<string> {
   return fallbacks[type] || "Evaluate this debate fairly and factually.";
 }
 
+/**
+ * Determines whether the category should use evidence-weighted or reasoning-weighted judging.
+ * Evidence-weighted: empirical topics where factual accuracy is verifiable.
+ * Reasoning-weighted: normative/philosophical topics where logical coherence matters more.
+ */
+function getJudgingStyle(categorySlug?: string): "evidence" | "reasoning" {
+  const reasoningSlugs = new Set([
+    "philosophy", "ethics", "religion", "culture", "hypotheticals",
+    "literature", "arts", "society", "morality", "values", "psychology",
+  ]);
+  if (!categorySlug) return "evidence";
+  const lower = categorySlug.toLowerCase();
+  return [...reasoningSlugs].some((s) => lower.includes(s)) ? "reasoning" : "evidence";
+}
+
 function buildVerdictSchema(input: JudgeInput, summaryInstruction?: string): string {
   const a = input.debaterA.username;
   const b = input.debaterB.username;
@@ -34,16 +49,21 @@ function buildVerdictSchema(input: JudgeInput, summaryInstruction?: string): str
   "winner_username": "<${a} or ${b}>",
   "public_result": {
     "winner_username": "<${a} or ${b}>",
-    "summary": "<3 to 5 concise sentences explaining why this user won in public-facing language>"
+    "summary": "<3-5 concise sentences: state the winner, cite the decisive phase/argument, and briefly note the most critical unanswered argument that sealed the outcome>"
   },
   "private_assessment": {
-    "decision_summary": "<short internal summary of why the winner won>",
+    "decision_summary": "<1-2 sentences: why the winner won, citing the single most decisive factor>",
+    "key_analysis": {
+      "strongest_rebuttal": "<the single most effective rebuttal made by either debater — quote briefly and note why it landed>",
+      "critical_unanswered_argument": "<the most important argument that went unanswered by the losing side — explain its impact on the outcome>",
+      "crossfire_assessment": "<1 sentence each on how each debater performed during the crossfire phase: did they answer directly, dodge, press effectively?>"
+    },
     "key_claim_checks": [
       {
         "username": "<${a} or ${b}>",
-        "claim": "<specific factual claim from the transcript>",
+        "claim": "<specific factual or evidential claim from the transcript>",
         "verdict": "<correct|incorrect|misleading|disputed|unsupported>",
-        "reason": "<short explanation>",
+        "reason": "<short explanation citing evidence or reasoning>",
         "source": "<real source name or credible category if uncertain>"
       }
     ],
@@ -55,7 +75,7 @@ function buildVerdictSchema(input: JudgeInput, summaryInstruction?: string): str
         "rebuttal_quality": <0-10 integer>,
         "clarity": <0-10 integer>,
         "persuasiveness": <0-10 integer>,
-        "final_score": <weighted score with factuality dominance rules applied, rounded to 1 decimal>
+        "final_score": <weighted score with dominance rules applied, rounded to 1 decimal>
       },
       "${b}": {
         "factuality": <0-10 integer>,
@@ -64,36 +84,54 @@ function buildVerdictSchema(input: JudgeInput, summaryInstruction?: string): str
         "rebuttal_quality": <0-10 integer>,
         "clarity": <0-10 integer>,
         "persuasiveness": <0-10 integer>,
-        "final_score": <weighted score with factuality dominance rules applied, rounded to 1 decimal>
+        "final_score": <weighted score with dominance rules applied, rounded to 1 decimal>
       }
     },
-    "winner_reason": "<1 to 2 sentence internal explanation focused on factual accuracy>"
+    "winner_reason": "<1-2 sentences: decisive factor in winner determination>"
   }
 }
 
 Requirements:
-- Include 3-8 claim checks covering the most important assertions from both debaters
+- Include 3-8 key_claim_checks covering the most important and impactful assertions from both debaters
+- Prioritise claims made in opening and rebuttal; note if a crossfire question went unanswered
 - Use exact usernames ${a} and ${b}
-- Apply factuality dominance rules: if factuality < 5 cap final_score at 6.0, if factuality < 3 cap at 3.0
-- Choose winner based primarily on factual reliability`;
+- Apply dominance rules: if factuality < 5 cap final_score at 6.0; if factuality < 3 cap at 3.0 (automatic loss)
+- Choose winner based on the full four-phase evaluation, not just factual score`;
 }
+
+const PHASE_LABEL: Record<string, string> = {
+  opening:   "OPENING CONSTRUCTIVE",
+  crossfire: "CROSSFIRE",
+  rebuttal:  "REBUTTAL",
+  summary:   "CLOSING SUMMARY",
+  closing:   "CLOSING ARGUMENT", // legacy
+};
 
 function buildTranscriptText(input: JudgeInput): string {
   const prop = input.coinFlipWinnerId === input.debaterA.id ? input.debaterA : input.debaterB;
-  const opp = prop.id === input.debaterA.id ? input.debaterB : input.debaterA;
+  const opp  = prop.id === input.debaterA.id ? input.debaterB : input.debaterA;
 
   const transcript = input.turns
     .map((t) => {
       const debater = t.userId === input.debaterA.id ? input.debaterA : input.debaterB;
-      const side = debater.id === prop.id ? "PROPOSITION" : "OPPOSITION";
-      return `[${t.roundName.toUpperCase()} · ${debater.username} · ${side}]\n${t.content}`;
+      const side    = debater.id === prop.id ? "PROPOSITION" : "OPPOSITION";
+      const phase   = PHASE_LABEL[t.roundName] ?? t.roundName.toUpperCase();
+      return `[${phase} | ${debater.username} | ${side}]\n${t.content}`;
     })
     .join("\n\n---\n\n");
 
   return `MOTION: "${input.motion}"
-FORMAT: ${input.format}
-DEBATER A id="${input.debaterA.id}": ${input.debaterA.username} (${input.debaterA.id === prop.id ? "Proposition" : "Opposition"})
-DEBATER B id="${input.debaterB.id}": ${input.debaterB.username} (${input.debaterB.id === opp.id ? "Opposition" : "Proposition"})
+FORMAT: ${input.format}${input.categorySlug ? ` | CATEGORY: ${input.categorySlug}` : ""}
+PROPOSITION: ${prop.username}
+OPPOSITION:  ${opp.username}
+DEBATER A id="${input.debaterA.id}": ${input.debaterA.username}
+DEBATER B id="${input.debaterB.id}": ${input.debaterB.username}
+
+DEBATE STRUCTURE (each speaker gets one turn per phase):
+  Phase 1 — Opening Constructive (3 min): Establish positions with evidence
+  Phase 2 — Crossfire (1.5 min):         Direct Q&A challenge between debaters
+  Phase 3 — Rebuttal (2 min):            Attack and defend; engage all major claims
+  Phase 4 — Closing Summary (1 min):     Crystallise the debate; no new arguments
 
 FULL DEBATE TRANSCRIPT:
 ${transcript}`;
@@ -161,21 +199,22 @@ function parseVerdict(raw: string, input: JudgeInput): SingleJudgeVerdict {
   // Extract summary from new format
   const explanation = String((publicResult?.summary as string) ?? parsed.summary ?? "");
 
-  // Extract evidence checks from new format
+  // Extract evidence checks — support both old key_claim_checks and legacy format
   const VALID_VERDICTS = new Set(["correct", "incorrect", "misleading", "disputed", "unsupported"]);
   const privateAssessment = parsed.private_assessment as Record<string, unknown> | undefined;
-  const evidenceChecks: EvidenceCheck[] = Array.isArray(privateAssessment?.key_claim_checks)
-    ? (privateAssessment.key_claim_checks as Array<Record<string, unknown>>)
-        .filter((e) => e && typeof e.claim === "string" && typeof e.verdict === "string")
-        .map((e) => ({
-          debater: String(e.username ?? ""),
-          claim: String(e.claim ?? ""),
-          verdict: (VALID_VERDICTS.has(String(e.verdict)) ? e.verdict : "unsupported") as EvidenceCheck["verdict"],
-          explanation: String(e.reason ?? ""),
-          source: typeof e.source === "string" && e.source ? e.source : undefined,
-          importance: undefined, // New format doesn't include importance
-        }))
+  const claimChecksRaw = Array.isArray(privateAssessment?.key_claim_checks)
+    ? privateAssessment.key_claim_checks as Array<Record<string, unknown>>
     : [];
+  const evidenceChecks: EvidenceCheck[] = claimChecksRaw
+    .filter((e) => e && typeof e.claim === "string" && typeof e.verdict === "string")
+    .map((e) => ({
+      debater: String(e.username ?? ""),
+      claim: String(e.claim ?? ""),
+      verdict: (VALID_VERDICTS.has(String(e.verdict)) ? e.verdict : "unsupported") as EvidenceCheck["verdict"],
+      explanation: String(e.reason ?? ""),
+      source: typeof e.source === "string" && e.source ? e.source : undefined,
+      importance: undefined,
+    }));
 
   // Extract scores from new nested format
   const scores = privateAssessment?.scores as Record<string, unknown> | undefined;
@@ -301,50 +340,90 @@ async function withRetry<T>(
 
 // ─── Shared system prompt ──────────────────────────────────────────────────────
 
-// buildJudgingRubric wraps the DB persona as a PREAMBLE before the factuality rules.
-// The persona can set tone/style; the rubric's factuality rules always apply and cannot be overridden.
-function buildJudgingRubric(extra: string): string {
-  const preamble = extra ? `JUDGE PERSONA — tone and style guidance for this evaluation:\n${extra}\n\n` : "";
-  return `${preamble}You are an expert debate judge on the platform Arguably. You evaluate a full debate between two participants and produce ONE overall judgment.
+// buildJudgingRubric wraps the DB persona as a PREAMBLE before the core evaluation rules.
+// The persona sets tone/style; the core rules always apply and cannot be overridden.
+function buildJudgingRubric(extra: string, categorySlug?: string): string {
+  const preamble = extra ? `JUDGE PERSONA — tone and style guidance:\n${extra}\n\n` : "";
+  const style    = getJudgingStyle(categorySlug);
+
+  const styleSection = style === "reasoning"
+    ? `JUDGING STYLE: REASONING-WEIGHTED (category: ${categorySlug ?? "philosophy/ethics/opinion"})
+This debate involves normative, philosophical, or value-based claims where objective empirical truth
+cannot always be determined. Apply the following adapted evaluation:
+
+- "factuality" (35%) measures REASONING COHERENCE: internal consistency, logical validity, and
+  whether value assumptions are clearly stated and coherently defended. Score low for contradictions,
+  logical fallacies, and unfounded assertions even if they cannot be empirically disproved.
+- "evidence_quality" (25%) measures ARGUMENTATIVE STRENGTH: quality of philosophical reasoning,
+  use of thought experiments, historical or precedent-based evidence, and calibrated use of expert
+  opinion. Weak arm-waving and unsubstantiated assertions score low.
+- "argument_strength" (15%) measures POSITION CLARITY and development across all four phases.
+- "rebuttal_quality" (20%) measures DIRECT ENGAGEMENT: did the debater actually respond to the
+  opponent's philosophical/normative claims, or did they ignore them?
+- "clarity" (3%) and "persuasiveness" (2%) are minor.
+
+IMPORTANT: Do NOT pretend to determine objective moral or philosophical truth. Instead evaluate which
+debater built a stronger, more internally consistent, and more directly responsive argument.
+Do NOT penalise a debater simply for holding an unpopular position if they argued it coherently.
+
+For claim checks in reasoning debates: flag LOGICAL FALLACIES (ad hominem, strawman, false dilemma),
+UNSUPPORTED FACTUAL CLAIMS embedded within normative arguments, and INTERNAL CONTRADICTIONS.
+You CANNOT rule a normative claim "incorrect" — use "unsupported" or "disputed" instead.`
+    : `JUDGING STYLE: EVIDENCE-WEIGHTED (category: ${categorySlug ?? "general evidence-based"})
+This debate involves empirically verifiable claims. Factual accuracy is the primary evaluation axis.
+
+- "factuality" (35%): Are the core claims actually true? Aggressively fact-check statistics,
+  historical claims, scientific findings, legal facts, and causal claims. Use credible real sources.
+- "evidence_quality" (25%): Were claims supported with real evidence (studies, data, expert consensus),
+  or just stated assertively? Vague references to "studies" or "experts" without specifics score low.
+- "argument_strength" (15%): Was the overall case logically structured and did it address the motion directly?
+- "rebuttal_quality" (20%): Did the debater directly refute opponent claims with counter-evidence?
+  This includes crossfire engagement — did they answer questions directly or dodge them?
+- "clarity" (3%) and "persuasiveness" (2%) are minor.
+
+IMPORTANT: A debater who makes a persuasive-sounding but factually false argument MUST score low on
+factuality regardless of rhetorical skill. Persuasiveness cannot compensate for factual failure.`;
+
+  return `${preamble}You are an expert debate judge evaluating a structured four-phase debate on the platform Revisare.
 
 CRITICAL OUTPUT RULES
 - Return ONLY valid JSON
-- Do not wrap the JSON in markdown
+- Do not wrap in markdown fences
 - Do not include any text before or after the JSON
 - Do not include emojis
 - Use only plain ASCII characters
-- Always use the debaters' real usernames
-- No ties
+- Always use the exact debater usernames as given
+- No ties — always determine one winner
 
-PRIMARY RULE
-Factual accuracy is the most important factor. A debater cannot win if their argument relies on false, misleading, or unsupported claims. Persuasiveness does NOT override bad facts.
+${styleSection}
 
-EVALUATION PROCESS
+FOUR-PHASE EVALUATION FRAMEWORK
 
-STEP 1 - Identify the key factual or empirical claims from each side.
-STEP 2 - Fact-check those claims using credible real-world knowledge and real source names where possible.
-STEP 3 - Score both debaters from 0 to 10 on:
-- factuality
-- evidence_quality
-- argument_strength
-- rebuttal_quality
-- clarity
-- persuasiveness
+Evaluate EACH phase separately before reaching an overall verdict:
 
-STEP 4 - Apply these weights:
-- factuality = 35
-- evidence_quality = 25
-- argument_strength = 15
-- rebuttal_quality = 15
-- clarity = 5
-- persuasiveness = 5
+1. OPENING CONSTRUCTIVE — Did each debater establish a clear, well-evidenced position?
+   Was the core argument grounded in facts/reasoning or just assertions?
 
-CRITICAL SCORING RULES
-- If factuality < 5, cap final_score at 6.0
-- If factuality < 3, automatic loss and cap final_score at 3.0
-- A debater cannot win with false or unsupported core claims
+2. CROSSFIRE — This is a direct Q&A challenge phase. Evaluate:
+   - Did the debater answer their opponent's questions directly and honestly?
+   - Did they dodge, deflect, or give non-answers? (penalise rebuttal_quality)
+   - Did they press effectively with follow-up questions or challenges?
+   Note: crossfire evasion is a significant procedural failure and damages rebuttal_quality.
 
-STEP 5 - Choose one winner based primarily on factual reliability.
+3. REBUTTAL — Did the debater directly address the opponent's opening and crossfire arguments?
+   Every significant claim from the opponent should have been engaged. Credit for direct refutation
+   with counter-evidence. Penalise for ignoring major opponent arguments.
+
+4. CLOSING SUMMARY — Did the debater crystallise the debate effectively?
+   No new arguments should be introduced here (minor penalty if they do).
+   Credit for identifying the key clash points and explaining why they won them.
+
+SCORING RULES
+- Score 0-10 on all six dimensions
+- Apply weights: factuality=35%, evidence_quality=25%, argument_strength=15%, rebuttal_quality=20%, clarity=3%, persuasiveness=2%
+- DOMINANCE RULE: if factuality < 5, cap final_score at 6.0; if factuality < 3, cap at 3.0 (automatic loss)
+- Rebuttal_quality includes crossfire engagement — dodging questions is a direct penalty
+- The winner is the debater whose overall case was more truthful, better-evidenced, and more directly responsive
 
 Respond with ONLY valid JSON — no markdown fences, no commentary — matching this schema exactly:
 `;
@@ -362,7 +441,7 @@ function stripPersonaJsonSchema(prompt: string): string {
 
 async function buildGrokSystem(input: JudgeInput): Promise<string> {
   const raw = await getJudgePrompt("judge1_grok");
-  return buildJudgingRubric(stripPersonaJsonSchema(raw)) + buildVerdictSchema(input);
+  return buildJudgingRubric(stripPersonaJsonSchema(raw), input.categorySlug) + buildVerdictSchema(input);
 }
 
 export class GrokJudgingProvider implements IJudgingProvider {
@@ -412,7 +491,7 @@ export class GrokJudgingProvider implements IJudgingProvider {
 
 async function buildClaudeSystem(input: JudgeInput): Promise<string> {
   const raw = await getJudgePrompt("judge2_claude");
-  return buildJudgingRubric(stripPersonaJsonSchema(raw)) + buildVerdictSchema(input);
+  return buildJudgingRubric(stripPersonaJsonSchema(raw), input.categorySlug) + buildVerdictSchema(input);
 }
 
 export class ClaudeJudgingProvider implements IJudgingProvider {
@@ -464,7 +543,7 @@ async function buildArbiterSystem(input: JudgeInput): Promise<string> {
   const raw = await getJudgePrompt("judge3_chatgpt");
   const persona = stripPersonaJsonSchema(raw);
   const resultStyle = await getJudgePrompt("official_result");
-  return buildJudgingRubric(persona) + buildVerdictSchema(input, resultStyle || undefined);
+  return buildJudgingRubric(persona, input.categorySlug) + buildVerdictSchema(input, resultStyle || undefined);
 }
 
 export class ArbiterJudgingProvider implements IJudgingProvider {
@@ -497,6 +576,21 @@ export class ArbiterJudgingProvider implements IJudgingProvider {
     const priorSection =
       priorVerdicts.length > 0
         ? "\n\n" +
+          "=== PEER JUDGE VERDICTS (for arbitration use only) ===\n" +
+          "You are the final Arbitrator. You have read the full debate above AND the two peer verdicts below.\n" +
+          "Your role is to act as a genuine meta-judge, NOT to mechanically average their scores.\n\n" +
+          "ARBITRATION PROCESS:\n" +
+          "1. AGREEMENT: Where Grok and Claude agree on a winner, this raises confidence. Note where they agree.\n" +
+          "2. DISAGREEMENT: Where they split, examine each verdict for flaws — did one judge overlook a key claim?\n" +
+          "   Did one judge fall for a plausible-sounding but false assertion? Did one penalise or reward unfairly?\n" +
+          "3. HALLUCINATION CHECK: Flag any claim checks from peer judges that seem fabricated, unverifiable, or\n" +
+          "   inconsistent with the actual transcript. Ignore or discount those findings.\n" +
+          "4. SCORING ANOMALIES: If peer scores for the same debater differ by more than 2 points on any dimension,\n" +
+          "   investigate why. Apply the more accurate score, not the average.\n" +
+          "5. OVERLOOKED REBUTTALS: Check if any significant argument in the transcript was missed by both peer judges.\n" +
+          "   Incorporate those findings into your verdict.\n" +
+          "6. FINAL DETERMINATION: Issue your own independent winner determination supported by your analysis.\n" +
+          "   If peer judges agree, ordinarily follow that consensus — but you may override if their reasoning is flawed.\n\n" +
           priorVerdicts
             .map(({ judgeName, verdict }) => {
               const winnerName =
@@ -506,14 +600,18 @@ export class ArbiterJudgingProvider implements IJudgingProvider {
                     ? input.debaterB.username
                     : "Tie";
               const claimSummary = verdict.evidenceChecks
-                .slice(0, 5)
-                .map((e) => `  • ${e.debater}: "${e.claim.slice(0, 60)}..." → ${e.verdict}`)
+                .slice(0, 6)
+                .map((e) => `    • ${e.debater} claim \"${e.claim.slice(0, 70)}...\" -> ${e.verdict}: ${e.explanation.slice(0, 80)}`)
                 .join("\n");
+              const scoresA = verdict.scoresA ? `factuality=${verdict.scoresA.factuality} evidence=${verdict.scoresA.evidence_quality} rebuttal=${verdict.scoresA.rebuttal_quality} final=${verdict.scoresA.final_score}` : "(no scores)";
+              const scoresB = verdict.scoresB ? `factuality=${verdict.scoresB.factuality} evidence=${verdict.scoresB.evidence_quality} rebuttal=${verdict.scoresB.rebuttal_quality} final=${verdict.scoresB.final_score}` : "(no scores)";
               return (
-                `PEER VERDICT from ${judgeName}:\n` +
-                `  Winner: ${winnerName}\n` +
-                `  Analysis: ${verdict.explanation.slice(0, 400)}...\n` +
-                `  Key claims checked:\n${claimSummary}`
+                `--- PEER VERDICT: ${judgeName} ---\n` +
+                `Winner: ${winnerName}\n` +
+                `Analysis: ${verdict.explanation.slice(0, 500)}\n` +
+                `Scores ${input.debaterA.username}: ${scoresA}\n` +
+                `Scores ${input.debaterB.username}: ${scoresB}\n` +
+                `Key claim findings:\n${claimSummary || "    (none)"}`
               );
             })
             .join("\n\n")
@@ -533,7 +631,7 @@ export class ArbiterJudgingProvider implements IJudgingProvider {
             content:
               transcriptText +
               priorSection +
-              "\n\nNow deliver your authoritative final fact-check verdict JSON.",
+              "\n\nNow deliver your authoritative final arbitration verdict JSON. Apply your meta-judge analysis of the peer verdicts above and issue your independent determination.",
           },
         ],
         stream: true,
