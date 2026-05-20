@@ -6,6 +6,22 @@ interface RouteParams {
   params: Promise<{ id: string }>;
 }
 
+/** Return the current vote tally (unauthenticated read-only) */
+export async function GET(_req: NextRequest, { params }: RouteParams) {
+  const { id: challengeId } = await params;
+  const debate = await db.debate.findUnique({
+    where: { challengeId },
+    include: { audienceVotes: { select: { votedForId: true } } },
+  });
+  if (!debate) return NextResponse.json({ error: "Not found" }, { status: 404 });
+
+  const tally: Record<string, number> = {};
+  for (const v of debate.audienceVotes) {
+    tally[v.votedForId] = (tally[v.votedForId] ?? 0) + 1;
+  }
+  return NextResponse.json({ tally });
+}
+
 export async function POST(req: NextRequest, { params }: RouteParams) {
   const { id: challengeId } = await params;
   const session = await auth();

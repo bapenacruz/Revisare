@@ -8,6 +8,7 @@ import { Avatar } from "@/components/ui/Avatar";
 import { ROUND_LABEL, type RoundName } from "@/lib/debate-state";
 import { CommentsSection } from "./CommentsSection";
 import { AudienceVotePanel } from "./AudienceVotePanel";
+import { ResultsLiveUpdater } from "./ResultsLiveUpdater";
 import { RetriggerJudgingButton } from "./RetriggerJudgingButton";
 import { Trophy, Gavel, Users, CheckCircle2, XCircle, AlertCircle, HelpCircle, Scale } from "lucide-react";
 import { PrivateFeedbackView } from "@/components/debate/PrivateFeedbackView";
@@ -152,8 +153,11 @@ export default async function ResultsPage({ params }: Props) {
         ? judgeResult?.privateFeedbackB
         : null;
 
+  const judgingPending = !judgeResult && !debate.forfeitedBy;
+
   return (
     <div className="mx-auto max-w-4xl px-4 sm:px-6 py-10">
+      <ResultsLiveUpdater challengeId={challengeId} pending={judgingPending} />
       {/* Header */}
       <div className="mb-8">
         <div className="flex flex-wrap items-center gap-2 mb-3">
@@ -324,8 +328,8 @@ export default async function ResultsPage({ params }: Props) {
         </div>
       )}
 
-      {/* ── Scorecard ──────────────────────────────────────────── */}
-      {(consensusScores.scoresA || consensusScores.scoresB) && (
+      {/* ── Scorecard ── hidden ──────────────────────────────── */}
+      {false && (consensusScores.scoresA || consensusScores.scoresB) && (
         <div className="mb-8">
           <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
             <span>📊</span> Scorecard
@@ -421,60 +425,6 @@ export default async function ResultsPage({ params }: Props) {
 
             </CardBody>
           </Card>
-        </div>
-      )}
-
-      {/* ── Fact-Check Analysis ──────────────────────────────────── */}
-      {judgeResult && (
-        <div className="mb-8">
-          <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
-            <span>🔍</span> Fact-Check Analysis
-          </h2>
-
-          {/* Claim-by-claim checks */}
-          {consensusEvidenceChecks.length > 0 && (
-            <div>
-              <div className="flex flex-col gap-2">
-                {consensusEvidenceChecks.map((ec, idx) => {
-                  const isA = ec.debater === debate.debaterA.username;
-                  const cfg = VERDICT_CONFIG[ec.verdict as keyof typeof VERDICT_CONFIG] ?? VERDICT_CONFIG.unsupported;
-                  const Icon = cfg.icon;
-                  const importanceColor =
-                    ec.importance === "central" ? "text-danger font-semibold" :
-                    ec.importance === "supporting" ? "text-amber-500" :
-                    "text-foreground-subtle";
-
-                  return (
-                    <div key={idx} className={`rounded-[--radius] border p-3 ${cfg.bg}`}>
-                      <div className="flex items-start gap-2">
-                        <span className={`mt-0.5 shrink-0 ${cfg.color}`}><Icon size={14} /></span>
-                        <div className="flex-1 min-w-0">
-                          <div className="flex flex-wrap items-center gap-2 mb-1.5">
-                            <span className={`text-[10px] font-bold uppercase tracking-wide ${cfg.color}`}>
-                              {cfg.label}
-                            </span>
-                            <span className={`text-[10px] font-semibold px-1.5 py-0.5 rounded ${isA ? "bg-brand/20 text-brand" : "bg-danger/20 text-danger"}`}>
-                              {ec.debater}
-                            </span>
-                            {ec.importance && (
-                              <span className={`text-[10px] uppercase tracking-wide ${importanceColor}`}>
-                                {ec.importance === "central" ? "⚠ Central claim" : ec.importance === "supporting" ? "Supporting" : "Peripheral"}
-                              </span>
-                            )}
-                          </div>
-                          <p className="text-xs font-medium text-foreground mb-1 leading-snug">&ldquo;{ec.claim}&rdquo;</p>
-                          <p className="text-xs text-foreground-muted leading-relaxed">{ec.explanation}</p>
-                          {ec.source && (
-                            <p className="text-[10px] text-foreground-subtle mt-1 font-mono">Source: {ec.source}</p>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          )}
         </div>
       )}
 
@@ -591,6 +541,53 @@ export default async function ResultsPage({ params }: Props) {
           </div>
         )}
       </div>
+
+      {/* ── Fact-Check Analysis (within transcript) ─────────── */}
+      {judgeResult && consensusEvidenceChecks.length > 0 && (
+        <div className="mb-8">
+          <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+            <span>🔍</span> Fact-Check Analysis
+          </h2>
+          <div className="flex flex-col gap-2">
+            {consensusEvidenceChecks.map((ec, idx) => {
+              const isA = ec.debater === debate.debaterA.username;
+              const cfg = VERDICT_CONFIG[ec.verdict as keyof typeof VERDICT_CONFIG] ?? VERDICT_CONFIG.unsupported;
+              const Icon = cfg.icon;
+              const importanceColor =
+                ec.importance === "central" ? "text-danger font-semibold" :
+                ec.importance === "supporting" ? "text-amber-500" :
+                "text-foreground-subtle";
+              return (
+                <div key={idx} className={`rounded-[--radius] border p-3 ${cfg.bg}`}>
+                  <div className="flex items-start gap-2">
+                    <span className={`mt-0.5 shrink-0 ${cfg.color}`}><Icon size={14} /></span>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex flex-wrap items-center gap-2 mb-1.5">
+                        <span className={`text-[10px] font-bold uppercase tracking-wide ${cfg.color}`}>
+                          {cfg.label}
+                        </span>
+                        <span className={`text-[10px] font-semibold px-1.5 py-0.5 rounded ${isA ? "bg-brand/20 text-brand" : "bg-danger/20 text-danger"}`}>
+                          {ec.debater}
+                        </span>
+                        {ec.importance && (
+                          <span className={`text-[10px] uppercase tracking-wide ${importanceColor}`}>
+                            {ec.importance === "central" ? "⚠ Central claim" : ec.importance === "supporting" ? "Supporting" : "Peripheral"}
+                          </span>
+                        )}
+                      </div>
+                      <p className="text-xs font-medium text-foreground mb-1 leading-snug">&ldquo;{ec.claim}&rdquo;</p>
+                      <p className="text-xs text-foreground-muted leading-relaxed">{ec.explanation}</p>
+                      {ec.source && (
+                        <p className="text-[10px] text-foreground-subtle mt-1 font-mono">Source: {ec.source}</p>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
 
       <CommentsSection challengeId={challengeId} />
     </div>

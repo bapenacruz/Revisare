@@ -32,6 +32,24 @@ export function AudienceVotePanel({ challengeId, debateId, debaterA, debaterB, i
     if (stored) setVoted(stored);
   }, [debateId]);
 
+  // Sync when server component refreshes (e.g. via ResultsLiveUpdater)
+  useEffect(() => {
+    setVotes(initialVotes);
+  }, [initialVotes]);
+
+  // Poll for live vote updates every 15 s
+  useEffect(() => {
+    const poll = setInterval(async () => {
+      try {
+        const res = await fetch(`/api/debates/${challengeId}/vote`);
+        if (!res.ok) return;
+        const json = await res.json();
+        if (json.tally) setVotes(json.tally as Record<string, number>);
+      } catch { /* network error — ignore */ }
+    }, 15000);
+    return () => clearInterval(poll);
+  }, [challengeId]);
+
   const totalVotes = Object.values(votes).reduce((a, b) => a + b, 0);
   const pct = (id: string) =>
     totalVotes === 0 ? 0 : Math.round(((votes[id] ?? 0) / totalVotes) * 100);
