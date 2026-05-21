@@ -12,29 +12,6 @@ import { motionTip } from "@/lib/topic-validator";
 import { Sword, Lock, Globe, Trophy, Users, Copy, Check, Search, ChevronDown } from "lucide-react";
 import Link from "next/link";
 
-const FORMATS = [
-  {
-    id: "quick",
-    label: "Quick",
-    desc: "~10 min total",
-    rounds: [
-      { round: "Opening", time: "2 min" },
-      { round: "Rebuttal", time: "2 min" },
-      { round: "Closing", time: "1 min" },
-    ],
-  },
-  {
-    id: "standard",
-    label: "Standard",
-    desc: "~15 min total",
-    rounds: [
-      { round: "Opening", time: "3 min" },
-      { round: "Rebuttal", time: "3 min" },
-      { round: "Closing", time: "1.5 min" },
-    ],
-  },
-];
-
 interface Category {
   id: string;
   slug: string;
@@ -51,7 +28,6 @@ function NewChallengeForm() {
   const [type, setType] = useState<"open" | "direct">("open");
   const [motion, setMotion] = useState("");
   const [categoryId, setCategoryId] = useState("");
-  const [format, setFormat] = useState("quick");
   const [ranked, setRanked] = useState(true);
   const [isPublic, setIsPublic] = useState(true);
   const [targetUsername, setTargetUsername] = useState("");
@@ -169,7 +145,7 @@ function NewChallengeForm() {
           type,
           motion,
           categoryId,
-          format,
+          format: "standard",
           ranked,
           isPublic,
           targetUsername: type === "direct" ? targetUsername : undefined,
@@ -352,40 +328,7 @@ function NewChallengeForm() {
           </div>
         </div>
 
-        {/* Format */}
-        <div>
-          <p className="text-sm font-medium text-foreground mb-2">Format</p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            {FORMATS.map((f) => (
-              <button
-                key={f.id}
-                type="button"
-                onClick={() => setFormat(f.id)}
-                className={`flex flex-col gap-2 p-4 rounded-[--radius] border text-left transition-all ${
-                  format === f.id
-                    ? "border-brand bg-brand-dim"
-                    : "border-border bg-surface hover:border-brand/40"
-                }`}
-              >
-                <div className="flex items-baseline justify-between">
-                  <span className="text-sm font-semibold text-foreground">{f.label}</span>
-                  <span className="text-xs text-foreground-muted">{f.desc}</span>
-                </div>
-                <div className="flex flex-col gap-0.5">
-                  {f.rounds.map((r) => (
-                    <div key={r.round} className="flex items-center justify-between text-xs text-foreground-muted">
-                      <span>{r.round}</span>
-                      <span className="font-medium text-foreground-subtle">{r.time} / side</span>
-                    </div>
-                  ))}
-                </div>
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* Timer preset */}
-        {/* Removed — timer is fixed per round by format */}
+        {/* Timer preset — fixed per round, no user selection needed */}
 
         {/* Ranked / Visibility */}
         <Card>
@@ -449,12 +392,8 @@ function NewChallengeForm() {
           <Badge variant={isPublic ? "info" : "default"} size="sm">
             {isPublic ? "Public" : "Private"}
           </Badge>
-          <Badge variant="default" size="sm">
-            {FORMATS.find((f) => f.id === format)?.label}
-          </Badge>
-          <Badge variant="default" size="sm">
-            {FORMATS.find((f) => f.id === format)?.desc}
-          </Badge>
+          <Badge variant="default" size="sm">Standard</Badge>
+          <Badge variant="default" size="sm">~15 min</Badge>
         </div>
 
         {openDebateBlock && (
