@@ -8,7 +8,7 @@ import type { ImportResult } from "@/app/api/admin/debates/bulk-import/route";
 const TEMPLATE = [
   {
     motion: "This House Believes that social media does more harm than good",
-    category_slug: "technology",
+    category_slug: "science-tech",
     format: "standard",
     ranked: false,
     debaterA: { username: "alice", side: "proposition" },
@@ -17,32 +17,42 @@ const TEMPLATE = [
       {
         username: "alice",
         roundName: "opening",
-        content: "Social media has fundamentally damaged public discourse by optimising for outrage over truth. Studies show polarisation has increased dramatically since 2012 — the year smartphone adoption crossed 50%.",
+        content: "Social media has fundamentally damaged public discourse by optimising for outrage over truth. Studies show polarisation has increased dramatically since 2012 — the year smartphone adoption crossed 50%. The algorithmic amplification of emotionally charged content is not a bug but a deliberate design choice that maximises engagement at the cost of epistemic health.",
       },
       {
         username: "bob",
         roundName: "opening",
-        content: "Social media has connected billions of people who would otherwise be isolated, enabled grassroots movements, and given marginalised voices a platform they never had before.",
+        content: "Social media has connected billions of people who would otherwise be isolated, enabled grassroots movements, and given marginalised voices a platform they never had before. The Arab Spring, #MeToo, and Black Lives Matter all demonstrate the transformative power of these platforms to drive real-world change and hold the powerful to account.",
+      },
+      {
+        username: "alice",
+        roundName: "crossfire",
+        content: "Can you name a single peer-reviewed study showing that social media's mental health harms are smaller than its civic benefits — measured on the same population?",
+      },
+      {
+        username: "bob",
+        roundName: "crossfire",
+        content: "You cite polarisation rising since 2012 — but cable news, gerrymandering, and economic inequality all accelerated at the same time. How do you isolate social media as the cause rather than a symptom?",
       },
       {
         username: "alice",
         roundName: "rebuttal",
-        content: "My opponent highlights connectivity, but fails to address the mental health crisis. The Surgeon General's 2023 advisory specifically cited social media as a driver of adolescent anxiety and depression.",
+        content: "My opponent highlights connectivity, but fails to address the mental health crisis. The Surgeon General's 2023 advisory specifically cited social media as a principal driver of adolescent anxiety and depression. MIT's 2018 study showed misinformation spreads six times faster than accurate information on these platforms — that is not a marginal harm.",
       },
       {
         username: "bob",
         roundName: "rebuttal",
-        content: "Correlation is not causation. Multiple meta-analyses show only small effect sizes between social media use and mental health outcomes — other factors like economic anxiety and school pressure are far stronger predictors.",
+        content: "Correlation is not causation. Multiple meta-analyses show only small effect sizes between social media use and mental health outcomes. My opponent's crossfire question was actually answered by the APA's own review — the benefits to social connectedness for at-risk youth measurably outweigh the harms when platforms are responsibly designed.",
       },
       {
         username: "alice",
-        roundName: "closing",
-        content: "The evidence is clear: misinformation spreads six times faster than accurate information on social platforms (MIT 2018). The net harm to democratic discourse and mental health outweighs the connectivity benefits.",
+        roundName: "summary",
+        content: "I won this debate on the evidence: misinformation spreads six times faster than truth, the Surgeon General issued a rare public health advisory, and my opponent conceded the harms exist but argued they can be mitigated — that is a pragmatic argument for regulation, not a rebuttal of the motion. Vote Proposition.",
       },
       {
         username: "bob",
-        roundName: "closing",
-        content: "Banning or severely restricting social media would silence the very voices that benefit most — activists in authoritarian regimes, disabled people who rely on online communities, rural communities with no other connection.",
+        roundName: "summary",
+        content: "The Proposition never answered my crossfire challenge — they could not isolate social media as the cause of polarisation. I showed that the same tools enabling harm also enabled the most significant social movements of the century. The solution is platform accountability, not condemnation of the technology. Vote Opposition.",
       },
     ],
     winner_username: "alice",
@@ -51,7 +61,7 @@ const TEMPLATE = [
   {
     motion: "This House Would make voting mandatory",
     category_slug: "politics",
-    format: "quick",
+    format: "standard",
     ranked: false,
     debaterA: { username: "charlie", side: "proposition" },
     debaterB: { username: "diana", side: "opposition" },
@@ -59,22 +69,42 @@ const TEMPLATE = [
       {
         username: "charlie",
         roundName: "opening",
-        content: "Mandatory voting ensures governments represent the full population, not just those motivated to vote. Australia has had compulsory voting since 1924 with turnout consistently above 90% and no evidence of democratic harm.",
+        content: "Mandatory voting ensures governments represent the full population, not just those motivated to vote. Australia has had compulsory voting since 1924 with turnout consistently above 90% and no evidence of democratic harm. When everyone must participate, politicians cannot win by suppressing turnout — they must compete for every citizen's vote.",
       },
       {
         username: "diana",
         roundName: "opening",
-        content: "Forcing citizens to vote violates the fundamental right to political non-participation. Free expression necessarily includes the right to abstain — a right recognised under international human rights frameworks.",
+        content: "Forcing citizens to vote violates the fundamental right to political non-participation. Free expression necessarily includes the right to abstain — a right recognised under international human rights frameworks. Compelled participation is not democracy; it is theatre that mistakes procedural compliance for genuine civic engagement.",
+      },
+      {
+        username: "charlie",
+        roundName: "crossfire",
+        content: "If abstention is a right worth protecting, why do mandatory voting systems — which allow blank ballots — not adequately protect it? What exactly is violated if you must show up but can submit an empty ballot?",
+      },
+      {
+        username: "diana",
+        roundName: "crossfire",
+        content: "Australia is your primary evidence. Can you explain why, despite 100 years of mandatory voting, they still have significant political disengagement, and why voter knowledge scores there are not substantially higher than comparable voluntary-voting democracies like Denmark?",
       },
       {
         username: "charlie",
         roundName: "rebuttal",
-        content: "The abstention argument is a red herring — mandatory voting systems allow blank ballots, preserving the right to say 'none of the above'. What they prevent is politicians ignoring low-turnout groups.",
+        content: "The abstention argument is a red herring — mandatory voting systems allow blank ballots, preserving the right to say 'none of the above'. What they prevent is politicians ignoring low-turnout groups. My opponent's crossfire question actually confirms my point: Denmark achieves high turnout through civic culture — mandatory voting is simply a faster path to the same outcome.",
       },
       {
         username: "diana",
         roundName: "rebuttal",
-        content: "Uninformed compelled voters reduce election quality. Research shows forced voters exhibit lower political knowledge and more susceptibility to propaganda — hardly the informed citizenry democracy requires.",
+        content: "My opponent never addressed the quality argument: uninformed compelled voters are more susceptible to propaganda. Research shows forced voters exhibit lower political knowledge. If the goal is better governance, we should invest in civic education — not legal coercion. Charlie's crossfire answer conceded Australia's engagement problems, undermining their core case.",
+      },
+      {
+        username: "charlie",
+        roundName: "summary",
+        content: "I showed that mandatory voting eliminates turnout suppression as a political strategy and forces genuine competition for every vote. My opponent's objections rest on a mischaracterisation of freedom — no one is forced to express a preference, only to participate. Australia's 100-year track record is evidence, not refutation. Vote Proposition.",
+      },
+      {
+        username: "diana",
+        roundName: "summary",
+        content: "Compelled participation is not civic virtue — it is legal theatre. My opponent never showed that mandatory voting produces better policy outcomes, only higher turnout numbers. A democracy that forces its citizens to the polls has confused the form of democracy with its substance. Vote Opposition.",
       },
     ],
     winner_username: "charlie",

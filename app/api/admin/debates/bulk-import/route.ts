@@ -7,7 +7,7 @@ import { judgeDebate } from "@/lib/judging";
 
 const TurnSchema = z.object({
   username: z.string().min(1),
-  roundName: z.enum(["opening", "rebuttal", "closing"]),
+  roundName: z.enum(["opening", "crossfire", "rebuttal", "summary", "closing"]),
   content: z.string().min(1),
 });
 
