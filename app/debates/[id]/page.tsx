@@ -662,7 +662,7 @@ export default function ArenaPage() {
             <div>
               <h2 className="text-base font-bold text-foreground mb-4">Full Transcript</h2>
               <div className="flex flex-col gap-6">
-              {(["opening", "rebuttal", "closing"] as RoundName[]).map((round) => {
+              {(["opening", "crossfire", "rebuttal", "summary", "closing"] as RoundName[]).map((round) => {
                 const turns = roundGroups[round];
                 if (turns.length === 0) return null;
                 return (

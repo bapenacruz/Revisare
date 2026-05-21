@@ -7,7 +7,7 @@ import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { Avatar } from "@/components/ui/Avatar";
 import { Card, CardBody } from "@/components/ui/Card";
-import { CheckCircle, Clock, Lock, Send, Sword, AlertTriangle, LogOut, UserPlus, X } from "lucide-react";
+import { CheckCircle, Clock, Lock, Sword, AlertTriangle, LogOut, UserPlus, X } from "lucide-react";
 import Link from "next/link";
 
 interface Participant {
@@ -78,9 +78,6 @@ export default function LobbyPage() {
   const router = useRouter();
   const { data: session, status } = useSession();
   const [challenge, setChallenge] = useState<Challenge | null>(null);
-  const [messages, setMessages] = useState<ChatMessage[]>([]);
-  const [draft, setDraft] = useState("");
-  const [sending, setSending] = useState(false);
   const [accepting, setAccepting] = useState(false);
   const [joining, setJoining] = useState(false);
   const [hasRequested, setHasRequested] = useState(false);
@@ -91,9 +88,7 @@ export default function LobbyPage() {
   const countdownRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const [error, setError] = useState("");
   const [notFound, setNotFound] = useState(false);
-  const chatEndRef = useRef<HTMLDivElement>(null);
   const pollRef = useRef<ReturnType<typeof setInterval> | null>(null);
-  const prevMsgCountRef = useRef<number>(-1);
 
   const fetchChallenge = useCallback(async () => {
     const res = await fetch(`/api/challenges/${challengeId}`);
@@ -112,55 +107,24 @@ export default function LobbyPage() {
   }, [challengeId, router]);
 
   const fetchMessages = useCallback(async () => {
-    const res = await fetch(`/api/challenges/${challengeId}/chat`);
-    if (!res.ok) return;
-    const data: ChatMessage[] = await res.json();
-    setMessages(data);
-  }, [challengeId]);
+    // chat removed
+  }, []);
 
   useEffect(() => {
     if (status !== "authenticated") return;
     fetchChallenge();
-    fetchMessages();
     // Poll every 3s (Pusher replaces this in Step 4)
     pollRef.current = setInterval(() => {
       fetchChallenge();
-      fetchMessages();
     }, 3000);
     return () => {
       if (pollRef.current) clearInterval(pollRef.current);
     };
   }, [status, fetchChallenge, fetchMessages]);
 
-  useEffect(() => {
-    if (prevMsgCountRef.current === -1) {
-      // Initial load — record count but don't scroll
-      prevMsgCountRef.current = messages.length;
-      return;
-    }
-    if (messages.length > prevMsgCountRef.current) {
-      chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
-    }
-    prevMsgCountRef.current = messages.length;
-  }, [messages]);
-
   async function sendMessage(e: React.FormEvent) {
     e.preventDefault();
-    if (!draft.trim() || sending) return;
-    setSending(true);
-    try {
-      const res = await fetch(`/api/challenges/${challengeId}/chat`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ content: draft.trim() }),
-      });
-      if (res.ok) {
-        setDraft("");
-        await fetchMessages();
-      }
-    } finally {
-      setSending(false);
-    }
+    // chat removed
   }
 
   async function leaveDebate() {
@@ -397,12 +361,10 @@ export default function LobbyPage() {
         <p className="text-foreground font-medium leading-relaxed">{challenge.motion}</p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
-        {/* Left: Terms + Accept */}
-        <div className="md:col-span-3 flex flex-col gap-4">
-          {/* Participants */}
-          <Card>
-            <CardBody className="flex items-center gap-8 p-4">
+      <div className="flex flex-col gap-4 max-w-2xl">
+        {/* Participants */}
+        <Card>
+          <CardBody className="flex items-center gap-8 p-4">
               {[challenge.creator, challenge.target].map((u, i) => {
                 if (!u) {
                   return (
@@ -433,12 +395,12 @@ export default function LobbyPage() {
                 );
               })}
               <div className="text-foreground-subtle font-bold text-sm self-center">VS</div>
-            </CardBody>
-          </Card>
+          </CardBody>
+        </Card>
 
-          {/* Agreed terms panel */}
-          <Card>
-            <CardBody className="p-4">
+        {/* Agreed terms panel */}
+        <Card>
+          <CardBody className="p-4">
               <div className="flex items-center gap-2 mb-3">
                 <Lock size={14} className="text-brand" />
                 <p className="text-sm font-semibold text-foreground">Debate Terms</p>
@@ -505,77 +467,16 @@ export default function LobbyPage() {
                     <span className={`w-2 h-2 rounded-full ${challenge.creatorAccepted ? "bg-success" : "bg-surface-overlay"}`} />
                     <span className="text-foreground-muted">{challenge.creator.username}</span>
                   </div>
-                  {otherUser && (
+                  {challenge.target && (
                     <div className="flex items-center gap-1.5 text-xs">
-                      <span className={`w-2 h-2 rounded-full ${otherAccepted ? "bg-success" : "bg-surface-overlay"}`} />
-                      <span className="text-foreground-muted">{otherUser.username}</span>
+                      <span className={`w-2 h-2 rounded-full ${challenge.targetAccepted ? "bg-success" : "bg-surface-overlay"}`} />
+                      <span className="text-foreground-muted">{challenge.target.username}</span>
                     </div>
                   )}
                 </div>
               )}
-            </CardBody>
-          </Card>
-        </div>
-
-        {/* Right: Private Chat */}
-        <div className="md:col-span-2 flex flex-col">
-          <Card className="flex flex-col flex-1" style={{ minHeight: 320 }}>
-            <div className="px-4 pt-4 pb-2 border-b border-border">
-              <p className="text-sm font-semibold text-foreground">Pre-debate Chat</p>
-              <p className="text-xs text-foreground-subtle">Private — visible only to participants</p>
-            </div>
-            <div className="flex-1 overflow-y-auto px-4 py-3 flex flex-col gap-2" style={{ maxHeight: 260 }}>
-              {messages.length === 0 ? (
-                <p className="text-xs text-foreground-subtle italic text-center mt-4">
-                  No messages yet. Say hello!
-                </p>
-              ) : (
-                messages.map((msg) => {
-                  const isMine = msg.userId === userId;
-                  const sender = msg.userId === challenge.creatorId
-                    ? challenge.creator
-                    : challenge.target;
-                  return (
-                    <div key={msg.id} className={`flex flex-col gap-0.5 ${isMine ? "items-end" : "items-start"}`}>
-                      {!isMine && (
-                        <span className="text-[10px] text-foreground-subtle px-1">
-                          {sender?.username}
-                        </span>
-                      )}
-                      <div
-                        className={`px-3 py-2 rounded-[--radius] text-sm max-w-[85%] leading-relaxed ${
-                          isMine
-                            ? "bg-brand text-white"
-                            : "bg-surface-raised text-foreground"
-                        }`}
-                      >
-                        {msg.content}
-                      </div>
-                    </div>
-                  );
-                })
-              )}
-              <div ref={chatEndRef} />
-            </div>
-            <form onSubmit={sendMessage} className="px-3 pb-3 pt-2 border-t border-border flex gap-2">
-              <input
-                className="flex-1 h-9 px-3 rounded-[--radius-sm] bg-surface border border-border text-sm text-foreground placeholder:text-foreground-subtle focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand transition-colors"
-                placeholder={isLocked ? "Lobby locked" : "Type a message..."}
-                value={draft}
-                onChange={(e) => setDraft(e.target.value)}
-                disabled={isLocked || sending}
-                maxLength={500}
-              />
-              <button
-                type="submit"
-                disabled={!draft.trim() || sending || isLocked}
-                className="w-9 h-9 rounded-[--radius-sm] bg-brand text-white flex items-center justify-center hover:bg-brand-hover disabled:opacity-40 transition-colors"
-              >
-                <Send size={14} />
-              </button>
-            </form>
-          </Card>
-        </div>
+          </CardBody>
+        </Card>
       </div>
     </div>
   );

@@ -106,6 +106,7 @@ export async function POST(request: NextRequest) {
       timerPreset: 0,
       creatorId: session.user.id,
       targetId: targetId ?? null,
+      creatorAccepted: true,   // initiator implicitly accepts by creating
       expiresAt,
     },
   });
