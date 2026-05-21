@@ -62,8 +62,8 @@ function buildVerdictSchema(input: JudgeInput, summaryInstruction?: string): str
       {
         "username": "<${a} or ${b}>",
         "claim": "<specific factual or evidential claim from the transcript>",
-        "verdict": "<correct|incorrect|misleading|disputed|unsupported>",
-        "reason": "<short explanation citing evidence or reasoning>",
+        "verdict": "<correct|mostly_correct|misleading|disputed|context_dependent|unsupported_in_round|unsupported_generally|incorrect>",
+        "reason": "<short explanation — for unsupported_in_round note evidence was absent in this debate, for unsupported_generally note the claim lacks real-world support>",
         "source": "<real source name or credible category if uncertain>"
       }
     ],
@@ -200,7 +200,10 @@ function parseVerdict(raw: string, input: JudgeInput): SingleJudgeVerdict {
   const explanation = String((publicResult?.summary as string) ?? parsed.summary ?? "");
 
   // Extract evidence checks — support both old key_claim_checks and legacy format
-  const VALID_VERDICTS = new Set(["correct", "incorrect", "misleading", "disputed", "unsupported"]);
+  const VALID_VERDICTS = new Set([
+    "correct", "mostly_correct", "misleading", "disputed", "context_dependent",
+    "unsupported_in_round", "unsupported_generally", "incorrect", "unsupported",
+  ]);
   const privateAssessment = parsed.private_assessment as Record<string, unknown> | undefined;
   const claimChecksRaw = Array.isArray(privateAssessment?.key_claim_checks)
     ? privateAssessment.key_claim_checks as Array<Record<string, unknown>>
@@ -425,6 +428,41 @@ SCORING RULES
 - Rebuttal_quality includes crossfire engagement — dodging questions is a direct penalty
 - The winner is the debater whose overall case was more truthful, better-evidenced, and more directly responsive
 
+ANTI-BIAS PRINCIPLES — mandatory; override any conflicting instinct:
+
+RULE 1 — ALTERNATIVES ARE NOT REQUIRED:
+A debater who argues that the opposing proposal is unfair, dangerous, unconstitutional, immoral, inconsistent,
+or ineffective does NOT need to present a fully operational alternative system to win that argument.
+Criticising a proposal and replacing it with a complete alternative are two separate tasks.
+A debater may legitimately win on the force of their critique alone.
+
+RULE 2 — FAILURE ASYMMETRY:
+"The opponent failed to fully solve the problem" does NOT automatically validate the opposing side's proposal.
+Both sides must independently justify their own positions. Award wins on comparative strength of argument,
+never by default because one side's solution appeared imperfect or incomplete.
+
+RULE 3 — NO FRAMEWORK PREFERENCE:
+Do NOT systematically favour utilitarian reasoning, practicality arguments, technocratic framing, or economic
+efficiency over rule-of-law arguments, fairness principles, constitutional arguments, moral arguments,
+rights-based arguments, or deterrence-based arguments — unless the debate category explicitly prioritises one
+framework. Principle-based arguments are legitimate winning arguments even without implementation details.
+
+RULE 4 — EVIDENCE SCOPE — USE CORRECT LABELS:
+Distinguish clearly between:
+  • "Evidence was not sufficiently presented during this debate" → use verdict: unsupported_in_round
+  • "No credible evidence for this claim exists in general" → use verdict: unsupported_generally
+Never imply a claim is generally false simply because the debater failed to cite a source in the round.
+
+RULE 5 — REWARD DIRECT ENGAGEMENT:
+Heavily reward debaters who: directly address opponent arguments; expose contradictions in the opponent's
+position; force tradeoff discussions; identify specific unanswered harms; acknowledge their own weaknesses.
+Heavily penalise debaters who dodge, ignore, strawman, or deflect opponent arguments.
+
+RULE 6 — BIDIRECTIONAL JUSTIFICATION:
+Do NOT interpret "Proposal A is unrealistic or has flaws" as automatic proof that "Proposal B is correct."
+Both sides must affirmatively justify their own position. Mutual failure is not a win for either side;
+the better-argued (not merely the less-criticised) position wins.
+
 Respond with ONLY valid JSON — no markdown fences, no commentary — matching this schema exactly:
 `;
 }
@@ -591,6 +629,17 @@ export class ArbiterJudgingProvider implements IJudgingProvider {
           "   Incorporate those findings into your verdict.\n" +
           "6. FINAL DETERMINATION: Issue your own independent winner determination supported by your analysis.\n" +
           "   If peer judges agree, ordinarily follow that consensus — but you may override if their reasoning is flawed.\n\n" +
+          "7. IDEOLOGICAL CONVERGENCE CHECK: Examine whether both peer judges share a systematic framing bias:\n" +
+          "   - Did both judges implicitly favour utilitarian or practical arguments over rights-based/principle arguments?\n" +
+          "   - Did both reward 'having a solution' over 'proving the solution is justified or valid'?\n" +
+          "   - Did both penalise moral, constitutional, or deterrence-based arguments unfairly?\n" +
+          "   - Did both treat empirical uncertainty inconsistently between the two debaters?\n" +
+          "   If ideological convergence is detected, explicitly note it and correct for it in your determination.\n\n" +
+          "8. POTENTIAL BIAS REVIEW: Before finalising your verdict, confirm:\n" +
+          "   - You have NOT penalised a debater for failing to present a complete alternative system.\n" +
+          "   - You have NOT treated 'opponent\'s solution is imperfect' as automatic validation of the other side.\n" +
+          "   - You have used 'unsupported_in_round' (not cited here) vs 'unsupported_generally' (no real evidence) correctly.\n" +
+          "   - You have given equal weight to rights-based and principle-based arguments vs practicality arguments.\n\n" +
           priorVerdicts
             .map(({ judgeName, verdict }) => {
               const winnerName =

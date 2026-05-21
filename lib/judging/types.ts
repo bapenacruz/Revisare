@@ -13,13 +13,26 @@ export interface JudgeInput {
 /**
  * Verdict on a specific factual claim made during the debate.
  *
- * "correct"     — confirmed by credible, verifiable evidence
- * "incorrect"   — directly contradicted by credible evidence
- * "misleading"  — partially true but deceptively framed, missing crucial context, or significantly exaggerated
- * "disputed"    — actively contested among credible sources; no clear consensus exists
- * "unsupported" — asserted without adequate proof; unverifiable or too speculative to evaluate
+ * "correct"               — confirmed by credible, verifiable evidence
+ * "mostly_correct"        — substantially accurate with minor inaccuracy or missing nuance
+ * "misleading"            — partially true but deceptively framed, missing crucial context, or exaggerated
+ * "disputed"              — actively contested among credible sources; no clear consensus exists
+ * "context_dependent"     — true in some contexts but not universally as implied by the debater
+ * "unsupported_in_round"  — not backed by evidence during this debate (in-round failure, NOT a claim about reality)
+ * "unsupported_generally" — genuinely unverifiable or broadly considered unsupported in the evidential literature
+ * "incorrect"             — directly contradicted by credible evidence
+ * "unsupported"           — legacy alias; prefer unsupported_in_round or unsupported_generally
  */
-export type EvidenceVerdict = "correct" | "incorrect" | "misleading" | "disputed" | "unsupported";
+export type EvidenceVerdict =
+  | "correct"
+  | "mostly_correct"
+  | "misleading"
+  | "disputed"
+  | "context_dependent"
+  | "unsupported_in_round"
+  | "unsupported_generally"
+  | "incorrect"
+  | "unsupported";
 
 export interface EvidenceCheck {
   /** Username of the debater who made the claim */

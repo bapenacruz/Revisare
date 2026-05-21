@@ -33,11 +33,15 @@ const JUDGE_DISPLAY: Record<string, { label: string; accent: string }> = {
 };
 
 const VERDICT_CONFIG = {
-  correct:     { icon: CheckCircle2, color: "text-emerald-500", bg: "bg-emerald-500/10 border-emerald-500/20",   label: "Correct" },
-  incorrect:   { icon: XCircle,      color: "text-danger",      bg: "bg-danger/10 border-danger/20",             label: "Incorrect" },
-  misleading:  { icon: AlertCircle,  color: "text-amber-500",   bg: "bg-amber-500/10 border-amber-500/20",       label: "Misleading" },
-  disputed:    { icon: Scale,        color: "text-orange-400",  bg: "bg-orange-400/10 border-orange-400/20",     label: "Disputed" },
-  unsupported: { icon: HelpCircle,   color: "text-foreground-muted", bg: "bg-surface-raised border-border",     label: "Unsupported" },
+  correct:              { icon: CheckCircle2, color: "text-emerald-500",      bg: "bg-emerald-500/10 border-emerald-500/20",   label: "Correct" },
+  mostly_correct:       { icon: CheckCircle2, color: "text-emerald-400",      bg: "bg-emerald-400/10 border-emerald-400/20",   label: "Mostly Correct" },
+  incorrect:            { icon: XCircle,      color: "text-danger",           bg: "bg-danger/10 border-danger/20",             label: "Incorrect" },
+  misleading:           { icon: AlertCircle,  color: "text-amber-500",        bg: "bg-amber-500/10 border-amber-500/20",       label: "Misleading" },
+  disputed:             { icon: Scale,        color: "text-orange-400",       bg: "bg-orange-400/10 border-orange-400/20",     label: "Disputed" },
+  context_dependent:    { icon: AlertCircle,  color: "text-sky-400",          bg: "bg-sky-400/10 border-sky-400/20",           label: "Context-Dependent" },
+  unsupported_in_round: { icon: HelpCircle,   color: "text-foreground-muted", bg: "bg-surface-raised border-border",          label: "Unsupported In-Round" },
+  unsupported_generally:{ icon: HelpCircle,   color: "text-orange-400",       bg: "bg-orange-400/10 border-orange-400/20",     label: "Unsupported Generally" },
+  unsupported:          { icon: HelpCircle,   color: "text-foreground-muted", bg: "bg-surface-raised border-border",          label: "Unsupported" },
 } as const;
 
 interface Props {
@@ -88,6 +92,9 @@ export default async function ResultsPage({ params }: Props) {
       : debate.winnerId === debate.debaterBId
         ? debate.debaterB
         : null;
+
+  // Audience vote leader (for emoji indicator in participants bar)
+  const audienceLeaderId = Object.entries(voteTally).sort(([, a], [, b]) => b - a)[0]?.[0] ?? null;
 
   // Group turns by round (covers all phases including legacy "closing" rows)
   const roundGroups: Record<RoundName, typeof debate.turns> = {
@@ -180,7 +187,11 @@ export default async function ResultsPage({ params }: Props) {
             <Link href={`/users/${propositionUser.username}`} className="flex-1 flex items-center gap-3 hover:opacity-80 transition-opacity">
               <Avatar initial={propositionUser.username[0]} size="lg" />
               <div>
-                <p className="font-bold text-foreground">{propositionUser.username}</p>
+                <p className="font-bold text-foreground">
+                  {propositionUser.username}
+                  {winner?.id === propositionUser.id && <span className="ml-1.5" title="AI Winner">🏆</span>}
+                  {audienceLeaderId === propositionUser.id && <span className="ml-1" title="Audience Pick">👥</span>}
+                </p>
                 <p className="text-xs text-brand font-medium">Proposition</p>
                 <p className="text-xs text-foreground-muted">{propositionUser.elo} ELO</p>
               </div>
@@ -188,7 +199,11 @@ export default async function ResultsPage({ params }: Props) {
             <span className="text-2xl font-black text-foreground-subtle shrink-0">VS</span>
             <Link href={`/users/${oppositionUser.username}`} className="flex-1 flex items-center gap-3 justify-end text-right hover:opacity-80 transition-opacity">
               <div>
-                <p className="font-bold text-foreground">{oppositionUser.username}</p>
+                <p className="font-bold text-foreground">
+                  {winner?.id === oppositionUser.id && <span className="mr-1.5" title="AI Winner">🏆</span>}
+                  {audienceLeaderId === oppositionUser.id && <span className="mr-1" title="Audience Pick">👥</span>}
+                  {oppositionUser.username}
+                </p>
                 <p className="text-xs text-danger font-medium">Opposition</p>
                 <p className="text-xs text-foreground-muted">{oppositionUser.elo} ELO</p>
               </div>
@@ -278,16 +293,56 @@ export default async function ResultsPage({ params }: Props) {
           </CardBody>
         </Card>
 
-        {/* Audience Pick — interactive voting */}
-        <AudienceVotePanel
-          challengeId={challengeId}
-          debateId={debate.id}
-          debaterA={debate.debaterA}
-          debaterB={debate.debaterB}
-          initialVotes={voteTally}
-          isParticipant={isDebaterA || isDebaterB}
-          isAuthenticated={!!sessionUserId}
-        />
+
+        {/* Judge Panel — below official result */}
+        {individualJudgeResults.length > 0 && (
+          <div>
+            <h2 className="text-base font-bold text-foreground mb-3 flex items-center gap-2">
+              <Users size={16} className="text-brand" />
+              Judge Panel
+            </h2>
+            <div className="flex flex-col gap-2">
+              {individualJudgeResults.map((jr, i) => {
+                const panelWinner =
+                  jr.winnerId === debate.debaterAId
+                    ? debate.debaterA
+                    : jr.winnerId === debate.debaterBId
+                      ? debate.debaterB
+                      : null;
+                const display = JUDGE_DISPLAY[jr.judgeId] ?? { label: `Judge ${i + 1}`, accent: "text-foreground-muted" };
+                return (
+                  <details key={jr.id} className="group rounded-[--radius] border border-border bg-surface overflow-hidden">
+                    <summary className="flex items-center gap-3 px-4 py-3 cursor-pointer list-none select-none hover:bg-surface-raised transition-colors">
+                      <span className={`text-xs font-bold uppercase tracking-wide w-20 shrink-0 ${display.accent}`}>
+                        {display.label}
+                      </span>
+                      {panelWinner ? (
+                        <span className="flex items-center gap-1.5 text-sm font-semibold text-foreground">
+                          <Trophy size={13} className="text-accent shrink-0" />
+                          {panelWinner.username} wins
+                        </span>
+                      ) : (
+                        <span className="text-sm font-semibold text-foreground-muted">No verdict</span>
+                      )}
+                      <span className="ml-auto text-xs text-foreground-subtle group-open:rotate-180 transition-transform">▼</span>
+                    </summary>
+                    <div className="px-4 pb-4 pt-3 border-t border-border bg-surface-raised">
+                      {jr.explanation ? (
+                        <div className="space-y-2">
+                          {jr.explanation.split(/\n\n+/).map((para, pi) => (
+                            <p key={pi} className="text-sm text-foreground-muted leading-relaxed">{para}</p>
+                          ))}
+                        </div>
+                      ) : (
+                        <p className="text-sm text-foreground-muted italic">No detailed analysis available.</p>
+                      )}
+                    </div>
+                  </details>
+                );
+              })}
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Private Feedback — visible to each debater (their own) and admins (both) */}
@@ -330,56 +385,7 @@ export default async function ResultsPage({ params }: Props) {
         </div>
       )}
 
-      {/* Individual judge verdicts — simplified, no score bars */}
-      {individualJudgeResults.length > 0 && (
-        <div className="mb-8">
-          <h2 className="text-lg font-bold text-foreground mb-3 flex items-center gap-2">
-            <Users size={18} className="text-brand" />
-            Judge Panel
-          </h2>
-          <div className="flex flex-col gap-2">
-            {individualJudgeResults.map((jr, i) => {
-              const panelWinner =
-                jr.winnerId === debate.debaterAId
-                  ? debate.debaterA
-                  : jr.winnerId === debate.debaterBId
-                    ? debate.debaterB
-                    : null;
-              const display = JUDGE_DISPLAY[jr.judgeId] ?? { label: `Judge ${i + 1}`, accent: "text-foreground-muted" };
 
-              return (
-                <details key={jr.id} className="group rounded-[--radius] border border-border bg-surface overflow-hidden">
-                  <summary className="flex items-center gap-3 px-4 py-3 cursor-pointer list-none select-none hover:bg-surface-raised transition-colors">
-                    <span className={`text-xs font-bold uppercase tracking-wide w-20 shrink-0 ${display.accent}`}>
-                      {display.label}
-                    </span>
-                    {panelWinner ? (
-                      <span className="flex items-center gap-1.5 text-sm font-semibold text-foreground">
-                        <Trophy size={13} className="text-accent shrink-0" />
-                        {panelWinner.username} wins
-                      </span>
-                    ) : (
-                      <span className="text-sm font-semibold text-foreground-muted">No verdict</span>
-                    )}
-                    <span className="ml-auto text-xs text-foreground-subtle group-open:rotate-180 transition-transform">▼</span>
-                  </summary>
-                  <div className="px-4 pb-4 pt-3 border-t border-border bg-surface-raised">
-                    {jr.explanation ? (
-                      <div className="space-y-2">
-                        {jr.explanation.split(/\n\n+/).map((para, pi) => (
-                          <p key={pi} className="text-sm text-foreground-muted leading-relaxed">{para}</p>
-                        ))}
-                      </div>
-                    ) : (
-                      <p className="text-sm text-foreground-muted italic">No detailed analysis available.</p>
-                    )}
-                  </div>
-                </details>
-              );
-            })}
-          </div>
-        </div>
-      )}
 
       {/* Full Transcript */}
       <div className="mb-8">
@@ -491,7 +497,22 @@ export default async function ResultsPage({ params }: Props) {
         </div>
       )}
 
-      <CommentsSection challengeId={challengeId} />
+      {/* Community — audience vote + comments */}
+      <div className="mb-8">
+        <h2 className="text-lg font-bold text-foreground mb-4">Community</h2>
+        <div className="flex flex-col gap-6">
+          <AudienceVotePanel
+            challengeId={challengeId}
+            debateId={debate.id}
+            debaterA={debate.debaterA}
+            debaterB={debate.debaterB}
+            initialVotes={voteTally}
+            isParticipant={isDebaterA || isDebaterB}
+            isAuthenticated={!!sessionUserId}
+          />
+          <CommentsSection challengeId={challengeId} />
+        </div>
+      </div>
     </div>
   );
 }
