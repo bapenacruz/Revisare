@@ -273,7 +273,11 @@ export default async function ResultsPage({ params }: Props) {
               </div>
             ) : (
               <div>
-                <p className="text-sm text-foreground-muted">No judge result available yet.</p>
+                <div className="flex items-center gap-2 mb-1">
+                  <div className="animate-spin h-4 w-4 border-2 border-brand border-t-transparent rounded-full"></div>
+                  <span className="font-semibold text-foreground">AI judging in progress...</span>
+                </div>
+                <p className="text-xs text-foreground-muted">Results will be available shortly.</p>
                 {(isDebaterA || isDebaterB) && debate.completedAt && (
                   <RetriggerJudgingButton challengeId={challengeId} completedAtIso={debate.completedAt.toISOString()} />
                 )}
