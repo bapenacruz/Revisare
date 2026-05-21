@@ -482,14 +482,15 @@ export default async function ResultsPage({ params }: Props) {
                             const cfg = VERDICT_CONFIG[ec.verdict as keyof typeof VERDICT_CONFIG] ?? VERDICT_CONFIG.unsupported;
                             const Icon = cfg.icon;
                             return (
-                              <div key={ci} className="flex items-start gap-2 mx-10">
-                                <div className="shrink-0 flex flex-col items-center gap-0.5 pt-1">
-                                  <span className="text-[10px] font-bold text-foreground-subtle tracking-wide">🔍</span>
+                              <div key={ci} className={`flex gap-3 ${isA ? "flex-row" : "flex-row-reverse"}`}>
+                                {/* AI Judge avatar — same size/position as speaker avatar */}
+                                <div className="shrink-0 mt-1 w-8 h-8 rounded-full bg-surface-raised border border-border flex items-center justify-center">
+                                  <Icon size={13} className={cfg.color} />
                                 </div>
-                                <div className={`flex-1 rounded-[--radius] border px-3 py-2 ${cfg.bg}`}>
+                                <div className={`max-w-[85%] rounded-[--radius] border px-3 py-2 ${cfg.bg}`}>
                                   <div className="flex flex-wrap items-center gap-1.5 mb-1">
                                     <span className={`flex items-center gap-1 text-[10px] font-bold uppercase tracking-wide ${cfg.color}`}>
-                                      <Icon size={11} />{cfg.label}
+                                      {cfg.label}
                                     </span>
                                     <span className="text-[10px] text-foreground-subtle">— AI Judge</span>
                                     {ec.importance === "central" && (
