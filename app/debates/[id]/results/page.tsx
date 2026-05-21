@@ -122,6 +122,37 @@ export default async function ResultsPage({ params }: Props) {
     catch { return []; }
   })();
 
+  // Match each evidence check to the turn most likely to have triggered it.
+  // Strategy: among turns by the same debater, pick the one whose content shares
+  // the most 4+ character words with the claim text.
+  function wordOverlap(turnContent: string, claim: string): number {
+    const claimWords = new Set((claim.toLowerCase().match(/\b\w{4,}\b/g) ?? []));
+    const turnWords = turnContent.toLowerCase().match(/\b\w{4,}\b/g) ?? [];
+    return turnWords.filter((w) => claimWords.has(w)).length;
+  }
+
+  const turnFactChecks = new Map<string, EvidenceCheck[]>();
+  const orphanedChecks: EvidenceCheck[] = [];
+  for (const ec of consensusEvidenceChecks) {
+    const candidates = debate.turns.filter((t) => {
+      const speaker = t.userId === debate.debaterAId ? debate.debaterA : debate.debaterB;
+      return speaker.username === ec.debater;
+    });
+    let best: (typeof debate.turns)[0] | null = null;
+    let bestScore = 0;
+    for (const t of candidates) {
+      const score = wordOverlap(t.content, ec.claim);
+      if (score > bestScore) { bestScore = score; best = t; }
+    }
+    if (best && bestScore >= 2) {
+      const arr = turnFactChecks.get(best.id) ?? [];
+      arr.push(ec);
+      turnFactChecks.set(best.id, arr);
+    } else {
+      orphanedChecks.push(ec);
+    }
+  }
+
   // Parse per-debater scores from consensus roundScores
   const consensusScores: {
     scoresA: DebaterScores | null;
@@ -416,8 +447,10 @@ export default async function ResultsPage({ params }: Props) {
                       const isA = turn.userId === debate.debaterAId;
                       const speaker = isA ? debate.debaterA : debate.debaterB;
                       const isProp = speaker.id === propositionUser.id;
+                      const checks = turnFactChecks.get(turn.id) ?? [];
                       return (
-                        <div key={turn.id} className={`flex gap-3 ${isA ? "flex-row" : "flex-row-reverse"}`}>
+                        <div key={turn.id} className="flex flex-col gap-1.5">
+                          <div className={`flex gap-3 ${isA ? "flex-row" : "flex-row-reverse"}`}>
                           <div className="shrink-0 mt-1">
                             <Avatar initial={speaker.username[0]} size="sm" />
                           </div>
@@ -444,6 +477,35 @@ export default async function ResultsPage({ params }: Props) {
                             </p>
                           </div>
                         </div>
+                          {/* Inline fact-checks for this turn */}
+                          {checks.map((ec, ci) => {
+                            const cfg = VERDICT_CONFIG[ec.verdict as keyof typeof VERDICT_CONFIG] ?? VERDICT_CONFIG.unsupported;
+                            const Icon = cfg.icon;
+                            return (
+                              <div key={ci} className="flex items-start gap-2 mx-10">
+                                <div className="shrink-0 flex flex-col items-center gap-0.5 pt-1">
+                                  <span className="text-[10px] font-bold text-foreground-subtle tracking-wide">🔍</span>
+                                </div>
+                                <div className={`flex-1 rounded-[--radius] border px-3 py-2 ${cfg.bg}`}>
+                                  <div className="flex flex-wrap items-center gap-1.5 mb-1">
+                                    <span className={`flex items-center gap-1 text-[10px] font-bold uppercase tracking-wide ${cfg.color}`}>
+                                      <Icon size={11} />{cfg.label}
+                                    </span>
+                                    <span className="text-[10px] text-foreground-subtle">— AI Judge</span>
+                                    {ec.importance === "central" && (
+                                      <span className="text-[10px] text-danger font-semibold">⚠ Central claim</span>
+                                    )}
+                                  </div>
+                                  <p className="text-[11px] font-medium text-foreground mb-0.5 leading-snug">&ldquo;{ec.claim}&rdquo;</p>
+                                  <p className="text-[11px] text-foreground-muted leading-relaxed">{ec.explanation}</p>
+                                  {ec.source && (
+                                    <p className="text-[10px] text-foreground-subtle mt-0.5 font-mono">Source: {ec.source}</p>
+                                  )}
+                                </div>
+                              </div>
+                            );
+                          })}
+                        </div>
                       );
                     })}
                   </div>
@@ -454,44 +516,29 @@ export default async function ResultsPage({ params }: Props) {
         )}
       </div>
 
-      {/* ── Fact-Check Analysis (within transcript) ─────────── */}
-      {judgeResult && consensusEvidenceChecks.length > 0 && (
+      {/* Orphaned fact-checks — claims that couldn't be matched to a specific turn */}
+      {orphanedChecks.length > 0 && (
         <div className="mb-8">
-          <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
-            <span>🔍</span> Fact-Check Analysis
+          <h2 className="text-lg font-bold text-foreground mb-3 flex items-center gap-2">
+            <span>🔍</span> Additional Fact-Checks
           </h2>
           <div className="flex flex-col gap-2">
-            {consensusEvidenceChecks.map((ec, idx) => {
+            {orphanedChecks.map((ec, idx) => {
               const isA = ec.debater === debate.debaterA.username;
               const cfg = VERDICT_CONFIG[ec.verdict as keyof typeof VERDICT_CONFIG] ?? VERDICT_CONFIG.unsupported;
               const Icon = cfg.icon;
-              const importanceColor =
-                ec.importance === "central" ? "text-danger font-semibold" :
-                ec.importance === "supporting" ? "text-amber-500" :
-                "text-foreground-subtle";
               return (
                 <div key={idx} className={`rounded-[--radius] border p-3 ${cfg.bg}`}>
                   <div className="flex items-start gap-2">
                     <span className={`mt-0.5 shrink-0 ${cfg.color}`}><Icon size={14} /></span>
                     <div className="flex-1 min-w-0">
                       <div className="flex flex-wrap items-center gap-2 mb-1.5">
-                        <span className={`text-[10px] font-bold uppercase tracking-wide ${cfg.color}`}>
-                          {cfg.label}
-                        </span>
-                        <span className={`text-[10px] font-semibold px-1.5 py-0.5 rounded ${isA ? "bg-brand/20 text-brand" : "bg-danger/20 text-danger"}`}>
-                          {ec.debater}
-                        </span>
-                        {ec.importance && (
-                          <span className={`text-[10px] uppercase tracking-wide ${importanceColor}`}>
-                            {ec.importance === "central" ? "⚠ Central claim" : ec.importance === "supporting" ? "Supporting" : "Peripheral"}
-                          </span>
-                        )}
+                        <span className={`text-[10px] font-bold uppercase tracking-wide ${cfg.color}`}>{cfg.label}</span>
+                        <span className={`text-[10px] font-semibold px-1.5 py-0.5 rounded ${isA ? "bg-brand/20 text-brand" : "bg-danger/20 text-danger"}`}>{ec.debater}</span>
                       </div>
                       <p className="text-xs font-medium text-foreground mb-1 leading-snug">&ldquo;{ec.claim}&rdquo;</p>
                       <p className="text-xs text-foreground-muted leading-relaxed">{ec.explanation}</p>
-                      {ec.source && (
-                        <p className="text-[10px] text-foreground-subtle mt-1 font-mono">Source: {ec.source}</p>
-                      )}
+                      {ec.source && <p className="text-[10px] text-foreground-subtle mt-1 font-mono">Source: {ec.source}</p>}
                     </div>
                   </div>
                 </div>
