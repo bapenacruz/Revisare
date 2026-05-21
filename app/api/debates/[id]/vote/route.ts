@@ -19,7 +19,7 @@ export async function GET(_req: NextRequest, { params }: RouteParams) {
   for (const v of debate.audienceVotes) {
     tally[v.votedForId] = (tally[v.votedForId] ?? 0) + 1;
   }
-  return NextResponse.json({ tally });
+  return NextResponse.json({ tally }, { headers: { "Cache-Control": "no-store" } });
 }
 
 export async function POST(req: NextRequest, { params }: RouteParams) {

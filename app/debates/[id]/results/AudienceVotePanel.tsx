@@ -37,16 +37,18 @@ export function AudienceVotePanel({ challengeId, debateId, debaterA, debaterB, i
     setVotes(initialVotes);
   }, [initialVotes]);
 
-  // Poll for live vote updates every 15 s
+  // Poll for live vote updates every 8 s
   useEffect(() => {
-    const poll = setInterval(async () => {
+    async function fetchTally() {
       try {
-        const res = await fetch(`/api/debates/${challengeId}/vote`);
+        const res = await fetch(`/api/debates/${challengeId}/vote`, { cache: "no-store" });
         if (!res.ok) return;
         const json = await res.json();
         if (json.tally) setVotes(json.tally as Record<string, number>);
       } catch { /* network error — ignore */ }
-    }, 15000);
+    }
+    fetchTally(); // fetch immediately on mount
+    const poll = setInterval(fetchTally, 8000);
     return () => clearInterval(poll);
   }, [challengeId]);
 
