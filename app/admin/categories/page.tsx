@@ -8,9 +8,15 @@ export const metadata = { title: "Categories — Admin" };
 export default async function AdminCategoriesPage() {
   const categories = await db.category.findMany({
     orderBy: { order: "asc" },
-    include: { _count: { select: { debates: true } } },
+  });
+  const debateCounts = await db.debate.groupBy({
+    by: ["categoryId"],
+    where: { categoryId: { not: undefined }, status: { in: ["active", "completed"] } },
+    _count: { _all: true },
   });
   const debateCountMap: Record<string, number> = {};
-  for (const c of categories) debateCountMap[c.id] = c._count.debates;
+  for (const row of debateCounts) {
+    if (row.categoryId) debateCountMap[row.categoryId] = row._count._all;
+  }
   return <CategoriesClient initial={categories} debateCountMap={debateCountMap} />;
 }
