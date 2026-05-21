@@ -381,7 +381,7 @@ export default async function ResultsPage({ params }: Props) {
       </div>
 
       {/* Private Feedback — visible to each debater (their own) and admins (both) */}
-      {(isDebaterA || isDebaterB || isAdmin) && (
+      {(isDebaterA || isDebaterB || isAdmin) && judgeResult && (
         <div className="mb-8">
           <h2 className="text-lg font-bold text-foreground mb-3">Private Feedback</h2>
           {isAdmin ? (
