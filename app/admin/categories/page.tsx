@@ -11,7 +11,7 @@ export default async function AdminCategoriesPage() {
   });
   const debateCounts = await db.debate.groupBy({
     by: ["categoryId"],
-    where: { categoryId: { not: undefined }, status: { in: ["active", "completed"] } },
+    where: { categoryId: { not: undefined }, status: { in: ["active", "completed"] }, isDeleted: false },
     _count: { _all: true },
   });
   const debateCountMap: Record<string, number> = {};
