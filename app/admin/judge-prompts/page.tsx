@@ -2,203 +2,143 @@
 
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/Button";
-import { Card } from "@/components/ui/Card";
+import { Card, CardBody } from "@/components/ui/Card";
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 
-interface JudgePrompt {
-  id?: string;
-  type: string;
-  prompt: string;
-  isActive: boolean;
-  createdAt?: string;
-  updatedAt?: string;
-}
-
-const promptTypeLabels: Record<string, string> = {
-  judge1_grok: "Judge 1 (Grok)",
-  judge2_claude: "Judge 2 (Claude)",
-  judge3_chatgpt: "Judge 3 (ChatGPT)",
-  private_feedback: "Private Feedback",
-  official_result: "Official Result"
-};
-
 export default function JudgePromptsPage() {
   const { data: session, status } = useSession();
-  const [prompts, setPrompts] = useState<JudgePrompt[]>([]);
+  const [prompt, setPrompt] = useState("");
+  const [updatedAt, setUpdatedAt] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
-  const [seeding, setSeeding] = useState(false);
-  const [message, setMessage] = useState("");
+  const [resetting, setResetting] = useState(false);
+  const [message, setMessage] = useState<{ text: string; ok: boolean } | null>(null);
 
   useEffect(() => {
     if (status === "loading") return;
-    if (status === "unauthenticated" || session?.user?.role !== "admin") {
+    if (status === "unauthenticated" || (session?.user as { role?: string })?.role !== "admin") {
       redirect("/auth/login");
     }
-    
-    loadPrompts();
+    load();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [status, session]);
 
-  const loadPrompts = async () => {
+  async function load() {
+    setLoading(true);
     try {
-      const response = await fetch("/api/admin/judge-prompts");
-      if (response.ok) {
-        const data = await response.json();
-        setPrompts(data);
+      const res = await fetch("/api/admin/judge-prompts");
+      if (res.ok) {
+        const data = await res.json();
+        setPrompt(data.prompt ?? "");
+        setUpdatedAt(data.updatedAt ?? null);
       }
-    } catch (error) {
-      console.error("Error loading prompts:", error);
-      setMessage("Failed to load prompts");
+    } catch {
+      setMessage({ text: "Failed to load prompt.", ok: false });
     } finally {
       setLoading(false);
     }
-  };
+  }
 
-  const savePrompts = async () => {
+  async function save() {
     setSaving(true);
-    setMessage("");
-    
+    setMessage(null);
     try {
-      const response = await fetch("/api/admin/judge-prompts", {
+      const res = await fetch("/api/admin/judge-prompts", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ prompts })
+        body: JSON.stringify({ prompt }),
       });
-
-      if (response.ok) {
-        setMessage("Prompts saved successfully!");
-        setTimeout(() => setMessage(""), 3000);
+      if (res.ok) {
+        setMessage({ text: "Saved successfully.", ok: true });
+        setUpdatedAt(new Date().toISOString());
+        setTimeout(() => setMessage(null), 4000);
       } else {
-        throw new Error("Failed to save prompts");
+        throw new Error();
       }
-    } catch (error) {
-      console.error("Error saving prompts:", error);
-      setMessage("Failed to save prompts");
+    } catch {
+      setMessage({ text: "Save failed.", ok: false });
     } finally {
       setSaving(false);
     }
-  };
+  }
 
-  const resetToDefaults = async () => {
-    if (!confirm("This will delete all saved prompts and reload the built-in defaults. Continue?")) return;
-    setSeeding(true);
-    setMessage("");
+  async function reset() {
+    if (!confirm("Reset to built-in defaults? Your current prompt will be lost.")) return;
+    setResetting(true);
+    setMessage(null);
     try {
-      const response = await fetch("/api/admin/judge-prompts", { method: "DELETE" });
-      if (response.ok) {
-        setMessage("Reset to defaults. Reloading...");
-        await loadPrompts();
-        setTimeout(() => setMessage(""), 3000);
+      const res = await fetch("/api/admin/judge-prompts", { method: "DELETE" });
+      if (res.ok) {
+        await load();
+        setMessage({ text: "Reset to defaults.", ok: true });
+        setTimeout(() => setMessage(null), 4000);
       } else {
-        throw new Error("Failed to reset");
+        throw new Error();
       }
-    } catch (error) {
-      console.error("Error resetting prompts:", error);
-      setMessage("Failed to reset prompts");
+    } catch {
+      setMessage({ text: "Reset failed.", ok: false });
     } finally {
-      setSeeding(false);
+      setResetting(false);
     }
-  };
-
-  const updatePrompt = (type: string, field: string, value: string | boolean) => {
-    setPrompts(prevPrompts => 
-      prevPrompts.map(p => 
-        p.type === type ? { ...p, [field]: value } : p
-      )
-    );
-  };
+  }
 
   if (loading) {
     return (
-      <div className="container mx-auto py-8">
-        <div className="flex items-center justify-center">
-          <div className="text-lg">Loading judge prompts...</div>
-        </div>
+      <div className="mx-auto max-w-4xl px-6 py-10 flex items-center justify-center">
+        <p className="text-foreground-muted">Loading…</p>
       </div>
     );
   }
 
   return (
-    <div className="container mx-auto py-8 space-y-6">
-      <div className="flex items-center justify-between">
+    <div className="mx-auto max-w-4xl px-6 py-10 space-y-6">
+      {/* Header */}
+      <div className="flex items-start justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold">Judge Prompts</h1>
-          <p className="text-gray-600 mt-2">
-            Persona and style instructions appended to each judge. Do <strong>not</strong> include JSON schemas here — only coaching/style text.
+          <h1 className="text-2xl font-bold text-foreground">Judge Prompts</h1>
+          <p className="text-sm text-foreground-muted mt-1 max-w-xl">
+            This is the complete judging logic used by all three AI judges (Grok, Claude, GPT-4.1-mini).
+            Edit freely — the debater names, category, and JSON output schema are auto-injected at runtime.
           </p>
         </div>
-        <div className="flex items-center gap-3">
-          <Button
-            onClick={resetToDefaults}
-            disabled={seeding}
-            className="bg-gray-600 hover:bg-gray-700"
-          >
-            {seeding ? "Resetting..." : "Reset to Defaults"}
+        <div className="flex items-center gap-2 shrink-0">
+          <Button onClick={reset} disabled={resetting} variant="secondary" size="sm">
+            {resetting ? "Resetting…" : "Reset to Defaults"}
           </Button>
-          <Button
-            onClick={savePrompts}
-            disabled={saving}
-            className="bg-blue-600 hover:bg-blue-700"
-          >
-            {saving ? "Saving..." : "Save All Changes"}
+          <Button onClick={save} disabled={saving} size="sm">
+            {saving ? "Saving…" : "Save Changes"}
           </Button>
         </div>
       </div>
 
+      {/* Status */}
       {message && (
-        <div className={`p-4 rounded-lg ${
-          message.includes("success") 
-            ? "bg-green-100 text-green-800" 
-            : "bg-red-100 text-red-800"
+        <div className={`px-4 py-2.5 rounded-[--radius] text-sm font-medium ${
+          message.ok
+            ? "bg-emerald-500/10 border border-emerald-500/20 text-emerald-400"
+            : "bg-danger/10 border border-danger/20 text-danger"
         }`}>
-          {message}
+          {message.text}
         </div>
       )}
 
-      <div className="space-y-6">
-        {prompts.map((prompt) => (
-          <Card key={prompt.type} className="p-6">
-            <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <h3 className="text-xl font-semibold">
-                  {promptTypeLabels[prompt.type] || prompt.type}
-                </h3>
-                <label className="flex items-center gap-2">
-                  <input
-                    type="checkbox"
-                    checked={prompt.isActive}
-                    onChange={(e) => updatePrompt(prompt.type, "isActive", e.target.checked)}
-                    className="rounded"
-                  />
-                  <span className="text-sm">Active</span>
-                </label>
-              </div>
-              
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Prompt Text
-                </label>
-                <textarea
-                  value={prompt.prompt}
-                  onChange={(e) => updatePrompt(prompt.type, "prompt", e.target.value)}
-                  className="w-full h-64 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent font-mono text-sm"
-                  placeholder="Enter prompt text..."
-                />
-              </div>
-              
-              <div className="text-xs text-gray-500">
-                <strong>Type:</strong> {prompt.type}
-                {prompt.updatedAt && (
-                  <>
-                    {" • "}
-                    <strong>Last updated:</strong> {new Date(prompt.updatedAt).toLocaleString()}
-                  </>
-                )}
-              </div>
-            </div>
-          </Card>
-        ))}
+      {/* Editor */}
+      <Card>
+        <CardBody className="p-0">
+          <textarea
+            value={prompt}
+            onChange={(e) => setPrompt(e.target.value)}
+            className="w-full min-h-[600px] p-4 bg-transparent font-mono text-sm text-foreground leading-relaxed resize-y focus:outline-none rounded-[--radius]"
+            spellCheck={false}
+          />
+        </CardBody>
+      </Card>
+
+      {/* Footer */}
+      <div className="flex items-center justify-between text-xs text-foreground-subtle">
+        <span>{prompt.length.toLocaleString()} characters</span>
+        {updatedAt && <span>Last saved {new Date(updatedAt).toLocaleString()}</span>}
       </div>
     </div>
   );

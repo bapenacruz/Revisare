@@ -2,41 +2,114 @@ import { OpenRouter } from "@openrouter/sdk";
 import type { DebaterScores, EvidenceCheck, IJudgingProvider, JudgeInput, SingleJudgeVerdict } from "./types";
 import { db } from "@/lib/db";
 
-// Fetch judge prompts from database with fallbacks
-async function getJudgePrompt(type: string): Promise<string> {
+// ─── Master prompt ─────────────────────────────────────────────────────────────
+//
+// A single DB record (type: "master_judging_prompt") drives ALL judge logic.
+// The admin edits this via /admin/judge-prompts.
+// Only the transcript, debater context, and JSON schema are auto-injected.
+
+export const DEFAULT_MASTER_PROMPT = `You are an expert debate judge evaluating a structured eight-turn debate (opening x2, crossfire x2, rebuttal x2, summary x2) on the platform Revisare. Deliver an impartial, evidence-based verdict.
+
+CRITICAL OUTPUT RULES
+- Return ONLY valid JSON — no markdown fences, no text before or after the JSON
+- Use only plain ASCII characters
+- Always use the exact debater usernames as provided
+- No ties — always determine one winner
+
+FOUR-PHASE EVALUATION FRAMEWORK
+
+Evaluate EACH phase separately before reaching an overall verdict:
+
+1. OPENING CONSTRUCTIVE — Did each debater establish a clear, well-evidenced position?
+   Was the core argument grounded in facts/reasoning or just assertions?
+
+2. CROSSFIRE — Direct Q&A challenge phase. Evaluate:
+   - Did the debater answer their opponent's questions directly and honestly?
+   - Did they dodge, deflect, or give non-answers? (penalise rebuttal_quality heavily)
+   - Did they press effectively with follow-up questions or challenges?
+   Note: crossfire evasion is a significant procedural failure.
+
+3. REBUTTAL — Did the debater directly address the opponent's opening and crossfire arguments?
+   Every significant claim from the opponent should have been engaged.
+   Credit for direct refutation with counter-evidence. Penalise for ignoring major opponent arguments.
+
+4. CLOSING SUMMARY — Did the debater crystallise the debate effectively?
+   No new arguments should be introduced here. Credit for identifying key clash points.
+
+SCORING RULES
+- Score 0-10 on all six dimensions
+- Weights: factuality=35%, evidence_quality=25%, argument_strength=15%, rebuttal_quality=20%, clarity=3%, persuasiveness=2%
+- DOMINANCE RULE: if factuality < 5, cap final_score at 6.0; if factuality < 3, cap at 3.0 (automatic loss)
+- Rebuttal_quality includes crossfire engagement — dodging questions is a direct penalty
+- No ties — the winner is the debater whose overall case was more truthful, better-evidenced, and more directly responsive
+
+EVIDENCE-WEIGHTED TOPICS (science, economics, law, history, technology):
+- Factuality (35%) measures whether claims are actually true. Aggressively fact-check statistics, historical claims, scientific findings, legal facts.
+- Evidence_quality (25%) measures whether claims were backed by real sources. Vague references score low.
+- A persuasive-sounding but factually false argument MUST score low on factuality regardless of rhetorical skill.
+
+REASONING-WEIGHTED TOPICS (philosophy, ethics, society, values, culture, religion):
+- Factuality (35%) measures REASONING COHERENCE: internal consistency, logical validity, whether value assumptions are clearly stated.
+- Evidence_quality (25%) measures ARGUMENTATIVE STRENGTH: quality of philosophical reasoning, thought experiments, precedent-based evidence.
+- Do NOT pretend to determine objective moral or philosophical truth. Evaluate argument strength and consistency.
+- You CANNOT rule a normative claim "incorrect" — use "unsupported" or "disputed" instead.
+
+ANTI-BIAS PRINCIPLES (mandatory — override any conflicting instinct):
+
+RULE 1 — ALTERNATIVES ARE NOT REQUIRED:
+A debater who argues that an opposing proposal is unfair, dangerous, unconstitutional, or ineffective does NOT
+need to present a complete alternative to win that argument. Criticising and replacing are two separate tasks.
+
+RULE 2 — FAILURE ASYMMETRY:
+"The opponent failed to fully solve the problem" does NOT automatically validate the other side's proposal.
+Both sides must independently justify their own position. Award wins on argument strength, never by default.
+
+RULE 3 — NO FRAMEWORK PREFERENCE:
+Do NOT favour utilitarian reasoning, practicality, or economic efficiency over rule-of-law, fairness,
+constitutional, moral, rights-based, or deterrence-based arguments without cause. Principle-based
+arguments are legitimate winning arguments even without implementation details.
+
+RULE 4 — EVIDENCE SCOPE — USE CORRECT LABELS:
+  - "Not cited in this debate" → use verdict: unsupported_in_round
+  - "No real-world evidence exists" → use verdict: unsupported_generally
+Never imply a claim is generally false simply because the debater failed to cite a source in the round.
+
+RULE 5 — REWARD DIRECT ENGAGEMENT:
+Heavily reward debaters who directly address opponent arguments, expose contradictions, force tradeoffs.
+Heavily penalise dodging, ignoring, strawmanning, or deflecting opponent arguments.
+
+RULE 6 — BIDIRECTIONAL JUSTIFICATION:
+Do NOT interpret "their proposal has flaws" as proof that the other side is correct.
+Both sides must affirmatively justify their own position.`;
+
+async function getMasterPrompt(): Promise<string> {
   try {
-    const prompt = await db.judgePrompt.findFirst({
-      where: { type, isActive: true }
+    const record = await db.judgePrompt.findFirst({
+      where: { type: "master_judging_prompt", isActive: true },
     });
-    
-    if (prompt) return prompt.prompt;
+    if (record?.prompt) return record.prompt;
   } catch (error) {
-    console.error(`Error fetching prompt for ${type}:`, error);
+    console.error("Error fetching master judging prompt:", error);
   }
-  
-  // Fallback prompts if database is unavailable
-  const fallbacks: Record<string, string> = {
-    judge1_grok: "You are Judge 1 (Grok), known for wit, humor, and unconventional thinking. Focus on factual accuracy above all else.",
-    judge2_claude: "You are known for meticulous, dispassionate analysis. You are especially skilled at identifying misleading framing — claims that are technically true but create a false impression. You give no credit for rhetorical polish if the underlying facts are shaky.",
-    judge3_chatgpt: "You are the final arbitrating judge. You have access to the full debate transcript AND both peer verdicts below. Your explanation should briefly note where the peer judges agreed or diverged, and add any factual findings they missed.",
-  };
-  
-  return fallbacks[type] || "Evaluate this debate fairly and factually.";
+  return DEFAULT_MASTER_PROMPT;
 }
 
-/**
- * Determines whether the category should use evidence-weighted or reasoning-weighted judging.
- * Evidence-weighted: empirical topics where factual accuracy is verifiable.
- * Reasoning-weighted: normative/philosophical topics where logical coherence matters more.
- */
-function getJudgingStyle(categorySlug?: string): "evidence" | "reasoning" {
-  const reasoningSlugs = new Set([
-    "philosophy", "ethics", "religion", "culture", "hypotheticals",
-    "literature", "arts", "society", "morality", "values", "psychology",
-  ]);
-  if (!categorySlug) return "evidence";
-  const lower = categorySlug.toLowerCase();
-  return [...reasoningSlugs].some((s) => lower.includes(s)) ? "reasoning" : "evidence";
+function buildSystemPrompt(masterPrompt: string, input: JudgeInput): string {
+  const contextBlock =
+    `=== DEBATE CONTEXT ===\n` +
+    `Motion: "${input.motion}"\n` +
+    `Category: ${input.categorySlug ?? "general"}\n` +
+    `Debater A (Proposition): ${input.debaterA.username}\n` +
+    `Debater B (Opposition): ${input.debaterB.username}`;
+  return (
+    masterPrompt +
+    "\n\n" +
+    contextBlock +
+    "\n\n" +
+    "=== OUTPUT FORMAT ===\n" +
+    "Respond with ONLY valid JSON — no markdown fences, no commentary — matching this schema exactly:\n" +
+    buildVerdictSchema(input)
+  );
 }
 
 function buildVerdictSchema(input: JudgeInput, summaryInstruction?: string): string {
@@ -341,145 +414,10 @@ async function withRetry<T>(
   throw lastErr;
 }
 
-// ─── Shared system prompt ──────────────────────────────────────────────────────
-
-// buildJudgingRubric wraps the DB persona as a PREAMBLE before the core evaluation rules.
-// The persona sets tone/style; the core rules always apply and cannot be overridden.
-function buildJudgingRubric(extra: string, categorySlug?: string): string {
-  const preamble = extra ? `JUDGE PERSONA — tone and style guidance:\n${extra}\n\n` : "";
-  const style    = getJudgingStyle(categorySlug);
-
-  const styleSection = style === "reasoning"
-    ? `JUDGING STYLE: REASONING-WEIGHTED (category: ${categorySlug ?? "philosophy/ethics/opinion"})
-This debate involves normative, philosophical, or value-based claims where objective empirical truth
-cannot always be determined. Apply the following adapted evaluation:
-
-- "factuality" (35%) measures REASONING COHERENCE: internal consistency, logical validity, and
-  whether value assumptions are clearly stated and coherently defended. Score low for contradictions,
-  logical fallacies, and unfounded assertions even if they cannot be empirically disproved.
-- "evidence_quality" (25%) measures ARGUMENTATIVE STRENGTH: quality of philosophical reasoning,
-  use of thought experiments, historical or precedent-based evidence, and calibrated use of expert
-  opinion. Weak arm-waving and unsubstantiated assertions score low.
-- "argument_strength" (15%) measures POSITION CLARITY and development across all four phases.
-- "rebuttal_quality" (20%) measures DIRECT ENGAGEMENT: did the debater actually respond to the
-  opponent's philosophical/normative claims, or did they ignore them?
-- "clarity" (3%) and "persuasiveness" (2%) are minor.
-
-IMPORTANT: Do NOT pretend to determine objective moral or philosophical truth. Instead evaluate which
-debater built a stronger, more internally consistent, and more directly responsive argument.
-Do NOT penalise a debater simply for holding an unpopular position if they argued it coherently.
-
-For claim checks in reasoning debates: flag LOGICAL FALLACIES (ad hominem, strawman, false dilemma),
-UNSUPPORTED FACTUAL CLAIMS embedded within normative arguments, and INTERNAL CONTRADICTIONS.
-You CANNOT rule a normative claim "incorrect" — use "unsupported" or "disputed" instead.`
-    : `JUDGING STYLE: EVIDENCE-WEIGHTED (category: ${categorySlug ?? "general evidence-based"})
-This debate involves empirically verifiable claims. Factual accuracy is the primary evaluation axis.
-
-- "factuality" (35%): Are the core claims actually true? Aggressively fact-check statistics,
-  historical claims, scientific findings, legal facts, and causal claims. Use credible real sources.
-- "evidence_quality" (25%): Were claims supported with real evidence (studies, data, expert consensus),
-  or just stated assertively? Vague references to "studies" or "experts" without specifics score low.
-- "argument_strength" (15%): Was the overall case logically structured and did it address the motion directly?
-- "rebuttal_quality" (20%): Did the debater directly refute opponent claims with counter-evidence?
-  This includes crossfire engagement — did they answer questions directly or dodge them?
-- "clarity" (3%) and "persuasiveness" (2%) are minor.
-
-IMPORTANT: A debater who makes a persuasive-sounding but factually false argument MUST score low on
-factuality regardless of rhetorical skill. Persuasiveness cannot compensate for factual failure.`;
-
-  return `${preamble}You are an expert debate judge evaluating a structured four-phase debate on the platform Revisare.
-
-CRITICAL OUTPUT RULES
-- Return ONLY valid JSON
-- Do not wrap in markdown fences
-- Do not include any text before or after the JSON
-- Do not include emojis
-- Use only plain ASCII characters
-- Always use the exact debater usernames as given
-- No ties — always determine one winner
-
-${styleSection}
-
-FOUR-PHASE EVALUATION FRAMEWORK
-
-Evaluate EACH phase separately before reaching an overall verdict:
-
-1. OPENING CONSTRUCTIVE — Did each debater establish a clear, well-evidenced position?
-   Was the core argument grounded in facts/reasoning or just assertions?
-
-2. CROSSFIRE — This is a direct Q&A challenge phase. Evaluate:
-   - Did the debater answer their opponent's questions directly and honestly?
-   - Did they dodge, deflect, or give non-answers? (penalise rebuttal_quality)
-   - Did they press effectively with follow-up questions or challenges?
-   Note: crossfire evasion is a significant procedural failure and damages rebuttal_quality.
-
-3. REBUTTAL — Did the debater directly address the opponent's opening and crossfire arguments?
-   Every significant claim from the opponent should have been engaged. Credit for direct refutation
-   with counter-evidence. Penalise for ignoring major opponent arguments.
-
-4. CLOSING SUMMARY — Did the debater crystallise the debate effectively?
-   No new arguments should be introduced here (minor penalty if they do).
-   Credit for identifying the key clash points and explaining why they won them.
-
-SCORING RULES
-- Score 0-10 on all six dimensions
-- Apply weights: factuality=35%, evidence_quality=25%, argument_strength=15%, rebuttal_quality=20%, clarity=3%, persuasiveness=2%
-- DOMINANCE RULE: if factuality < 5, cap final_score at 6.0; if factuality < 3, cap at 3.0 (automatic loss)
-- Rebuttal_quality includes crossfire engagement — dodging questions is a direct penalty
-- The winner is the debater whose overall case was more truthful, better-evidenced, and more directly responsive
-
-ANTI-BIAS PRINCIPLES — mandatory; override any conflicting instinct:
-
-RULE 1 — ALTERNATIVES ARE NOT REQUIRED:
-A debater who argues that the opposing proposal is unfair, dangerous, unconstitutional, immoral, inconsistent,
-or ineffective does NOT need to present a fully operational alternative system to win that argument.
-Criticising a proposal and replacing it with a complete alternative are two separate tasks.
-A debater may legitimately win on the force of their critique alone.
-
-RULE 2 — FAILURE ASYMMETRY:
-"The opponent failed to fully solve the problem" does NOT automatically validate the opposing side's proposal.
-Both sides must independently justify their own positions. Award wins on comparative strength of argument,
-never by default because one side's solution appeared imperfect or incomplete.
-
-RULE 3 — NO FRAMEWORK PREFERENCE:
-Do NOT systematically favour utilitarian reasoning, practicality arguments, technocratic framing, or economic
-efficiency over rule-of-law arguments, fairness principles, constitutional arguments, moral arguments,
-rights-based arguments, or deterrence-based arguments — unless the debate category explicitly prioritises one
-framework. Principle-based arguments are legitimate winning arguments even without implementation details.
-
-RULE 4 — EVIDENCE SCOPE — USE CORRECT LABELS:
-Distinguish clearly between:
-  • "Evidence was not sufficiently presented during this debate" → use verdict: unsupported_in_round
-  • "No credible evidence for this claim exists in general" → use verdict: unsupported_generally
-Never imply a claim is generally false simply because the debater failed to cite a source in the round.
-
-RULE 5 — REWARD DIRECT ENGAGEMENT:
-Heavily reward debaters who: directly address opponent arguments; expose contradictions in the opponent's
-position; force tradeoff discussions; identify specific unanswered harms; acknowledge their own weaknesses.
-Heavily penalise debaters who dodge, ignore, strawman, or deflect opponent arguments.
-
-RULE 6 — BIDIRECTIONAL JUSTIFICATION:
-Do NOT interpret "Proposal A is unrealistic or has flaws" as automatic proof that "Proposal B is correct."
-Both sides must affirmatively justify their own position. Mutual failure is not a win for either side;
-the better-argued (not merely the less-criticised) position wins.
-
-Respond with ONLY valid JSON — no markdown fences, no commentary — matching this schema exactly:
-`;
-}
-
 // ─── Judge A: Grok ─────────────────────────────────────────────────────────────
 
-// Strip any embedded JSON schema blocks a persona prompt might contain (from old DB records)
-function stripPersonaJsonSchema(prompt: string): string {
-  // Remove everything from the first { that looks like a JSON schema block
-  const schemaStart = prompt.search(/\n\s*Return JSON|\n\s*\{[\s\S]*"winner"/i);
-  if (schemaStart !== -1) return prompt.slice(0, schemaStart).trim();
-  return prompt;
-}
-
 async function buildGrokSystem(input: JudgeInput): Promise<string> {
-  const raw = await getJudgePrompt("judge1_grok");
-  return buildJudgingRubric(stripPersonaJsonSchema(raw), input.categorySlug) + buildVerdictSchema(input);
+  return buildSystemPrompt(await getMasterPrompt(), input);
 }
 
 export class GrokJudgingProvider implements IJudgingProvider {
@@ -528,8 +466,7 @@ export class GrokJudgingProvider implements IJudgingProvider {
 // ─── Judge B: Claude ───────────────────────────────────────────────────────────
 
 async function buildClaudeSystem(input: JudgeInput): Promise<string> {
-  const raw = await getJudgePrompt("judge2_claude");
-  return buildJudgingRubric(stripPersonaJsonSchema(raw), input.categorySlug) + buildVerdictSchema(input);
+  return buildSystemPrompt(await getMasterPrompt(), input);
 }
 
 export class ClaudeJudgingProvider implements IJudgingProvider {
@@ -578,10 +515,7 @@ export class ClaudeJudgingProvider implements IJudgingProvider {
 // ─── Judge C: GPT — The Arbiter ───────────────────────────────────────────────
 
 async function buildArbiterSystem(input: JudgeInput): Promise<string> {
-  const raw = await getJudgePrompt("judge3_chatgpt");
-  const persona = stripPersonaJsonSchema(raw);
-  const resultStyle = await getJudgePrompt("official_result");
-  return buildJudgingRubric(persona, input.categorySlug) + buildVerdictSchema(input, resultStyle || undefined);
+  return buildSystemPrompt(await getMasterPrompt(), input);
 }
 
 export class ArbiterJudgingProvider implements IJudgingProvider {
@@ -720,7 +654,7 @@ export async function generateFeedbackOnly(
   const a = input.debaterA.username;
   const b = input.debaterB.username;
 
-  const extraInstruction = await getJudgePrompt("private_feedback");
+  const extraInstruction = ""; // admin master prompt handles all judging instructions
 
   const systemPrompt = `You are an expert debate judge providing private performance feedback.
 
