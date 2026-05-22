@@ -6,7 +6,7 @@ import Link from "next/link";
 import { Card, CardBody } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { Avatar } from "@/components/ui/Avatar";
-import { Bell, BellOff, MessageSquare, Send, Trash2 } from "lucide-react";
+import { Bell, BellOff, MessageSquare, Send, ThumbsUp, Trash2, Users } from "lucide-react";
 
 interface Comment {
   id: string;
@@ -18,7 +18,19 @@ interface Comment {
   isLive: boolean;
 }
 
-export function CommentsSection({ challengeId }: { challengeId: string }) {
+interface Debater { id: string; username: string; }
+
+interface Props {
+  challengeId: string;
+  debateId?: string;
+  debaterA?: Debater;
+  debaterB?: Debater;
+  initialVotes?: Record<string, number>;
+  isParticipant?: boolean;
+  isAuthenticated?: boolean;
+}
+
+export function CommentsSection({ challengeId, debateId, debaterA, debaterB, initialVotes = {}, isParticipant = false, isAuthenticated = false }: Props) {
   const { data: session } = useSession();
   const [comments, setComments] = useState<Comment[]>([]);
   const [draft, setDraft] = useState("");
@@ -31,6 +43,67 @@ export function CommentsSection({ challengeId }: { challengeId: string }) {
   const endRef = useRef<HTMLDivElement>(null);
   const hasScrolledToHash = useRef(false);
 
+  // ── Vote state ──────────────────────────────────────────────────────────────
+  const [votes, setVotes] = useState<Record<string, number>>(initialVotes);
+  const [voted, setVoted] = useState<string | null>(null);
+  const [voteLoading, setVoteLoading] = useState(false);
+
+  useEffect(() => {
+    if (!debateId) return;
+    const stored = localStorage.getItem(`vote-${debateId}`);
+    if (stored) setVoted(stored);
+  }, [debateId]);
+
+  useEffect(() => { setVotes(initialVotes); }, [initialVotes]);
+
+  useEffect(() => {
+    if (!debaterA || !debaterB) return;
+    async function fetchTally() {
+      try {
+        const res = await fetch(`/api/debates/${challengeId}/vote`, { cache: "no-store" });
+        if (!res.ok) return;
+        const json = await res.json();
+        if (json.tally) setVotes(json.tally as Record<string, number>);
+      } catch { /* ignore */ }
+    }
+    fetchTally();
+    const poll = setInterval(fetchTally, 8000);
+    return () => clearInterval(poll);
+  }, [challengeId, debaterA, debaterB]);
+
+  const totalVotes = Object.values(votes).reduce((a, b) => a + b, 0);
+  const pct = (id: string) =>
+    totalVotes === 0 ? 0 : Math.round(((votes[id] ?? 0) / totalVotes) * 100);
+
+  async function castVote(userId: string) {
+    if (voteLoading) return;
+    setVoteLoading(true);
+    let voterToken = localStorage.getItem("voter_id");
+    if (!voterToken) {
+      voterToken = crypto.randomUUID();
+      localStorage.setItem("voter_id", voterToken);
+    }
+    try {
+      const res = await fetch(`/api/debates/${challengeId}/vote`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ votedForId: userId, voterToken }),
+      });
+      const json = await res.json();
+      if (json.tally) setVotes(json.tally);
+      if (json.removed) {
+        setVoted(null);
+        localStorage.removeItem(`vote-${debateId}`);
+      } else {
+        setVoted(userId);
+        localStorage.setItem(`vote-${debateId}`, userId);
+      }
+    } finally {
+      setVoteLoading(false);
+    }
+  }
+
+  // ── Comments ────────────────────────────────────────────────────────────────
   const fetchComments = useCallback(async () => {
     const res = await fetch(`/api/debates/${challengeId}/comments`);
     if (res.ok) {
@@ -45,7 +118,6 @@ export function CommentsSection({ challengeId }: { challengeId: string }) {
     return () => clearInterval(poll);
   }, [fetchComments]);
 
-  // Fetch subscription status on mount
   useEffect(() => {
     if (!session?.user?.id) return;
     fetch(`/api/debates/${challengeId}/comment-subscriptions`)
@@ -70,12 +142,10 @@ export function CommentsSection({ challengeId }: { challengeId: string }) {
     }
   }
 
-  // Scroll on new comments (not initial load)
   useEffect(() => {
     const count = comments.length;
     if (prevCountRef.current === -1) {
       prevCountRef.current = count;
-      // Scroll to a specific comment if the URL has a hash like #comment-{id}
       if (!hasScrolledToHash.current && typeof window !== "undefined") {
         const hash = window.location.hash.slice(1);
         if (hash.startsWith("comment-")) {
@@ -125,94 +195,180 @@ export function CommentsSection({ challengeId }: { challengeId: string }) {
   }
 
   return (
-    <div>
-      <div className="flex items-center gap-2 mb-4">
-        <MessageSquare size={16} className="text-foreground-muted" />
-        <h2 className="text-lg font-bold text-foreground">Comments</h2>
-        <span className="text-sm text-foreground-muted">({comments.length})</span>
-        {session?.user?.id && (
-          <button
-            onClick={toggleSubscription}
-            disabled={togglingSubscription}
-            title={subscribed ? "Mute notifications for this debate" : "Get notified of new comments"}
-            className="ml-auto flex items-center gap-1.5 text-xs text-foreground-muted hover:text-foreground transition-colors px-2 py-1 rounded hover:bg-surface-raised disabled:opacity-50"
-          >
-            {subscribed ? (
-              <><Bell size={13} className="text-brand" /><span className="text-brand">Notifying</span></>
-            ) : (
-              <><BellOff size={13} /><span>Muted</span></>
-            )}
-          </button>
-        )}
-      </div>
-
-      {comments.length === 0 ? (
-        <p className="text-sm text-foreground-muted mb-4">No comments yet.</p>
-      ) : (
-        <div className="flex flex-col gap-4 mb-6">
-          {comments.map((c) => (
-            <div key={c.id} id={`comment-${c.id}`} className="flex gap-3 group scroll-mt-20 target:bg-brand-dim/30 rounded-lg -mx-2 px-2 py-1 transition-colors">
-              <Avatar initial={c.username[0]} size="sm" />
-              <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-2 mb-0.5">
-                  <span className="text-sm font-semibold text-foreground">{c.username}</span>
-                  {c.isLive && (
-                    <span title="Sent during live debate" className="inline-flex items-center gap-1 text-[10px] font-medium text-danger">
-                      <span className="w-1.5 h-1.5 rounded-full bg-danger inline-block" />
-                      LIVE
-                    </span>
-                  )}
-                  <span className="text-xs text-foreground-muted">
-                    {new Date(c.createdAt).toLocaleDateString()}
-                  </span>
-                  {session?.user?.id === c.userId && (
-                    <button
-                      onClick={() => deleteComment(c.id)}
-                      disabled={deletingId === c.id}
-                      title="Delete comment"
-                      className="ml-auto opacity-0 group-hover:opacity-100 transition-opacity p-1 rounded hover:bg-danger/10 text-foreground-subtle hover:text-danger disabled:opacity-40"
-                    >
-                      <Trash2 size={12} />
-                    </button>
-                  )}
-                </div>
-                <p className="text-sm text-foreground-muted leading-relaxed">{c.content}</p>
-              </div>
-            </div>
-          ))}
-          <div ref={endRef} />
+    <Card>
+      <CardBody>
+        {/* Header */}
+        <div className="flex items-center gap-2 mb-4">
+          <Users size={15} className="text-foreground-muted" />
+          <h2 className="text-base font-bold text-foreground">Community</h2>
+          {session?.user?.id && (
+            <button
+              onClick={toggleSubscription}
+              disabled={togglingSubscription}
+              title={subscribed ? "Mute notifications for this debate" : "Get notified of new comments"}
+              className="ml-auto flex items-center gap-1.5 text-xs text-foreground-muted hover:text-foreground transition-colors px-2 py-1 rounded hover:bg-surface-raised disabled:opacity-50"
+            >
+              {subscribed ? (
+                <><Bell size={13} className="text-brand" /><span className="text-brand">Notifying</span></>
+              ) : (
+                <><BellOff size={13} /><span>Muted</span></>
+              )}
+            </button>
+          )}
         </div>
-      )}
 
-      {session ? (
-        <form onSubmit={postComment} className="flex flex-col gap-2">
-          <textarea
-            className="w-full p-3 rounded-[--radius] bg-surface-raised border border-border text-foreground placeholder:text-foreground-subtle text-sm resize-none focus:outline-none focus:border-brand transition-colors"
-            rows={3}
-            placeholder="Share your thoughts on the debate..."
-            value={draft}
-            onChange={(e) => setDraft(e.target.value.slice(0, 1000))}
-            disabled={posting}
-          />
-          <div className="flex items-center justify-between">
-            <span className="text-xs text-foreground-muted">{draft.length}/1000</span>
-            <Button type="submit" size="sm" disabled={posting || draft.trim().length < 2}>
-              <Send size={13} className="mr-1.5" />
-              Post Comment
-            </Button>
+        {/* ── Audience Pick Vote ─────────────────────────────────────── */}
+        {debaterA && debaterB && <div className="mb-5 pb-5 border-b border-border">
+          <div className="flex items-center gap-1.5 mb-2">
+            <ThumbsUp size={12} className="text-accent" />
+            <span className="text-xs font-semibold text-foreground">Audience Pick</span>
+            <span className="text-xs text-foreground-muted ml-auto">{totalVotes} {totalVotes === 1 ? "vote" : "votes"}</span>
           </div>
-          {error && <p className="text-danger text-xs">{error}</p>}
-        </form>
-      ) : (
-        <Card>
-          <CardBody className="text-center py-4">
-            <p className="text-foreground-muted text-sm mb-2">Sign in to leave a comment.</p>
-            <Link href="/auth/login">
-              <Button size="sm" variant="outline">Sign In</Button>
-            </Link>
-          </CardBody>
-        </Card>
-      )}
-    </div>
+          <div className="flex flex-col gap-1.5">
+            {[debaterA, debaterB].map((d) => {
+              const p = pct(d.id);
+              const isProp = d.id === debaterA.id;
+              const isMyVote = voted === d.id;
+              const isOtherVote = voted !== null && voted !== d.id;
+              const canVote = isAuthenticated && !isParticipant;
+
+              const bar = (
+                <div className="h-1 rounded-full bg-surface-overlay overflow-hidden mt-1">
+                  <div
+                    className="h-full rounded-full transition-all duration-500"
+                    style={{ width: `${p}%`, backgroundColor: isProp ? "var(--brand)" : "var(--danger)" }}
+                  />
+                </div>
+              );
+
+              const inner = (
+                <div className="flex items-center gap-2 flex-1">
+                  <Avatar initial={d.username[0]} size="sm" />
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-medium text-foreground truncate">
+                        {d.username}
+                        {isMyVote && <span className="ml-1.5 text-[10px] text-accent font-semibold">✓ your pick</span>}
+                      </span>
+                      <span className="text-xs text-foreground-muted shrink-0 ml-2">{p}%</span>
+                    </div>
+                    {bar}
+                  </div>
+                </div>
+              );
+
+              if (!canVote) {
+                return (
+                  <div
+                    key={d.id}
+                    className="flex items-center gap-2 px-2 py-1.5 rounded-[--radius] border border-border bg-surface-raised"
+                  >
+                    {inner}
+                  </div>
+                );
+              }
+
+              return (
+                <button
+                  key={d.id}
+                  onClick={() => castVote(d.id)}
+                  disabled={voteLoading}
+                  title={isMyVote ? "Remove your vote" : isOtherVote ? "Transfer vote" : "Vote for this debater"}
+                  className={`w-full flex items-center gap-2 px-2 py-1.5 rounded-[--radius] border transition-colors text-left ${
+                    isMyVote
+                      ? "border-accent bg-accent/10 hover:bg-danger/10 hover:border-danger/40"
+                      : "border-border bg-surface-raised hover:border-brand/50 hover:bg-brand/5"
+                  }`}
+                >
+                  {inner}
+                </button>
+              );
+            })}
+          </div>
+          {!isAuthenticated && (
+            <p className="text-xs text-center mt-2">
+              <Link href="/auth/login" className="text-brand hover:underline">Sign in</Link>
+              <span className="text-foreground-muted"> to vote</span>
+            </p>
+          )}
+          {isParticipant && (
+            <p className="text-xs text-foreground-muted italic text-center mt-1.5">Participants cannot vote in their own debate.</p>
+          )}
+          {isAuthenticated && !isParticipant && voted && (
+            <p className="text-xs text-foreground-muted text-center mt-1.5">Tap again to remove &middot; tap the other to transfer</p>
+          )}
+          {isAuthenticated && !isParticipant && !voted && (
+            <p className="text-xs text-foreground-muted text-center mt-1.5">Tap a debater to cast your vote</p>
+          )}
+        </div>}
+
+        {/* ── Comments ──────────────────────────────────────────────── */}
+        <div className="flex items-center gap-1.5 mb-3">
+          <MessageSquare size={13} className="text-foreground-muted" />
+          <span className="text-xs font-semibold text-foreground">Comments</span>
+          <span className="text-xs text-foreground-muted">({comments.length})</span>
+        </div>
+
+        {comments.length === 0 ? (
+          <p className="text-sm text-foreground-muted mb-4">No comments yet.</p>
+        ) : (
+          <div className="flex flex-col gap-4 mb-4">
+            {comments.map((c) => (
+              <div key={c.id} id={`comment-${c.id}`} className="flex gap-3 group scroll-mt-20 target:bg-brand-dim/30 rounded-lg -mx-2 px-2 py-1 transition-colors">
+                <Avatar initial={c.username[0]} size="sm" />
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2 mb-0.5">
+                    <span className="text-sm font-semibold text-foreground">{c.username}</span>
+                    {c.isLive && (
+                      <span title="Sent during live debate" className="inline-flex items-center gap-1 text-[10px] font-medium text-danger">
+                        <span className="w-1.5 h-1.5 rounded-full bg-danger inline-block" />
+                        LIVE
+                      </span>
+                    )}
+                    <span className="text-xs text-foreground-muted">
+                      {new Date(c.createdAt).toLocaleDateString()}
+                    </span>
+                    {session?.user?.id === c.userId && (
+                      <button
+                        onClick={() => deleteComment(c.id)}
+                        disabled={deletingId === c.id}
+                        title="Delete comment"
+                        className="ml-auto opacity-0 group-hover:opacity-100 transition-opacity p-1 rounded hover:bg-danger/10 text-foreground-subtle hover:text-danger disabled:opacity-40"
+                      >
+                        <Trash2 size={12} />
+                      </button>
+                    )}
+                  </div>
+                  <p className="text-sm text-foreground-muted leading-relaxed">{c.content}</p>
+                </div>
+              </div>
+            ))}
+            <div ref={endRef} />
+          </div>
+        )}
+
+        {session ? (
+          <form onSubmit={postComment} className="flex gap-2 items-end">
+            <textarea
+              className="flex-1 p-2.5 rounded-[--radius] bg-surface-raised border border-border text-foreground placeholder:text-foreground-subtle text-sm resize-none focus:outline-none focus:border-brand transition-colors"
+              rows={2}
+              placeholder="Share your thoughts..."
+              value={draft}
+              onChange={(e) => setDraft(e.target.value.slice(0, 1000))}
+              disabled={posting}
+            />
+            <Button type="submit" size="sm" disabled={posting || draft.trim().length < 2} className="shrink-0">
+              <Send size={13} />
+            </Button>
+          </form>
+        ) : (
+          <p className="text-xs text-center text-foreground-muted">
+            <Link href="/auth/login" className="text-brand hover:underline">Sign in</Link> to comment
+          </p>
+        )}
+        {error && <p className="text-danger text-xs mt-1">{error}</p>}
+      </CardBody>
+    </Card>
   );
 }
+

@@ -7,7 +7,6 @@ import { Card, CardBody } from "@/components/ui/Card";
 import { Avatar } from "@/components/ui/Avatar";
 import { ROUND_LABEL, type RoundName } from "@/lib/debate-state";
 import { CommentsSection } from "./CommentsSection";
-import { AudienceVotePanel } from "./AudienceVotePanel";
 import { ResultsLiveUpdater } from "./ResultsLiveUpdater";
 import { RetriggerJudgingButton } from "./RetriggerJudgingButton";
 import { Trophy, Gavel, Users, CheckCircle2, XCircle, AlertCircle, HelpCircle, Scale } from "lucide-react";
@@ -93,8 +92,11 @@ export default async function ResultsPage({ params }: Props) {
         ? debate.debaterB
         : null;
 
-  // Audience vote leader (for emoji indicator in participants bar)
-  const audienceLeaderId = Object.entries(voteTally).sort(([, a], [, b]) => b - a)[0]?.[0] ?? null;
+  // Audience vote leader (for ribbon in participants bar)
+  const totalAudienceVotes = Object.values(voteTally).reduce((a, b) => a + b, 0);
+  const audienceLeaderId = totalAudienceVotes > 0
+    ? (Object.entries(voteTally).sort(([, a], [, b]) => b - a)[0]?.[0] ?? null)
+    : null;
 
   // Group turns by round (covers all phases including legacy "closing" rows)
   const roundGroups: Record<RoundName, typeof debate.turns> = {
@@ -221,10 +223,14 @@ export default async function ResultsPage({ params }: Props) {
                 <p className="font-bold text-foreground">
                   {propositionUser.username}
                   {winner?.id === propositionUser.id && <span className="ml-1.5" title="AI Winner">🏆</span>}
-                  {audienceLeaderId === propositionUser.id && <span className="ml-1" title="Audience Pick">👥</span>}
                 </p>
                 <p className="text-xs text-brand font-medium">Proposition</p>
                 <p className="text-xs text-foreground-muted">{propositionUser.elo} ELO</p>
+                {audienceLeaderId === propositionUser.id && (
+                  <span className="inline-flex items-center gap-1 mt-1 px-1.5 py-0.5 rounded text-[10px] font-semibold bg-accent/15 text-accent border border-accent/25">
+                    👍 Audience Pick
+                  </span>
+                )}
               </div>
             </Link>
             <span className="text-2xl font-black text-foreground-subtle shrink-0">VS</span>
@@ -232,11 +238,15 @@ export default async function ResultsPage({ params }: Props) {
               <div>
                 <p className="font-bold text-foreground">
                   {winner?.id === oppositionUser.id && <span className="mr-1.5" title="AI Winner">🏆</span>}
-                  {audienceLeaderId === oppositionUser.id && <span className="mr-1" title="Audience Pick">👥</span>}
                   {oppositionUser.username}
                 </p>
                 <p className="text-xs text-danger font-medium">Opposition</p>
                 <p className="text-xs text-foreground-muted">{oppositionUser.elo} ELO</p>
+                {audienceLeaderId === oppositionUser.id && (
+                  <span className="inline-flex items-center gap-1 mt-1 px-1.5 py-0.5 rounded text-[10px] font-semibold bg-accent/15 text-accent border border-accent/25">
+                    👍 Audience Pick
+                  </span>
+                )}
               </div>
               <Avatar initial={oppositionUser.username[0]} size="lg" />
             </Link>
@@ -551,19 +561,15 @@ export default async function ResultsPage({ params }: Props) {
 
       {/* Community — audience vote + comments */}
       <div className="mb-8">
-        <h2 className="text-lg font-bold text-foreground mb-4">Community</h2>
-        <div className="flex flex-col gap-6">
-          <AudienceVotePanel
-            challengeId={challengeId}
-            debateId={debate.id}
-            debaterA={debate.debaterA}
-            debaterB={debate.debaterB}
-            initialVotes={voteTally}
-            isParticipant={isDebaterA || isDebaterB}
-            isAuthenticated={!!sessionUserId}
-          />
-          <CommentsSection challengeId={challengeId} />
-        </div>
+        <CommentsSection
+          challengeId={challengeId}
+          debateId={debate.id}
+          debaterA={debate.debaterA}
+          debaterB={debate.debaterB}
+          initialVotes={voteTally}
+          isParticipant={isDebaterA || isDebaterB}
+          isAuthenticated={!!sessionUserId}
+        />
       </div>
     </div>
   );
