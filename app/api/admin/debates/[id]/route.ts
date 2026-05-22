@@ -55,6 +55,10 @@ export async function DELETE(
     data: { isDeleted: true } 
   });
 
+  // Hard-delete comments and subscriptions (soft delete doesn't trigger DB cascade)
+  await db.debateCommentSubscription.deleteMany({ where: { debateId: id } });
+  await db.debateComment.deleteMany({ where: { debateId: id } });
+
   // Remove all notifications referencing this debate
   await db.notification.deleteMany({
     where: { payload: { contains: debate.challengeId } },

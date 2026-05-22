@@ -172,6 +172,7 @@ model Category {
   favoritedBy UserFavoriteCategory[]
   debates     Debate[]
   challenges  Challenge[]
+  motions     MotionLibrary[]
 }
 
 // ============================================================
@@ -616,6 +617,22 @@ model TeamSettings {
   updatedAt DateTime @updatedAt
 
   @@map("team_settings")
+}
+
+// ============================================================
+// Motion Library (admin-managed bank of debate topics)
+// ============================================================
+
+model MotionLibrary {
+  id         String   @id @default(cuid())
+  text       String   @db.Text
+  categoryId String?
+  notes      String?  @db.Text
+  createdAt  DateTime @default(now())
+
+  category   Category? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+
+  @@map("motion_library")
 }
 
 // ============================================================

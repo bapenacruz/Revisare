@@ -34,8 +34,20 @@ export async function POST(req: NextRequest, { params }: RouteParams) {
     suspendDays?: number;
   };
 
-  if (!["warn", "suspend", "ban", "unban", "reset-password"].includes(body.action)) {
+  if (!["warn", "suspend", "ban", "unban", "reset-password", "reset-stats"].includes(body.action)) {
     return NextResponse.json({ error: "Invalid action" }, { status: 400 });
+  }
+
+  // Handle reset-stats separately
+  if (body.action === "reset-stats") {
+    await db.user.update({
+      where: { id: targetId },
+      data: { elo: 1000, wins: 0, losses: 0, rankedDebatesPlayed: 0 },
+    });
+    await db.adminAction.create({
+      data: { adminId: session!.user!.id, targetId, action: "reset-stats", reason: body.reason ?? null },
+    });
+    return NextResponse.json({ success: true });
   }
 
   const target = await db.user.findUnique({ where: { id: targetId } });

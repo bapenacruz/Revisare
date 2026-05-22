@@ -414,6 +414,9 @@ export const ModelName = {
   AdCategory: 'AdCategory',
   Ad: 'Ad',
   AdTurn: 'AdTurn',
+  TeamMember: 'TeamMember',
+  TeamSettings: 'TeamSettings',
+  MotionLibrary: 'MotionLibrary',
   AdBanner: 'AdBanner'
 } as const
 
@@ -430,7 +433,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "account" | "session" | "verificationToken" | "user" | "follow" | "followRequest" | "userFavoriteCategory" | "category" | "challenge" | "joinRequest" | "lobbyChatMessage" | "debate" | "audienceVote" | "debateComment" | "debateCommentSubscription" | "debateTurn" | "judgeResult" | "spectatorMessage" | "notification" | "integrityFlag" | "suspiciousTurnSignal" | "pushSubscription" | "passwordResetToken" | "adminAction" | "judgePrompt" | "debateResult" | "contactMessage" | "adCategory" | "ad" | "adTurn" | "adBanner"
+    modelProps: "account" | "session" | "verificationToken" | "user" | "follow" | "followRequest" | "userFavoriteCategory" | "category" | "challenge" | "joinRequest" | "lobbyChatMessage" | "debate" | "audienceVote" | "debateComment" | "debateCommentSubscription" | "debateTurn" | "judgeResult" | "spectatorMessage" | "notification" | "integrityFlag" | "suspiciousTurnSignal" | "pushSubscription" | "passwordResetToken" | "adminAction" | "judgePrompt" | "debateResult" | "contactMessage" | "adCategory" | "ad" | "adTurn" | "teamMember" | "teamSettings" | "motionLibrary" | "adBanner"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -2654,6 +2657,228 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    TeamMember: {
+      payload: Prisma.$TeamMemberPayload<ExtArgs>
+      fields: Prisma.TeamMemberFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.TeamMemberFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamMemberPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.TeamMemberFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamMemberPayload>
+        }
+        findFirst: {
+          args: Prisma.TeamMemberFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamMemberPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.TeamMemberFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamMemberPayload>
+        }
+        findMany: {
+          args: Prisma.TeamMemberFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamMemberPayload>[]
+        }
+        create: {
+          args: Prisma.TeamMemberCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamMemberPayload>
+        }
+        createMany: {
+          args: Prisma.TeamMemberCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.TeamMemberCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamMemberPayload>[]
+        }
+        delete: {
+          args: Prisma.TeamMemberDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamMemberPayload>
+        }
+        update: {
+          args: Prisma.TeamMemberUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamMemberPayload>
+        }
+        deleteMany: {
+          args: Prisma.TeamMemberDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.TeamMemberUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.TeamMemberUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamMemberPayload>[]
+        }
+        upsert: {
+          args: Prisma.TeamMemberUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamMemberPayload>
+        }
+        aggregate: {
+          args: Prisma.TeamMemberAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateTeamMember>
+        }
+        groupBy: {
+          args: Prisma.TeamMemberGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TeamMemberGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.TeamMemberCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TeamMemberCountAggregateOutputType> | number
+        }
+      }
+    }
+    TeamSettings: {
+      payload: Prisma.$TeamSettingsPayload<ExtArgs>
+      fields: Prisma.TeamSettingsFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.TeamSettingsFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamSettingsPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.TeamSettingsFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamSettingsPayload>
+        }
+        findFirst: {
+          args: Prisma.TeamSettingsFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamSettingsPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.TeamSettingsFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamSettingsPayload>
+        }
+        findMany: {
+          args: Prisma.TeamSettingsFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamSettingsPayload>[]
+        }
+        create: {
+          args: Prisma.TeamSettingsCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamSettingsPayload>
+        }
+        createMany: {
+          args: Prisma.TeamSettingsCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.TeamSettingsCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamSettingsPayload>[]
+        }
+        delete: {
+          args: Prisma.TeamSettingsDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamSettingsPayload>
+        }
+        update: {
+          args: Prisma.TeamSettingsUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamSettingsPayload>
+        }
+        deleteMany: {
+          args: Prisma.TeamSettingsDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.TeamSettingsUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.TeamSettingsUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamSettingsPayload>[]
+        }
+        upsert: {
+          args: Prisma.TeamSettingsUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamSettingsPayload>
+        }
+        aggregate: {
+          args: Prisma.TeamSettingsAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateTeamSettings>
+        }
+        groupBy: {
+          args: Prisma.TeamSettingsGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TeamSettingsGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.TeamSettingsCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TeamSettingsCountAggregateOutputType> | number
+        }
+      }
+    }
+    MotionLibrary: {
+      payload: Prisma.$MotionLibraryPayload<ExtArgs>
+      fields: Prisma.MotionLibraryFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.MotionLibraryFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MotionLibraryPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.MotionLibraryFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MotionLibraryPayload>
+        }
+        findFirst: {
+          args: Prisma.MotionLibraryFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MotionLibraryPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.MotionLibraryFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MotionLibraryPayload>
+        }
+        findMany: {
+          args: Prisma.MotionLibraryFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MotionLibraryPayload>[]
+        }
+        create: {
+          args: Prisma.MotionLibraryCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MotionLibraryPayload>
+        }
+        createMany: {
+          args: Prisma.MotionLibraryCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.MotionLibraryCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MotionLibraryPayload>[]
+        }
+        delete: {
+          args: Prisma.MotionLibraryDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MotionLibraryPayload>
+        }
+        update: {
+          args: Prisma.MotionLibraryUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MotionLibraryPayload>
+        }
+        deleteMany: {
+          args: Prisma.MotionLibraryDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.MotionLibraryUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.MotionLibraryUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MotionLibraryPayload>[]
+        }
+        upsert: {
+          args: Prisma.MotionLibraryUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MotionLibraryPayload>
+        }
+        aggregate: {
+          args: Prisma.MotionLibraryAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMotionLibrary>
+        }
+        groupBy: {
+          args: Prisma.MotionLibraryGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MotionLibraryGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.MotionLibraryCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MotionLibraryCountAggregateOutputType> | number
+        }
+      }
+    }
     AdBanner: {
       payload: Prisma.$AdBannerPayload<ExtArgs>
       fields: Prisma.AdBannerFieldRefs
@@ -3214,6 +3439,41 @@ export const AdTurnScalarFieldEnum = {
 export type AdTurnScalarFieldEnum = (typeof AdTurnScalarFieldEnum)[keyof typeof AdTurnScalarFieldEnum]
 
 
+export const TeamMemberScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  role: 'role',
+  description: 'description',
+  imageDataUrl: 'imageDataUrl',
+  order: 'order',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TeamMemberScalarFieldEnum = (typeof TeamMemberScalarFieldEnum)[keyof typeof TeamMemberScalarFieldEnum]
+
+
+export const TeamSettingsScalarFieldEnum = {
+  id: 'id',
+  introText: 'introText',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TeamSettingsScalarFieldEnum = (typeof TeamSettingsScalarFieldEnum)[keyof typeof TeamSettingsScalarFieldEnum]
+
+
+export const MotionLibraryScalarFieldEnum = {
+  id: 'id',
+  text: 'text',
+  categoryId: 'categoryId',
+  notes: 'notes',
+  createdAt: 'createdAt'
+} as const
+
+export type MotionLibraryScalarFieldEnum = (typeof MotionLibraryScalarFieldEnum)[keyof typeof MotionLibraryScalarFieldEnum]
+
+
 export const AdBannerScalarFieldEnum = {
   id: 'id',
   businessName: 'businessName',
@@ -3481,6 +3741,9 @@ export type GlobalOmitConfig = {
   adCategory?: Prisma.AdCategoryOmit
   ad?: Prisma.AdOmit
   adTurn?: Prisma.AdTurnOmit
+  teamMember?: Prisma.TeamMemberOmit
+  teamSettings?: Prisma.TeamSettingsOmit
+  motionLibrary?: Prisma.MotionLibraryOmit
   adBanner?: Prisma.AdBannerOmit
 }
 

@@ -243,6 +243,7 @@ export type CategoryWhereInput = {
   favoritedBy?: Prisma.UserFavoriteCategoryListRelationFilter
   debates?: Prisma.DebateListRelationFilter
   challenges?: Prisma.ChallengeListRelationFilter
+  motions?: Prisma.MotionLibraryListRelationFilter
 }
 
 export type CategoryOrderByWithRelationInput = {
@@ -257,6 +258,7 @@ export type CategoryOrderByWithRelationInput = {
   favoritedBy?: Prisma.UserFavoriteCategoryOrderByRelationAggregateInput
   debates?: Prisma.DebateOrderByRelationAggregateInput
   challenges?: Prisma.ChallengeOrderByRelationAggregateInput
+  motions?: Prisma.MotionLibraryOrderByRelationAggregateInput
 }
 
 export type CategoryWhereUniqueInput = Prisma.AtLeast<{
@@ -274,6 +276,7 @@ export type CategoryWhereUniqueInput = Prisma.AtLeast<{
   favoritedBy?: Prisma.UserFavoriteCategoryListRelationFilter
   debates?: Prisma.DebateListRelationFilter
   challenges?: Prisma.ChallengeListRelationFilter
+  motions?: Prisma.MotionLibraryListRelationFilter
 }, "id" | "slug">
 
 export type CategoryOrderByWithAggregationInput = {
@@ -318,6 +321,7 @@ export type CategoryCreateInput = {
   favoritedBy?: Prisma.UserFavoriteCategoryCreateNestedManyWithoutCategoryInput
   debates?: Prisma.DebateCreateNestedManyWithoutCategoryInput
   challenges?: Prisma.ChallengeCreateNestedManyWithoutCategoryInput
+  motions?: Prisma.MotionLibraryCreateNestedManyWithoutCategoryInput
 }
 
 export type CategoryUncheckedCreateInput = {
@@ -332,6 +336,7 @@ export type CategoryUncheckedCreateInput = {
   favoritedBy?: Prisma.UserFavoriteCategoryUncheckedCreateNestedManyWithoutCategoryInput
   debates?: Prisma.DebateUncheckedCreateNestedManyWithoutCategoryInput
   challenges?: Prisma.ChallengeUncheckedCreateNestedManyWithoutCategoryInput
+  motions?: Prisma.MotionLibraryUncheckedCreateNestedManyWithoutCategoryInput
 }
 
 export type CategoryUpdateInput = {
@@ -346,6 +351,7 @@ export type CategoryUpdateInput = {
   favoritedBy?: Prisma.UserFavoriteCategoryUpdateManyWithoutCategoryNestedInput
   debates?: Prisma.DebateUpdateManyWithoutCategoryNestedInput
   challenges?: Prisma.ChallengeUpdateManyWithoutCategoryNestedInput
+  motions?: Prisma.MotionLibraryUpdateManyWithoutCategoryNestedInput
 }
 
 export type CategoryUncheckedUpdateInput = {
@@ -360,6 +366,7 @@ export type CategoryUncheckedUpdateInput = {
   favoritedBy?: Prisma.UserFavoriteCategoryUncheckedUpdateManyWithoutCategoryNestedInput
   debates?: Prisma.DebateUncheckedUpdateManyWithoutCategoryNestedInput
   challenges?: Prisma.ChallengeUncheckedUpdateManyWithoutCategoryNestedInput
+  motions?: Prisma.MotionLibraryUncheckedUpdateManyWithoutCategoryNestedInput
 }
 
 export type CategoryCreateManyInput = {
@@ -441,6 +448,11 @@ export type CategorySumOrderByAggregateInput = {
   order?: Prisma.SortOrder
 }
 
+export type CategoryNullableScalarRelationFilter = {
+  is?: Prisma.CategoryWhereInput | null
+  isNot?: Prisma.CategoryWhereInput | null
+}
+
 export type CategoryCreateNestedOneWithoutFavoritedByInput = {
   create?: Prisma.XOR<Prisma.CategoryCreateWithoutFavoritedByInput, Prisma.CategoryUncheckedCreateWithoutFavoritedByInput>
   connectOrCreate?: Prisma.CategoryCreateOrConnectWithoutFavoritedByInput
@@ -483,6 +495,22 @@ export type CategoryUpdateOneRequiredWithoutDebatesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.CategoryUpdateToOneWithWhereWithoutDebatesInput, Prisma.CategoryUpdateWithoutDebatesInput>, Prisma.CategoryUncheckedUpdateWithoutDebatesInput>
 }
 
+export type CategoryCreateNestedOneWithoutMotionsInput = {
+  create?: Prisma.XOR<Prisma.CategoryCreateWithoutMotionsInput, Prisma.CategoryUncheckedCreateWithoutMotionsInput>
+  connectOrCreate?: Prisma.CategoryCreateOrConnectWithoutMotionsInput
+  connect?: Prisma.CategoryWhereUniqueInput
+}
+
+export type CategoryUpdateOneWithoutMotionsNestedInput = {
+  create?: Prisma.XOR<Prisma.CategoryCreateWithoutMotionsInput, Prisma.CategoryUncheckedCreateWithoutMotionsInput>
+  connectOrCreate?: Prisma.CategoryCreateOrConnectWithoutMotionsInput
+  upsert?: Prisma.CategoryUpsertWithoutMotionsInput
+  disconnect?: Prisma.CategoryWhereInput | boolean
+  delete?: Prisma.CategoryWhereInput | boolean
+  connect?: Prisma.CategoryWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CategoryUpdateToOneWithWhereWithoutMotionsInput, Prisma.CategoryUpdateWithoutMotionsInput>, Prisma.CategoryUncheckedUpdateWithoutMotionsInput>
+}
+
 export type CategoryCreateWithoutFavoritedByInput = {
   id?: string
   slug: string
@@ -494,6 +522,7 @@ export type CategoryCreateWithoutFavoritedByInput = {
   createdAt?: Date | string
   debates?: Prisma.DebateCreateNestedManyWithoutCategoryInput
   challenges?: Prisma.ChallengeCreateNestedManyWithoutCategoryInput
+  motions?: Prisma.MotionLibraryCreateNestedManyWithoutCategoryInput
 }
 
 export type CategoryUncheckedCreateWithoutFavoritedByInput = {
@@ -507,6 +536,7 @@ export type CategoryUncheckedCreateWithoutFavoritedByInput = {
   createdAt?: Date | string
   debates?: Prisma.DebateUncheckedCreateNestedManyWithoutCategoryInput
   challenges?: Prisma.ChallengeUncheckedCreateNestedManyWithoutCategoryInput
+  motions?: Prisma.MotionLibraryUncheckedCreateNestedManyWithoutCategoryInput
 }
 
 export type CategoryCreateOrConnectWithoutFavoritedByInput = {
@@ -536,6 +566,7 @@ export type CategoryUpdateWithoutFavoritedByInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   debates?: Prisma.DebateUpdateManyWithoutCategoryNestedInput
   challenges?: Prisma.ChallengeUpdateManyWithoutCategoryNestedInput
+  motions?: Prisma.MotionLibraryUpdateManyWithoutCategoryNestedInput
 }
 
 export type CategoryUncheckedUpdateWithoutFavoritedByInput = {
@@ -549,6 +580,7 @@ export type CategoryUncheckedUpdateWithoutFavoritedByInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   debates?: Prisma.DebateUncheckedUpdateManyWithoutCategoryNestedInput
   challenges?: Prisma.ChallengeUncheckedUpdateManyWithoutCategoryNestedInput
+  motions?: Prisma.MotionLibraryUncheckedUpdateManyWithoutCategoryNestedInput
 }
 
 export type CategoryCreateWithoutChallengesInput = {
@@ -562,6 +594,7 @@ export type CategoryCreateWithoutChallengesInput = {
   createdAt?: Date | string
   favoritedBy?: Prisma.UserFavoriteCategoryCreateNestedManyWithoutCategoryInput
   debates?: Prisma.DebateCreateNestedManyWithoutCategoryInput
+  motions?: Prisma.MotionLibraryCreateNestedManyWithoutCategoryInput
 }
 
 export type CategoryUncheckedCreateWithoutChallengesInput = {
@@ -575,6 +608,7 @@ export type CategoryUncheckedCreateWithoutChallengesInput = {
   createdAt?: Date | string
   favoritedBy?: Prisma.UserFavoriteCategoryUncheckedCreateNestedManyWithoutCategoryInput
   debates?: Prisma.DebateUncheckedCreateNestedManyWithoutCategoryInput
+  motions?: Prisma.MotionLibraryUncheckedCreateNestedManyWithoutCategoryInput
 }
 
 export type CategoryCreateOrConnectWithoutChallengesInput = {
@@ -604,6 +638,7 @@ export type CategoryUpdateWithoutChallengesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   favoritedBy?: Prisma.UserFavoriteCategoryUpdateManyWithoutCategoryNestedInput
   debates?: Prisma.DebateUpdateManyWithoutCategoryNestedInput
+  motions?: Prisma.MotionLibraryUpdateManyWithoutCategoryNestedInput
 }
 
 export type CategoryUncheckedUpdateWithoutChallengesInput = {
@@ -617,6 +652,7 @@ export type CategoryUncheckedUpdateWithoutChallengesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   favoritedBy?: Prisma.UserFavoriteCategoryUncheckedUpdateManyWithoutCategoryNestedInput
   debates?: Prisma.DebateUncheckedUpdateManyWithoutCategoryNestedInput
+  motions?: Prisma.MotionLibraryUncheckedUpdateManyWithoutCategoryNestedInput
 }
 
 export type CategoryCreateWithoutDebatesInput = {
@@ -630,6 +666,7 @@ export type CategoryCreateWithoutDebatesInput = {
   createdAt?: Date | string
   favoritedBy?: Prisma.UserFavoriteCategoryCreateNestedManyWithoutCategoryInput
   challenges?: Prisma.ChallengeCreateNestedManyWithoutCategoryInput
+  motions?: Prisma.MotionLibraryCreateNestedManyWithoutCategoryInput
 }
 
 export type CategoryUncheckedCreateWithoutDebatesInput = {
@@ -643,6 +680,7 @@ export type CategoryUncheckedCreateWithoutDebatesInput = {
   createdAt?: Date | string
   favoritedBy?: Prisma.UserFavoriteCategoryUncheckedCreateNestedManyWithoutCategoryInput
   challenges?: Prisma.ChallengeUncheckedCreateNestedManyWithoutCategoryInput
+  motions?: Prisma.MotionLibraryUncheckedCreateNestedManyWithoutCategoryInput
 }
 
 export type CategoryCreateOrConnectWithoutDebatesInput = {
@@ -672,6 +710,7 @@ export type CategoryUpdateWithoutDebatesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   favoritedBy?: Prisma.UserFavoriteCategoryUpdateManyWithoutCategoryNestedInput
   challenges?: Prisma.ChallengeUpdateManyWithoutCategoryNestedInput
+  motions?: Prisma.MotionLibraryUpdateManyWithoutCategoryNestedInput
 }
 
 export type CategoryUncheckedUpdateWithoutDebatesInput = {
@@ -685,6 +724,79 @@ export type CategoryUncheckedUpdateWithoutDebatesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   favoritedBy?: Prisma.UserFavoriteCategoryUncheckedUpdateManyWithoutCategoryNestedInput
   challenges?: Prisma.ChallengeUncheckedUpdateManyWithoutCategoryNestedInput
+  motions?: Prisma.MotionLibraryUncheckedUpdateManyWithoutCategoryNestedInput
+}
+
+export type CategoryCreateWithoutMotionsInput = {
+  id?: string
+  slug: string
+  label: string
+  emoji: string
+  description: string
+  order?: number
+  isActive?: boolean
+  createdAt?: Date | string
+  favoritedBy?: Prisma.UserFavoriteCategoryCreateNestedManyWithoutCategoryInput
+  debates?: Prisma.DebateCreateNestedManyWithoutCategoryInput
+  challenges?: Prisma.ChallengeCreateNestedManyWithoutCategoryInput
+}
+
+export type CategoryUncheckedCreateWithoutMotionsInput = {
+  id?: string
+  slug: string
+  label: string
+  emoji: string
+  description: string
+  order?: number
+  isActive?: boolean
+  createdAt?: Date | string
+  favoritedBy?: Prisma.UserFavoriteCategoryUncheckedCreateNestedManyWithoutCategoryInput
+  debates?: Prisma.DebateUncheckedCreateNestedManyWithoutCategoryInput
+  challenges?: Prisma.ChallengeUncheckedCreateNestedManyWithoutCategoryInput
+}
+
+export type CategoryCreateOrConnectWithoutMotionsInput = {
+  where: Prisma.CategoryWhereUniqueInput
+  create: Prisma.XOR<Prisma.CategoryCreateWithoutMotionsInput, Prisma.CategoryUncheckedCreateWithoutMotionsInput>
+}
+
+export type CategoryUpsertWithoutMotionsInput = {
+  update: Prisma.XOR<Prisma.CategoryUpdateWithoutMotionsInput, Prisma.CategoryUncheckedUpdateWithoutMotionsInput>
+  create: Prisma.XOR<Prisma.CategoryCreateWithoutMotionsInput, Prisma.CategoryUncheckedCreateWithoutMotionsInput>
+  where?: Prisma.CategoryWhereInput
+}
+
+export type CategoryUpdateToOneWithWhereWithoutMotionsInput = {
+  where?: Prisma.CategoryWhereInput
+  data: Prisma.XOR<Prisma.CategoryUpdateWithoutMotionsInput, Prisma.CategoryUncheckedUpdateWithoutMotionsInput>
+}
+
+export type CategoryUpdateWithoutMotionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  label?: Prisma.StringFieldUpdateOperationsInput | string
+  emoji?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  order?: Prisma.IntFieldUpdateOperationsInput | number
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  favoritedBy?: Prisma.UserFavoriteCategoryUpdateManyWithoutCategoryNestedInput
+  debates?: Prisma.DebateUpdateManyWithoutCategoryNestedInput
+  challenges?: Prisma.ChallengeUpdateManyWithoutCategoryNestedInput
+}
+
+export type CategoryUncheckedUpdateWithoutMotionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  label?: Prisma.StringFieldUpdateOperationsInput | string
+  emoji?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  order?: Prisma.IntFieldUpdateOperationsInput | number
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  favoritedBy?: Prisma.UserFavoriteCategoryUncheckedUpdateManyWithoutCategoryNestedInput
+  debates?: Prisma.DebateUncheckedUpdateManyWithoutCategoryNestedInput
+  challenges?: Prisma.ChallengeUncheckedUpdateManyWithoutCategoryNestedInput
 }
 
 
@@ -696,12 +808,14 @@ export type CategoryCountOutputType = {
   favoritedBy: number
   debates: number
   challenges: number
+  motions: number
 }
 
 export type CategoryCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   favoritedBy?: boolean | CategoryCountOutputTypeCountFavoritedByArgs
   debates?: boolean | CategoryCountOutputTypeCountDebatesArgs
   challenges?: boolean | CategoryCountOutputTypeCountChallengesArgs
+  motions?: boolean | CategoryCountOutputTypeCountMotionsArgs
 }
 
 /**
@@ -735,6 +849,13 @@ export type CategoryCountOutputTypeCountChallengesArgs<ExtArgs extends runtime.T
   where?: Prisma.ChallengeWhereInput
 }
 
+/**
+ * CategoryCountOutputType without action
+ */
+export type CategoryCountOutputTypeCountMotionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.MotionLibraryWhereInput
+}
+
 
 export type CategorySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -748,6 +869,7 @@ export type CategorySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   favoritedBy?: boolean | Prisma.Category$favoritedByArgs<ExtArgs>
   debates?: boolean | Prisma.Category$debatesArgs<ExtArgs>
   challenges?: boolean | Prisma.Category$challengesArgs<ExtArgs>
+  motions?: boolean | Prisma.Category$motionsArgs<ExtArgs>
   _count?: boolean | Prisma.CategoryCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["category"]>
 
@@ -789,6 +911,7 @@ export type CategoryInclude<ExtArgs extends runtime.Types.Extensions.InternalArg
   favoritedBy?: boolean | Prisma.Category$favoritedByArgs<ExtArgs>
   debates?: boolean | Prisma.Category$debatesArgs<ExtArgs>
   challenges?: boolean | Prisma.Category$challengesArgs<ExtArgs>
+  motions?: boolean | Prisma.Category$motionsArgs<ExtArgs>
   _count?: boolean | Prisma.CategoryCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type CategoryIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -800,6 +923,7 @@ export type $CategoryPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     favoritedBy: Prisma.$UserFavoriteCategoryPayload<ExtArgs>[]
     debates: Prisma.$DebatePayload<ExtArgs>[]
     challenges: Prisma.$ChallengePayload<ExtArgs>[]
+    motions: Prisma.$MotionLibraryPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1207,6 +1331,7 @@ export interface Prisma__CategoryClient<T, Null = never, ExtArgs extends runtime
   favoritedBy<T extends Prisma.Category$favoritedByArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Category$favoritedByArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserFavoriteCategoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   debates<T extends Prisma.Category$debatesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Category$debatesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DebatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   challenges<T extends Prisma.Category$challengesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Category$challengesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ChallengePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  motions<T extends Prisma.Category$motionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Category$motionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MotionLibraryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1706,6 +1831,30 @@ export type Category$challengesArgs<ExtArgs extends runtime.Types.Extensions.Int
   take?: number
   skip?: number
   distinct?: Prisma.ChallengeScalarFieldEnum | Prisma.ChallengeScalarFieldEnum[]
+}
+
+/**
+ * Category.motions
+ */
+export type Category$motionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the MotionLibrary
+   */
+  select?: Prisma.MotionLibrarySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the MotionLibrary
+   */
+  omit?: Prisma.MotionLibraryOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MotionLibraryInclude<ExtArgs> | null
+  where?: Prisma.MotionLibraryWhereInput
+  orderBy?: Prisma.MotionLibraryOrderByWithRelationInput | Prisma.MotionLibraryOrderByWithRelationInput[]
+  cursor?: Prisma.MotionLibraryWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.MotionLibraryScalarFieldEnum | Prisma.MotionLibraryScalarFieldEnum[]
 }
 
 /**

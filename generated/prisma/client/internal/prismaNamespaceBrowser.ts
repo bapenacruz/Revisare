@@ -81,6 +81,9 @@ export const ModelName = {
   AdCategory: 'AdCategory',
   Ad: 'Ad',
   AdTurn: 'AdTurn',
+  TeamMember: 'TeamMember',
+  TeamSettings: 'TeamSettings',
+  MotionLibrary: 'MotionLibrary',
   AdBanner: 'AdBanner'
 } as const
 
@@ -545,6 +548,41 @@ export const AdTurnScalarFieldEnum = {
 } as const
 
 export type AdTurnScalarFieldEnum = (typeof AdTurnScalarFieldEnum)[keyof typeof AdTurnScalarFieldEnum]
+
+
+export const TeamMemberScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  role: 'role',
+  description: 'description',
+  imageDataUrl: 'imageDataUrl',
+  order: 'order',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TeamMemberScalarFieldEnum = (typeof TeamMemberScalarFieldEnum)[keyof typeof TeamMemberScalarFieldEnum]
+
+
+export const TeamSettingsScalarFieldEnum = {
+  id: 'id',
+  introText: 'introText',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TeamSettingsScalarFieldEnum = (typeof TeamSettingsScalarFieldEnum)[keyof typeof TeamSettingsScalarFieldEnum]
+
+
+export const MotionLibraryScalarFieldEnum = {
+  id: 'id',
+  text: 'text',
+  categoryId: 'categoryId',
+  notes: 'notes',
+  createdAt: 'createdAt'
+} as const
+
+export type MotionLibraryScalarFieldEnum = (typeof MotionLibraryScalarFieldEnum)[keyof typeof MotionLibraryScalarFieldEnum]
 
 
 export const AdBannerScalarFieldEnum = {

@@ -370,6 +370,27 @@ export function UserRow({ user }: { user: User }) {
                         {hideFromLeaderboard ? "Show on Leaderboard" : "Hide from Leaderboard"}
                       </button>
 
+                      {/* Reset stats */}
+                      <button
+                        onClick={async (e) => {
+                          e.stopPropagation();
+                          if (!confirm(`Reset ELO, wins, losses and ranked debates for ${user.username} back to defaults?`)) return;
+                          setLoading(true);
+                          const res = await fetch(`/api/admin/users/${user.id}/action`, {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({ action: "reset-stats", reason }),
+                          });
+                          setLoading(false);
+                          if (res.ok) { setMsg("Stats reset ✓"); router.refresh(); }
+                          else { const d = await res.json(); setMsg(d.error ?? "Failed to reset stats"); }
+                        }}
+                        disabled={loading}
+                        className="px-3 py-1.5 text-sm rounded bg-surface border border-border text-foreground-muted hover:text-foreground disabled:opacity-50"
+                      >
+                        Reset Stats
+                      </button>
+
                       {/* Delete */}
                       {!confirmDelete ? (
                         <button

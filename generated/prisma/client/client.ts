@@ -192,6 +192,21 @@ export type Ad = Prisma.AdModel
  */
 export type AdTurn = Prisma.AdTurnModel
 /**
+ * Model TeamMember
+ * 
+ */
+export type TeamMember = Prisma.TeamMemberModel
+/**
+ * Model TeamSettings
+ * 
+ */
+export type TeamSettings = Prisma.TeamSettingsModel
+/**
+ * Model MotionLibrary
+ * 
+ */
+export type MotionLibrary = Prisma.MotionLibraryModel
+/**
  * Model AdBanner
  * 
  */
