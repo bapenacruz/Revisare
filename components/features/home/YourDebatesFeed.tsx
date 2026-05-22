@@ -2,7 +2,7 @@
 
 import { useState, useRef, useCallback, useEffect } from "react";
 import Link from "next/link";
-import { Swords, Trophy } from "lucide-react";
+import { Swords } from "lucide-react";
 import { useSession } from "@/components/providers/SessionProvider";
 import { Card, CardBody } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
@@ -16,6 +16,7 @@ type YourDebateItem = {
   ranked: boolean;
   status: string;
   winnerId: string | null;
+  audienceLeaderId: string | null;
   completedAt: string | null;
   startedAt: string | null;
   debaterA: { id: string; username: string };
@@ -162,12 +163,13 @@ export function YourDebatesFeed() {
                     <div className="flex flex-col gap-1">
                       {[debate.debaterA, debate.debaterB].map((p) => {
                         const isWinner = debate.winnerId === p.id;
+                        const isAudiencePick = debate.audienceLeaderId === p.id;
                         return (
                           <div key={p.id} className={`flex items-center gap-1.5 text-xs ${isWinner ? "font-semibold text-foreground" : "text-foreground-muted opacity-70"}`}>
-                            {isWinner && <Trophy size={11} className="text-accent shrink-0" />}
-                            {!isWinner && <span className="w-[11px] shrink-0" />}
                             <Avatar initial={p.username[0].toUpperCase()} size="xs" />
                             <span className="truncate">{p.username}</span>
+                            {isWinner && <span title="AI Winner">🏆</span>}
+                            {isAudiencePick && <span title="Audience Pick">🥇</span>}
                           </div>
                         );
                       })}

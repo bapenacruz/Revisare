@@ -33,11 +33,22 @@ export async function GET(req: NextRequest) {
       debaterA: { select: { id: true, username: true } },
       debaterB: { select: { id: true, username: true } },
       category: { select: { label: true, emoji: true } },
+      audienceVotes: { select: { votedForId: true } },
     },
   });
 
   const hasMore = rows.length > PAGE_SIZE;
-  const items = hasMore ? rows.slice(0, PAGE_SIZE) : rows;
+  const rawItems = hasMore ? rows.slice(0, PAGE_SIZE) : rows;
+
+  const items = rawItems.map(({ audienceVotes, ...rest }) => {
+    const tally: Record<string, number> = {};
+    for (const v of audienceVotes) tally[v.votedForId] = (tally[v.votedForId] ?? 0) + 1;
+    const total = Object.values(tally).reduce((a, b) => a + b, 0);
+    const audienceLeaderId = total > 0
+      ? Object.entries(tally).sort((a, b) => b[1] - a[1])[0][0]
+      : null;
+    return { ...rest, audienceLeaderId };
+  });
 
   return NextResponse.json({
     items,
