@@ -1,7 +1,7 @@
 ﻿"use client";
 
 import { useState, useRef, useEffect } from "react";
-import { Paperclip, X, Send, CheckCircle2, Users, MessageSquare, BarChart3, Zap, Scale, Brain } from "lucide-react";
+import { Paperclip, X, Send, CheckCircle2, Users, MessageSquare, BarChart3, Zap, Scale, Brain, Trophy, Star, ThumbsUp } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const VERSION = "0.1.0";
@@ -191,6 +191,10 @@ type Stats = {
   debatesThisMonth: number;
   debatesThisYear: number;
   totalUsers: number;
+  rankedDebates: number;
+  totalJudgments: number;
+  totalComments: number;
+  totalVotes: number;
   topCategories: { label: string; emoji: string; count: number }[];
 };
 
@@ -440,11 +444,15 @@ export default function AboutPage() {
           {stats && (
             <>
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                <StatCard label="Total Debates" value={stats.totalDebates} icon={<MessageSquare size={14} />} />
-                <StatCard label="Today" value={stats.debatesToday} icon={<Zap size={14} />} />
+                <StatCard label="Completed Debates" value={stats.totalDebates} icon={<MessageSquare size={14} />} />
+                <StatCard label="Completed Today" value={stats.debatesToday} icon={<Zap size={14} />} />
                 <StatCard label="This Month" value={stats.debatesThisMonth} icon={<BarChart3 size={14} />} />
                 <StatCard label="This Year" value={stats.debatesThisYear} icon={<BarChart3 size={14} />} />
                 <StatCard label="Members" value={stats.totalUsers} icon={<Users size={14} />} />
+                <StatCard label="Ranked Debates" value={stats.rankedDebates} icon={<Trophy size={14} />} />
+                <StatCard label="AI Judgments" value={stats.totalJudgments} icon={<Star size={14} />} />
+                <StatCard label="Audience Votes" value={stats.totalVotes} icon={<ThumbsUp size={14} />} />
+                <StatCard label="Comments" value={stats.totalComments} icon={<MessageSquare size={14} />} />
               </div>
 
               {stats.topCategories.length > 0 && (
