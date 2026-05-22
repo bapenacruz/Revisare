@@ -27,6 +27,7 @@ export default async function PublicProfilePage({ params }: Props) {
     select: {
       id: true,
       username: true,
+      email: true,
       bio: true,
       country: true,
       region: true,
@@ -113,6 +114,9 @@ export default async function PublicProfilePage({ params }: Props) {
                     <MapPin size={11} />
                     {[user.region, user.country].filter(Boolean).join(", ")}
                   </p>
+                )}
+                {user.email && (isSelf || !user.isPrivate || isFollowing) && (
+                  <p className="text-xs text-foreground-muted mt-0.5">{user.email}</p>
                 )}
               </div>
               {!isSelf && session?.user && (
