@@ -23,11 +23,6 @@ export default async function AdDebatePage({ params }: { params: Promise<{ id: s
 
   return (
     <div className="mx-auto max-w-3xl px-4 sm:px-6 py-8">
-      {/* Back */}
-      <Link href="/" className="inline-flex items-center gap-1.5 text-sm text-foreground-muted hover:text-foreground transition-colors mb-6">
-        <ArrowLeft size={14} /> Back to feed
-      </Link>
-
       {/* Header */}
       <div className="mb-6">
         <div className="flex items-center gap-2 mb-3">
@@ -86,9 +81,12 @@ export default async function AdDebatePage({ params }: { params: Promise<{ id: s
         </div>
       )}
 
-      {/* CTA */}
-      {ad.linkUrl && (
-        <div className="border-t border-border pt-6 flex justify-center">
+      {/* Bottom bar */}
+      <div className="border-t border-border pt-6 flex items-center justify-between gap-4">
+        <Link href="/" className="inline-flex items-center gap-1.5 text-sm text-foreground-muted hover:text-foreground transition-colors">
+          <ArrowLeft size={14} /> Back to feed
+        </Link>
+        {ad.linkUrl && (
           <a
             href={ad.linkUrl.startsWith("http") ? ad.linkUrl : `https://${ad.linkUrl}`}
             target="_blank"
@@ -97,8 +95,8 @@ export default async function AdDebatePage({ params }: { params: Promise<{ id: s
           >
             Visit {ad.businessName ?? "Website"} <ExternalLink size={13} />
           </a>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 }

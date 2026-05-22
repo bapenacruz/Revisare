@@ -564,8 +564,8 @@ export default async function ResultsPage({ params }: Props) {
 
       {/* Footer nav */}
       <div className="pt-4 border-t border-border">
-        <Link href="/debates" className="text-sm text-foreground-muted hover:text-foreground transition-colors">
-          ← Back to debates
+        <Link href="/" className="text-sm text-foreground-muted hover:text-foreground transition-colors">
+          ← Back to feed
         </Link>
       </div>
     </div>
