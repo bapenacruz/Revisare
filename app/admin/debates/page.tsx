@@ -175,8 +175,8 @@ export default async function AdminDebatesPage({ searchParams }: Props) {
             <thead className="bg-surface border-b border-border">
               {/* Column labels */}
               <tr>
-                {["Motion", "Category", "Debaters", "Status", "Ranked", "Date", "Viewers", "Comments", "Votes", "Actions"].map((h) => (
-                  <th key={h} className="px-4 py-2.5 text-left text-xs font-semibold text-foreground-muted uppercase tracking-wide">
+                {["Motion", "Category", "Debaters", "Status", "Ranked", "Date", "Views", "Comments", "Votes", "Actions"].map((h) => (
+                  <th key={h} className="px-2 py-2 text-left text-xs font-semibold text-foreground-muted uppercase tracking-wide whitespace-nowrap">
                     {h}
                   </th>
                 ))}

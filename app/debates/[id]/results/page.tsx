@@ -246,6 +246,134 @@ export default async function ResultsPage({ params }: Props) {
         </CardBody>
       </Card>
 
+      {/* Full Transcript */}
+      <div className="mb-8">
+        <h2 className="text-lg font-bold text-foreground mb-4">Full Transcript</h2>
+
+        {debate.turns.length === 0 ? (
+          <Card><CardBody><p className="text-foreground-muted text-sm text-center py-4">No turns were recorded.</p></CardBody></Card>
+        ) : (
+          <div className="flex flex-col gap-6">
+            {(["opening", "crossfire", "rebuttal", "summary", "closing"] as RoundName[]).map((round) => {
+              const turns = roundGroups[round];
+              if (turns.length === 0) return null;
+              return (
+                <div key={round}>
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="h-px flex-1 bg-border" />
+                    <span className="text-xs font-semibold text-foreground-muted uppercase tracking-wide px-2">
+                      {ROUND_LABEL[round]}
+                    </span>
+                    <div className="h-px flex-1 bg-border" />
+                  </div>
+                  <div className="flex flex-col gap-3">
+                    {turns.map((turn) => {
+                      const isA = turn.userId === debate.debaterAId;
+                      const speaker = isA ? debate.debaterA : debate.debaterB;
+                      const isProp = speaker.id === propositionUser.id;
+                      const checks = turnFactChecks.get(turn.id) ?? [];
+                      return (
+                        <div key={turn.id} className="flex flex-col gap-1.5">
+                          <div className={`flex gap-3 ${isA ? "flex-row" : "flex-row-reverse"}`}>
+                          <div className="shrink-0 mt-1">
+                            <Avatar initial={speaker.username[0]} src={speaker.avatarUrl ?? undefined} size="sm" />
+                          </div>
+                          <div
+                            className={`max-w-[85%] rounded-[--radius-lg] px-4 py-3 ${
+                              isA
+                                ? "bg-surface-raised border border-border rounded-tl-none"
+                                : "bg-brand-dim border border-brand/20 rounded-tr-none"
+                            }`}
+                          >
+                            <div className="flex items-center gap-2 mb-1.5">
+                              <span className="text-xs font-semibold text-foreground">{speaker.username}</span>
+                              <span
+                                className={`text-[10px] font-bold uppercase tracking-wide ${isProp ? "text-brand" : "text-danger"}`}
+                              >
+                                {isProp ? "PROP" : "OPP"}
+                              </span>
+                              {turn.isAutoSubmit && (
+                                <span className="text-[10px] text-foreground-muted italic">auto-submitted</span>
+                              )}
+                            </div>
+                            <p className="text-sm text-foreground leading-relaxed whitespace-pre-wrap">
+                              {turn.content}
+                            </p>
+                          </div>
+                        </div>
+                          {/* Inline fact-checks for this turn */}
+                          {checks.map((ec, ci) => {
+                            const cfg = VERDICT_CONFIG[ec.verdict as keyof typeof VERDICT_CONFIG] ?? VERDICT_CONFIG.unsupported;
+                            const Icon = cfg.icon;
+                            return (
+                              <div key={ci} className={`flex gap-3 ${isA ? "flex-row" : "flex-row-reverse"}`}>
+                                {/* AI Judge avatar — same size/position as speaker avatar */}
+                                <div className="shrink-0 mt-1 w-8 h-8 rounded-full bg-surface-raised border border-border flex items-center justify-center">
+                                  <Icon size={13} className={cfg.color} />
+                                </div>
+                                <div className={`max-w-[85%] rounded-[--radius] border px-3 py-2 ${cfg.bg}`}>
+                                  <div className="flex flex-wrap items-center gap-1.5 mb-1">
+                                    <span className={`flex items-center gap-1 text-[10px] font-bold uppercase tracking-wide ${cfg.color}`}>
+                                      {cfg.label}
+                                    </span>
+                                    <span className="text-[10px] text-foreground-subtle">— AI Judge</span>
+                                    {ec.importance === "central" && (
+                                      <span className="text-[10px] text-danger font-semibold">⚠ Central claim</span>
+                                    )}
+                                  </div>
+                                  <p className="text-[11px] font-medium text-foreground mb-0.5 leading-snug">&ldquo;{ec.claim}&rdquo;</p>
+                                  <p className="text-[11px] text-foreground-muted leading-relaxed">{ec.explanation}</p>
+                                  {ec.source && (
+                                    <p className="text-[10px] text-foreground-subtle mt-0.5 font-mono">Source: {ec.source}</p>
+                                  )}
+                                </div>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        )}
+      </div>
+
+      {/* Orphaned fact-checks — claims that couldn't be matched to a specific turn */}
+      {orphanedChecks.length > 0 && (
+        <div className="mb-8">
+          <h2 className="text-lg font-bold text-foreground mb-3 flex items-center gap-2">
+            <span>🔍</span> Additional Fact-Checks
+          </h2>
+          <div className="flex flex-col gap-2">
+            {orphanedChecks.map((ec, idx) => {
+              const isA = ec.debater === debate.debaterA.username;
+              const cfg = VERDICT_CONFIG[ec.verdict as keyof typeof VERDICT_CONFIG] ?? VERDICT_CONFIG.unsupported;
+              const Icon = cfg.icon;
+              return (
+                <div key={idx} className={`rounded-[--radius] border p-3 ${cfg.bg}`}>
+                  <div className="flex items-start gap-2">
+                    <span className={`mt-0.5 shrink-0 ${cfg.color}`}><Icon size={14} /></span>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex flex-wrap items-center gap-2 mb-1.5">
+                        <span className={`text-[10px] font-bold uppercase tracking-wide ${cfg.color}`}>{cfg.label}</span>
+                        <span className={`text-[10px] font-semibold px-1.5 py-0.5 rounded ${isA ? "bg-brand/20 text-brand" : "bg-danger/20 text-danger"}`}>{ec.debater}</span>
+                      </div>
+                      <p className="text-xs font-medium text-foreground mb-1 leading-snug">&ldquo;{ec.claim}&rdquo;</p>
+                      <p className="text-xs text-foreground-muted leading-relaxed">{ec.explanation}</p>
+                      {ec.source && <p className="text-[10px] text-foreground-subtle mt-1 font-mono">Source: {ec.source}</p>}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
+      {/* Official Result */}
       <div className="mb-8">
         <h2 className="text-lg font-bold text-foreground mb-3 flex items-center gap-2">
           <Gavel size={16} className="text-brand" />
@@ -415,135 +543,6 @@ export default async function ResultsPage({ params }: Props) {
               </CardBody>
             </Card>
           )}
-        </div>
-      )}
-
-
-
-      {/* Full Transcript */}
-      <div className="mb-8">
-        <h2 className="text-lg font-bold text-foreground mb-4">Full Transcript</h2>
-
-        {debate.turns.length === 0 ? (
-          <Card><CardBody><p className="text-foreground-muted text-sm text-center py-4">No turns were recorded.</p></CardBody></Card>
-        ) : (
-          <div className="flex flex-col gap-6">
-            {(["opening", "crossfire", "rebuttal", "summary", "closing"] as RoundName[]).map((round) => {
-              const turns = roundGroups[round];
-              if (turns.length === 0) return null;
-              return (
-                <div key={round}>
-                  <div className="flex items-center gap-3 mb-3">
-                    <div className="h-px flex-1 bg-border" />
-                    <span className="text-xs font-semibold text-foreground-muted uppercase tracking-wide px-2">
-                      {ROUND_LABEL[round]}
-                    </span>
-                    <div className="h-px flex-1 bg-border" />
-                  </div>
-                  <div className="flex flex-col gap-3">
-                    {turns.map((turn) => {
-                      const isA = turn.userId === debate.debaterAId;
-                      const speaker = isA ? debate.debaterA : debate.debaterB;
-                      const isProp = speaker.id === propositionUser.id;
-                      const checks = turnFactChecks.get(turn.id) ?? [];
-                      return (
-                        <div key={turn.id} className="flex flex-col gap-1.5">
-                          <div className={`flex gap-3 ${isA ? "flex-row" : "flex-row-reverse"}`}>
-                          <div className="shrink-0 mt-1">
-                            <Avatar initial={speaker.username[0]} src={speaker.avatarUrl ?? undefined} size="sm" />
-                          </div>
-                          <div
-                            className={`max-w-[85%] rounded-[--radius-lg] px-4 py-3 ${
-                              isA
-                                ? "bg-surface-raised border border-border rounded-tl-none"
-                                : "bg-brand-dim border border-brand/20 rounded-tr-none"
-                            }`}
-                          >
-                            <div className="flex items-center gap-2 mb-1.5">
-                              <span className="text-xs font-semibold text-foreground">{speaker.username}</span>
-                              <span
-                                className={`text-[10px] font-bold uppercase tracking-wide ${isProp ? "text-brand" : "text-danger"}`}
-                              >
-                                {isProp ? "PROP" : "OPP"}
-                              </span>
-                              {turn.isAutoSubmit && (
-                                <span className="text-[10px] text-foreground-muted italic">auto-submitted</span>
-                              )}
-                            </div>
-                            <p className="text-sm text-foreground leading-relaxed whitespace-pre-wrap">
-                              {turn.content}
-                            </p>
-                          </div>
-                        </div>
-                          {/* Inline fact-checks for this turn */}
-                          {checks.map((ec, ci) => {
-                            const cfg = VERDICT_CONFIG[ec.verdict as keyof typeof VERDICT_CONFIG] ?? VERDICT_CONFIG.unsupported;
-                            const Icon = cfg.icon;
-                            return (
-                              <div key={ci} className={`flex gap-3 ${isA ? "flex-row" : "flex-row-reverse"}`}>
-                                {/* AI Judge avatar — same size/position as speaker avatar */}
-                                <div className="shrink-0 mt-1 w-8 h-8 rounded-full bg-surface-raised border border-border flex items-center justify-center">
-                                  <Icon size={13} className={cfg.color} />
-                                </div>
-                                <div className={`max-w-[85%] rounded-[--radius] border px-3 py-2 ${cfg.bg}`}>
-                                  <div className="flex flex-wrap items-center gap-1.5 mb-1">
-                                    <span className={`flex items-center gap-1 text-[10px] font-bold uppercase tracking-wide ${cfg.color}`}>
-                                      {cfg.label}
-                                    </span>
-                                    <span className="text-[10px] text-foreground-subtle">— AI Judge</span>
-                                    {ec.importance === "central" && (
-                                      <span className="text-[10px] text-danger font-semibold">⚠ Central claim</span>
-                                    )}
-                                  </div>
-                                  <p className="text-[11px] font-medium text-foreground mb-0.5 leading-snug">&ldquo;{ec.claim}&rdquo;</p>
-                                  <p className="text-[11px] text-foreground-muted leading-relaxed">{ec.explanation}</p>
-                                  {ec.source && (
-                                    <p className="text-[10px] text-foreground-subtle mt-0.5 font-mono">Source: {ec.source}</p>
-                                  )}
-                                </div>
-                              </div>
-                            );
-                          })}
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        )}
-      </div>
-
-      {/* Orphaned fact-checks — claims that couldn't be matched to a specific turn */}
-      {orphanedChecks.length > 0 && (
-        <div className="mb-8">
-          <h2 className="text-lg font-bold text-foreground mb-3 flex items-center gap-2">
-            <span>🔍</span> Additional Fact-Checks
-          </h2>
-          <div className="flex flex-col gap-2">
-            {orphanedChecks.map((ec, idx) => {
-              const isA = ec.debater === debate.debaterA.username;
-              const cfg = VERDICT_CONFIG[ec.verdict as keyof typeof VERDICT_CONFIG] ?? VERDICT_CONFIG.unsupported;
-              const Icon = cfg.icon;
-              return (
-                <div key={idx} className={`rounded-[--radius] border p-3 ${cfg.bg}`}>
-                  <div className="flex items-start gap-2">
-                    <span className={`mt-0.5 shrink-0 ${cfg.color}`}><Icon size={14} /></span>
-                    <div className="flex-1 min-w-0">
-                      <div className="flex flex-wrap items-center gap-2 mb-1.5">
-                        <span className={`text-[10px] font-bold uppercase tracking-wide ${cfg.color}`}>{cfg.label}</span>
-                        <span className={`text-[10px] font-semibold px-1.5 py-0.5 rounded ${isA ? "bg-brand/20 text-brand" : "bg-danger/20 text-danger"}`}>{ec.debater}</span>
-                      </div>
-                      <p className="text-xs font-medium text-foreground mb-1 leading-snug">&ldquo;{ec.claim}&rdquo;</p>
-                      <p className="text-xs text-foreground-muted leading-relaxed">{ec.explanation}</p>
-                      {ec.source && <p className="text-[10px] text-foreground-subtle mt-1 font-mono">Source: {ec.source}</p>}
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
         </div>
       )}
 

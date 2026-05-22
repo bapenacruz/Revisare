@@ -116,7 +116,7 @@ export function UserRow({ user }: { user: User }) {
   }
 
   async function togglePlanType() {
-    const next = planType === "free" ? "paid" : "free";
+    const next = planType === "paid" ? "unpaid" : "paid";
     setLoading(true);
     const res = await fetch(`/api/admin/users/${user.id}`, {
       method: "PATCH",
@@ -126,7 +126,7 @@ export function UserRow({ user }: { user: User }) {
     setLoading(false);
     if (res.ok) {
       setPlanType(next);
-      setMsg(`Plan set to ${next} ✓`);
+      setMsg(`Class set to ${next} ✓`);
     }
   }
 
@@ -158,19 +158,30 @@ export function UserRow({ user }: { user: User }) {
           </Link>
         </td>
 
-        {/* Plan (free / paid) */}
+        {/* Type (Synthetic / Real) */}
+        <td className="px-4 py-3">
+          <span className={`inline-flex px-2 py-0.5 rounded text-xs border ${
+            isSynthetic
+              ? "bg-surface-overlay text-foreground-muted border-border"
+              : "bg-blue-500/10 text-blue-400 border-blue-500/20"
+          }`}>
+            {isSynthetic ? "Synthetic" : "Real"}
+          </span>
+        </td>
+
+        {/* Class (unpaid / paid) */}
         <td className="px-4 py-3">
           <button
             onClick={(e) => { e.stopPropagation(); togglePlanType(); }}
             disabled={loading}
-            title="Click to toggle plan"
+            title="Click to toggle class"
             className={`inline-flex px-2 py-0.5 rounded text-xs border transition-colors disabled:opacity-50 ${
               planType === "paid"
                 ? "bg-brand/10 text-brand border-brand/30 hover:bg-brand/20"
                 : "bg-surface-overlay text-foreground-muted border-border hover:bg-surface-raised"
             }`}
           >
-            {planType === "paid" ? "Paid" : "Free"}
+            {planType === "paid" ? "Paid" : "Unpaid"}
           </button>
         </td>
 
@@ -212,7 +223,7 @@ export function UserRow({ user }: { user: User }) {
 
       {open && (
         <tr className="bg-surface-raised border-t border-border">
-          <td colSpan={11} className="px-6 py-4">
+          <td colSpan={12} className="px-6 py-4">
             <div className="flex flex-wrap gap-6 items-start">
               {/* Real / Synthetic indicator */}
               <div className="flex flex-col gap-1">

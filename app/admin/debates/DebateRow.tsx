@@ -142,7 +142,7 @@ export function DebateRow({
         className={`transition-colors cursor-pointer ${open ? "bg-surface-raised" : "hover:bg-surface-raised/40"}`}
         onClick={() => { setOpen((v) => !v); setMsg(null); }}
       >
-        <td className="px-4 py-3 max-w-xs">
+        <td className="px-2 py-2 max-w-[180px]">
           <Link
             href={`/debates/${debate.challengeId}`}
             className="text-foreground hover:text-brand line-clamp-2 text-xs"
@@ -152,10 +152,10 @@ export function DebateRow({
             {debate.motion}
           </Link>
         </td>
-        <td className="px-4 py-3 text-xs text-foreground-muted whitespace-nowrap">
+        <td className="px-2 py-2 text-xs text-foreground-muted max-w-[120px] truncate">
           {debate.category.emoji} {debate.category.label}
         </td>
-        <td className="px-4 py-3 text-xs text-foreground-muted whitespace-nowrap">
+        <td className="px-2 py-2 text-xs text-foreground-muted">
           <span className={debate.winnerId === debate.debaterAId ? "text-foreground font-medium" : ""}>
             {debate.debaterA?.username ?? "[deleted]"}
           </span>
@@ -164,27 +164,27 @@ export function DebateRow({
             {debate.debaterB?.username ?? "[deleted]"}
           </span>
         </td>
-        <td className="px-4 py-3">
+        <td className="px-2 py-2">
           <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs border ${statusBadge(displayDebate)}`}>
             {getDisplayStatus(displayDebate)}
           </span>
         </td>
-        <td className="px-4 py-3 text-xs text-foreground-muted">
+        <td className="px-2 py-2 text-xs text-foreground-muted">
           {debate.ranked ? "Yes" : "No"}
         </td>
-        <td className="px-4 py-3 text-xs text-foreground-muted whitespace-nowrap">
+        <td className="px-2 py-2 text-xs text-foreground-muted whitespace-nowrap">
           {new Date(debate.createdAt).toLocaleDateString()}
         </td>
-        <td className="px-4 py-3 text-xs text-foreground-muted text-center">
+        <td className="px-2 py-2 text-xs text-foreground-muted text-center">
           {debate._count.spectatorMessages}
         </td>
-        <td className="px-4 py-3 text-xs text-foreground-muted text-center">
+        <td className="px-2 py-2 text-xs text-foreground-muted text-center">
           {debate._count.debateComments}
         </td>
-        <td className="px-4 py-3 text-xs text-foreground-muted text-center">
+        <td className="px-2 py-2 text-xs text-foreground-muted text-center">
           {debate._count.audienceVotes}
         </td>
-        <td className="px-4 py-3 text-xs text-brand">
+        <td className="px-2 py-2 text-xs text-brand whitespace-nowrap">
           {open ? "▲ Close" : "▼ Edit"}
         </td>
       </tr>

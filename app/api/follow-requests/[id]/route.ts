@@ -59,5 +59,17 @@ export async function POST(req: NextRequest, { params }: Ctx) {
 
   // reject
   await db.followRequest.delete({ where: { id } });
+
+  const rejecter = await db.user.findUnique({
+    where: { id: session.user.id },
+    select: { username: true },
+  });
+  await createNotification(request.requesterId, {
+    type: "new_follower",
+    title: "Follow request declined",
+    body: `${rejecter?.username ?? "Someone"} declined your follow request.`,
+    href: `/users/${rejecter?.username}`,
+  });
+
   return NextResponse.json({ rejected: true });
 }

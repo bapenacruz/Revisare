@@ -151,7 +151,7 @@ export default async function AdminUsersPage({ searchParams }: Props) {
             <thead className="bg-surface border-b border-border">
               {/* Column labels */}
               <tr>
-                {["Username", "Type", "Email", "Role", "Status", "ELO", "Wins", "Losses", "Debates", "Joined", "Actions"].map((h) => (
+                {["Username", "Type", "Class", "Email", "Role", "Status", "ELO", "Wins", "Losses", "Debates", "Joined", "Actions"].map((h) => (
                   <th key={h} className="px-4 py-2.5 text-left text-xs font-semibold text-foreground-muted uppercase tracking-wide whitespace-nowrap">
                     {h}
                   </th>
@@ -169,6 +169,7 @@ export default async function AdminUsersPage({ searchParams }: Props) {
                     <option value="synthetic">Synthetic</option>
                   </select>
                 </th>
+                <th className="px-2 py-2 font-normal" />
                 <th className="px-2 py-2 font-normal" />
                 <th className="px-2 py-2 font-normal">
                   <select name="role" defaultValue={role} className={thSelect}>
@@ -222,7 +223,7 @@ export default async function AdminUsersPage({ searchParams }: Props) {
             <tbody className="divide-y divide-border">
               {users.length === 0 && (
                 <tr>
-                  <td colSpan={11} className="px-4 py-8 text-center text-foreground-muted text-sm">
+                  <td colSpan={12} className="px-4 py-8 text-center text-foreground-muted text-sm">
                     No users found.
                   </td>
                 </tr>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, useCallback } from "react";
+import { Fragment, useEffect, useRef, useState, useCallback } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { useSession } from "@/components/providers/SessionProvider";
 import { Badge } from "@/components/ui/Badge";
@@ -326,7 +326,7 @@ export default function LobbyPage() {
           </div>
           <div>
             <div className="flex items-center gap-2 mb-0.5">
-              <h1 className="text-base font-semibold text-foreground">Setup Lobby</h1>
+              <h1 className="text-base font-semibold text-foreground">Lobby</h1>
               {isLocked ? (
                 <Badge variant="success" size="sm"><Lock size={10} /> Locked</Badge>
               ) : (
@@ -361,40 +361,41 @@ export default function LobbyPage() {
         <p className="text-foreground font-medium leading-relaxed">{challenge.motion}</p>
       </div>
 
-      <div className="flex flex-col gap-4 max-w-2xl">
+      <div className="flex flex-col gap-4 max-w-2xl mx-auto">
         {/* Participants */}
         <Card>
           <CardBody className="flex items-center gap-8 p-4">
-              {[challenge.creator, challenge.target].map((u, i) => {
-                if (!u) {
-                  return (
-                    <div key={i} className="flex flex-col items-center gap-1.5 flex-1">
+              {[challenge.creator, challenge.target].map((u, i) => (
+                <Fragment key={u?.id ?? i}>
+                  {i === 1 && <div className="text-foreground-subtle font-bold text-sm self-center shrink-0">VS</div>}
+                  {!u ? (
+                    <div className="flex flex-col items-center gap-1.5 flex-1">
                       <div className="w-10 h-10 rounded-full border-2 border-dashed border-border flex items-center justify-center">
                         <span className="text-xs text-foreground-subtle">?</span>
                       </div>
                       <span className="text-xs text-foreground-subtle italic">Waiting for opponent...</span>
                     </div>
-                  );
-                }
-                const accepted = i === 0 ? challenge.creatorAccepted : challenge.targetAccepted;
-                return (
-                  <div key={u.id} className="flex flex-col items-center gap-1.5 flex-1">
-                    <div className="relative">
-                      <Avatar initial={u.username[0].toUpperCase()} size="md" />
-                      {accepted && (
-                        <span className="absolute -bottom-1 -right-1 w-4 h-4 rounded-full bg-success flex items-center justify-center">
-                          <CheckCircle size={10} className="text-white" />
+                  ) : (() => {
+                    const accepted = i === 0 ? challenge.creatorAccepted : challenge.targetAccepted;
+                    return (
+                      <div className="flex flex-col items-center gap-1.5 flex-1">
+                        <div className="relative">
+                          <Avatar initial={u.username[0].toUpperCase()} size="md" />
+                          {accepted && (
+                            <span className="absolute -bottom-1 -right-1 w-4 h-4 rounded-full bg-success flex items-center justify-center">
+                              <CheckCircle size={10} className="text-white" />
+                            </span>
+                          )}
+                        </div>
+                        <span className="text-sm font-medium text-foreground">{u.username}</span>
+                        <span className={`text-xs ${accepted ? "text-success" : "text-foreground-subtle"}`}>
+                          {accepted ? "Terms accepted" : "Pending..."}
                         </span>
-                      )}
-                    </div>
-                    <span className="text-sm font-medium text-foreground">{u.username}</span>
-                    <span className={`text-xs ${accepted ? "text-success" : "text-foreground-subtle"}`}>
-                      {accepted ? "Terms accepted" : "Pending..."}
-                    </span>
-                  </div>
-                );
-              })}
-              <div className="text-foreground-subtle font-bold text-sm self-center">VS</div>
+                      </div>
+                    );
+                  })()}
+                </Fragment>
+              ))}
           </CardBody>
         </Card>
 

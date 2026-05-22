@@ -81,7 +81,7 @@ export async function POST(req: NextRequest, { params }: RouteParams) {
       type: "opponent_forfeit",
       title: "Your opponent forfeited",
       body: `${forfeiter?.username ?? "Your opponent"} forfeited the debate. You win!`,
-      href: `/debates/${debate.id}/results`,
+      href: `/debates/${challengeId}/results`,
     });
   }
 

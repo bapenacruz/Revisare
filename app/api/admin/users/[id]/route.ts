@@ -30,8 +30,8 @@ export async function PATCH(req: NextRequest, { params }: RouteParams) {
 
   if (typeof body.planType === "string") {
     const pt = body.planType;
-    if (pt !== "free" && pt !== "paid") {
-      return NextResponse.json({ error: "planType must be free or paid" }, { status: 400 });
+    if (pt !== "unpaid" && pt !== "paid") {
+      return NextResponse.json({ error: "planType must be unpaid or paid" }, { status: 400 });
     }
     data.planType = pt;
   }

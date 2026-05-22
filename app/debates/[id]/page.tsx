@@ -158,7 +158,10 @@ export default function ArenaPage() {
     const data: DebateState = await res.json();
     setDebate(data);
     setLoading(false);
-  }, [challengeId]);
+    if (data.status === "completed") {
+      router.replace(`/debates/${challengeId}/results`);
+    }
+  }, [challengeId, router]);
 
   // Polling + Pusher
   useEffect(() => {
@@ -268,7 +271,12 @@ export default function ArenaPage() {
   async function confirmForfeit() {
     setForfeiting(true);
     try {
-      await fetch(`/api/debates/${challengeId}/forfeit`, { method: "POST" });
+      const res = await fetch(`/api/debates/${challengeId}/forfeit`, { method: "POST" });
+      if (res.ok) {
+        setShowForfeitModal(false);
+        router.replace(`/debates/${challengeId}/results`);
+        return;
+      }
       await fetchDebate();
     } finally {
       setForfeiting(false);

@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { pusherTrigger, CHANNELS, EVENTS } from "@/lib/pusher";
+import { PREP_SECONDS, getRoundTimer } from "@/lib/debate-state";
 import { createNotification } from "@/lib/notifications";
 
 interface RouteParams {
@@ -55,23 +56,75 @@ export async function POST(request: NextRequest, { params }: RouteParams) {
     data: { status: "approved" },
   });
 
-  // Assign the joiner as the target
+  // Assign the joiner as the target and auto-accept both sides
+  // (creator consented by approving; joiner consented by joining)
   await db.challenge.update({
     where: { id: challengeId },
-    data: { targetId: joinRequest.userId, targetAccepted: false },
+    data: { targetId: joinRequest.userId, creatorAccepted: true, targetAccepted: true },
   });
 
   await pusherTrigger(CHANNELS.lobby(challengeId), EVENTS.LOBBY_TERMS_ACCEPTED, {
     userId: joinRequest.userId,
   });
 
-  await createNotification(joinRequest.userId, {
-    type: "challenge_accepted",
-    title: "Your request was accepted!",
-    body: "The challenge owner accepted you. Head to the lobby to confirm the terms.",
-    href: `/challenges/${challengeId}/lobby`,
-    challengeId,
+  // Guard against concurrent debate creation
+  const existing = await db.debate.findUnique({ where: { challengeId } });
+
+  const debaterAId = challenge.creatorId;
+  const debaterBId = joinRequest.userId;
+
+  if (!existing) {
+    const now = new Date();
+    const prepEndsAt = new Date(now.getTime() + PREP_SECONDS * 1000);
+
+    await db.debate.create({
+      data: {
+        challengeId,
+        categoryId: challenge.categoryId,
+        motion: challenge.motion,
+        format: challenge.format,
+        ranked: challenge.ranked,
+        isPublic: challenge.isPublic,
+        timerPreset: getRoundTimer(challenge.format, "opening"),
+        debaterAId,
+        debaterBId,
+        status: "active",
+        phase: "prep",
+        coinFlipWinnerId: debaterAId,
+        currentUserId: debaterAId,
+        currentTurnIndex: 0,
+        prepEndsAt,
+        startedAt: now,
+      },
+    });
+  }
+
+  await db.challenge.update({
+    where: { id: challengeId },
+    data: { status: "active", lockedAt: new Date() },
   });
+
+  await pusherTrigger(CHANNELS.lobby(challengeId), EVENTS.LOBBY_LOCKED, {
+    lockedAt: new Date(),
+  });
+
+  const debateHref = `/debates/${challengeId}`;
+  await Promise.all([
+    createNotification(debaterAId, {
+      type: "debate_starting",
+      title: "Your debate is starting!",
+      body: "Both sides have accepted. Head to the arena to begin.",
+      href: debateHref,
+      challengeId,
+    }),
+    createNotification(debaterBId, {
+      type: "debate_starting",
+      title: "Your debate is starting!",
+      body: "You joined and the debate is starting. Head to the arena to begin.",
+      href: debateHref,
+      challengeId,
+    }),
+  ]);
 
   return NextResponse.json({ approved: true });
 }
