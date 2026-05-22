@@ -93,17 +93,6 @@ export default async function AdDebatePage({ params }: Props) {
               {ad.officialResult}
             </p>
           )}
-          {ad.linkUrl && (
-            <a
-              href={ad.linkUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 mt-1 px-4 py-2 rounded-[--radius] bg-brand text-white text-sm font-medium hover:bg-brand/90 transition-colors"
-            >
-              <ExternalLink size={14} />
-              {ad.businessName ? `Visit ${ad.businessName}` : "Visit Website"}
-            </a>
-          )}
         </div>
 
         {/* Participants */}
@@ -149,10 +138,21 @@ export default async function AdDebatePage({ params }: Props) {
           </div>
         )}
 
-        <div className="pt-4 border-t border-border">
-          <Link href="/" className="text-sm text-foreground-muted hover:text-foreground transition-colors">
+        <div className="pt-4 border-t border-border flex items-center justify-between">
+          <Link href="/debates" className="text-sm text-foreground-muted hover:text-foreground transition-colors">
             ← Back to debates
           </Link>
+          {ad.linkUrl && (
+            <a
+              href={ad.linkUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-[--radius] bg-brand text-white text-sm font-medium hover:bg-brand/90 transition-colors"
+            >
+              <ExternalLink size={14} />
+              {ad.businessName ? `Visit ${ad.businessName}` : "Visit Website"}
+            </a>
+          )}
         </div>
       </div>
     </div>

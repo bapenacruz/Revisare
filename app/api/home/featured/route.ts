@@ -36,10 +36,12 @@ export async function GET(req: NextRequest) {
         winnerId: true,
         completedAt: true,
         categoryId: true,
+        viewCount: true,
         debaterA: { select: { id: true, username: true, avatarUrl: true } },
         debaterB: { select: { id: true, username: true, avatarUrl: true } },
         category: { select: { label: true, emoji: true } },
         audienceVotes: { select: { votedForId: true } },
+        _count: { select: { debateComments: true } },
       },
     });
 
@@ -55,14 +57,14 @@ export async function GET(req: NextRequest) {
     const hasMore = pageRows.length > PAGE_SIZE;
     const rawItems = hasMore ? pageRows.slice(0, PAGE_SIZE) : pageRows;
 
-    const items = rawItems.map(({ audienceVotes, categoryId: _cid, ...rest }) => {
+    const items = rawItems.map(({ audienceVotes, categoryId: _cid, _count, ...rest }) => {
       const tally: Record<string, number> = {};
       for (const v of audienceVotes) tally[v.votedForId] = (tally[v.votedForId] ?? 0) + 1;
       const total = Object.values(tally).reduce((a, b) => a + b, 0);
       const audienceLeaderId = total > 0
         ? Object.entries(tally).sort((a, b) => b[1] - a[1])[0][0]
         : null;
-      return { ...rest, audienceLeaderId };
+      return { ...rest, audienceLeaderId, commentCount: _count.debateComments };
     });
 
     return NextResponse.json({
@@ -84,24 +86,26 @@ export async function GET(req: NextRequest) {
       ranked: true,
       winnerId: true,
       completedAt: true,
+      viewCount: true,
       debaterA: { select: { id: true, username: true, avatarUrl: true } },
       debaterB: { select: { id: true, username: true, avatarUrl: true } },
       category: { select: { label: true, emoji: true } },
       audienceVotes: { select: { votedForId: true } },
+      _count: { select: { debateComments: true } },
     },
   });
 
   const hasMore = rows.length > PAGE_SIZE;
   const rawItems = hasMore ? rows.slice(0, PAGE_SIZE) : rows;
 
-  const items = rawItems.map(({ audienceVotes, ...rest }) => {
+  const items = rawItems.map(({ audienceVotes, _count, ...rest }) => {
     const tally: Record<string, number> = {};
     for (const v of audienceVotes) tally[v.votedForId] = (tally[v.votedForId] ?? 0) + 1;
     const total = Object.values(tally).reduce((a, b) => a + b, 0);
     const audienceLeaderId = total > 0
       ? Object.entries(tally).sort((a, b) => b[1] - a[1])[0][0]
       : null;
-    return { ...rest, audienceLeaderId };
+    return { ...rest, audienceLeaderId, commentCount: _count.debateComments };
   });
 
   return NextResponse.json({

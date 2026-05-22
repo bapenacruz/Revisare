@@ -74,6 +74,9 @@ export default async function ResultsPage({ params }: Props) {
 
   if (!debate || debate.status !== "completed") notFound();
 
+  // Increment view count (fire-and-forget)
+  void db.debate.update({ where: { challengeId }, data: { viewCount: { increment: 1 } } }).catch(() => {});
+
   // Audience vote tally — passed to client AudienceVotePanel
   const voteTally: Record<string, number> = {};
   for (const v of debate.audienceVotes) {
@@ -557,6 +560,13 @@ export default async function ResultsPage({ params }: Props) {
           isParticipant={isDebaterA || isDebaterB}
           isAuthenticated={!!sessionUserId}
         />
+      </div>
+
+      {/* Footer nav */}
+      <div className="pt-4 border-t border-border">
+        <Link href="/debates" className="text-sm text-foreground-muted hover:text-foreground transition-colors">
+          ← Back to debates
+        </Link>
       </div>
     </div>
   );
