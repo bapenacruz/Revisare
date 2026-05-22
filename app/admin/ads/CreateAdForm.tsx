@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { TargetingPicker } from "./TargetingPicker";
 
 interface AdCategory {
   id: string;
@@ -16,6 +17,8 @@ export function CreateAdForm({ categories }: { categories: AdCategory[] }) {
   const [opponentName, setOpponentName] = useState("");
   const [categoryId, setCategoryId] = useState("");
   const [linkUrl, setLinkUrl] = useState("");
+  const [targetRegions, setTargetRegions] = useState<string[]>([]);
+  const [targetCompassQuadrants, setTargetCompassQuadrants] = useState<string[]>([]);
   const [saving, setSaving] = useState(false);
   const [msg, setMsg] = useState<string | null>(null);
   const [open, setOpen] = useState(false);
@@ -30,11 +33,11 @@ export function CreateAdForm({ categories }: { categories: AdCategory[] }) {
     const res = await fetch("/api/admin/ads", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ motion, proponentName, opponentName, categoryId: categoryId || null, linkUrl: linkUrl || null }),
+      body: JSON.stringify({ motion, proponentName, opponentName, categoryId: categoryId || null, linkUrl: linkUrl || null, targetRegions, targetCompassQuadrants }),
     });
     setSaving(false);
     if (res.ok) {
-      setMotion(""); setProponentName(""); setOpponentName(""); setCategoryId(""); setLinkUrl("");
+      setMotion(""); setProponentName(""); setOpponentName(""); setCategoryId(""); setLinkUrl(""); setTargetRegions([]); setTargetCompassQuadrants([]);
       setMsg("Ad created ✓");
       router.refresh();
       setOpen(false);
@@ -80,6 +83,14 @@ export function CreateAdForm({ categories }: { categories: AdCategory[] }) {
             <label className="text-xs font-medium text-foreground-muted uppercase tracking-wide">Link URL</label>
             <input className="text-sm rounded border border-border bg-background text-foreground p-2" value={linkUrl}
               onChange={(e) => setLinkUrl(e.target.value)} placeholder="https://…" />
+          </div>
+          <div className="w-full">
+            <TargetingPicker
+              regions={targetRegions}
+              quadrants={targetCompassQuadrants}
+              onRegionsChange={setTargetRegions}
+              onQuadrantsChange={setTargetCompassQuadrants}
+            />
           </div>
           <div className="flex flex-col gap-2">
             <button onClick={create} disabled={saving}

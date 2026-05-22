@@ -80,7 +80,8 @@ export const ModelName = {
   ContactMessage: 'ContactMessage',
   AdCategory: 'AdCategory',
   Ad: 'Ad',
-  AdTurn: 'AdTurn'
+  AdTurn: 'AdTurn',
+  AdBanner: 'AdBanner'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -516,6 +517,8 @@ export const AdScalarFieldEnum = {
   opponentName: 'opponentName',
   categoryId: 'categoryId',
   linkUrl: 'linkUrl',
+  targetRegions: 'targetRegions',
+  targetCompassQuadrants: 'targetCompassQuadrants',
   isActive: 'isActive',
   isDeleted: 'isDeleted',
   createdAt: 'createdAt',
@@ -536,6 +539,22 @@ export const AdTurnScalarFieldEnum = {
 } as const
 
 export type AdTurnScalarFieldEnum = (typeof AdTurnScalarFieldEnum)[keyof typeof AdTurnScalarFieldEnum]
+
+
+export const AdBannerScalarFieldEnum = {
+  id: 'id',
+  imageDataUrl: 'imageDataUrl',
+  linkUrl: 'linkUrl',
+  altText: 'altText',
+  targetRegions: 'targetRegions',
+  targetCompassQuadrants: 'targetCompassQuadrants',
+  isActive: 'isActive',
+  isDeleted: 'isDeleted',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AdBannerScalarFieldEnum = (typeof AdBannerScalarFieldEnum)[keyof typeof AdBannerScalarFieldEnum]
 
 
 export const SortOrder = {

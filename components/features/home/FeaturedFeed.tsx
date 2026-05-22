@@ -28,21 +28,39 @@ type AdItem = {
   linkUrl: string | null;
 };
 
+type BannerItem = {
+  id: string;
+  imageDataUrl: string;
+  linkUrl: string | null;
+  altText: string | null;
+};
+
 type FeedItem =
   | { type: "debate"; data: FeaturedDebateItem }
-  | { type: "ad"; data: AdItem };
+  | { type: "ad"; data: AdItem }
+  | { type: "banner"; data: BannerItem };
 
 // Inject one ad every 5 debate cards, cycling through available ads
-function buildFeed(debates: FeaturedDebateItem[], ads: AdItem[]): FeedItem[] {
-  if (ads.length === 0) return debates.map((d) => ({ type: "debate" as const, data: d }));
+// Also inject one banner at position 2 if available
+function buildFeed(debates: FeaturedDebateItem[], ads: AdItem[], banners: BannerItem[]): FeedItem[] {
   const result: FeedItem[] = [];
   let adIdx = 0;
+  let bannerInjected = false;
   for (let i = 0; i < debates.length; i++) {
+    // Inject banner after 2nd debate card (once)
+    if (!bannerInjected && banners.length > 0 && i === 2) {
+      result.push({ type: "banner", data: banners[Math.floor(Math.random() * banners.length)] });
+      bannerInjected = true;
+    }
     result.push({ type: "debate", data: debates[i] });
-    if ((i + 1) % 5 === 0) {
+    if (ads.length > 0 && (i + 1) % 5 === 0) {
       result.push({ type: "ad", data: ads[adIdx % ads.length] });
       adIdx++;
     }
+  }
+  // If not enough debates to reach position 2, append banner at end
+  if (!bannerInjected && banners.length > 0 && debates.length > 0) {
+    result.push({ type: "banner", data: banners[Math.floor(Math.random() * banners.length)] });
   }
   return result;
 }
@@ -50,6 +68,7 @@ function buildFeed(debates: FeaturedDebateItem[], ads: AdItem[]): FeedItem[] {
 export function FeaturedFeed() {
   const [items, setItems] = useState<FeaturedDebateItem[]>([]);
   const [ads, setAds] = useState<AdItem[]>([]);
+  const [banners, setBanners] = useState<BannerItem[]>([]);
   const [loading, setLoading] = useState(false);
   const [empty, setEmpty] = useState(false);
   // undefined = first page not yet fetched; null = exhausted; string = next cursor
@@ -57,9 +76,15 @@ export function FeaturedFeed() {
   const loadingRef = useRef(false);
   const sentinelRef = useRef<HTMLDivElement>(null);
 
-  // Fetch active ads once on mount
+  // Fetch active ads and banners once on mount
   useEffect(() => {
-    fetch("/api/home/ads").then((r) => r.json()).then(setAds).catch(() => {});
+    fetch("/api/home/ads")
+      .then((r) => r.json())
+      .then(({ ads: fetchedAds, banners: fetchedBanners }: { ads: AdItem[]; banners: BannerItem[] }) => {
+        setAds(fetchedAds ?? []);
+        setBanners(fetchedBanners ?? []);
+      })
+      .catch(() => {});
   }, []);
 
   const loadMore = useCallback(async () => {
@@ -127,7 +152,25 @@ export function FeaturedFeed() {
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {buildFeed(items, ads).map((item, idx) => {
+          {buildFeed(items, ads, banners).map((item, idx) => {
+            if (item.type === "banner") {
+              const b = item.data;
+              const inner = (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={b.imageDataUrl} alt={b.altText ?? ""} className="w-full h-full object-cover rounded-[--radius-lg]" />
+              );
+              return b.linkUrl ? (
+                <a key={`banner-${b.id}-${idx}`} href={b.linkUrl} target="_blank" rel="noopener noreferrer"
+                  className="col-span-1 md:col-span-2 lg:col-span-3 block overflow-hidden rounded-[--radius-lg] border border-border aspect-[5/1]">
+                  {inner}
+                </a>
+              ) : (
+                <div key={`banner-${b.id}-${idx}`} className="col-span-1 md:col-span-2 lg:col-span-3 overflow-hidden rounded-[--radius-lg] border border-border aspect-[5/1]">
+                  {inner}
+                </div>
+              );
+            }
+
             if (item.type === "ad") {
               const ad = item.data;
               const inner = (

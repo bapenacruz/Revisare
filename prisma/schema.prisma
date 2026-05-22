@@ -553,8 +553,10 @@ model Ad {
   motion        String
   proponentName String
   opponentName  String
-  categoryId    String?
-  linkUrl       String?
+  categoryId             String?
+  linkUrl                String?
+  targetRegions          Json     @default("[]")
+  targetCompassQuadrants Json     @default("[]")
   isActive      Boolean     @default(true)
   isDeleted     Boolean     @default(false)
   createdAt     DateTime    @default(now())
@@ -582,4 +584,23 @@ model AdTurn {
   ad        Ad       @relation(fields: [adId], references: [id], onDelete: Cascade)
 
   @@map("ad_turns")
+}
+
+// ============================================================
+// Ad Banners (image-based ads injected into the feed)
+// ============================================================
+
+model AdBanner {
+  id                     String   @id @default(cuid())
+  imageDataUrl           String   @db.Text
+  linkUrl                String?
+  altText                String?
+  targetRegions          Json     @default("[]")
+  targetCompassQuadrants Json     @default("[]")
+  isActive               Boolean  @default(true)
+  isDeleted              Boolean  @default(false)
+  createdAt              DateTime @default(now())
+  updatedAt              DateTime @updatedAt
+
+  @@map("ad_banners")
 }

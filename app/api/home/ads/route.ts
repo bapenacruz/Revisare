@@ -1,17 +1,83 @@
 import { NextResponse } from "next/server";
+import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
+import { COUNTRIES } from "@/lib/data/countries";
+import {
+  countryCodeToRegion,
+  getCompassQuadrant,
+  matchesTargeting,
+} from "@/lib/ad-targeting";
+
+type TargetedJsonFields = {
+  targetRegions: unknown;
+  targetCompassQuadrants: unknown;
+};
+
+function parseTargeting(row: TargetedJsonFields): { regions: string[]; quadrants: string[] } {
+  return {
+    regions:   Array.isArray(row.targetRegions)          ? (row.targetRegions as string[])          : [],
+    quadrants: Array.isArray(row.targetCompassQuadrants) ? (row.targetCompassQuadrants as string[]) : [],
+  };
+}
 
 export async function GET() {
-  const ads = await db.ad.findMany({
-    where: { isActive: true, isDeleted: false },
-    select: {
-      id: true,
-      motion: true,
-      proponentName: true,
-      opponentName: true,
-      linkUrl: true,
-    },
-    orderBy: { createdAt: "desc" },
-  });
-  return NextResponse.json(ads);
+  const session = await auth().catch(() => null);
+  const userId = session?.user?.id ?? null;
+
+  let userRegion: string | null = null;
+  let userQuadrant: string | null = null;
+
+  if (userId) {
+    const user = await db.user.findUnique({
+      where: { id: userId },
+      select: { country: true, aiAssessment: true },
+    });
+    if (user?.country) {
+      const countryData = COUNTRIES.find((c) => c.name === user.country);
+      if (countryData) userRegion = countryCodeToRegion(countryData.code);
+    }
+    if (user?.aiAssessment) {
+      try {
+        const parsed = JSON.parse(user.aiAssessment) as Record<string, unknown>;
+        const compass = parsed.compass as { economic?: number; social?: number } | undefined;
+        if (typeof compass?.economic === "number" && typeof compass?.social === "number") {
+          userQuadrant = getCompassQuadrant(compass.economic, compass.social);
+        }
+      } catch { /* ignore */ }
+    }
+  }
+
+  function passes(row: TargetedJsonFields): boolean {
+    const { regions, quadrants } = parseTargeting(row);
+    return matchesTargeting(regions, userRegion) && matchesTargeting(quadrants, userQuadrant);
+  }
+
+  const [allAds, allBanners] = await Promise.all([
+    db.ad.findMany({
+      where: { isActive: true, isDeleted: false },
+      select: {
+        id: true, motion: true, proponentName: true, opponentName: true, linkUrl: true,
+        targetRegions: true, targetCompassQuadrants: true,
+      },
+      orderBy: { createdAt: "desc" },
+    }),
+    db.adBanner.findMany({
+      where: { isActive: true, isDeleted: false },
+      select: {
+        id: true, imageDataUrl: true, linkUrl: true, altText: true,
+        targetRegions: true, targetCompassQuadrants: true,
+      },
+      orderBy: { createdAt: "desc" },
+    }),
+  ]);
+
+  const ads = allAds
+    .filter(passes)
+    .map(({ targetRegions: _r, targetCompassQuadrants: _q, ...rest }) => rest);
+
+  const banners = allBanners
+    .filter(passes)
+    .map(({ targetRegions: _r, targetCompassQuadrants: _q, ...rest }) => rest);
+
+  return NextResponse.json({ ads, banners });
 }

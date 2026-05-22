@@ -413,7 +413,8 @@ export const ModelName = {
   ContactMessage: 'ContactMessage',
   AdCategory: 'AdCategory',
   Ad: 'Ad',
-  AdTurn: 'AdTurn'
+  AdTurn: 'AdTurn',
+  AdBanner: 'AdBanner'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -429,7 +430,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "account" | "session" | "verificationToken" | "user" | "follow" | "followRequest" | "userFavoriteCategory" | "category" | "challenge" | "joinRequest" | "lobbyChatMessage" | "debate" | "audienceVote" | "debateComment" | "debateCommentSubscription" | "debateTurn" | "judgeResult" | "spectatorMessage" | "notification" | "integrityFlag" | "suspiciousTurnSignal" | "pushSubscription" | "passwordResetToken" | "adminAction" | "judgePrompt" | "debateResult" | "contactMessage" | "adCategory" | "ad" | "adTurn"
+    modelProps: "account" | "session" | "verificationToken" | "user" | "follow" | "followRequest" | "userFavoriteCategory" | "category" | "challenge" | "joinRequest" | "lobbyChatMessage" | "debate" | "audienceVote" | "debateComment" | "debateCommentSubscription" | "debateTurn" | "judgeResult" | "spectatorMessage" | "notification" | "integrityFlag" | "suspiciousTurnSignal" | "pushSubscription" | "passwordResetToken" | "adminAction" | "judgePrompt" | "debateResult" | "contactMessage" | "adCategory" | "ad" | "adTurn" | "adBanner"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -2653,6 +2654,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    AdBanner: {
+      payload: Prisma.$AdBannerPayload<ExtArgs>
+      fields: Prisma.AdBannerFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.AdBannerFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdBannerPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.AdBannerFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdBannerPayload>
+        }
+        findFirst: {
+          args: Prisma.AdBannerFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdBannerPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.AdBannerFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdBannerPayload>
+        }
+        findMany: {
+          args: Prisma.AdBannerFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdBannerPayload>[]
+        }
+        create: {
+          args: Prisma.AdBannerCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdBannerPayload>
+        }
+        createMany: {
+          args: Prisma.AdBannerCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.AdBannerCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdBannerPayload>[]
+        }
+        delete: {
+          args: Prisma.AdBannerDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdBannerPayload>
+        }
+        update: {
+          args: Prisma.AdBannerUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdBannerPayload>
+        }
+        deleteMany: {
+          args: Prisma.AdBannerDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.AdBannerUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.AdBannerUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdBannerPayload>[]
+        }
+        upsert: {
+          args: Prisma.AdBannerUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdBannerPayload>
+        }
+        aggregate: {
+          args: Prisma.AdBannerAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateAdBanner>
+        }
+        groupBy: {
+          args: Prisma.AdBannerGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AdBannerGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.AdBannerCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AdBannerCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -3109,6 +3184,8 @@ export const AdScalarFieldEnum = {
   opponentName: 'opponentName',
   categoryId: 'categoryId',
   linkUrl: 'linkUrl',
+  targetRegions: 'targetRegions',
+  targetCompassQuadrants: 'targetCompassQuadrants',
   isActive: 'isActive',
   isDeleted: 'isDeleted',
   createdAt: 'createdAt',
@@ -3129,6 +3206,22 @@ export const AdTurnScalarFieldEnum = {
 } as const
 
 export type AdTurnScalarFieldEnum = (typeof AdTurnScalarFieldEnum)[keyof typeof AdTurnScalarFieldEnum]
+
+
+export const AdBannerScalarFieldEnum = {
+  id: 'id',
+  imageDataUrl: 'imageDataUrl',
+  linkUrl: 'linkUrl',
+  altText: 'altText',
+  targetRegions: 'targetRegions',
+  targetCompassQuadrants: 'targetCompassQuadrants',
+  isActive: 'isActive',
+  isDeleted: 'isDeleted',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AdBannerScalarFieldEnum = (typeof AdBannerScalarFieldEnum)[keyof typeof AdBannerScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -3378,6 +3471,7 @@ export type GlobalOmitConfig = {
   adCategory?: Prisma.AdCategoryOmit
   ad?: Prisma.AdOmit
   adTurn?: Prisma.AdTurnOmit
+  adBanner?: Prisma.AdBannerOmit
 }
 
 /* Types for Logging */

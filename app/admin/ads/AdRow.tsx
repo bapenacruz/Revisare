@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { TargetingPicker } from "./TargetingPicker";
 
 interface AdCategory {
   id: string;
@@ -19,6 +20,8 @@ interface Ad {
   isActive: boolean;
   createdAt: Date;
   category: { label: string; emoji: string } | null;
+  targetRegions: unknown;
+  targetCompassQuadrants: unknown;
 }
 
 export function AdRow({ ad, categories }: { ad: Ad; categories: AdCategory[] }) {
@@ -30,6 +33,8 @@ export function AdRow({ ad, categories }: { ad: Ad; categories: AdCategory[] }) 
   const [categoryId, setCategoryId] = useState(ad.categoryId ?? "");
   const [linkUrl, setLinkUrl] = useState(ad.linkUrl ?? "");
   const [isActive, setIsActive] = useState(ad.isActive);
+  const [targetRegions, setTargetRegions] = useState<string[]>(Array.isArray(ad.targetRegions) ? (ad.targetRegions as string[]) : []);
+  const [targetCompassQuadrants, setTargetCompassQuadrants] = useState<string[]>(Array.isArray(ad.targetCompassQuadrants) ? (ad.targetCompassQuadrants as string[]) : []);
   const [saving, setSaving] = useState(false);
   const [deleting, setDeleting] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState(false);
@@ -42,7 +47,7 @@ export function AdRow({ ad, categories }: { ad: Ad; categories: AdCategory[] }) 
     const res = await fetch(`/api/admin/ads/${ad.id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ motion, proponentName, opponentName, categoryId: categoryId || null, linkUrl: linkUrl || null, isActive }),
+      body: JSON.stringify({ motion, proponentName, opponentName, categoryId: categoryId || null, linkUrl: linkUrl || null, isActive, targetRegions, targetCompassQuadrants }),
     });
     setSaving(false);
     if (res.ok) { setMsg("Saved ✓"); router.refresh(); }
@@ -127,6 +132,15 @@ export function AdRow({ ad, categories }: { ad: Ad; categories: AdCategory[] }) 
                   <option value="yes">Yes</option>
                   <option value="no">No</option>
                 </select>
+              </div>
+              <div className="w-full mt-2">
+                <TargetingPicker
+                  regions={targetRegions}
+                  quadrants={targetCompassQuadrants}
+                  onRegionsChange={setTargetRegions}
+                  onQuadrantsChange={setTargetCompassQuadrants}
+                  onClick={(e) => e.stopPropagation()}
+                />
               </div>
               <div className="flex flex-col gap-2 justify-end pt-5">
                 <button onClick={(e) => { e.stopPropagation(); save(); }} disabled={saving}

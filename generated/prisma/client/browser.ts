@@ -167,3 +167,8 @@ export type Ad = Prisma.AdModel
  * 
  */
 export type AdTurn = Prisma.AdTurnModel
+/**
+ * Model AdBanner
+ * 
+ */
+export type AdBanner = Prisma.AdBannerModel

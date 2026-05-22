@@ -7,6 +7,8 @@ import { AdCategoryRow } from "./AdCategoryRow";
 import { CreateAdForm } from "./CreateAdForm";
 import { CreateAdCategoryForm } from "./CreateAdCategoryForm";
 import { UploadAds } from "./UploadAds";
+import { CreateBannerForm } from "./CreateBannerForm";
+import { BannerRow } from "./BannerRow";
 
 export const metadata = { title: "Ads — Admin" };
 
@@ -25,7 +27,7 @@ export default async function AdminAdsPage({ searchParams }: Props) {
   if (active === "yes") where.isActive = true;
   if (active === "no") where.isActive = false;
 
-  const [ads, total, adCategories] = await Promise.all([
+  const [ads, total, adCategories, banners] = await Promise.all([
     db.ad.findMany({
       where,
       include: { category: { select: { label: true, emoji: true } } },
@@ -35,6 +37,7 @@ export default async function AdminAdsPage({ searchParams }: Props) {
     }),
     db.ad.count({ where }),
     db.adCategory.findMany({ orderBy: { order: "asc" } }),
+    db.adBanner.findMany({ where: { isDeleted: false }, orderBy: { createdAt: "desc" } }),
   ]);
 
   const pages = Math.ceil(total / limit);
@@ -49,10 +52,10 @@ export default async function AdminAdsPage({ searchParams }: Props) {
 
   return (
     <div className="space-y-12">
-      {/* ── Section 1: Ads ── */}
+      {/* ── Section 1: Ad Debates ── */}
       <section>
         <div className="flex items-center justify-between mb-4">
-          <h1 className="text-2xl font-bold text-foreground">Ads</h1>
+          <h1 className="text-2xl font-bold text-foreground">Ad Debates</h1>
           <span className="text-sm text-foreground-muted">{total} total</span>
         </div>
 
@@ -118,7 +121,37 @@ export default async function AdminAdsPage({ searchParams }: Props) {
         )}
       </section>
 
-      {/* ── Section 2: Ad Categories ── */}
+      {/* ── Section 2: Ad Banners ── */}
+      <section>
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-xl font-bold text-foreground">Ad Banners</h2>
+          <span className="text-sm text-foreground-muted">{banners.length} total</span>
+        </div>
+
+        <CreateBannerForm />
+
+        <div className="rounded-[--radius] border border-border overflow-x-auto">
+          <table className="w-full text-xs sm:text-sm">
+            <thead className="bg-surface border-b border-border">
+              <tr>
+                {["Image", "Link", "Alt Text", "Status", "Created", "Actions"].map((h) => (
+                  <th key={h} className="px-2 py-2 text-left text-xs font-semibold text-foreground-muted uppercase tracking-wide whitespace-nowrap">{h}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-border">
+              {banners.map((b) => (
+                <BannerRow key={b.id} banner={b} />
+              ))}
+              {banners.length === 0 && (
+                <tr><td colSpan={6} className="px-4 py-8 text-center text-sm text-foreground-muted">No banners yet</td></tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      {/* ── Section 3: Ad Categories ── */}
       <section>
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-xl font-bold text-foreground">Ad Categories</h2>
@@ -150,3 +183,4 @@ export default async function AdminAdsPage({ searchParams }: Props) {
     </div>
   );
 }
+

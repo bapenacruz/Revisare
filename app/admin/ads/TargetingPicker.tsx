@@ -1,0 +1,109 @@
+"use client";
+
+import { AD_REGIONS, AD_COMPASS_QUADRANTS } from "@/lib/ad-targeting";
+
+interface TargetingPickerProps {
+  regions: string[];
+  quadrants: string[];
+  onRegionsChange: (r: string[]) => void;
+  onQuadrantsChange: (q: string[]) => void;
+  onClick?: React.MouseEventHandler<HTMLDivElement>;
+}
+
+export function TargetingPicker({ regions, quadrants, onRegionsChange, onQuadrantsChange, onClick }: TargetingPickerProps) {
+  function toggleRegion(v: string) {
+    onRegionsChange(regions.includes(v) ? regions.filter((r) => r !== v) : [...regions, v]);
+  }
+  function toggleQuadrant(v: string) {
+    onQuadrantsChange(quadrants.includes(v) ? quadrants.filter((q) => q !== v) : [...quadrants, v]);
+  }
+
+  const SIZE = 84;
+  const HALF = SIZE / 2;
+
+  return (
+    <div className="flex flex-wrap gap-6 items-start" onClick={onClick}>
+      {/* Region checkboxes */}
+      <div className="flex flex-col gap-1.5">
+        <p className="text-xs font-medium text-foreground-muted uppercase tracking-wide">
+          Target Regions <span className="normal-case font-normal opacity-60">(empty = all)</span>
+        </p>
+        <div className="grid grid-cols-2 gap-x-5 gap-y-1.5">
+          {AD_REGIONS.map((r) => (
+            <label key={r.value} className="flex items-center gap-1.5 cursor-pointer select-none">
+              <input
+                type="checkbox"
+                checked={regions.includes(r.value)}
+                onChange={() => toggleRegion(r.value)}
+                className="accent-brand w-3.5 h-3.5"
+              />
+              <span className="text-xs text-foreground">{r.label}</span>
+            </label>
+          ))}
+        </div>
+      </div>
+
+      {/* Political compass selector */}
+      <div className="flex flex-col gap-1.5">
+        <p className="text-xs font-medium text-foreground-muted uppercase tracking-wide">
+          Compass Targeting <span className="normal-case font-normal opacity-60">(empty = all)</span>
+        </p>
+        <div className="flex items-start gap-3">
+          {/* Clickable 2×2 grid */}
+          <svg
+            width={SIZE} height={SIZE}
+            viewBox={`0 0 ${SIZE} ${SIZE}`}
+            className="rounded ring-1 ring-border shrink-0 cursor-pointer"
+          >
+            {/* auth-left: top-left */}
+            <rect x={0} y={0} width={HALF} height={HALF}
+              fill={quadrants.includes("auth-left") ? AD_COMPASS_QUADRANTS[0].fill : "rgba(128,128,128,0.08)"}
+              onClick={() => toggleQuadrant("auth-left")} className="transition-all" />
+            {/* auth-right: top-right */}
+            <rect x={HALF} y={0} width={HALF} height={HALF}
+              fill={quadrants.includes("auth-right") ? AD_COMPASS_QUADRANTS[1].fill : "rgba(128,128,128,0.08)"}
+              onClick={() => toggleQuadrant("auth-right")} className="transition-all" />
+            {/* lib-left: bottom-left */}
+            <rect x={0} y={HALF} width={HALF} height={HALF}
+              fill={quadrants.includes("lib-left") ? AD_COMPASS_QUADRANTS[2].fill : "rgba(128,128,128,0.08)"}
+              onClick={() => toggleQuadrant("lib-left")} className="transition-all" />
+            {/* lib-right: bottom-right */}
+            <rect x={HALF} y={HALF} width={HALF} height={HALF}
+              fill={quadrants.includes("lib-right") ? AD_COMPASS_QUADRANTS[3].fill : "rgba(128,128,128,0.08)"}
+              onClick={() => toggleQuadrant("lib-right")} className="transition-all" />
+
+            {/* Axis lines */}
+            <line x1={HALF} y1={0} x2={HALF} y2={SIZE} stroke="currentColor" strokeOpacity={0.2} strokeWidth={0.75} />
+            <line x1={0} y1={HALF} x2={SIZE} y2={HALF} stroke="currentColor" strokeOpacity={0.2} strokeWidth={0.75} />
+
+            {/* Labels */}
+            <text x={2} y={HALF - 2} fontSize={8} fill="currentColor" fillOpacity={0.45} style={{ pointerEvents: "none" }}>L</text>
+            <text x={SIZE - 9} y={HALF - 2} fontSize={8} fill="currentColor" fillOpacity={0.45} style={{ pointerEvents: "none" }}>R</text>
+            <text x={HALF + 2} y={10} fontSize={8} fill="currentColor" fillOpacity={0.45} style={{ pointerEvents: "none" }}>A</text>
+            <text x={HALF + 2} y={SIZE - 2} fontSize={8} fill="currentColor" fillOpacity={0.45} style={{ pointerEvents: "none" }}>L</text>
+          </svg>
+
+          {/* Legend */}
+          <div className="flex flex-col gap-1.5 pt-0.5">
+            {AD_COMPASS_QUADRANTS.map((q) => (
+              <button
+                key={q.value}
+                type="button"
+                onClick={() => toggleQuadrant(q.value)}
+                className={`flex items-center gap-1.5 text-xs transition-colors text-left ${
+                  quadrants.includes(q.value) ? "text-foreground" : "text-foreground-muted"
+                }`}
+              >
+                <span
+                  className="w-3 h-3 rounded-sm shrink-0 ring-1 ring-border/50"
+                  style={{ background: quadrants.includes(q.value) ? q.fill : "rgba(128,128,128,0.12)" }}
+                />
+                {q.label}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
