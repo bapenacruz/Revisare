@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { signOut } from "next-auth/react";
 import { useSession } from "@/components/providers/SessionProvider";
+import { useAvatar } from "@/components/providers/AvatarProvider";
 import { useRouter } from "next/navigation";
 import { User, Swords, ShieldCheck, Info, LogOut, Smartphone, Apple, ChevronDown, Trash2 } from "lucide-react";
 import { Avatar } from "@/components/ui/Avatar";
@@ -80,6 +81,7 @@ function InstallSection() {
 
 export default function AccountPage() {
   const { data: session, status } = useSession();
+  const { avatarUrl } = useAvatar();
   const router = useRouter();
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [deleting, setDeleting] = useState(false);
@@ -107,7 +109,7 @@ export default function AccountPage() {
       <div className="flex items-center gap-4 px-6 py-6 border-b border-border">
         <Avatar
           initial={username[0]?.toUpperCase() ?? "U"}
-          src={user.image}
+          src={avatarUrl ?? undefined}
           size="lg"
         />
         <div>
