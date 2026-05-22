@@ -2,7 +2,7 @@
 
 import { useState, useRef, useCallback, useEffect } from "react";
 import Link from "next/link";
-import { Sparkles } from "lucide-react";
+import { Sparkles, Megaphone } from "lucide-react";
 import { Card, CardBody } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
 import { Avatar } from "@/components/ui/Avatar";
@@ -20,14 +20,47 @@ type FeaturedDebateItem = {
   category: { label: string; emoji: string };
 };
 
+type AdItem = {
+  id: string;
+  motion: string;
+  proponentName: string;
+  opponentName: string;
+  linkUrl: string | null;
+};
+
+type FeedItem =
+  | { type: "debate"; data: FeaturedDebateItem }
+  | { type: "ad"; data: AdItem };
+
+// Inject one ad every 5 debate cards, cycling through available ads
+function buildFeed(debates: FeaturedDebateItem[], ads: AdItem[]): FeedItem[] {
+  if (ads.length === 0) return debates.map((d) => ({ type: "debate" as const, data: d }));
+  const result: FeedItem[] = [];
+  let adIdx = 0;
+  for (let i = 0; i < debates.length; i++) {
+    result.push({ type: "debate", data: debates[i] });
+    if ((i + 1) % 5 === 0) {
+      result.push({ type: "ad", data: ads[adIdx % ads.length] });
+      adIdx++;
+    }
+  }
+  return result;
+}
+
 export function FeaturedFeed() {
   const [items, setItems] = useState<FeaturedDebateItem[]>([]);
+  const [ads, setAds] = useState<AdItem[]>([]);
   const [loading, setLoading] = useState(false);
   const [empty, setEmpty] = useState(false);
   // undefined = first page not yet fetched; null = exhausted; string = next cursor
   const cursorRef = useRef<string | null | undefined>(undefined);
   const loadingRef = useRef(false);
   const sentinelRef = useRef<HTMLDivElement>(null);
+
+  // Fetch active ads once on mount
+  useEffect(() => {
+    fetch("/api/home/ads").then((r) => r.json()).then(setAds).catch(() => {});
+  }, []);
 
   const loadMore = useCallback(async () => {
     if (loadingRef.current || cursorRef.current === null) return;
@@ -94,7 +127,42 @@ export function FeaturedFeed() {
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {items.map((debate) => {
+          {buildFeed(items, ads).map((item, idx) => {
+            if (item.type === "ad") {
+              const ad = item.data;
+              const inner = (
+                <Card interactive className="h-full border-brand/20 bg-surface">
+                  <CardBody className="flex flex-col gap-3 p-4">
+                    <div className="flex items-center gap-1.5">
+                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-semibold uppercase tracking-wide border bg-brand/10 text-brand border-brand/20">
+                        <Megaphone size={9} /> Sponsored
+                      </span>
+                    </div>
+                    <p className="text-sm font-medium text-foreground leading-snug line-clamp-3 flex-1">
+                      {ad.motion}
+                    </p>
+                    <div className="flex flex-col gap-1">
+                      <div className="flex items-center gap-1.5 text-xs font-semibold text-foreground">
+                        <Avatar initial={ad.proponentName[0].toUpperCase()} size="xs" />
+                        <span className="truncate">{ad.proponentName}</span>
+                        <span title="Winner">🏆</span>
+                      </div>
+                      <div className="flex items-center gap-1.5 text-xs text-foreground-muted opacity-70">
+                        <Avatar initial={ad.opponentName[0].toUpperCase()} size="xs" />
+                        <span className="truncate">{ad.opponentName}</span>
+                      </div>
+                    </div>
+                  </CardBody>
+                </Card>
+              );
+              return ad.linkUrl ? (
+                <a key={`ad-${ad.id}-${idx}`} href={ad.linkUrl} target="_blank" rel="noopener noreferrer">{inner}</a>
+              ) : (
+                <div key={`ad-${ad.id}-${idx}`}>{inner}</div>
+              );
+            }
+
+            const debate = item.data;
             return (
               <Link key={debate.id} href={`/debates/${debate.challengeId}/results`}>
                 <Card interactive className="h-full">

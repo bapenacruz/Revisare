@@ -524,3 +524,43 @@ model ContactMessage {
 
   @@map("contact_messages")
 }
+
+// ============================================================
+// Ad Categories (separate from debate categories)
+// ============================================================
+
+model AdCategory {
+  id        String   @id @default(cuid())
+  slug      String   @unique
+  label     String
+  emoji     String   @default("📢")
+  order     Int      @default(0)
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+
+  ads       Ad[]
+
+  @@map("ad_categories")
+}
+
+// ============================================================
+// Ads (injected into home feed as debate-format sponsored content)
+// Proponent always wins. No AI assessment. Category not shown on card.
+// ============================================================
+
+model Ad {
+  id            String      @id @default(cuid())
+  motion        String
+  proponentName String
+  opponentName  String
+  categoryId    String?
+  linkUrl       String?
+  isActive      Boolean     @default(true)
+  isDeleted     Boolean     @default(false)
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+
+  category      AdCategory? @relation(fields: [categoryId], references: [id])
+
+  @@map("ads")
+}

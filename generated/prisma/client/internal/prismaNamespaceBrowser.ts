@@ -77,7 +77,9 @@ export const ModelName = {
   AdminAction: 'AdminAction',
   JudgePrompt: 'JudgePrompt',
   DebateResult: 'DebateResult',
-  ContactMessage: 'ContactMessage'
+  ContactMessage: 'ContactMessage',
+  AdCategory: 'AdCategory',
+  Ad: 'Ad'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -491,6 +493,35 @@ export const ContactMessageScalarFieldEnum = {
 } as const
 
 export type ContactMessageScalarFieldEnum = (typeof ContactMessageScalarFieldEnum)[keyof typeof ContactMessageScalarFieldEnum]
+
+
+export const AdCategoryScalarFieldEnum = {
+  id: 'id',
+  slug: 'slug',
+  label: 'label',
+  emoji: 'emoji',
+  order: 'order',
+  isActive: 'isActive',
+  createdAt: 'createdAt'
+} as const
+
+export type AdCategoryScalarFieldEnum = (typeof AdCategoryScalarFieldEnum)[keyof typeof AdCategoryScalarFieldEnum]
+
+
+export const AdScalarFieldEnum = {
+  id: 'id',
+  motion: 'motion',
+  proponentName: 'proponentName',
+  opponentName: 'opponentName',
+  categoryId: 'categoryId',
+  linkUrl: 'linkUrl',
+  isActive: 'isActive',
+  isDeleted: 'isDeleted',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AdScalarFieldEnum = (typeof AdScalarFieldEnum)[keyof typeof AdScalarFieldEnum]
 
 
 export const SortOrder = {

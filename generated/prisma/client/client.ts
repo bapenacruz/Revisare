@@ -176,3 +176,13 @@ export type DebateResult = Prisma.DebateResultModel
  * 
  */
 export type ContactMessage = Prisma.ContactMessageModel
+/**
+ * Model AdCategory
+ * 
+ */
+export type AdCategory = Prisma.AdCategoryModel
+/**
+ * Model Ad
+ * 
+ */
+export type Ad = Prisma.AdModel

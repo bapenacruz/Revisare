@@ -410,7 +410,9 @@ export const ModelName = {
   AdminAction: 'AdminAction',
   JudgePrompt: 'JudgePrompt',
   DebateResult: 'DebateResult',
-  ContactMessage: 'ContactMessage'
+  ContactMessage: 'ContactMessage',
+  AdCategory: 'AdCategory',
+  Ad: 'Ad'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -426,7 +428,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "account" | "session" | "verificationToken" | "user" | "follow" | "followRequest" | "userFavoriteCategory" | "category" | "challenge" | "joinRequest" | "lobbyChatMessage" | "debate" | "audienceVote" | "debateComment" | "debateCommentSubscription" | "debateTurn" | "judgeResult" | "spectatorMessage" | "notification" | "integrityFlag" | "suspiciousTurnSignal" | "pushSubscription" | "passwordResetToken" | "adminAction" | "judgePrompt" | "debateResult" | "contactMessage"
+    modelProps: "account" | "session" | "verificationToken" | "user" | "follow" | "followRequest" | "userFavoriteCategory" | "category" | "challenge" | "joinRequest" | "lobbyChatMessage" | "debate" | "audienceVote" | "debateComment" | "debateCommentSubscription" | "debateTurn" | "judgeResult" | "spectatorMessage" | "notification" | "integrityFlag" | "suspiciousTurnSignal" | "pushSubscription" | "passwordResetToken" | "adminAction" | "judgePrompt" | "debateResult" | "contactMessage" | "adCategory" | "ad"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -2428,6 +2430,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    AdCategory: {
+      payload: Prisma.$AdCategoryPayload<ExtArgs>
+      fields: Prisma.AdCategoryFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.AdCategoryFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdCategoryPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.AdCategoryFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdCategoryPayload>
+        }
+        findFirst: {
+          args: Prisma.AdCategoryFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdCategoryPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.AdCategoryFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdCategoryPayload>
+        }
+        findMany: {
+          args: Prisma.AdCategoryFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdCategoryPayload>[]
+        }
+        create: {
+          args: Prisma.AdCategoryCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdCategoryPayload>
+        }
+        createMany: {
+          args: Prisma.AdCategoryCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.AdCategoryCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdCategoryPayload>[]
+        }
+        delete: {
+          args: Prisma.AdCategoryDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdCategoryPayload>
+        }
+        update: {
+          args: Prisma.AdCategoryUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdCategoryPayload>
+        }
+        deleteMany: {
+          args: Prisma.AdCategoryDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.AdCategoryUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.AdCategoryUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdCategoryPayload>[]
+        }
+        upsert: {
+          args: Prisma.AdCategoryUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdCategoryPayload>
+        }
+        aggregate: {
+          args: Prisma.AdCategoryAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateAdCategory>
+        }
+        groupBy: {
+          args: Prisma.AdCategoryGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AdCategoryGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.AdCategoryCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AdCategoryCountAggregateOutputType> | number
+        }
+      }
+    }
+    Ad: {
+      payload: Prisma.$AdPayload<ExtArgs>
+      fields: Prisma.AdFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.AdFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.AdFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdPayload>
+        }
+        findFirst: {
+          args: Prisma.AdFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.AdFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdPayload>
+        }
+        findMany: {
+          args: Prisma.AdFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdPayload>[]
+        }
+        create: {
+          args: Prisma.AdCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdPayload>
+        }
+        createMany: {
+          args: Prisma.AdCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.AdCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdPayload>[]
+        }
+        delete: {
+          args: Prisma.AdDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdPayload>
+        }
+        update: {
+          args: Prisma.AdUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdPayload>
+        }
+        deleteMany: {
+          args: Prisma.AdDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.AdUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.AdUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdPayload>[]
+        }
+        upsert: {
+          args: Prisma.AdUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdPayload>
+        }
+        aggregate: {
+          args: Prisma.AdAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateAd>
+        }
+        groupBy: {
+          args: Prisma.AdGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AdGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.AdCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AdCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -2864,6 +3014,35 @@ export const ContactMessageScalarFieldEnum = {
 export type ContactMessageScalarFieldEnum = (typeof ContactMessageScalarFieldEnum)[keyof typeof ContactMessageScalarFieldEnum]
 
 
+export const AdCategoryScalarFieldEnum = {
+  id: 'id',
+  slug: 'slug',
+  label: 'label',
+  emoji: 'emoji',
+  order: 'order',
+  isActive: 'isActive',
+  createdAt: 'createdAt'
+} as const
+
+export type AdCategoryScalarFieldEnum = (typeof AdCategoryScalarFieldEnum)[keyof typeof AdCategoryScalarFieldEnum]
+
+
+export const AdScalarFieldEnum = {
+  id: 'id',
+  motion: 'motion',
+  proponentName: 'proponentName',
+  opponentName: 'opponentName',
+  categoryId: 'categoryId',
+  linkUrl: 'linkUrl',
+  isActive: 'isActive',
+  isDeleted: 'isDeleted',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AdScalarFieldEnum = (typeof AdScalarFieldEnum)[keyof typeof AdScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -3108,6 +3287,8 @@ export type GlobalOmitConfig = {
   judgePrompt?: Prisma.JudgePromptOmit
   debateResult?: Prisma.DebateResultOmit
   contactMessage?: Prisma.ContactMessageOmit
+  adCategory?: Prisma.AdCategoryOmit
+  ad?: Prisma.AdOmit
 }
 
 /* Types for Logging */
