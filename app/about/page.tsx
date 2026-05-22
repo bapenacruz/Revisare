@@ -239,10 +239,20 @@ type TabId = (typeof TABS)[number]["id"];
 
 // ─── Page ──────────────────────────────────────────────────────────────────────
 
+interface TeamMemberPublic {
+  id: string;
+  name: string;
+  role: string;
+  description: string | null;
+  imageDataUrl: string | null;
+}
+
 export default function AboutPage() {
   const [activeTab, setActiveTab] = useState<TabId>("about");
   const [stats, setStats] = useState<Stats | null>(null);
   const [statsLoading, setStatsLoading] = useState(false);
+  const [teamData, setTeamData] = useState<{ introText: string; members: TeamMemberPublic[] } | null>(null);
+  const [teamLoading, setTeamLoading] = useState(false);
 
   useEffect(() => {
     if (activeTab === "stats" && !stats && !statsLoading) {
@@ -253,7 +263,15 @@ export default function AboutPage() {
         .catch(() => {})
         .finally(() => setStatsLoading(false));
     }
-  }, [activeTab, stats, statsLoading]);
+    if (activeTab === "team" && !teamData && !teamLoading) {
+      setTeamLoading(true);
+      fetch("/api/team")
+        .then((r) => r.json())
+        .then((data) => setTeamData(data))
+        .catch(() => {})
+        .finally(() => setTeamLoading(false));
+    }
+  }, [activeTab, stats, statsLoading, teamData, teamLoading]);
 
   return (
     <div className="mx-auto max-w-2xl px-4 sm:px-6 py-10 pb-24">
@@ -325,27 +343,33 @@ export default function AboutPage() {
         <div className="flex flex-col gap-3">
           <div className="p-5 rounded-[--radius-lg] bg-surface border border-border">
             <h2 className="text-base font-semibold text-foreground mb-3">Meet the Team</h2>
-            <div className="flex flex-col gap-3 text-sm text-foreground-muted leading-relaxed">
-              <p>Revisare is built by a small team passionate about structured thinking, rhetoric, and AI.</p>
-              <div className="flex flex-col gap-2 mt-1">
-                <div className="flex items-center gap-3 p-3 rounded-[--radius] bg-surface-raised border border-border">
-                  <div className="w-10 h-10 rounded-full bg-brand/10 flex items-center justify-center text-brand text-base font-bold shrink-0">B</div>
-                  <div>
-                    <p className="text-sm font-medium text-foreground">Bapena Cruz</p>
-                    <p className="text-xs text-foreground-muted">Founder &amp; Developer</p>
-                  </div>
-                </div>
-                {/* Placeholder team members */}
-                <div className="flex items-center gap-3 p-3 rounded-[--radius] bg-surface-raised border border-border opacity-40">
-                  <div className="w-10 h-10 rounded-full bg-surface-raised border border-border flex items-center justify-center text-foreground-muted text-base font-bold shrink-0">?</div>
-                  <div>
-                    <p className="text-sm font-medium text-foreground">Your Name Here</p>
-                    <p className="text-xs text-foreground-muted">Role — Coming Soon</p>
-                  </div>
+            {teamLoading ? (
+              <p className="text-sm text-foreground-muted">Loading…</p>
+            ) : (
+              <div className="flex flex-col gap-3 text-sm text-foreground-muted leading-relaxed">
+                {teamData?.introText && <p>{teamData.introText}</p>}
+                <div className="flex flex-col gap-2 mt-1">
+                  {(teamData?.members ?? []).map((m) => (
+                    <div key={m.id} className="flex items-start gap-3 p-3 rounded-[--radius] bg-surface-raised border border-border">
+                      {m.imageDataUrl
+                        ? <img src={m.imageDataUrl} alt={m.name} className="w-10 h-10 rounded-full object-cover shrink-0" />
+                        : <div className="w-10 h-10 rounded-full bg-brand/10 flex items-center justify-center text-brand text-base font-bold shrink-0">
+                            {m.name.charAt(0).toUpperCase()}
+                          </div>
+                      }
+                      <div>
+                        <p className="text-sm font-medium text-foreground">{m.name}</p>
+                        <p className="text-xs text-foreground-muted">{m.role}</p>
+                        {m.description && <p className="text-xs text-foreground-muted mt-1">{m.description}</p>}
+                      </div>
+                    </div>
+                  ))}
+                  {(teamData?.members ?? []).length === 0 && !teamLoading && (
+                    <p className="text-xs text-foreground-subtle italic">We&apos;re a growing team. More members coming soon.</p>
+                  )}
                 </div>
               </div>
-              <p className="text-xs text-foreground-subtle italic">We&apos;re a growing team. More members coming soon.</p>
-            </div>
+            )}
           </div>
 
           <div className="p-5 rounded-[--radius-lg] bg-surface border border-border">

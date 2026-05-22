@@ -24,6 +24,7 @@ export default async function AdminLayout({ children }: { children: ReactNode })
     { href: "/admin/judge-prompts", label: "Prompts" },
     { href: "/admin/flags", label: "Flags", badge: pendingFlags },
     { href: "/admin/contact", label: "Contact", badge: unreadContact },
+    { href: "/admin/team", label: "Team" },
     { href: "/admin/ads", label: "Ads" },
   ];
 

@@ -593,6 +593,32 @@ model AdTurn {
 }
 
 // ============================================================
+// Team (Meet the Team section on About page)
+// ============================================================
+
+model TeamMember {
+  id           String   @id @default(cuid())
+  name         String
+  role         String
+  description  String?  @db.Text
+  imageDataUrl String?  @db.Text
+  order        Int      @default(0)
+  isActive     Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("team_members")
+}
+
+model TeamSettings {
+  id        String   @id @default("singleton")
+  introText String   @default("Revisare is built by a small team passionate about structured thinking, rhetoric, and AI.")
+  updatedAt DateTime @updatedAt
+
+  @@map("team_settings")
+}
+
+// ============================================================
 // Ad Banners (image-based ads injected into the feed)
 // ============================================================
 
