@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
@@ -51,12 +51,45 @@ export function UserRow({ user }: { user: User }) {
   const [localDeleted, setLocalDeleted] = useState(user.isDeleted);
   const [planType, setPlanType] = useState(user.planType);
 
+  const [assessment, setAssessment] = useState<string | null>(null);
+  const [assessmentUpdatedAt, setAssessmentUpdatedAt] = useState<string | null>(null);
+  const [loadingAssessment, setLoadingAssessment] = useState(false);
+  const [regenerating, setRegenerating] = useState(false);
+  const [assessFetched, setAssessFetched] = useState(false);
+
   const isBanned = user.role === "banned";
   const isSuspended = user.role === "suspended" && !!user.suspendedUntil && new Date(user.suspendedUntil) > new Date();
   const isPlaceholder = user.email.endsWith("@placeholder.com");
   const isSynthetic = isPlaceholder;
   const effectiveUser = { ...user, isDeleted: localDeleted };
   const status = getStatus(effectiveUser);
+
+  useEffect(() => {
+    if (!open || assessFetched) return;
+    setLoadingAssessment(true);
+    fetch(`/api/admin/users/${user.id}`)
+      .then((r) => r.json())
+      .then((data) => {
+        setAssessment(data.aiAssessment ?? null);
+        setAssessmentUpdatedAt(data.aiAssessmentUpdatedAt ?? null);
+        setAssessFetched(true);
+      })
+      .finally(() => setLoadingAssessment(false));
+  }, [open, assessFetched, user.id]);
+
+  async function regenerateAssessment() {
+    setRegenerating(true);
+    const res = await fetch(`/api/admin/users/${user.id}/assess`, { method: "POST" });
+    const data = await res.json();
+    setRegenerating(false);
+    if (res.ok) {
+      setAssessment(data.assessment);
+      setAssessmentUpdatedAt(data.updatedAt);
+      setMsg("Assessment regenerated ✓");
+    } else {
+      setMsg((data as { error?: string }).error ?? "Failed to generate assessment");
+    }
+  }
 
   async function apply(action: string) {
     setLoading(true);
@@ -370,6 +403,36 @@ export function UserRow({ user }: { user: User }) {
 
                 {msg && (
                   <p className="text-sm text-foreground-muted">{msg}</p>
+                )}
+              </div>
+
+              {/* Personal Assessment */}
+              <div className="w-full border-t border-border pt-4 mt-2">
+                <div className="flex items-center gap-3 mb-2">
+                  <label className="text-xs font-medium text-foreground-muted uppercase tracking-wide">Personal Assessment</label>
+                  {assessmentUpdatedAt && (
+                    <span className="text-xs text-foreground-subtle">
+                      Updated {new Date(assessmentUpdatedAt).toLocaleDateString()}
+                    </span>
+                  )}
+                  <button
+                    onClick={(e) => { e.stopPropagation(); regenerateAssessment(); }}
+                    disabled={regenerating || loadingAssessment}
+                    className="ml-auto px-3 py-1 text-xs rounded border border-border bg-surface text-foreground-muted hover:text-foreground disabled:opacity-50"
+                  >
+                    {regenerating ? "Generating…" : "Regenerate Assessment"}
+                  </button>
+                </div>
+                {loadingAssessment ? (
+                  <p className="text-xs text-foreground-subtle italic">Loading…</p>
+                ) : assessment ? (
+                  <div className="text-sm text-foreground-muted leading-relaxed whitespace-pre-wrap bg-surface-raised rounded p-3 border border-border max-h-64 overflow-y-auto">
+                    {assessment}
+                  </div>
+                ) : (
+                  <p className="text-xs text-foreground-subtle italic">
+                    No assessment yet. Click &quot;Regenerate Assessment&quot; to generate one.
+                  </p>
                 )}
               </div>
             </div>

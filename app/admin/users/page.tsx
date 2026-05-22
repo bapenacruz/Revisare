@@ -3,6 +3,7 @@ export const dynamic = "force-dynamic";
 import { db } from "@/lib/db";
 import Link from "next/link";
 import { UserRow } from "./UserRow";
+import { UploadUsers } from "./UploadUsers";
 import type { Prisma } from "../../../generated/prisma/client/client";
 
 export const metadata = { title: "Users — Admin" };
@@ -144,6 +145,18 @@ export default async function AdminUsersPage({ searchParams }: Props) {
         Users
         <span className="text-base font-normal text-foreground-muted ml-2">({total})</span>
       </h1>
+
+      <div className="flex items-center gap-3 mb-4 flex-wrap">
+        <a
+          href="/api/admin/users/export"
+          download
+          className="flex items-center gap-1.5 px-3 py-1.5 text-sm rounded border border-border bg-surface text-foreground-muted hover:text-foreground hover:border-brand/40 transition-colors"
+        >
+          ↓ Export All Users JSON
+        </a>
+        <div className="h-4 w-px bg-border" />
+        <UploadUsers />
+      </div>
 
       <form method="GET">
         <div className="rounded-[--radius] border border-border">

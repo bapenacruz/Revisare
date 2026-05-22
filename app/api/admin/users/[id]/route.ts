@@ -10,7 +10,41 @@ function isAdmin(role: string | undefined): boolean {
   return role === "admin";
 }
 
-export async function PATCH(req: NextRequest, { params }: RouteParams) {
+export async function GET(_req: NextRequest, { params }: RouteParams) {
+  const session = await auth();
+  if (!isAdmin((session?.user as { role?: string })?.role)) {
+    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+  }
+
+  const { id: targetId } = await params;
+
+  const user = await db.user.findUnique({
+    where: { id: targetId },
+    select: {
+      id: true,
+      username: true,
+      email: true,
+      bio: true,
+      country: true,
+      websiteUrl: true,
+      aiAssessment: true,
+      aiAssessmentUpdatedAt: true,
+      elo: true,
+      wins: true,
+      losses: true,
+      role: true,
+      planType: true,
+      isDeleted: true,
+      createdAt: true,
+      _count: { select: { debaterA: true, debaterB: true } },
+    },
+  });
+
+  if (!user) return NextResponse.json({ error: "Not found" }, { status: 404 });
+  return NextResponse.json(user);
+}
+
+(req: NextRequest, { params }: RouteParams) {
   const session = await auth();
   if (!isAdmin((session?.user as { role?: string })?.role)) {
     return NextResponse.json({ error: "Forbidden" }, { status: 403 });
