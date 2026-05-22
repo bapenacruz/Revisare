@@ -40,10 +40,7 @@ export async function GET(req: NextRequest) {
     db.category.findMany({
       where: {
         isActive: true,
-        OR: [
-          { label: { contains: q, mode: "insensitive" } },
-          { description: { contains: q, mode: "insensitive" } },
-        ],
+        label: { contains: q, mode: "insensitive" },
       },
       select: { slug: true, label: true, emoji: true },
       take: 4,
