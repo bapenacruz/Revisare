@@ -2,16 +2,11 @@ import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { z } from "zod";
-import bcrypt from "bcryptjs";
 
 const UserSchema = z.object({
   username: z.string().min(3).max(30).regex(/^[a-zA-Z0-9_.]+$/, "Username must contain only letters, numbers, underscores or dots"),
-  email: z.string().email("Invalid email address"),
-  password: z.string().min(8).optional(),
-  role: z.enum(["user", "admin"]).optional().default("user"),
-  planType: z.enum(["unpaid", "paid"]).optional().default("unpaid"),
-  bio: z.string().max(500).optional(),
   country: z.string().max(100).optional(),
+  aiAssessment: z.string().max(5000).optional(),
 });
 
 type UserInput = z.infer<typeof UserSchema>;
@@ -22,12 +17,6 @@ export interface BulkCreateResult {
   status: "created" | "skipped" | "error";
   error?: string;
   userId?: string;
-  generatedPassword?: string;
-}
-
-function generatePassword(): string {
-  const chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$";
-  return Array.from({ length: 16 }, () => chars[Math.floor(Math.random() * chars.length)]).join("");
 }
 
 export async function POST(request: NextRequest) {
@@ -74,10 +63,10 @@ export async function POST(request: NextRequest) {
 
     const data: UserInput = parsed.data;
 
-    // Check for existing username or email
+    // Check for existing username
     const existing = await db.user.findFirst({
-      where: { OR: [{ username: data.username }, { email: data.email }] },
-      select: { id: true, username: true, email: true },
+      where: { username: data.username },
+      select: { id: true },
     });
 
     if (existing) {
@@ -85,25 +74,37 @@ export async function POST(request: NextRequest) {
         index: i,
         username: data.username,
         status: "skipped",
-        error: existing.username === data.username ? "Username already taken" : "Email already registered",
+        error: "Username already taken",
       });
       continue;
     }
 
-    const plainPassword = data.password ?? generatePassword();
-    const hashedPassword = await bcrypt.hash(plainPassword, 10);
+    // Synthetic users get a placeholder email (marks them as non-real)
+    const placeholderEmail = `${data.username}@placeholder.com`;
+    const now = new Date();
 
     try {
       const user = await db.user.create({
         data: {
           username: data.username,
-          email: data.email,
-          hashedPassword,
-          role: data.role ?? "user",
-          planType: data.planType ?? "unpaid",
-          bio: data.bio ?? null,
+          email: placeholderEmail,
+          hashedPassword: null,
+          role: "user",
+          planType: "paid",
+          elo: 1000,
+          wins: 0,
+          losses: 0,
+          bio: null,
+          websiteUrl: null,
           country: data.country ?? null,
           onboardingComplete: true,
+          isExhibition: false,
+          hideFromLeaderboard: false,
+          emailVerified: now,
+          ...(data.aiAssessment ? {
+            aiAssessment: data.aiAssessment,
+            aiAssessmentUpdatedAt: now,
+          } : {}),
         },
         select: { id: true },
       });
@@ -113,8 +114,6 @@ export async function POST(request: NextRequest) {
         username: data.username,
         status: "created",
         userId: user.id,
-        // Only expose generated password (not user-supplied ones)
-        ...(!data.password ? { generatedPassword: plainPassword } : {}),
       });
     } catch (err) {
       results.push({

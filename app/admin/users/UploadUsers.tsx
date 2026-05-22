@@ -8,21 +8,13 @@ import type { BulkCreateResult } from "@/app/api/admin/users/bulk-create/route";
 const TEMPLATE = [
   {
     username: "alice_debates",
-    email: "alice@example.com",
-    password: "SecurePassword123!",
-    role: "user",
-    planType: "unpaid",
-    bio: "Passionate about technology and ethics debates.",
     country: "United States",
+    aiAssessment: "Alice is a pragmatic debater who focuses on evidence and real-world outcomes.",
   },
   {
     username: "bob_argues",
-    email: "bob@example.com",
-    // password omitted — a random one will be generated and returned
-    role: "user",
-    planType: "paid",
-    bio: "Political science graduate. Loves to argue law and governance.",
     country: "United Kingdom",
+    // aiAssessment is optional — leave blank if not available
   },
 ];
 
@@ -90,18 +82,6 @@ export function UploadUsers() {
     }
   }
 
-  // Download results as JSON (includes generated passwords)
-  function downloadResults() {
-    if (!results) return;
-    const blob = new Blob([JSON.stringify(results, null, 2)], { type: "application/json" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = `user-onboard-results-${new Date().toISOString().slice(0, 10)}.json`;
-    a.click();
-    URL.revokeObjectURL(url);
-  }
-
   return (
     <div className="flex flex-col gap-3">
       <div className="flex items-center gap-2 flex-wrap">
@@ -145,15 +125,6 @@ export function UploadUsers() {
           <span className="text-green-400 font-medium">{summary.created} created</span>
           {summary.skipped > 0 && <span className="text-accent font-medium">{summary.skipped} skipped</span>}
           {summary.errors > 0 && <span className="text-danger font-medium">{summary.errors} errors</span>}
-          {results && results.some((r) => r.generatedPassword) && (
-            <button
-              onClick={downloadResults}
-              className="flex items-center gap-1 text-xs text-brand hover:underline"
-            >
-              <Download size={12} />
-              Download results (includes generated passwords)
-            </button>
-          )}
         </div>
       )}
 
@@ -173,9 +144,6 @@ export function UploadUsers() {
               </span>
               {r.status === "skipped" && <span className="text-foreground-subtle">— skipped: {r.error}</span>}
               {r.status === "error" && <span className="text-danger">— {r.error}</span>}
-              {r.status === "created" && r.generatedPassword && (
-                <span className="text-foreground-subtle">— pwd: <code className="font-mono bg-surface-raised px-1 rounded">{r.generatedPassword}</code></span>
-              )}
             </div>
           ))}
         </div>

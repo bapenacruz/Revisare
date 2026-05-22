@@ -41,6 +41,7 @@ export async function POST(request: Request) {
     where: { id: userId },
     select: {
       username: true,
+      email: true,
       elo: true,
       wins: true,
       losses: true,
@@ -90,6 +91,11 @@ export async function POST(request: Request) {
 
   if (!user) {
     return NextResponse.json({ error: "User not found" }, { status: 404 });
+  }
+
+  // Synthetic users do not get AI assessments
+  if (user.email.endsWith("@placeholder.com")) {
+    return NextResponse.json({ error: "Synthetic users do not receive AI assessments" }, { status: 403 });
   }
 
   // Rate-limit: once per week unless force=true
