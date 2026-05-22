@@ -162,3 +162,8 @@ export type AdCategory = Prisma.AdCategoryModel
  * 
  */
 export type Ad = Prisma.AdModel
+/**
+ * Model AdTurn
+ * 
+ */
+export type AdTurn = Prisma.AdTurnModel

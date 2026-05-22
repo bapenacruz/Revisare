@@ -561,6 +561,25 @@ model Ad {
   updatedAt     DateTime    @updatedAt
 
   category      AdCategory? @relation(fields: [categoryId], references: [id])
+  turns         AdTurn[]
 
   @@map("ads")
+}
+
+// ============================================================
+// Ad turns (rounds of the sponsored debate)
+// ============================================================
+
+model AdTurn {
+  id        String   @id @default(cuid())
+  adId      String
+  speaker   String   // "proponent" | "opponent"
+  roundName String   // "opening" | "crossfire" | "rebuttal" | "summary" | "closing"
+  content   String   @db.Text
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+
+  ad        Ad       @relation(fields: [adId], references: [id], onDelete: Cascade)
+
+  @@map("ad_turns")
 }

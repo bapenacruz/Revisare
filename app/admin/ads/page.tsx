@@ -6,6 +6,7 @@ import { AdRow } from "./AdRow";
 import { AdCategoryRow } from "./AdCategoryRow";
 import { CreateAdForm } from "./CreateAdForm";
 import { CreateAdCategoryForm } from "./CreateAdCategoryForm";
+import { UploadAds } from "./UploadAds";
 
 export const metadata = { title: "Ads — Admin" };
 
@@ -56,6 +57,7 @@ export default async function AdminAdsPage({ searchParams }: Props) {
         </div>
 
         <CreateAdForm categories={adCategories} />
+        <UploadAds />
 
         <form method="GET">
           <div className="rounded-[--radius] border border-border overflow-x-auto">

@@ -412,7 +412,8 @@ export const ModelName = {
   DebateResult: 'DebateResult',
   ContactMessage: 'ContactMessage',
   AdCategory: 'AdCategory',
-  Ad: 'Ad'
+  Ad: 'Ad',
+  AdTurn: 'AdTurn'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -428,7 +429,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "account" | "session" | "verificationToken" | "user" | "follow" | "followRequest" | "userFavoriteCategory" | "category" | "challenge" | "joinRequest" | "lobbyChatMessage" | "debate" | "audienceVote" | "debateComment" | "debateCommentSubscription" | "debateTurn" | "judgeResult" | "spectatorMessage" | "notification" | "integrityFlag" | "suspiciousTurnSignal" | "pushSubscription" | "passwordResetToken" | "adminAction" | "judgePrompt" | "debateResult" | "contactMessage" | "adCategory" | "ad"
+    modelProps: "account" | "session" | "verificationToken" | "user" | "follow" | "followRequest" | "userFavoriteCategory" | "category" | "challenge" | "joinRequest" | "lobbyChatMessage" | "debate" | "audienceVote" | "debateComment" | "debateCommentSubscription" | "debateTurn" | "judgeResult" | "spectatorMessage" | "notification" | "integrityFlag" | "suspiciousTurnSignal" | "pushSubscription" | "passwordResetToken" | "adminAction" | "judgePrompt" | "debateResult" | "contactMessage" | "adCategory" | "ad" | "adTurn"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -2578,6 +2579,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    AdTurn: {
+      payload: Prisma.$AdTurnPayload<ExtArgs>
+      fields: Prisma.AdTurnFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.AdTurnFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdTurnPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.AdTurnFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdTurnPayload>
+        }
+        findFirst: {
+          args: Prisma.AdTurnFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdTurnPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.AdTurnFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdTurnPayload>
+        }
+        findMany: {
+          args: Prisma.AdTurnFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdTurnPayload>[]
+        }
+        create: {
+          args: Prisma.AdTurnCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdTurnPayload>
+        }
+        createMany: {
+          args: Prisma.AdTurnCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.AdTurnCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdTurnPayload>[]
+        }
+        delete: {
+          args: Prisma.AdTurnDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdTurnPayload>
+        }
+        update: {
+          args: Prisma.AdTurnUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdTurnPayload>
+        }
+        deleteMany: {
+          args: Prisma.AdTurnDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.AdTurnUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.AdTurnUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdTurnPayload>[]
+        }
+        upsert: {
+          args: Prisma.AdTurnUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AdTurnPayload>
+        }
+        aggregate: {
+          args: Prisma.AdTurnAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateAdTurn>
+        }
+        groupBy: {
+          args: Prisma.AdTurnGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AdTurnGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.AdTurnCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AdTurnCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -3043,6 +3118,19 @@ export const AdScalarFieldEnum = {
 export type AdScalarFieldEnum = (typeof AdScalarFieldEnum)[keyof typeof AdScalarFieldEnum]
 
 
+export const AdTurnScalarFieldEnum = {
+  id: 'id',
+  adId: 'adId',
+  speaker: 'speaker',
+  roundName: 'roundName',
+  content: 'content',
+  order: 'order',
+  createdAt: 'createdAt'
+} as const
+
+export type AdTurnScalarFieldEnum = (typeof AdTurnScalarFieldEnum)[keyof typeof AdTurnScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -3289,6 +3377,7 @@ export type GlobalOmitConfig = {
   contactMessage?: Prisma.ContactMessageOmit
   adCategory?: Prisma.AdCategoryOmit
   ad?: Prisma.AdOmit
+  adTurn?: Prisma.AdTurnOmit
 }
 
 /* Types for Logging */

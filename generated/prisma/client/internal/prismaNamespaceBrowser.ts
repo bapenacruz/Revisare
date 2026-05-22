@@ -79,7 +79,8 @@ export const ModelName = {
   DebateResult: 'DebateResult',
   ContactMessage: 'ContactMessage',
   AdCategory: 'AdCategory',
-  Ad: 'Ad'
+  Ad: 'Ad',
+  AdTurn: 'AdTurn'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -522,6 +523,19 @@ export const AdScalarFieldEnum = {
 } as const
 
 export type AdScalarFieldEnum = (typeof AdScalarFieldEnum)[keyof typeof AdScalarFieldEnum]
+
+
+export const AdTurnScalarFieldEnum = {
+  id: 'id',
+  adId: 'adId',
+  speaker: 'speaker',
+  roundName: 'roundName',
+  content: 'content',
+  order: 'order',
+  createdAt: 'createdAt'
+} as const
+
+export type AdTurnScalarFieldEnum = (typeof AdTurnScalarFieldEnum)[keyof typeof AdTurnScalarFieldEnum]
 
 
 export const SortOrder = {

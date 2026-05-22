@@ -223,6 +223,7 @@ export type AdWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"Ad"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Ad"> | Date | string
   category?: Prisma.XOR<Prisma.AdCategoryNullableScalarRelationFilter, Prisma.AdCategoryWhereInput> | null
+  turns?: Prisma.AdTurnListRelationFilter
 }
 
 export type AdOrderByWithRelationInput = {
@@ -237,6 +238,7 @@ export type AdOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   category?: Prisma.AdCategoryOrderByWithRelationInput
+  turns?: Prisma.AdTurnOrderByRelationAggregateInput
 }
 
 export type AdWhereUniqueInput = Prisma.AtLeast<{
@@ -254,6 +256,7 @@ export type AdWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"Ad"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Ad"> | Date | string
   category?: Prisma.XOR<Prisma.AdCategoryNullableScalarRelationFilter, Prisma.AdCategoryWhereInput> | null
+  turns?: Prisma.AdTurnListRelationFilter
 }, "id">
 
 export type AdOrderByWithAggregationInput = {
@@ -299,6 +302,7 @@ export type AdCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   category?: Prisma.AdCategoryCreateNestedOneWithoutAdsInput
+  turns?: Prisma.AdTurnCreateNestedManyWithoutAdInput
 }
 
 export type AdUncheckedCreateInput = {
@@ -312,6 +316,7 @@ export type AdUncheckedCreateInput = {
   isDeleted?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  turns?: Prisma.AdTurnUncheckedCreateNestedManyWithoutAdInput
 }
 
 export type AdUpdateInput = {
@@ -325,6 +330,7 @@ export type AdUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   category?: Prisma.AdCategoryUpdateOneWithoutAdsNestedInput
+  turns?: Prisma.AdTurnUpdateManyWithoutAdNestedInput
 }
 
 export type AdUncheckedUpdateInput = {
@@ -338,6 +344,7 @@ export type AdUncheckedUpdateInput = {
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  turns?: Prisma.AdTurnUncheckedUpdateManyWithoutAdNestedInput
 }
 
 export type AdCreateManyInput = {
@@ -427,6 +434,11 @@ export type AdMinOrderByAggregateInput = {
   updatedAt?: Prisma.SortOrder
 }
 
+export type AdScalarRelationFilter = {
+  is?: Prisma.AdWhereInput
+  isNot?: Prisma.AdWhereInput
+}
+
 export type AdCreateNestedManyWithoutCategoryInput = {
   create?: Prisma.XOR<Prisma.AdCreateWithoutCategoryInput, Prisma.AdUncheckedCreateWithoutCategoryInput> | Prisma.AdCreateWithoutCategoryInput[] | Prisma.AdUncheckedCreateWithoutCategoryInput[]
   connectOrCreate?: Prisma.AdCreateOrConnectWithoutCategoryInput | Prisma.AdCreateOrConnectWithoutCategoryInput[]
@@ -469,6 +481,20 @@ export type AdUncheckedUpdateManyWithoutCategoryNestedInput = {
   deleteMany?: Prisma.AdScalarWhereInput | Prisma.AdScalarWhereInput[]
 }
 
+export type AdCreateNestedOneWithoutTurnsInput = {
+  create?: Prisma.XOR<Prisma.AdCreateWithoutTurnsInput, Prisma.AdUncheckedCreateWithoutTurnsInput>
+  connectOrCreate?: Prisma.AdCreateOrConnectWithoutTurnsInput
+  connect?: Prisma.AdWhereUniqueInput
+}
+
+export type AdUpdateOneRequiredWithoutTurnsNestedInput = {
+  create?: Prisma.XOR<Prisma.AdCreateWithoutTurnsInput, Prisma.AdUncheckedCreateWithoutTurnsInput>
+  connectOrCreate?: Prisma.AdCreateOrConnectWithoutTurnsInput
+  upsert?: Prisma.AdUpsertWithoutTurnsInput
+  connect?: Prisma.AdWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.AdUpdateToOneWithWhereWithoutTurnsInput, Prisma.AdUpdateWithoutTurnsInput>, Prisma.AdUncheckedUpdateWithoutTurnsInput>
+}
+
 export type AdCreateWithoutCategoryInput = {
   id?: string
   motion: string
@@ -479,6 +505,7 @@ export type AdCreateWithoutCategoryInput = {
   isDeleted?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  turns?: Prisma.AdTurnCreateNestedManyWithoutAdInput
 }
 
 export type AdUncheckedCreateWithoutCategoryInput = {
@@ -491,6 +518,7 @@ export type AdUncheckedCreateWithoutCategoryInput = {
   isDeleted?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  turns?: Prisma.AdTurnUncheckedCreateNestedManyWithoutAdInput
 }
 
 export type AdCreateOrConnectWithoutCategoryInput = {
@@ -535,6 +563,74 @@ export type AdScalarWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"Ad"> | Date | string
 }
 
+export type AdCreateWithoutTurnsInput = {
+  id?: string
+  motion: string
+  proponentName: string
+  opponentName: string
+  linkUrl?: string | null
+  isActive?: boolean
+  isDeleted?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  category?: Prisma.AdCategoryCreateNestedOneWithoutAdsInput
+}
+
+export type AdUncheckedCreateWithoutTurnsInput = {
+  id?: string
+  motion: string
+  proponentName: string
+  opponentName: string
+  categoryId?: string | null
+  linkUrl?: string | null
+  isActive?: boolean
+  isDeleted?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type AdCreateOrConnectWithoutTurnsInput = {
+  where: Prisma.AdWhereUniqueInput
+  create: Prisma.XOR<Prisma.AdCreateWithoutTurnsInput, Prisma.AdUncheckedCreateWithoutTurnsInput>
+}
+
+export type AdUpsertWithoutTurnsInput = {
+  update: Prisma.XOR<Prisma.AdUpdateWithoutTurnsInput, Prisma.AdUncheckedUpdateWithoutTurnsInput>
+  create: Prisma.XOR<Prisma.AdCreateWithoutTurnsInput, Prisma.AdUncheckedCreateWithoutTurnsInput>
+  where?: Prisma.AdWhereInput
+}
+
+export type AdUpdateToOneWithWhereWithoutTurnsInput = {
+  where?: Prisma.AdWhereInput
+  data: Prisma.XOR<Prisma.AdUpdateWithoutTurnsInput, Prisma.AdUncheckedUpdateWithoutTurnsInput>
+}
+
+export type AdUpdateWithoutTurnsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  motion?: Prisma.StringFieldUpdateOperationsInput | string
+  proponentName?: Prisma.StringFieldUpdateOperationsInput | string
+  opponentName?: Prisma.StringFieldUpdateOperationsInput | string
+  linkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  category?: Prisma.AdCategoryUpdateOneWithoutAdsNestedInput
+}
+
+export type AdUncheckedUpdateWithoutTurnsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  motion?: Prisma.StringFieldUpdateOperationsInput | string
+  proponentName?: Prisma.StringFieldUpdateOperationsInput | string
+  opponentName?: Prisma.StringFieldUpdateOperationsInput | string
+  categoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
 export type AdCreateManyCategoryInput = {
   id?: string
   motion: string
@@ -557,6 +653,7 @@ export type AdUpdateWithoutCategoryInput = {
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  turns?: Prisma.AdTurnUpdateManyWithoutAdNestedInput
 }
 
 export type AdUncheckedUpdateWithoutCategoryInput = {
@@ -569,6 +666,7 @@ export type AdUncheckedUpdateWithoutCategoryInput = {
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  turns?: Prisma.AdTurnUncheckedUpdateManyWithoutAdNestedInput
 }
 
 export type AdUncheckedUpdateManyWithoutCategoryInput = {
@@ -584,6 +682,35 @@ export type AdUncheckedUpdateManyWithoutCategoryInput = {
 }
 
 
+/**
+ * Count Type AdCountOutputType
+ */
+
+export type AdCountOutputType = {
+  turns: number
+}
+
+export type AdCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  turns?: boolean | AdCountOutputTypeCountTurnsArgs
+}
+
+/**
+ * AdCountOutputType without action
+ */
+export type AdCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the AdCountOutputType
+   */
+  select?: Prisma.AdCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * AdCountOutputType without action
+ */
+export type AdCountOutputTypeCountTurnsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AdTurnWhereInput
+}
+
 
 export type AdSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -597,6 +724,8 @@ export type AdSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = run
   createdAt?: boolean
   updatedAt?: boolean
   category?: boolean | Prisma.Ad$categoryArgs<ExtArgs>
+  turns?: boolean | Prisma.Ad$turnsArgs<ExtArgs>
+  _count?: boolean | Prisma.AdCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["ad"]>
 
 export type AdSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -643,6 +772,8 @@ export type AdSelectScalar = {
 export type AdOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "motion" | "proponentName" | "opponentName" | "categoryId" | "linkUrl" | "isActive" | "isDeleted" | "createdAt" | "updatedAt", ExtArgs["result"]["ad"]>
 export type AdInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   category?: boolean | Prisma.Ad$categoryArgs<ExtArgs>
+  turns?: boolean | Prisma.Ad$turnsArgs<ExtArgs>
+  _count?: boolean | Prisma.AdCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type AdIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   category?: boolean | Prisma.Ad$categoryArgs<ExtArgs>
@@ -655,6 +786,7 @@ export type $AdPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   name: "Ad"
   objects: {
     category: Prisma.$AdCategoryPayload<ExtArgs> | null
+    turns: Prisma.$AdTurnPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1062,6 +1194,7 @@ readonly fields: AdFieldRefs;
 export interface Prisma__AdClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   category<T extends Prisma.Ad$categoryArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Ad$categoryArgs<ExtArgs>>): Prisma.Prisma__AdCategoryClient<runtime.Types.Result.GetResult<Prisma.$AdCategoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  turns<T extends Prisma.Ad$turnsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Ad$turnsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AdTurnPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1518,6 +1651,30 @@ export type Ad$categoryArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
    */
   include?: Prisma.AdCategoryInclude<ExtArgs> | null
   where?: Prisma.AdCategoryWhereInput
+}
+
+/**
+ * Ad.turns
+ */
+export type Ad$turnsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the AdTurn
+   */
+  select?: Prisma.AdTurnSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the AdTurn
+   */
+  omit?: Prisma.AdTurnOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AdTurnInclude<ExtArgs> | null
+  where?: Prisma.AdTurnWhereInput
+  orderBy?: Prisma.AdTurnOrderByWithRelationInput | Prisma.AdTurnOrderByWithRelationInput[]
+  cursor?: Prisma.AdTurnWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AdTurnScalarFieldEnum | Prisma.AdTurnScalarFieldEnum[]
 }
 
 /**
