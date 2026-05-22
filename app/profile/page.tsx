@@ -1,7 +1,7 @@
 import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { redirect } from "next/navigation";
-import { Avatar } from "@/components/ui/Avatar";
+import { AvatarEditor } from "@/components/features/profile/AvatarEditor";
 import { Badge } from "@/components/ui/Badge";
 import { Card, CardBody } from "@/components/ui/Card";
 import { Tabs, TabList, TabTrigger, TabPanel } from "@/components/ui/Tabs";
@@ -99,9 +99,9 @@ export default async function ProfilePage({ searchParams }: { searchParams: Prom
         {/* Sidebar */}
         <aside className="md:w-64 shrink-0">
           <div className="flex flex-col items-center text-center gap-3 py-6">
-              <Avatar
+              <AvatarEditor
                 initial={user.username.charAt(0).toUpperCase()}
-                size="xl"
+                initialAvatarUrl={user.avatarUrl ?? null}
               />
               <div>
                 <h1 className="text-lg font-bold text-foreground">{user.username}</h1>
