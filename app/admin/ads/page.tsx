@@ -133,11 +133,10 @@ export default async function AdminAdsPage({ searchParams }: Props) {
 
         <div className="mb-4 p-4 rounded-[--radius] border border-blue-500/20 bg-blue-500/5 text-xs text-foreground-muted space-y-1">
           <p className="font-semibold text-foreground text-sm">📐 Banner Design Guidelines for Advertisers</p>
-          <p>Banners display full-width across the feed at a <strong>5:1 aspect ratio</strong> (e.g. <strong>1200 × 240 px</strong>). Export as JPEG or PNG under <strong>2 MB</strong>.</p>
+          <p>Banners must be of a <strong>3:1.5 aspect ratio</strong> (<strong>240 px</strong>). Imported as JPG or PNG under <strong>.5 MB</strong>.</p>
           <ul className="list-disc list-inside space-y-0.5 mt-1">
-            <li>Keep important content (logo, headline, CTA) centred or in the middle third — left/right edges may be cropped on mobile.</li>
-            <li>Use high-contrast text on a solid or lightly blurred background — the banner is small on mobile screens.</li>
-            <li>Minimum font size: <strong>24 px</strong> at 1200 px width (scales to ~10 px on a 300 px phone — avoid dense copy).</li>
+            <li>Keep important content (logo, headline, CTA) centred or in the middle third as left/right edges may be cropped depending on screen size.</li>
+            <li>Use high-contrast text on a solid or lightly blurred background. No transparency.</li>
             <li>Safe zone: stay within the inner 80% of the width to avoid crop on narrow viewports.</li>
           </ul>
         </div>

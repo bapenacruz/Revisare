@@ -119,17 +119,17 @@ async function main() {
     // Admin account (dev only)
     const adminHash = await bcrypt.hash("AdminPass123!", 12);
     await prisma.user.upsert({
-      where: { email: "admin@arguably.app" },
+      where: { email: "admin@revisare.com" },
       update: { role: "admin" },
       create: {
-        email: "admin@arguably.app",
+        email: "admin@revisare.com",
         username: "platform_admin",
         hashedPassword: adminHash,
         role: "admin",
         bio: "Platform administrator account.",
       },
     });
-    console.log("✅ Seeded admin user: admin@arguably.app / AdminPass123!");
+    console.log("✅ Seeded admin user: admin@revisare.com / AdminPass123!");
   }
 
   console.log("🎉 Seeding complete");

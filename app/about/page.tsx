@@ -1,7 +1,7 @@
 ﻿"use client";
 
 import { useState, useRef, useEffect } from "react";
-import { Paperclip, X, Send, CheckCircle2, Users, MessageSquare, BarChart3, Zap, Scale, Brain, Trophy, Star, ThumbsUp } from "lucide-react";
+import { Paperclip, X, Send, CheckCircle2, Users, MessageSquare, BarChart3, Zap, Scale, Brain, Trophy, Eye, ThumbsUp } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const VERSION = "0.1.0";
@@ -192,7 +192,7 @@ type Stats = {
   debatesThisYear: number;
   totalUsers: number;
   rankedDebates: number;
-  totalJudgments: number;
+  totalViews: number;
   totalComments: number;
   totalVotes: number;
   topCategories: { label: string; emoji: string; count: number }[];
@@ -450,7 +450,7 @@ export default function AboutPage() {
                 <StatCard label="This Year" value={stats.debatesThisYear} icon={<BarChart3 size={14} />} />
                 <StatCard label="Members" value={stats.totalUsers} icon={<Users size={14} />} />
                 <StatCard label="Ranked Debates" value={stats.rankedDebates} icon={<Trophy size={14} />} />
-                <StatCard label="AI Judgments" value={stats.totalJudgments} icon={<Star size={14} />} />
+                <StatCard label="Total Views" value={stats.totalViews} icon={<Eye size={14} />} />
                 <StatCard label="Audience Votes" value={stats.totalVotes} icon={<ThumbsUp size={14} />} />
                 <StatCard label="Comments" value={stats.totalComments} icon={<MessageSquare size={14} />} />
               </div>

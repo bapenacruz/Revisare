@@ -165,15 +165,15 @@ export function FeaturedFeed() {
               const b = item.data;
               const inner = (
                 // eslint-disable-next-line @next/next/no-img-element
-                <img src={b.imageDataUrl} alt={b.altText ?? ""} className="w-full h-full object-cover rounded-[--radius-lg]" style={{ minHeight: "8rem", maxHeight: "12rem" }} />
+                <img src={b.imageDataUrl} alt={b.altText ?? ""} className="w-full h-auto rounded-[--radius-lg]" />
               );
               return b.linkUrl ? (
                 <a key={`banner-${b.id}-${idx}`} href={ensureAbsoluteUrl(b.linkUrl)} target="_blank" rel="noopener noreferrer"
-                  className="block overflow-hidden rounded-[--radius-lg] border border-border">
+                  className="block overflow-hidden rounded-[--radius-lg] self-center">
                   {inner}
                 </a>
               ) : (
-                <div key={`banner-${b.id}-${idx}`} className="overflow-hidden rounded-[--radius-lg] border border-border">
+                <div key={`banner-${b.id}-${idx}`} className="overflow-hidden rounded-[--radius-lg] self-center">
                   {inner}
                 </div>
               );
@@ -206,10 +206,8 @@ export function FeaturedFeed() {
                   </CardBody>
                 </Card>
               );
-              return ad.linkUrl ? (
-                <a key={`ad-${ad.id}-${idx}`} href={ensureAbsoluteUrl(ad.linkUrl)} target="_blank" rel="noopener noreferrer">{inner}</a>
-              ) : (
-                <div key={`ad-${ad.id}-${idx}`}>{inner}</div>
+              return (
+                <Link key={`ad-${ad.id}-${idx}`} href={`/ads/${ad.id}`}>{inner}</Link>
               );
             }
 

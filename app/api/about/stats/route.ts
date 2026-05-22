@@ -19,7 +19,7 @@ export async function GET() {
     debatesThisYear,
     totalUsers,
     rankedDebates,
-    totalJudgments,
+    totalViewsAgg,
     totalComments,
     totalVotes,
     topCategories,
@@ -30,9 +30,9 @@ export async function GET() {
     db.debate.count({ where: { ...ACTIVE_WHERE, completedAt: { gte: startOfYear } } }),
     db.user.count({ where: { isDeleted: false, isExhibition: false } }),
     db.debate.count({ where: { ...ACTIVE_WHERE, ranked: true } }),
-    db.judgeResult.count(),
+    db.debate.aggregate({ where: ACTIVE_WHERE, _sum: { viewCount: true } }),
     db.debateComment.count(),
-    db.audienceVote.count(),
+    db.audienceVote.count({ where: { debate: ACTIVE_WHERE } }),
     db.category.findMany({
       where: { isActive: true },
       select: {
@@ -62,7 +62,7 @@ export async function GET() {
     debatesThisYear,
     totalUsers,
     rankedDebates,
-    totalJudgments,
+    totalViews: totalViewsAgg._sum.viewCount ?? 0,
     totalComments,
     totalVotes,
     topCategories: sorted.map((c) => ({

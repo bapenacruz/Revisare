@@ -372,7 +372,7 @@ export const COUNTRIES: CountryData[] = [
       "Tuyên Quang", "Vĩnh Long", "Vĩnh Phúc", "Yên Bái",
     ],
   },
-  { name: "Yemen", code: "YE", regions: [] },
-  { name: "Zambia", code: "ZM", regions: [] },
-  { name: "Zimbabwe", code: "ZW", regions: [] },
+  { name: "Yemen", code: "YE", regions: ["Abyan", "Aden", "Al Bayda", "Al Hudaydah", "Al Jawf", "Al Mahrah", "Al Mahwit", "Amanat Al Asimah", "Amran", "Dhamar", "Hadramaut", "Hajjah", "Ibb", "Lahij", "Marib", "Raymah", "Saada", "Sanaa", "Shabwah", "Socotra", "Taiz"] },
+  { name: "Zambia", code: "ZM", regions: ["Central", "Copperbelt", "Eastern", "Luapula", "Lusaka", "Muchinga", "Northern", "North-Western", "Southern", "Western"] },
+  { name: "Zimbabwe", code: "ZW", regions: ["Bulawayo", "Harare", "Manicaland", "Mashonaland Central", "Mashonaland East", "Mashonaland West", "Masvingo", "Matabeleland North", "Matabeleland South", "Midlands"] },
 ];

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { AD_REGIONS, AD_COMPASS_QUADRANTS } from "@/lib/ad-targeting";
 import { COUNTRIES } from "@/lib/data/countries";
 
@@ -20,6 +20,13 @@ interface TargetingPickerProps {
 
 export function TargetingPicker({ regions, quadrants, countries, states, usernames, onRegionsChange, onQuadrantsChange, onCountriesChange, onStatesChange, onUsernamesChange, onClick }: TargetingPickerProps) {
   const [countrySearch, setCountrySearch] = useState("");
+  const [rawUsernames, setRawUsernames] = useState(() => usernames.join("\n"));
+
+  // Keep rawUsernames in sync if usernames are reset externally (e.g. form reset)
+  useEffect(() => {
+    setRawUsernames(usernames.join("\n"));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [usernames.length === 0 ? 0 : null]);
 
   function toggleRegion(v: string) {
     onRegionsChange(regions.includes(v) ? regions.filter((r) => r !== v) : [...regions, v]);
@@ -107,14 +114,14 @@ export function TargetingPicker({ regions, quadrants, countries, states, usernam
         )}
       </div>
 
-      {/* State/region picker (shown only when countries with states are selected) */}
-      {availableStates.length > 0 && (
+      {/* State/region picker (always shown when countries are selected) */}
+      {countries.length > 0 && (
         <div className="flex flex-col gap-1.5">
           <p className="text-xs font-medium text-foreground-muted uppercase tracking-wide">
             Target States/Regions <span className="normal-case font-normal opacity-60">(empty = all)</span>
           </p>
           <div className="h-40 overflow-y-auto flex flex-col gap-0.5 pr-1 w-56 border border-border rounded p-1.5 bg-background">
-            {availableStates.map((s) => (
+            {availableStates.length > 0 ? availableStates.map((s) => (
               <label key={s} className="flex items-center gap-1.5 cursor-pointer select-none">
                 <input
                   type="checkbox"
@@ -124,7 +131,9 @@ export function TargetingPicker({ regions, quadrants, countries, states, usernam
                 />
                 <span className="text-xs text-foreground truncate">{s}</span>
               </label>
-            ))}
+            )) : (
+              <p className="text-xs text-foreground-muted italic p-1">No regional data for selected countries.</p>
+            )}
           </div>
           {states.length > 0 && (
             <p className="text-xs text-foreground-muted">{states.length} selected</p>
@@ -203,8 +212,9 @@ export function TargetingPicker({ regions, quadrants, countries, states, usernam
           rows={4}
           className="text-sm rounded border border-border bg-background text-foreground p-2 w-48 resize-none font-mono"
           placeholder={"john_doe\njane_smith"}
-          value={usernames.join("\n")}
+          value={rawUsernames}
           onChange={(e) => {
+            setRawUsernames(e.target.value);
             const lines = e.target.value.split("\n").map((l) => l.trim()).filter(Boolean);
             onUsernamesChange(lines);
           }}
