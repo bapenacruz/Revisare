@@ -428,21 +428,18 @@ Penalize:
 - refusal to engage factual corrections
 - presenting speculation as fact
 
-However, always distinguish between:
-- unsupported in the debate
+IMPORTANT: Apply your own knowledge when evaluating claims.
+
+- If a claim is factually accurate based on your general knowledge, label it "correct" or "mostly_correct" EVEN IF the debater did not formally cite a source.
+- Reserve "unsupported_in_round" for claims that are genuinely empirically uncertain, contested, or unverifiable — NOT merely because the debater failed to drop a footnote.
+- Use "unsupported_generally" only when a claim is broadly contradicted by reliable evidence.
+
+Always distinguish between:
+- unsupported in the debate (debater gave no evidence for it)
 and
-- unsupported in reality
+- unsupported in reality (the claim itself lacks credible backing)
 
-If evidence was not presented during the debate, state:
-- "Unsupported In-Round"
-
-Do NOT imply:
-- "No evidence exists"
-
-unless that is clearly true.
-
-If a claim is plausible but not proven in the debate:
-label it "Unsupported In-Round," not "false."
+A debater making a claim you KNOW is correct should receive "correct" or "mostly_correct" — not "unsupported_in_round" — even without an in-round citation.
 
 If a claim is genuinely contradicted by reliable evidence:
 label it "Misleading" or "Unsupported Generally," depending on severity.
@@ -779,7 +776,7 @@ function buildVerdictSchema(input: JudgeInput, summaryInstruction?: string): str
         "username": "<${a} or ${b}>",
         "claim": "<specific factual or evidential claim from the transcript>",
         "verdict": "<correct|mostly_correct|misleading|context_dependent|unsupported_in_round|unsupported_generally>",
-        "reason": "<short explanation — for unsupported_in_round note evidence was absent in this debate; for unsupported_generally note the claim lacks real-world support; for context_dependent note the claim is normative or value-based; NEVER use the bare value 'unsupported'>",
+        "reason": "<short explanation. USE YOUR OWN KNOWLEDGE: if the claim is factually accurate, say so and use correct/mostly_correct regardless of whether the debater cited a source. Only use unsupported_in_round for genuinely uncertain or unverifiable empirical claims that lacked in-round evidence. For normative/values claims use context_dependent. NEVER output the bare string 'unsupported'>",
         "source": "<real source name or credible category if uncertain>"
       }
     ],
