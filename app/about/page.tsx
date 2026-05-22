@@ -347,7 +347,7 @@ export default function AboutPage() {
                 <li><span className="text-foreground font-medium">Crossfire</span> — Direct back-and-forth exchange.</li>
                 <li><span className="text-foreground font-medium">Closing Statements</span> — Each side makes their final case.</li>
               </ol>
-              <p>Audience members can watch live, vote for who they think is winning, and leave comments.</p>
+              <p>Audience members can watch live, vote for who they think is winning or has won, and leave comments.</p>
             </div>
           </div>
 
