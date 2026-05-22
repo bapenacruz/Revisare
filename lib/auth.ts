@@ -125,6 +125,12 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     },
 
     async jwt({ token, user, trigger, session }) {
+      // Strip legacy avatarUrl that was previously stored in JWT (caused HTTP 431).
+      // This runs on every session check so existing bloated cookies are re-issued slim.
+      if ("avatarUrl" in token) {
+        delete (token as Record<string, unknown>).avatarUrl;
+      }
+
       if (user) {
         token.id = user.id ?? "";
         // Fetch extra fields to include in token on sign-in
