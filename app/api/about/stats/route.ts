@@ -31,7 +31,7 @@ export async function GET() {
     db.user.count({ where: { isDeleted: false, isExhibition: false } }),
     db.debate.count({ where: { ...ACTIVE_WHERE, ranked: true } }),
     db.debate.aggregate({ where: ACTIVE_WHERE, _sum: { viewCount: true } }),
-    db.debateComment.count(),
+    db.debateComment.count({ where: { debate: { isDeleted: false } } }),
     db.audienceVote.count({ where: { debate: ACTIVE_WHERE } }),
     db.category.findMany({
       where: { isActive: true },
