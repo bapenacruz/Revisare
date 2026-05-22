@@ -217,90 +217,51 @@ export function CommentsSection({ challengeId, debateId, debaterA, debaterB, ini
           )}
         </div>
 
-        {/* ── Audience Pick Vote ─────────────────────────────────────── */}
-        {debaterA && debaterB && <div className="mb-5 pb-5 border-b border-border">
-          <div className="flex items-center gap-1.5 mb-2">
-            <ThumbsUp size={12} className="text-accent" />
-            <span className="text-xs font-semibold text-foreground">Audience Pick</span>
-            <span className="text-xs text-foreground-muted ml-auto">{totalVotes} {totalVotes === 1 ? "vote" : "votes"}</span>
+        {/* ── Audience Pick Vote (compact) ───────────────────────────── */}
+        {debaterA && debaterB && (
+          <div className="mb-4 pb-4 border-b border-border">
+            <div className="flex items-center gap-2">
+              <ThumbsUp size={11} className="text-foreground-muted shrink-0" />
+              <span className="text-xs text-foreground-muted">Who won?</span>
+              <div className="flex gap-1.5 ml-auto">
+                {[debaterA, debaterB].map((d) => {
+                  const p = pct(d.id);
+                  const isMyVote = voted === d.id;
+                  const canVote = isAuthenticated && !isParticipant;
+                  const Tag = canVote ? "button" : "div";
+                  return (
+                    <Tag
+                      key={d.id}
+                      {...(canVote ? {
+                        onClick: () => castVote(d.id),
+                        disabled: voteLoading,
+                        type: "button" as const,
+                      } : {})}
+                      className={`flex items-center gap-1.5 px-2 py-1 rounded-full border text-xs transition-colors ${
+                        isMyVote
+                          ? "border-brand bg-brand/15 text-brand font-semibold"
+                          : canVote
+                          ? "border-border bg-surface-raised text-foreground-muted hover:border-brand/50 hover:text-foreground cursor-pointer"
+                          : "border-border bg-surface-raised text-foreground-muted"
+                      }`}
+                    >
+                      <Avatar initial={d.username[0]} size="xs" />
+                      <span className="max-w-[80px] truncate">{d.username}</span>
+                      <span className="text-[10px] opacity-70">{p}%</span>
+                      {isMyVote && <span className="text-[10px]">✓</span>}
+                    </Tag>
+                  );
+                })}
+              </div>
+              <span className="text-[10px] text-foreground-subtle shrink-0">{totalVotes}v</span>
+            </div>
+            {!isAuthenticated && (
+              <p className="text-[10px] text-foreground-muted mt-1.5 text-right">
+                <Link href="/auth/login" className="text-brand hover:underline">Sign in</Link> to vote
+              </p>
+            )}
           </div>
-          <div className="flex flex-col gap-1.5">
-            {[debaterA, debaterB].map((d) => {
-              const p = pct(d.id);
-              const isProp = d.id === debaterA.id;
-              const isMyVote = voted === d.id;
-              const isOtherVote = voted !== null && voted !== d.id;
-              const canVote = isAuthenticated && !isParticipant;
-
-              const bar = (
-                <div className="h-1 rounded-full bg-surface-overlay overflow-hidden mt-1">
-                  <div
-                    className="h-full rounded-full transition-all duration-500"
-                    style={{ width: `${p}%`, backgroundColor: isProp ? "var(--brand)" : "var(--danger)" }}
-                  />
-                </div>
-              );
-
-              const inner = (
-                <div className="flex items-center gap-2 flex-1">
-                  <Avatar initial={d.username[0]} size="sm" />
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center justify-between">
-                      <span className="text-xs font-medium text-foreground truncate">
-                        {d.username}
-                        {isMyVote && <span className="ml-1.5 text-[10px] text-accent font-semibold">✓ your pick</span>}
-                      </span>
-                      <span className="text-xs text-foreground-muted shrink-0 ml-2">{p}%</span>
-                    </div>
-                    {bar}
-                  </div>
-                </div>
-              );
-
-              if (!canVote) {
-                return (
-                  <div
-                    key={d.id}
-                    className="flex items-center gap-2 px-2 py-1.5 rounded-[--radius] border border-border bg-surface-raised"
-                  >
-                    {inner}
-                  </div>
-                );
-              }
-
-              return (
-                <button
-                  key={d.id}
-                  onClick={() => castVote(d.id)}
-                  disabled={voteLoading}
-                  title={isMyVote ? "Remove your vote" : isOtherVote ? "Transfer vote" : "Vote for this debater"}
-                  className={`w-full flex items-center gap-2 px-2 py-1.5 rounded-[--radius] border transition-colors text-left ${
-                    isMyVote
-                      ? "border-accent bg-accent/10 hover:bg-danger/10 hover:border-danger/40"
-                      : "border-border bg-surface-raised hover:border-brand/50 hover:bg-brand/5"
-                  }`}
-                >
-                  {inner}
-                </button>
-              );
-            })}
-          </div>
-          {!isAuthenticated && (
-            <p className="text-xs text-center mt-2">
-              <Link href="/auth/login" className="text-brand hover:underline">Sign in</Link>
-              <span className="text-foreground-muted"> to vote</span>
-            </p>
-          )}
-          {isParticipant && (
-            <p className="text-xs text-foreground-muted italic text-center mt-1.5">Participants cannot vote in their own debate.</p>
-          )}
-          {isAuthenticated && !isParticipant && voted && (
-            <p className="text-xs text-foreground-muted text-center mt-1.5">Tap again to remove &middot; tap the other to transfer</p>
-          )}
-          {isAuthenticated && !isParticipant && !voted && (
-            <p className="text-xs text-foreground-muted text-center mt-1.5">Tap a debater to cast your vote</p>
-          )}
-        </div>}
+        )}
 
         {/* ── Comments ──────────────────────────────────────────────── */}
         <div className="flex items-center gap-1.5 mb-3">
