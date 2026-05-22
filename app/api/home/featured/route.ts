@@ -64,7 +64,7 @@ export async function GET(req: NextRequest) {
       const audienceLeaderId = total > 0
         ? Object.entries(tally).sort((a, b) => b[1] - a[1])[0][0]
         : null;
-      return { ...rest, audienceLeaderId, commentCount: _count.debateComments };
+      return { ...rest, audienceLeaderId, commentCount: _count.debateComments, voteCount: total };
     });
 
     return NextResponse.json({
@@ -105,7 +105,7 @@ export async function GET(req: NextRequest) {
     const audienceLeaderId = total > 0
       ? Object.entries(tally).sort((a, b) => b[1] - a[1])[0][0]
       : null;
-    return { ...rest, audienceLeaderId, commentCount: _count.debateComments };
+    return { ...rest, audienceLeaderId, commentCount: _count.debateComments, voteCount: total };
   });
 
   return NextResponse.json({

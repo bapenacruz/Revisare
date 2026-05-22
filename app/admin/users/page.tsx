@@ -14,6 +14,8 @@ interface Props {
     type?: string;       // "real" | "synthetic"
     status?: string;     // "active" | "suspended" | "banned" | "deleted"
     role?: string;       // "user" | "admin"
+    country?: string;
+    region?: string;
     joinedFrom?: string;
     joinedTo?: string;
     minElo?: string;
@@ -27,7 +29,7 @@ interface Props {
 }
 
 export default async function AdminUsersPage({ searchParams }: Props) {
-  const { q = "", type = "", status = "", role = "", joinedFrom = "", joinedTo = "", minElo = "", maxElo = "", minWins = "", maxWins = "", minLosses = "", maxLosses = "", page: pageStr = "1" } = await searchParams;
+  const { q = "", type = "", status = "", role = "", country = "", region = "", joinedFrom = "", joinedTo = "", minElo = "", maxElo = "", minWins = "", maxWins = "", minLosses = "", maxLosses = "", page: pageStr = "1" } = await searchParams;
   const page = Math.max(1, parseInt(pageStr, 10));
   const limit = 30;
 
@@ -78,6 +80,10 @@ export default async function AdminUsersPage({ searchParams }: Props) {
     }
     conditions.push({ createdAt: dateFilter });
   }
+
+  // Country / region filter
+  if (country) conditions.push({ country: { contains: country, mode: "insensitive" } });
+  if (region)  conditions.push({ region:  { contains: region,  mode: "insensitive" } });
 
   // ELO range
   if (minElo || maxElo) {
@@ -134,7 +140,7 @@ export default async function AdminUsersPage({ searchParams }: Props) {
   const pages = Math.ceil(total / limit);
 
   // Build query string for pagination links
-  const qs = new URLSearchParams({ q, type, status, role, joinedFrom, joinedTo, minElo, maxElo, minWins, maxWins, minLosses, maxLosses }).toString();
+  const qs = new URLSearchParams({ q, type, status, role, country, region, joinedFrom, joinedTo, minElo, maxElo, minWins, maxWins, minLosses, maxLosses }).toString();
 
   const thInput = "w-full h-7 px-2 text-xs rounded border border-border bg-background text-foreground placeholder:text-foreground-subtle";
   const thSelect = "w-full h-7 px-1 text-xs rounded border border-border bg-background text-foreground";
@@ -148,7 +154,7 @@ export default async function AdminUsersPage({ searchParams }: Props) {
 
       <div className="flex items-center gap-3 mb-4 flex-wrap">
         <a
-          href={`/api/admin/users/export?${new URLSearchParams({ q, type, status, role, joinedFrom, joinedTo, minElo, maxElo, minWins, maxWins, minLosses, maxLosses }).toString()}`}
+          href={`/api/admin/users/export?${new URLSearchParams({ q, type, status, role, country, region, joinedFrom, joinedTo, minElo, maxElo, minWins, maxWins, minLosses, maxLosses }).toString()}`}
           download
           className="flex items-center gap-1.5 px-3 py-1.5 text-sm rounded border border-border bg-surface text-foreground-muted hover:text-foreground hover:border-brand/40 transition-colors"
         >
@@ -182,8 +188,12 @@ export default async function AdminUsersPage({ searchParams }: Props) {
                     <option value="synthetic">Synthetic</option>
                   </select>
                 </th>
-                <th className="px-2 py-2 font-normal" />
-                <th className="px-2 py-2 font-normal" />
+                <th className="px-2 py-2 font-normal">
+                  <input name="country" defaultValue={country} placeholder="Country…" className={thInput} />
+                </th>
+                <th className="px-2 py-2 font-normal">
+                  <input name="region" defaultValue={region} placeholder="Region…" className={thInput} />
+                </th>
                 <th className="px-2 py-2 font-normal">
                   <select name="role" defaultValue={role} className={thSelect}>
                     <option value="">Any</option>

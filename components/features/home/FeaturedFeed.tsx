@@ -2,7 +2,7 @@
 
 import { useState, useRef, useCallback, useEffect } from "react";
 import Link from "next/link";
-import { Sparkles, Megaphone, Eye, MessageSquare } from "lucide-react";
+import { Sparkles, Megaphone, Eye, MessageSquare, ThumbsUp } from "lucide-react";
 import { Card, CardBody } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
 import { Avatar } from "@/components/ui/Avatar";
@@ -17,6 +17,7 @@ type FeaturedDebateItem = {
   completedAt: string | null;
   viewCount: number;
   commentCount: number;
+  voteCount: number;
   debaterA: { id: string; username: string; avatarUrl: string | null };
   debaterB: { id: string; username: string; avatarUrl: string | null };
   category: { label: string; emoji: string };
@@ -247,6 +248,7 @@ export function FeaturedFeed() {
                     <div className="flex items-center gap-3 mt-1 text-[11px] text-foreground-muted">
                       <span className="flex items-center gap-1"><Eye size={11} />{debate.viewCount.toLocaleString()}</span>
                       <span className="flex items-center gap-1"><MessageSquare size={11} />{debate.commentCount.toLocaleString()}</span>
+                      {debate.voteCount > 0 && <span className="flex items-center gap-1"><ThumbsUp size={11} />{debate.voteCount.toLocaleString()}</span>}
                     </div>
                   </CardBody>
                 </Card>

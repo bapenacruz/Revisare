@@ -228,9 +228,11 @@ function CategoryBar({ label, emoji, count, max }: { label: string; emoji: strin
 // ─── Tabs ──────────────────────────────────────────────────────────────────────
 
 const TABS = [
-  { id: "about", label: "About" },
-  { id: "how", label: "How It Works" },
-  { id: "stats", label: "Stats" },
+  { id: "about",  label: "About" },
+  { id: "team",   label: "Team" },
+  { id: "legal",  label: "Legal" },
+  { id: "how",    label: "How It Works" },
+  { id: "stats",  label: "Stats" },
 ] as const;
 
 type TabId = (typeof TABS)[number]["id"];
@@ -297,44 +299,174 @@ export default function AboutPage() {
           </div>
 
           <div className="p-5 rounded-[--radius-lg] bg-surface border border-border">
+            <h2 className="text-base font-semibold text-foreground mb-3">Our Purpose</h2>
+            <div className="flex flex-col gap-3 text-sm text-foreground-muted leading-relaxed">
+              <p>
+                We believe rigorous, respectful debate is one of the most powerful tools for arriving at truth.
+                Revisare exists to give that process a dedicated home — structured, fair, and accessible to everyone.
+              </p>
+              <p>
+                Our goal is to foster a community where arguments are judged on their merits, not on who shouts
+                loudest. By combining human debate with impartial AI judging, we aim to elevate the quality of
+                public discourse one exchange at a time.
+              </p>
+              <p>
+                Whether you are a competitive debater, a curious thinker, or simply someone who wants to sharpen
+                their reasoning — Revisare is built for you.
+              </p>
+              <p className="italic text-foreground-subtle text-xs">More details about our mission and values coming soon.</p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ── Tab 2: Team ── */}
+      {activeTab === "team" && (
+        <div className="flex flex-col gap-3">
+          <div className="p-5 rounded-[--radius-lg] bg-surface border border-border">
             <h2 className="text-base font-semibold text-foreground mb-3">Meet the Team</h2>
             <div className="flex flex-col gap-3 text-sm text-foreground-muted leading-relaxed">
               <p>Revisare is built by a small team passionate about structured thinking, rhetoric, and AI.</p>
-              <div className="flex items-center gap-3 p-3 rounded-[--radius] bg-surface-raised border border-border">
-                <div className="w-10 h-10 rounded-full bg-brand/10 flex items-center justify-center text-brand text-base font-bold shrink-0">B</div>
-                <div>
-                  <p className="text-sm font-medium text-foreground">Bapena Cruz</p>
-                  <p className="text-xs text-foreground-muted">Founder &amp; Developer</p>
+              <div className="flex flex-col gap-2 mt-1">
+                <div className="flex items-center gap-3 p-3 rounded-[--radius] bg-surface-raised border border-border">
+                  <div className="w-10 h-10 rounded-full bg-brand/10 flex items-center justify-center text-brand text-base font-bold shrink-0">B</div>
+                  <div>
+                    <p className="text-sm font-medium text-foreground">Bapena Cruz</p>
+                    <p className="text-xs text-foreground-muted">Founder &amp; Developer</p>
+                  </div>
+                </div>
+                {/* Placeholder team members */}
+                <div className="flex items-center gap-3 p-3 rounded-[--radius] bg-surface-raised border border-border opacity-40">
+                  <div className="w-10 h-10 rounded-full bg-surface-raised border border-border flex items-center justify-center text-foreground-muted text-base font-bold shrink-0">?</div>
+                  <div>
+                    <p className="text-sm font-medium text-foreground">Your Name Here</p>
+                    <p className="text-xs text-foreground-muted">Role — Coming Soon</p>
+                  </div>
                 </div>
               </div>
+              <p className="text-xs text-foreground-subtle italic">We&apos;re a growing team. More members coming soon.</p>
             </div>
           </div>
 
+          <div className="p-5 rounded-[--radius-lg] bg-surface border border-border">
+            <h2 className="text-base font-semibold text-foreground mb-3">Contact Us</h2>
+            <ContactForm />
+          </div>
+        </div>
+      )}
+
+      {/* ── Tab 3: Legal ── */}
+      {activeTab === "legal" && (
+        <div className="flex flex-col gap-3">
+          <div className="p-4 rounded-[--radius-lg] bg-yellow-500/5 border border-yellow-500/20 text-xs text-foreground-muted leading-relaxed">
+            <p className="font-semibold text-foreground mb-1">⚠️ Important Notice</p>
+            <p>The documents below represent our current policies in summary form. Full legal documents are in preparation. By using Revisare, you agree to the terms described herein. Last updated: {new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}.</p>
+          </div>
+
           <div className="flex flex-col gap-2">
+            <Collapsible title="Terms of Service" defaultOpen>
+              <div className="flex flex-col gap-3 text-sm text-foreground-muted leading-relaxed">
+                <p className="font-medium text-foreground">Acceptance of Terms</p>
+                <p>By accessing or using Revisare (&ldquo;the Platform&rdquo;), you agree to be bound by these Terms of Service. If you do not agree, please do not use the Platform.</p>
+
+                <p className="font-medium text-foreground">Eligibility</p>
+                <p>You must be at least 13 years of age (or the minimum age of digital consent in your jurisdiction) to use Revisare. By registering, you confirm that you meet this requirement.</p>
+
+                <p className="font-medium text-foreground">Acceptable Use</p>
+                <ul className="pl-5 list-disc flex flex-col gap-1">
+                  <li>You agree to engage respectfully and in good faith during debates.</li>
+                  <li>Hate speech, harassment, threats, and illegal content are strictly prohibited.</li>
+                  <li>Attempting to manipulate, abuse, or exploit the AI judging system is prohibited.</li>
+                  <li>You may not impersonate other users, public figures, or Revisare staff.</li>
+                  <li>You may not use automated tools to post, vote, or interact on the Platform without express permission.</li>
+                </ul>
+
+                <p className="font-medium text-foreground">Content Ownership</p>
+                <p>You retain ownership of your debate content. By submitting content, you grant Revisare a non-exclusive, royalty-free licence to display, store, and share that content as part of the Platform&apos;s normal operation. Debate transcripts are publicly visible by default.</p>
+
+                <p className="font-medium text-foreground">Account Termination</p>
+                <p>Revisare reserves the right to suspend or permanently ban accounts that violate these terms, without prior notice. You may delete your account at any time by contacting us.</p>
+
+                <p className="font-medium text-foreground">Limitation of Liability</p>
+                <p>The Platform is provided &ldquo;as is&rdquo;. Revisare is not liable for any indirect, incidental, or consequential damages arising from your use of the Platform.</p>
+
+                <p className="italic text-xs text-foreground-subtle">Full terms of service document coming soon.</p>
+              </div>
+            </Collapsible>
+
             <Collapsible title="Privacy Policy">
               <div className="flex flex-col gap-3 text-sm text-foreground-muted leading-relaxed">
-                <p>We collect only the information necessary to operate the platform: your email address, username, and debate activity. We do not sell your data to third parties.</p>
-                <p>Debate transcripts and results are public by default. You may request deletion of your account and associated data at any time by contacting us.</p>
-                <p><em>Full privacy policy coming soon.</em></p>
+                <p className="font-medium text-foreground">Information We Collect</p>
+                <ul className="pl-5 list-disc flex flex-col gap-1">
+                  <li>Account information: email address, username, and hashed password.</li>
+                  <li>Profile information you voluntarily provide: bio, country, social handles.</li>
+                  <li>Debate activity: debate transcripts, votes, comments, and results.</li>
+                  <li>Usage data: page views, session activity for platform analytics.</li>
+                </ul>
+
+                <p className="font-medium text-foreground">How We Use Your Information</p>
+                <ul className="pl-5 list-disc flex flex-col gap-1">
+                  <li>To operate and improve the Platform.</li>
+                  <li>To display public debate profiles and leaderboards.</li>
+                  <li>To send account-related notifications (e.g. debate results, challenges).</li>
+                  <li>To enforce our Terms of Service.</li>
+                </ul>
+
+                <p className="font-medium text-foreground">Data Sharing</p>
+                <p>We do not sell your personal data to third parties. Debate transcripts and results are public. We may share data with service providers (hosting, email) strictly for Platform operations.</p>
+
+                <p className="font-medium text-foreground">Data Retention &amp; Deletion</p>
+                <p>You may request deletion of your account and associated personal data at any time by contacting us at <a href={`mailto:${SUPPORT_EMAIL}`} className="text-brand hover:underline">{SUPPORT_EMAIL}</a>. Anonymised debate transcripts may be retained for platform integrity.</p>
+
+                <p className="font-medium text-foreground">Cookies</p>
+                <p>We use session cookies strictly for authentication purposes. We do not use tracking or advertising cookies.</p>
+
+                <p className="italic text-xs text-foreground-subtle">Full privacy policy document coming soon.</p>
               </div>
             </Collapsible>
 
-            <Collapsible title="Terms of Service">
+            <Collapsible title="Disclaimer">
               <div className="flex flex-col gap-3 text-sm text-foreground-muted leading-relaxed">
-                <p>By using Revisare you agree to engage respectfully. Hate speech, harassment, and abuse of the AI judging system are prohibited and may result in account suspension.</p>
-                <p>Revisare reserves the right to remove content or accounts that violate these terms without prior notice.</p>
-                <p><em>Full terms of service coming soon.</em></p>
+                <p className="font-medium text-foreground">AI Judgments</p>
+                <p>Verdicts issued by the AI judge panel are generated by third-party AI models (Anthropic Claude, OpenAI ChatGPT, xAI Grok) and are provided for entertainment and educational purposes only. They do not constitute professional opinion, legal advice, or factual verification.</p>
+
+                <p className="font-medium text-foreground">Debate Content</p>
+                <p>Arguments and statements made during debates represent the views of the individual users, not Revisare. The Platform does not endorse any opinion expressed in a debate.</p>
+
+                <p className="font-medium text-foreground">No Professional Advice</p>
+                <p>Nothing on this Platform constitutes legal, medical, financial, or other professional advice. Always seek qualified professional guidance for important decisions.</p>
+
+                <p className="font-medium text-foreground">Accuracy</p>
+                <p>Revisare does not verify the factual accuracy of claims made by users in debates. While AI judges may flag unsupported claims, this is not a guarantee of accuracy.</p>
+
+                <p className="font-medium text-foreground">Platform Availability</p>
+                <p>Revisare is provided on a best-effort basis. We do not guarantee uninterrupted availability and are not liable for any loss arising from downtime or service interruptions.</p>
               </div>
             </Collapsible>
 
-            <Collapsible title="Contact Us">
-              <ContactForm />
+            <Collapsible title="Cookie Policy">
+              <div className="flex flex-col gap-3 text-sm text-foreground-muted leading-relaxed">
+                <p>Revisare uses a minimal number of cookies strictly necessary for the Platform to function:</p>
+                <ul className="pl-5 list-disc flex flex-col gap-1">
+                  <li><span className="text-foreground font-medium">Session cookie</span> — keeps you logged in during your browser session. Expires when you close your browser or log out.</li>
+                  <li><span className="text-foreground font-medium">CSRF token</span> — protects form submissions against cross-site request forgery attacks.</li>
+                </ul>
+                <p>We do not use advertising, tracking, or analytics cookies. No third-party cookies are set by the Platform.</p>
+              </div>
+            </Collapsible>
+
+            <Collapsible title="Contact for Legal Requests">
+              <div className="flex flex-col gap-3 text-sm text-foreground-muted leading-relaxed">
+                <p>For legal inquiries, DMCA notices, data deletion requests, or privacy concerns, please contact us at:</p>
+                <p><a href={`mailto:${SUPPORT_EMAIL}`} className="text-brand font-medium hover:underline">{SUPPORT_EMAIL}</a></p>
+                <p>We aim to respond to legal requests within 5 business days.</p>
+              </div>
             </Collapsible>
           </div>
         </div>
       )}
 
-      {/* ── Tab 2: How It Works ── */}
+      {/* ── Tab 4: How It Works ── */}
       {activeTab === "how" && (
         <div className="flex flex-col gap-3">
           <div className="p-5 rounded-[--radius-lg] bg-surface border border-border">
@@ -430,7 +562,7 @@ export default function AboutPage() {
         </div>
       )}
 
-      {/* ── Tab 3: Stats ── */}
+      {/* ── Tab 5: Stats ── */}
       {activeTab === "stats" && (
         <div className="flex flex-col gap-4">
           {statsLoading && (
