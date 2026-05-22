@@ -265,7 +265,7 @@ export function CommentsSection({ challengeId, debateId, debaterA, debaterB, ini
           <div className="flex flex-col gap-4 mb-4">
             {comments.map((c) => (
               <div key={c.id} id={`comment-${c.id}`} className="flex gap-3 group scroll-mt-20 target:bg-brand-dim/30 rounded-lg -mx-2 px-2 py-1 transition-colors">
-                <Avatar initial={c.username[0]} size="sm" />
+                <Avatar initial={c.username[0]} src={c.avatarUrl ?? undefined} size="sm" />
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-0.5">
                     <span className="text-sm font-semibold text-foreground">{c.username}</span>

@@ -53,7 +53,7 @@ export default async function FollowingPage({ params }: Props) {
     orderBy: { createdAt: "desc" },
     select: {
       following: {
-        select: { id: true, username: true, country: true, elo: true },
+        select: { id: true, username: true, country: true, elo: true, avatarUrl: true },
       },
     },
   });
@@ -85,7 +85,7 @@ export default async function FollowingPage({ params }: Props) {
             <Link key={f.id} href={`/users/${f.username}`}>
               <Card interactive>
                 <CardBody className="flex items-center gap-3 py-3 px-4">
-                  <Avatar initial={f.username[0].toUpperCase()} size="sm" />
+                  <Avatar initial={f.username[0].toUpperCase()} src={f.avatarUrl ?? undefined} size="sm" />
                   <div className="flex-1 min-w-0">
                     <p className="text-sm font-semibold text-foreground">{f.username}</p>
                     {f.country && (

@@ -277,7 +277,7 @@ export default function LobbyPage() {
               </button>
             </div>
             <div className="flex items-center gap-3 mb-4 p-3 rounded-[--radius-sm] bg-surface-raised border border-border">
-              <Avatar initial={pendingRequest.user.username[0].toUpperCase()} size="md" />
+              <Avatar initial={pendingRequest.user.username[0].toUpperCase()} src={pendingRequest.user.avatarUrl ?? undefined} size="md" />
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-semibold text-foreground">{pendingRequest.user.username}</p>
                 <div className="flex items-center gap-3 text-xs text-foreground-subtle mt-0.5">

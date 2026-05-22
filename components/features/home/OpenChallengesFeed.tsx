@@ -21,8 +21,8 @@ type ChallengeItem = {
   targetId: string | null;
   expiresAt: string | null;
   createdAt: string;
-  creator: { id: string; username: string };
-  target: { id: string; username: string } | null;
+  creator: { id: string; username: string; avatarUrl: string | null };
+  target: { id: string; username: string; avatarUrl: string | null } | null;
   category: { label: string; emoji: string };
 };
 
@@ -77,12 +77,12 @@ function ChallengeCard({ challenge, invite = false }: { challenge: ChallengeItem
 
           {/* Participants */}
           <div className="flex items-center gap-2 text-xs text-foreground-muted">
-            <Avatar initial={challenge.creator.username[0].toUpperCase()} size="xs" />
+            <Avatar initial={challenge.creator.username[0].toUpperCase()} src={challenge.creator.avatarUrl ?? undefined} size="xs" />
             <span className="truncate max-w-[5rem]">{challenge.creator.username}</span>
             <span className="font-bold text-foreground-subtle shrink-0">VS</span>
             {challenge.target ? (
               <>
-                <Avatar initial={challenge.target.username[0].toUpperCase()} size="xs" />
+                <Avatar initial={challenge.target.username[0].toUpperCase()} src={challenge.target.avatarUrl ?? undefined} size="xs" />
                 <span className="truncate max-w-[5rem]">{challenge.target.username}</span>
               </>
             ) : (

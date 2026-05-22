@@ -35,7 +35,7 @@ export function CoinFlip({ coinFlipWinnerId, debaterA, debaterB, onComplete }: C
       {/* Players */}
       <div className="flex items-center gap-8">
         <div className="flex flex-col items-center gap-2 opacity-70">
-          <Avatar initial={debaterA.username[0]} size="lg" />
+          <Avatar initial={debaterA.username[0]} src={debaterA.avatarUrl ?? undefined} size="lg" />
           <span className="text-sm font-medium text-foreground">{debaterA.username}</span>
         </div>
 
@@ -52,7 +52,7 @@ export function CoinFlip({ coinFlipWinnerId, debaterA, debaterB, onComplete }: C
         </div>
 
         <div className="flex flex-col items-center gap-2 opacity-70">
-          <Avatar initial={debaterB.username[0]} size="lg" />
+          <Avatar initial={debaterB.username[0]} src={debaterB.avatarUrl ?? undefined} size="lg" />
           <span className="text-sm font-medium text-foreground">{debaterB.username}</span>
         </div>
       </div>

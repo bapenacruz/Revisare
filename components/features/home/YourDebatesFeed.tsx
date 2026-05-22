@@ -19,8 +19,8 @@ type YourDebateItem = {
   audienceLeaderId: string | null;
   completedAt: string | null;
   startedAt: string | null;
-  debaterA: { id: string; username: string };
-  debaterB: { id: string; username: string };
+  debaterA: { id: string; username: string; avatarUrl: string | null };
+  debaterB: { id: string; username: string; avatarUrl: string | null };
   category: { label: string; emoji: string };
 };
 
@@ -166,7 +166,7 @@ export function YourDebatesFeed() {
                         const isAudiencePick = debate.audienceLeaderId === p.id;
                         return (
                           <div key={p.id} className={`flex items-center gap-1.5 text-xs ${isWinner ? "font-semibold text-foreground" : "text-foreground-muted opacity-70"}`}>
-                            <Avatar initial={p.username[0].toUpperCase()} size="xs" />
+                            <Avatar initial={p.username[0].toUpperCase()} src={p.avatarUrl ?? undefined} size="xs" />
                             <span className="truncate">{p.username}</span>
                             {isWinner && <span title="AI Winner">🏆</span>}
                             {isAudiencePick && <span title="Audience Pick">🥇</span>}

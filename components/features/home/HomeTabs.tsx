@@ -13,8 +13,8 @@ export type LiveDebateItem = {
   challengeId: string;
   motion: string;
   ranked: boolean;
-  debaterA: { username: string };
-  debaterB: { username: string };
+  debaterA: { username: string; avatarUrl: string | null };
+  debaterB: { username: string; avatarUrl: string | null };
   category: { label: string; emoji: string };
 };
 

@@ -28,6 +28,7 @@ export default async function PublicProfilePage({ params }: Props) {
       id: true,
       username: true,
       email: true,
+      avatarUrl: true,
       bio: true,
       country: true,
       region: true,
@@ -103,7 +104,7 @@ export default async function PublicProfilePage({ params }: Props) {
       {/* Profile header */}
       <Card className="mb-6">
         <CardBody className="flex flex-col sm:flex-row items-center sm:items-start gap-5 py-6">
-          <Avatar initial={user.username[0].toUpperCase()} size="xl" />
+          <Avatar initial={user.username[0].toUpperCase()} src={user.avatarUrl ?? undefined} size="xl" />
 
           <div className="flex-1 min-w-0 text-center sm:text-left">
             <div className="flex flex-col sm:flex-row sm:items-center gap-3 mb-2">

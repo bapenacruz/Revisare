@@ -20,8 +20,8 @@ export async function GET(req: NextRequest) {
       challengeId: true,
       motion: true,
       ranked: true,
-      debaterA: { select: { username: true } },
-      debaterB: { select: { username: true } },
+      debaterA: { select: { username: true, avatarUrl: true } },
+      debaterB: { select: { username: true, avatarUrl: true } },
       category: { select: { label: true, emoji: true } },
     },
   });

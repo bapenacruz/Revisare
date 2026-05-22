@@ -218,7 +218,7 @@ export default async function ResultsPage({ params }: Props) {
         <CardBody>
           <div className="flex items-center gap-4">
             <Link href={`/users/${propositionUser.username}`} className="flex-1 flex items-center gap-3 hover:opacity-80 transition-opacity">
-              <Avatar initial={propositionUser.username[0]} size="lg" />
+              <Avatar initial={propositionUser.username[0]} src={propositionUser.avatarUrl ?? undefined} size="lg" />
               <div>
                 <p className="font-bold text-foreground">
                   {propositionUser.username}
@@ -240,7 +240,7 @@ export default async function ResultsPage({ params }: Props) {
                 <p className="text-xs text-danger font-medium">Opposition</p>
                 <p className="text-xs text-foreground-muted">{oppositionUser.elo} ELO</p>
               </div>
-              <Avatar initial={oppositionUser.username[0]} size="lg" />
+              <Avatar initial={oppositionUser.username[0]} src={oppositionUser.avatarUrl ?? undefined} size="lg" />
             </Link>
           </div>
         </CardBody>
@@ -450,7 +450,7 @@ export default async function ResultsPage({ params }: Props) {
                         <div key={turn.id} className="flex flex-col gap-1.5">
                           <div className={`flex gap-3 ${isA ? "flex-row" : "flex-row-reverse"}`}>
                           <div className="shrink-0 mt-1">
-                            <Avatar initial={speaker.username[0]} size="sm" />
+                            <Avatar initial={speaker.username[0]} src={speaker.avatarUrl ?? undefined} size="sm" />
                           </div>
                           <div
                             className={`max-w-[85%] rounded-[--radius-lg] px-4 py-3 ${

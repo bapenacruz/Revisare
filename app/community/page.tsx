@@ -113,7 +113,7 @@ export default function CommunityPage() {
           <Card className="mb-6">
           <CardBody className="flex items-center gap-4 p-5">
             <Link href="/profile" className="hover:opacity-80 transition-opacity shrink-0">
-              <Avatar initial={user.username[0].toUpperCase()} size="lg" />
+              <Avatar initial={user.username[0].toUpperCase()} src={session?.user?.avatarUrl ?? undefined} size="lg" />
             </Link>
             <div className="flex-1 min-w-0">
               <Link href="/profile" className="font-bold text-foreground truncate hover:text-brand transition-colors block">{user.username}</Link>

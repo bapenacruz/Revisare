@@ -53,7 +53,7 @@ export default async function FollowersPage({ params }: Props) {
     orderBy: { createdAt: "desc" },
     select: {
       follower: {
-        select: { id: true, username: true, country: true, elo: true },
+        select: { id: true, username: true, country: true, elo: true, avatarUrl: true },
       },
     },
   });
@@ -85,7 +85,7 @@ export default async function FollowersPage({ params }: Props) {
             <Link key={follower.id} href={`/users/${follower.username}`}>
               <Card interactive>
                 <CardBody className="flex items-center gap-3 py-3 px-4">
-                  <Avatar initial={follower.username[0].toUpperCase()} size="sm" />
+                  <Avatar initial={follower.username[0].toUpperCase()} src={follower.avatarUrl ?? undefined} size="sm" />
                   <div className="flex-1 min-w-0">
                     <p className="text-sm font-semibold text-foreground">{follower.username}</p>
                     {follower.country && (

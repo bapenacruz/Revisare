@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Avatar } from "@/components/ui/Avatar";
 import { AvatarCropModal } from "./AvatarCropModal";
 import { Pencil } from "lucide-react";
+import { useSession } from "@/components/providers/SessionProvider";
 
 interface Props {
   initial: string;
@@ -13,6 +14,7 @@ interface Props {
 export function AvatarEditor({ initial, initialAvatarUrl }: Props) {
   const [avatarUrl, setAvatarUrl] = useState<string | null>(initialAvatarUrl);
   const [open, setOpen] = useState(false);
+  const { update } = useSession();
 
   return (
     <>
@@ -34,7 +36,10 @@ export function AvatarEditor({ initial, initialAvatarUrl }: Props) {
       {open && (
         <AvatarCropModal
           onClose={() => setOpen(false)}
-          onSaved={(url) => setAvatarUrl(url)}
+          onSaved={(url) => {
+            setAvatarUrl(url);
+            void update({ avatarUrl: url });
+          }}
         />
       )}
     </>

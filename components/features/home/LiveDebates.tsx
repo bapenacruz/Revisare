@@ -15,8 +15,8 @@ export async function LiveDebates() {
       challengeId: true,
       motion: true,
       ranked: true,
-      debaterA: { select: { username: true } },
-      debaterB: { select: { username: true } },
+      debaterA: { select: { username: true, avatarUrl: true } },
+      debaterB: { select: { username: true, avatarUrl: true } },
       category: { select: { label: true } },
     },
   });
@@ -69,7 +69,7 @@ export async function LiveDebates() {
                   <div className="flex flex-col gap-1">
                     {[debate.debaterA, debate.debaterB].map((p) => (
                       <div key={p.username} className="flex items-center gap-1.5 text-xs text-foreground-muted">
-                        <Avatar initial={p.username[0].toUpperCase()} size="xs" />
+                        <Avatar initial={p.username[0].toUpperCase()} src={(p as { avatarUrl?: string | null }).avatarUrl ?? undefined} size="xs" />
                         <span>{p.username}</span>
                       </div>
                     ))}

@@ -61,7 +61,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           email: profile.email,
           emailVerified: profile.email_verified ? new Date() : null,
           username: `${base.substring(0, 16)}_${tag}`,
-          avatarUrl: (profile.picture as string | undefined) ?? null,
+          avatarUrl: null,
         };
       },
     }),
@@ -130,13 +130,14 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         // Fetch extra fields to include in token on sign-in
         const dbUser = await db.user.findUnique({
           where: { id: user.id! },
-          select: { username: true, role: true, isExhibition: true, onboardingComplete: true },
+          select: { username: true, role: true, isExhibition: true, onboardingComplete: true, avatarUrl: true },
         });
         if (dbUser) {
           token.username = dbUser.username;
           token.role = dbUser.role;
           token.isExhibition = dbUser.isExhibition;
           token.onboardingComplete = dbUser.onboardingComplete;
+          token.avatarUrl = dbUser.avatarUrl ?? null;
         }
       }
       // When update() is called from client, merge any passed data into token
@@ -152,6 +153,9 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           });
           if (dbUser) token.username = dbUser.username;
         }
+        if (session.avatarUrl !== undefined) {
+          token.avatarUrl = session.avatarUrl;
+        }
       }
       return token;
     },
@@ -163,6 +167,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         session.user.role = token.role as string;
         session.user.isExhibition = token.isExhibition as boolean;
         session.user.onboardingComplete = token.onboardingComplete as boolean;
+        session.user.avatarUrl = (token.avatarUrl as string | null | undefined) ?? null;
       }
       return session;
     },

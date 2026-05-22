@@ -15,8 +15,8 @@ const CHALLENGE_SELECT = {
   targetId: true,
   expiresAt: true,
   createdAt: true,
-  creator: { select: { id: true, username: true } },
-  target: { select: { id: true, username: true } },
+  creator: { select: { id: true, username: true, avatarUrl: true } },
+  target: { select: { id: true, username: true, avatarUrl: true } },
   category: { select: { label: true, emoji: true } },
 } as const;
 

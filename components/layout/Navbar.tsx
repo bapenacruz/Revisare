@@ -42,7 +42,7 @@ export function Navbar() {
               <Link href="/account" className="flex items-center h-9 px-2 rounded-[--radius] hover:bg-surface-raised transition-colors">
                 <Avatar
                   initial={(user as { username?: string }).username?.[0]?.toUpperCase() ?? user.name?.[0]?.toUpperCase() ?? "U"}
-                  src={user.image}
+                  src={user.avatarUrl ?? undefined}
                   size="sm"
                 />
               </Link>

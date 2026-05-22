@@ -35,7 +35,7 @@ export async function FeaturedUsers() {
             <Card interactive className="h-full">
               <CardBody className="flex items-start gap-3 p-4">
                 <div className="relative shrink-0">
-                  <Avatar initial={user.username[0].toUpperCase()} size="md" />
+                  <Avatar initial={user.username[0].toUpperCase()} src={user.avatarUrl ?? undefined} size="md" />
                   {i < 3 && (
                     <span className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-accent flex items-center justify-center text-[10px] font-bold text-white">
                       {i + 1}

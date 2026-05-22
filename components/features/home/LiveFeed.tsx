@@ -89,7 +89,7 @@ export function LiveFeed({ initialItems, initialCursor }: LiveFeedProps) {
                 <div className="flex flex-col gap-1">
                   {[debate.debaterA, debate.debaterB].map((p) => (
                     <div key={p.username} className="flex items-center gap-1.5 text-xs text-foreground-muted">
-                      <Avatar initial={p.username[0].toUpperCase()} size="xs" />
+                      <Avatar initial={p.username[0].toUpperCase()} src={p.avatarUrl ?? undefined} size="xs" />
                       <span className="truncate">{p.username}</span>
                     </div>
                   ))}
