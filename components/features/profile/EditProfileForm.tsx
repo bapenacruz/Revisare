@@ -18,11 +18,6 @@ interface EditProfileFormProps {
     region?: string | null;
     dob?: Date | string | null;
     gender?: string | null;
-    twitterHandle?: string | null;
-    threadsHandle?: string | null;
-    truthSocialHandle?: string | null;
-    blueskyHandle?: string | null;
-    mastodonHandle?: string | null;
     websiteUrl?: string | null;
     lastUsernameChange?: Date | string | null;
     isPrivate?: boolean | null;
@@ -42,11 +37,6 @@ export function EditProfileForm({ initial, allCategories }: EditProfileFormProps
     region: initial.region ?? "",
     dob: initial.dob ? new Date(initial.dob).toISOString().split("T")[0] : "",
     gender: initial.gender ?? "",
-    twitterHandle: initial.twitterHandle ?? "",
-    threadsHandle: initial.threadsHandle ?? "",
-    truthSocialHandle: initial.truthSocialHandle ?? "",
-    blueskyHandle: initial.blueskyHandle ?? "",
-    mastodonHandle: initial.mastodonHandle ?? "",
     websiteUrl: initial.websiteUrl ?? "",
     isPrivate: initial.isPrivate ?? false,
     followApproval: initial.followApproval ?? false,
@@ -164,40 +154,6 @@ export function EditProfileForm({ initial, allCategories }: EditProfileFormProps
           ))}
         </div>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <Input
-          label="Twitter / X handle"
-          value={form.twitterHandle}
-          onChange={(e) => setForm((f) => ({ ...f, twitterHandle: e.target.value }))}
-          placeholder="@handle"
-        />
-        <Input
-          label="Threads handle"
-          value={form.threadsHandle}
-          onChange={(e) => setForm((f) => ({ ...f, threadsHandle: e.target.value }))}
-          placeholder="@handle"
-        />
-      </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <Input
-          label="Truth Social handle"
-          value={form.truthSocialHandle}
-          onChange={(e) => setForm((f) => ({ ...f, truthSocialHandle: e.target.value }))}
-          placeholder="@handle"
-        />
-        <Input
-          label="Bluesky handle"
-          value={form.blueskyHandle}
-          onChange={(e) => setForm((f) => ({ ...f, blueskyHandle: e.target.value }))}
-          placeholder="handle.bsky.social"
-        />
-      </div>
-      <Input
-        label="Mastodon handle"
-        value={form.mastodonHandle}
-        onChange={(e) => setForm((f) => ({ ...f, mastodonHandle: e.target.value }))}
-        placeholder="@user@instance.social"
-      />
       <Input
         label="Website"
         type="url"

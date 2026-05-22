@@ -5,8 +5,25 @@ import { aiComplete } from "@/lib/ai";
 
 const SEVEN_DAYS_MS = 7 * 24 * 60 * 60 * 1000;
 
+// Categories that carry strong ideological signal
+const IDEOLOGICAL_CATEGORIES = new Set([
+  "politics", "economics", "law", "ethics", "culture", "religion", "society", "immigration",
+  "environment", "government", "rights", "justice",
+]);
+
 function stripJsonFences(raw: string): string {
   return raw.replace(/^```(?:json)?\s*/i, "").replace(/\s*```\s*$/i, "").trim();
+}
+
+function computeConfidence(debateCount: number, ideologicalCategoryCount: number): {
+  level: "very_low" | "low" | "moderate" | "high";
+  label: string;
+  compressionFactor: number; // 0–1: how much to compress coordinates toward center
+} {
+  if (debateCount <= 2) return { level: "very_low", label: "Very Low", compressionFactor: 0.25 };
+  if (debateCount <= 5) return { level: "low", label: "Low", compressionFactor: 0.5 };
+  if (debateCount <= 9 || ideologicalCategoryCount < 3) return { level: "moderate", label: "Moderate", compressionFactor: 0.75 };
+  return { level: "high", label: "High", compressionFactor: 1.0 };
 }
 
 export async function POST(request: Request) {
@@ -33,34 +50,36 @@ export async function POST(request: Request) {
       },
       debaterA: {
         where: { status: "completed" },
-        take: 4,
+        take: 6,
         orderBy: { completedAt: "desc" },
         select: {
           motion: true,
           winnerId: true,
           debaterAId: true,
-          category: { select: { label: true } },
+          ranked: true,
+          category: { select: { label: true, slug: true } },
           turns: {
             where: { userId },
             orderBy: { submittedAt: "asc" },
-            take: 2,
+            take: 3,
             select: { roundName: true, content: true },
           },
         },
       },
       debaterB: {
         where: { status: "completed" },
-        take: 4,
+        take: 6,
         orderBy: { completedAt: "desc" },
         select: {
           motion: true,
           winnerId: true,
           debaterBId: true,
-          category: { select: { label: true } },
+          ranked: true,
+          category: { select: { label: true, slug: true } },
           turns: {
             where: { userId },
             orderBy: { submittedAt: "asc" },
-            take: 2,
+            take: 3,
             select: { roundName: true, content: true },
           },
         },
@@ -92,63 +111,90 @@ export async function POST(request: Request) {
     );
   }
 
-  // Build detailed debate history with actual excerpts
+  // Build debate list
   const allDebates = [
     ...user.debaterA.map((d) => ({
       motion: d.motion,
       category: d.category.label,
+      categorySlug: d.category.slug,
       won: d.winnerId === d.debaterAId,
+      ranked: d.ranked,
       turns: d.turns,
     })),
     ...user.debaterB.map((d) => ({
       motion: d.motion,
       category: d.category.label,
+      categorySlug: d.category.slug,
       won: d.winnerId === d.debaterBId,
+      ranked: d.ranked,
       turns: d.turns,
     })),
-  ].slice(0, 6);
+  ].slice(0, 8);
+
+  // Count ideologically meaningful categories
+  const seenIdeologicalCategories = new Set(
+    allDebates
+      .filter((d) => IDEOLOGICAL_CATEGORIES.has(d.categorySlug?.toLowerCase() ?? d.category.toLowerCase()))
+      .map((d) => d.category)
+  );
+
+  const confidence = computeConfidence(allDebates.length, seenIdeologicalCategories.size);
 
   const favCategories = user.favCategories.map((fc) => fc.category.label).join(", ") || "various topics";
 
   const debateHistory = allDebates.length > 0
     ? allDebates.map((d) => {
         const excerpt = d.turns
-          .map((t) => `    [${t.roundName}] "${t.content.slice(0, 300)}${t.content.length > 300 ? "..." : ""}"`)
+          .map((t) => `    [${t.roundName}] "${t.content.slice(0, 350)}${t.content.length > 350 ? "..." : ""}"`)
           .join("\n");
         return `- "${d.motion}" (${d.category}) — ${d.won ? "WON" : "LOST"}\n${excerpt}`;
       }).join("\n\n")
     : "No completed debate history available yet.";
 
-  const systemPrompt = `You are an expert debate coach on the platform Revisare. Produce a personalized assessment of this debater.
+  const systemPrompt = `You are an expert debate coach analyzing argument patterns on the platform Revisare. Your job is to produce a careful, calibrated assessment — NOT a definitive political label.
 
-IMPORTANT: Return ONLY valid JSON matching this exact schema — no markdown, no extra text:
+CRITICAL RULES:
+1. Separate argument STYLE from ideological TENDENCY. Pragmatic = not right-wing. Pragmatic = not authoritarian.
+2. The compass coordinates MUST match the written text. If text says "rights-based, civil liberties, equal access" — the Y-axis must not go authoritarian.
+3. Avoid strong ideological labels. Use cautious phrasing: "Your current debate record suggests...", "Based on the debates analyzed so far...", "This may shift as more debates are completed."
+4. Do NOT write "You are liberal/conservative/authoritarian/libertarian." Use "tendency toward" or "pattern suggesting."
+5. Fix awkward phrasings. Never write things like "every religion has the right to admission." Write "you argued that access should be evaluated through equal-treatment principles."
+
+COMPASS AXIS DEFINITIONS:
+X-axis (economic):
+  -1.0 = Left: egalitarian, redistributive, collective welfare, pro-public-systems, anti-market-dominance
+  +1.0 = Right: market-oriented, property rights, limited government, individual economic liberty, hierarchy-tolerant
+
+Y-axis (social):
+  -1.0 = Libertarian: civil liberties, individual autonomy, decentralization, personal freedom, equal access, anti-coercive authority
+  +1.0 = Authoritarian: order, enforcement, state control, tradition, restriction, institutional hierarchy
+
+CONSISTENCY CHECK (apply before outputting):
+- If text references: rights-based, civil liberties, equal access, religious freedom, anti-punitive → Y must be ≤ 0
+- If text references: moderate/liberal, legalization pathway, human integration, inclusive social policy → X must be ≤ 0.2
+- If dot and description conflict, adjust coordinates to match the description
+
+CONFIDENCE LEVEL: ${confidence.label} (${allDebates.length} debates, ${seenIdeologicalCategories.size} ideological categories)
+- Compress coordinates toward center proportionally. At Very Low confidence, max coordinate magnitude = 0.25. At Low = 0.5. At Moderate = 0.75.
+- With low confidence: soften labels further, mention more debates needed
+
+OUTPUT FORMAT — Return ONLY valid JSON, no markdown:
 {
-  "text": "<assessment text here>",
+  "argumentStyle": "<1–2 sentences on HOW they argue — rhetorical patterns, framing style, use of evidence>",
+  "ideologicalTendency": "<1–2 sentences on inferred ideological patterns — with explicit uncertainty. Reference specific motions. Avoid strong labels.>",
+  "confidenceNote": "<1 sentence noting the confidence level and what would improve it>",
+  "compassLabel": "<short label, max 6 words, e.g. 'Pragmatic center-left tendency'>",
   "compass": {
-    "economic": <number from -1.0 (far left) to 1.0 (far right)>,
-    "social": <number from -1.0 (libertarian/bottom) to 1.0 (authoritarian/top)>
+    "economic": <number -1.0 to 1.0, magnitude capped per confidence level>,
+    "social": <number -1.0 to 1.0, magnitude capped per confidence level>
   }
-}
+}`;
 
-TEXT REQUIREMENTS:
-- 3 short paragraphs, max 350 words total
-- Paragraph 1 — Debate style & rhetorical patterns (MUST reference specific motions or quote short phrases from their actual arguments)
-- Paragraph 2 — Strengths and blind spots (cite concrete examples from their transcript excerpts — e.g., "In your debate on X you argued Y, which showed...")
-- Paragraph 3 — Political/ideological tendencies inferred from the topics they argue and which side they take, plus coaching advice
-- Tone: direct, insightful, specific. Zero boilerplate. Do NOT say "Based on your debate history..." or "It seems like..."
-- Use the debater's actual words where helpful (short quotes)
-
-COMPASS REQUIREMENTS:
-- Infer their economic position from which economic policies/motions they argue for
-- Infer their social position from which social/civil liberties positions they take
-- If insufficient data, default both to 0.0 with slight random variation ±0.15
-- Be intellectually humble — say "leans slightly" rather than claiming certainty`;
-
-  const userMessage = `Debater profile:
-Username: ${user.username}
-ELO: ${user.elo} | Record: ${user.wins}W–${user.losses}L (${totalDebates} debates) | Win rate: ${Math.round((user.wins / totalDebates) * 100)}%
+  const userMessage = `Debater: ${user.username}
+ELO: ${user.elo} | Record: ${user.wins}W–${user.losses}L (${totalDebates} completed) | Win rate: ${Math.round((user.wins / totalDebates) * 100)}%
 Favorite categories: ${favCategories}
-${user.bio ? `Bio: ${user.bio}` : ""}
+${user.bio ? `Bio: "${user.bio}"` : ""}
+Ideological categories covered: ${seenIdeologicalCategories.size > 0 ? [...seenIdeologicalCategories].join(", ") : "none yet"}
 
 Recent debates with argument excerpts:
 ${debateHistory}`;
@@ -162,32 +208,56 @@ ${debateHistory}`;
     );
   }
 
-  // Parse JSON response; fall back to plain text if it fails
-  let assessmentText = raw;
+  // Parse response
+  let argumentStyle = "";
+  let ideologicalTendency = "";
+  let confidenceNote = "";
+  let compassLabel = "";
   let compassData: { economic: number; social: number } | null = null;
 
   try {
     const cleaned = stripJsonFences(raw);
-    const parsed = JSON.parse(cleaned) as { text?: unknown; compass?: { economic?: unknown; social?: unknown } };
-    if (typeof parsed.text === "string") {
-      assessmentText = parsed.text;
-      if (
-        parsed.compass &&
-        typeof parsed.compass.economic === "number" &&
-        typeof parsed.compass.social === "number"
-      ) {
-        compassData = {
-          economic: Math.max(-1, Math.min(1, parsed.compass.economic)),
-          social: Math.max(-1, Math.min(1, parsed.compass.social)),
-        };
-      }
+    const parsed = JSON.parse(cleaned) as {
+      argumentStyle?: unknown;
+      ideologicalTendency?: unknown;
+      confidenceNote?: unknown;
+      compassLabel?: unknown;
+      compass?: { economic?: unknown; social?: unknown };
+    };
+
+    argumentStyle = typeof parsed.argumentStyle === "string" ? parsed.argumentStyle : "";
+    ideologicalTendency = typeof parsed.ideologicalTendency === "string" ? parsed.ideologicalTendency : "";
+    confidenceNote = typeof parsed.confidenceNote === "string" ? parsed.confidenceNote : "";
+    compassLabel = typeof parsed.compassLabel === "string" ? parsed.compassLabel : "";
+
+    if (
+      parsed.compass &&
+      typeof parsed.compass.economic === "number" &&
+      typeof parsed.compass.social === "number"
+    ) {
+      // Clamp to [-1, 1] then apply confidence compression
+      const rawEco = Math.max(-1, Math.min(1, parsed.compass.economic));
+      const rawSoc = Math.max(-1, Math.min(1, parsed.compass.social));
+      const f = confidence.compressionFactor;
+      compassData = {
+        economic: rawEco * f,
+        social: rawSoc * f,
+      };
     }
   } catch {
-    // AI didn't return valid JSON — store as plain text, no compass
+    // Fall back: store raw text
+    argumentStyle = raw;
   }
 
-  // Store structured JSON in aiAssessment field
-  const stored = JSON.stringify({ v: 2, text: assessmentText, compass: compassData });
+  const stored = JSON.stringify({
+    v: 3,
+    argumentStyle,
+    ideologicalTendency,
+    confidenceNote,
+    compassLabel,
+    confidenceLevel: confidence.label,
+    compass: compassData,
+  });
 
   await db.user.update({
     where: { id: userId },

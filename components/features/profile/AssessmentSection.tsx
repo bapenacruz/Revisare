@@ -7,44 +7,74 @@ import { Sparkles, RefreshCw } from "lucide-react";
 
 interface CompassCoords {
   economic: number; // -1 (left) to +1 (right)
-  social: number;   // -1 (libertarian) to +1 (authoritarian)
+  social: number;   // -1 (libertarian/bottom) to +1 (authoritarian/top)
 }
 
 interface ParsedAssessment {
-  text: string;
+  // v3 fields
+  argumentStyle?: string;
+  ideologicalTendency?: string;
+  confidenceNote?: string;
+  compassLabel?: string;
+  confidenceLevel?: string;
   compass: CompassCoords | null;
+  // legacy v2 fallback
+  text?: string;
 }
 
 function parseAssessment(raw: string | null): ParsedAssessment {
-  if (!raw) return { text: "", compass: null };
+  if (!raw) return { compass: null };
   try {
-    const obj = JSON.parse(raw) as { v?: number; text?: unknown; compass?: { economic?: unknown; social?: unknown } };
+    const obj = JSON.parse(raw) as Record<string, unknown>;
+    const compass =
+      obj.compass &&
+      typeof (obj.compass as Record<string, unknown>).economic === "number" &&
+      typeof (obj.compass as Record<string, unknown>).social === "number"
+        ? {
+            economic: (obj.compass as Record<string, unknown>).economic as number,
+            social: (obj.compass as Record<string, unknown>).social as number,
+          }
+        : null;
+
+    // v3 structured
+    if (typeof obj.argumentStyle === "string") {
+      return {
+        argumentStyle: obj.argumentStyle,
+        ideologicalTendency: typeof obj.ideologicalTendency === "string" ? obj.ideologicalTendency : undefined,
+        confidenceNote: typeof obj.confidenceNote === "string" ? obj.confidenceNote : undefined,
+        compassLabel: typeof obj.compassLabel === "string" ? obj.compassLabel : undefined,
+        confidenceLevel: typeof obj.confidenceLevel === "string" ? obj.confidenceLevel : undefined,
+        compass,
+      };
+    }
+    // v2 legacy
     if (typeof obj.text === "string") {
-      const compass =
-        obj.compass &&
-        typeof obj.compass.economic === "number" &&
-        typeof obj.compass.social === "number"
-          ? { economic: obj.compass.economic, social: obj.compass.social }
-          : null;
       return { text: obj.text, compass };
     }
   } catch {
-    // Not JSON — legacy plain text
+    // plain text fallback
   }
   return { text: raw, compass: null };
 }
 
-function CompassChart({ coords }: { coords: CompassCoords }) {
+const CONFIDENCE_COLORS: Record<string, string> = {
+  "Very Low": "text-foreground-muted",
+  "Low": "text-warning",
+  "Moderate": "text-brand",
+  "High": "text-success",
+};
+
+function CompassChart({ coords, label, confidenceLevel }: { coords: CompassCoords; label?: string; confidenceLevel?: string }) {
   const SIZE = 220;
   const HALF = SIZE / 2;
-  const RANGE = 90; // dot travel radius from center
+  const RANGE = 90;
 
   const dotX = HALF + coords.economic * RANGE;
-  const dotY = HALF - coords.social * RANGE; // flip: authoritarian = top = low y
+  const dotY = HALF - coords.social * RANGE;
 
   return (
-    <div className="mt-6 flex flex-col items-center">
-      <p className="text-xs font-medium text-foreground-muted uppercase tracking-wide mb-3">Political Compass</p>
+    <div className="mt-5 flex flex-col items-center">
+      <p className="text-xs font-semibold text-foreground-muted uppercase tracking-wide mb-3">Political Compass</p>
       <div className="relative inline-block">
         <svg
           width={SIZE}
@@ -52,34 +82,30 @@ function CompassChart({ coords }: { coords: CompassCoords }) {
           viewBox={`0 0 ${SIZE} ${SIZE}`}
           className="rounded-[--radius] ring-1 ring-border"
         >
-          {/* Quadrant fills */}
-          {/* Auth-Left: top-left → red */}
-          <rect x={0} y={0} width={HALF} height={HALF} fill="rgba(239,68,68,0.18)" />
-          {/* Auth-Right: top-right → blue */}
-          <rect x={HALF} y={0} width={HALF} height={HALF} fill="rgba(59,130,246,0.18)" />
-          {/* Lib-Left: bottom-left → green */}
-          <rect x={0} y={HALF} width={HALF} height={HALF} fill="rgba(34,197,94,0.18)" />
-          {/* Lib-Right: bottom-right → yellow */}
-          <rect x={HALF} y={HALF} width={HALF} height={HALF} fill="rgba(234,179,8,0.18)" />
-
-          {/* Axis lines */}
+          <rect x={0} y={0} width={HALF} height={HALF} fill="rgba(239,68,68,0.15)" />
+          <rect x={HALF} y={0} width={HALF} height={HALF} fill="rgba(59,130,246,0.15)" />
+          <rect x={0} y={HALF} width={HALF} height={HALF} fill="rgba(34,197,94,0.15)" />
+          <rect x={HALF} y={HALF} width={HALF} height={HALF} fill="rgba(234,179,8,0.15)" />
           <line x1={HALF} y1={4} x2={HALF} y2={SIZE - 4} stroke="currentColor" strokeOpacity={0.2} strokeWidth={1} />
           <line x1={4} y1={HALF} x2={SIZE - 4} y2={HALF} stroke="currentColor" strokeOpacity={0.2} strokeWidth={1} />
-
-          {/* Axis labels */}
           <text x={6} y={HALF - 5} fontSize={9} fill="currentColor" fillOpacity={0.45}>Left</text>
           <text x={SIZE - 28} y={HALF - 5} fontSize={9} fill="currentColor" fillOpacity={0.45}>Right</text>
           <text x={HALF + 4} y={13} fontSize={9} fill="currentColor" fillOpacity={0.45}>Auth.</text>
           <text x={HALF + 4} y={SIZE - 4} fontSize={9} fill="currentColor" fillOpacity={0.45}>Lib.</text>
-
-          {/* Dot shadow */}
-          <circle cx={dotX} cy={dotY} r={9} fill="black" fillOpacity={0.15} />
-          {/* Dot */}
+          <circle cx={dotX} cy={dotY} r={9} fill="black" fillOpacity={0.12} />
           <circle cx={dotX} cy={dotY} r={7} fill="white" stroke="currentColor" strokeWidth={2} />
           <circle cx={dotX} cy={dotY} r={3} fill="currentColor" />
         </svg>
       </div>
-      <p className="text-xs text-foreground-subtle mt-2 text-center max-w-[220px]">
+      {label && (
+        <p className="text-xs font-medium text-foreground mt-2 text-center">{label}</p>
+      )}
+      {confidenceLevel && (
+        <p className={`text-xs mt-1 ${CONFIDENCE_COLORS[confidenceLevel] ?? "text-foreground-muted"}`}>
+          Confidence: {confidenceLevel}
+        </p>
+      )}
+      <p className="text-[11px] text-foreground-subtle mt-1.5 text-center max-w-[220px] leading-snug">
         Inferred from your debate positions — not a definitive label.
       </p>
     </div>
@@ -97,7 +123,7 @@ export function AssessmentSection({ assessment: initialAssessment, updatedAt: in
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const { text, compass } = parseAssessment(rawAssessment);
+  const parsed = parseAssessment(rawAssessment);
 
   const requestAssessment = async (force = false) => {
     setLoading(true);
@@ -118,6 +144,8 @@ export function AssessmentSection({ assessment: initialAssessment, updatedAt: in
     }
   };
 
+  const hasContent = parsed.argumentStyle || parsed.text;
+
   return (
     <Card>
       <CardBody className="p-5">
@@ -126,7 +154,7 @@ export function AssessmentSection({ assessment: initialAssessment, updatedAt: in
             <Sparkles size={16} className="text-brand" />
             <h3 className="text-base font-semibold text-foreground">Assessment</h3>
           </div>
-          {rawAssessment && (
+          {hasContent && (
             <button
               onClick={() => requestAssessment(true)}
               disabled={loading}
@@ -139,10 +167,47 @@ export function AssessmentSection({ assessment: initialAssessment, updatedAt: in
           )}
         </div>
 
-        {rawAssessment ? (
+        {hasContent ? (
           <>
-            <p className="text-sm text-foreground leading-relaxed whitespace-pre-line">{text}</p>
-            {compass && <CompassChart coords={compass} />}
+            {/* v3 structured */}
+            {parsed.argumentStyle && (
+              <div className="flex flex-col gap-4">
+                <div>
+                  <p className="text-[11px] font-semibold text-foreground-muted uppercase tracking-wide mb-1">Argument Style</p>
+                  <p className="text-sm text-foreground leading-relaxed">{parsed.argumentStyle}</p>
+                </div>
+                {parsed.ideologicalTendency && (
+                  <div>
+                    <p className="text-[11px] font-semibold text-foreground-muted uppercase tracking-wide mb-1">Ideological Tendency</p>
+                    <p className="text-sm text-foreground leading-relaxed">{parsed.ideologicalTendency}</p>
+                  </div>
+                )}
+                {parsed.confidenceNote && (
+                  <div className="rounded-[--radius] bg-surface-raised border border-border px-3 py-2.5">
+                    <p className="text-xs text-foreground-muted leading-relaxed">{parsed.confidenceNote}</p>
+                    {(parsed.confidenceLevel === "Very Low" || parsed.confidenceLevel === "Low") && (
+                      <p className="text-xs text-foreground-subtle mt-1">
+                        Complete more debates across different categories to improve accuracy.
+                      </p>
+                    )}
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* v2 legacy */}
+            {!parsed.argumentStyle && parsed.text && (
+              <p className="text-sm text-foreground leading-relaxed whitespace-pre-line">{parsed.text}</p>
+            )}
+
+            {parsed.compass && (
+              <CompassChart
+                coords={parsed.compass}
+                label={parsed.compassLabel}
+                confidenceLevel={parsed.confidenceLevel}
+              />
+            )}
+
             {updatedAt && (
               <p className="text-xs text-foreground-subtle mt-4">
                 Last updated: {updatedAt.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}
@@ -156,11 +221,7 @@ export function AssessmentSection({ assessment: initialAssessment, updatedAt: in
             <p className="text-sm text-foreground-muted mb-4">
               Complete at least one debate to unlock your personalized assessment.
             </p>
-            <Button
-              size="sm"
-              onClick={() => requestAssessment(false)}
-              isLoading={loading}
-            >
+            <Button size="sm" onClick={() => requestAssessment(false)} isLoading={loading}>
               <Sparkles size={14} />
               Generate Assessment
             </Button>
