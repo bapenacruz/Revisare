@@ -223,14 +223,10 @@ export default async function ResultsPage({ params }: Props) {
                 <p className="font-bold text-foreground">
                   {propositionUser.username}
                   {winner?.id === propositionUser.id && <span className="ml-1.5" title="AI Winner">🏆</span>}
+                  {audienceLeaderId === propositionUser.id && <span className="ml-1" title="Audience Pick">🥇</span>}
                 </p>
                 <p className="text-xs text-brand font-medium">Proposition</p>
                 <p className="text-xs text-foreground-muted">{propositionUser.elo} ELO</p>
-                {audienceLeaderId === propositionUser.id && (
-                  <span className="inline-flex items-center gap-1 mt-1 px-1.5 py-0.5 rounded text-[10px] font-semibold bg-accent/15 text-accent border border-accent/25">
-                    👍 Audience Pick
-                  </span>
-                )}
               </div>
             </Link>
             <span className="text-2xl font-black text-foreground-subtle shrink-0">VS</span>
@@ -238,15 +234,11 @@ export default async function ResultsPage({ params }: Props) {
               <div>
                 <p className="font-bold text-foreground">
                   {winner?.id === oppositionUser.id && <span className="mr-1.5" title="AI Winner">🏆</span>}
+                  {audienceLeaderId === oppositionUser.id && <span className="mr-1" title="Audience Pick">🥇</span>}
                   {oppositionUser.username}
                 </p>
                 <p className="text-xs text-danger font-medium">Opposition</p>
                 <p className="text-xs text-foreground-muted">{oppositionUser.elo} ELO</p>
-                {audienceLeaderId === oppositionUser.id && (
-                  <span className="inline-flex items-center gap-1 mt-1 px-1.5 py-0.5 rounded text-[10px] font-semibold bg-accent/15 text-accent border border-accent/25">
-                    👍 Audience Pick
-                  </span>
-                )}
               </div>
               <Avatar initial={oppositionUser.username[0]} size="lg" />
             </Link>
