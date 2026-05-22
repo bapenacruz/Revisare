@@ -426,9 +426,30 @@ export function UserRow({ user }: { user: User }) {
                 {loadingAssessment ? (
                   <p className="text-xs text-foreground-subtle italic">Loading…</p>
                 ) : assessment ? (
-                  <div className="text-sm text-foreground-muted leading-relaxed whitespace-pre-wrap bg-surface-raised rounded p-3 border border-border max-h-64 overflow-y-auto">
-                    {assessment}
-                  </div>
+                  (() => {
+                    let parsed: { argumentStyle?: string; ideologicalTendency?: string } | null = null;
+                    try { parsed = JSON.parse(assessment); } catch { /* plain text fallback */ }
+                    return parsed?.argumentStyle || parsed?.ideologicalTendency ? (
+                      <div className="flex flex-col gap-3 bg-surface-raised rounded p-3 border border-border max-h-64 overflow-y-auto">
+                        {parsed.argumentStyle && (
+                          <div>
+                            <p className="text-xs font-medium text-foreground-subtle uppercase tracking-wide mb-1">Argument Style</p>
+                            <p className="text-sm text-foreground-muted leading-relaxed">{parsed.argumentStyle}</p>
+                          </div>
+                        )}
+                        {parsed.ideologicalTendency && (
+                          <div>
+                            <p className="text-xs font-medium text-foreground-subtle uppercase tracking-wide mb-1">Ideological Tendency</p>
+                            <p className="text-sm text-foreground-muted leading-relaxed">{parsed.ideologicalTendency}</p>
+                          </div>
+                        )}
+                      </div>
+                    ) : (
+                      <div className="text-sm text-foreground-muted leading-relaxed whitespace-pre-wrap bg-surface-raised rounded p-3 border border-border max-h-64 overflow-y-auto">
+                        {assessment}
+                      </div>
+                    );
+                  })()
                 ) : (
                   <p className="text-xs text-foreground-subtle italic">
                     No assessment yet. Click &quot;Regenerate Assessment&quot; to generate one.
