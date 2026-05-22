@@ -219,46 +219,35 @@ export function CommentsSection({ challengeId, debateId, debaterA, debaterB, ini
 
         {/* ── Audience Pick Vote (compact) ───────────────────────────── */}
         {debaterA && debaterB && (
-          <div className="mb-4 pb-4 border-b border-border">
-            <div className="flex items-center gap-2">
-              <ThumbsUp size={11} className="text-foreground-muted shrink-0" />
-              <span className="text-xs text-foreground-muted">Who won?</span>
-              <div className="flex gap-1.5 ml-auto">
-                {[debaterA, debaterB].map((d) => {
-                  const p = pct(d.id);
-                  const isMyVote = voted === d.id;
-                  const canVote = isAuthenticated && !isParticipant;
-                  const Tag = canVote ? "button" : "div";
-                  return (
-                    <Tag
-                      key={d.id}
-                      {...(canVote ? {
-                        onClick: () => castVote(d.id),
-                        disabled: voteLoading,
-                        type: "button" as const,
-                      } : {})}
-                      className={`flex items-center gap-1.5 px-2 py-1 rounded-full border text-xs transition-colors ${
-                        isMyVote
-                          ? "border-brand bg-brand/15 text-brand font-semibold"
-                          : canVote
-                          ? "border-border bg-surface-raised text-foreground-muted hover:border-brand/50 hover:text-foreground cursor-pointer"
-                          : "border-border bg-surface-raised text-foreground-muted"
-                      }`}
-                    >
-                      <Avatar initial={d.username[0]} size="xs" />
-                      <span className="max-w-[80px] truncate">{d.username}</span>
-                      <span className="text-[10px] opacity-70">{p}%</span>
-                      {isMyVote && <span className="text-[10px]">✓</span>}
-                    </Tag>
-                  );
-                })}
-              </div>
-              <span className="text-[10px] text-foreground-subtle shrink-0">{totalVotes}v</span>
+          <div className="mb-3 pb-3 border-b border-border flex items-center gap-2 flex-wrap">
+            <span className="text-[11px] text-foreground-subtle">Who won?</span>
+            <div className="flex gap-1 ml-auto">
+              {[debaterA, debaterB].map((d) => {
+                const p = pct(d.id);
+                const isMyVote = voted === d.id;
+                const canVote = isAuthenticated && !isParticipant;
+                const Tag = canVote ? "button" : "span";
+                return (
+                  <Tag
+                    key={d.id}
+                    {...(canVote ? { onClick: () => castVote(d.id), disabled: voteLoading, type: "button" as const } : {})}
+                    className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full border text-[11px] transition-colors ${
+                      isMyVote
+                        ? "border-brand bg-brand/15 text-brand font-semibold"
+                        : canVote
+                        ? "border-border bg-surface-raised text-foreground-muted hover:border-brand/40 hover:text-foreground cursor-pointer"
+                        : "border-border bg-surface-raised text-foreground-muted"
+                    }`}
+                  >
+                    <span className="truncate max-w-[72px]">{d.username}</span>
+                    <span className="opacity-60">{p}%</span>
+                    {isMyVote && <span>✓</span>}
+                  </Tag>
+                );
+              })}
             </div>
             {!isAuthenticated && (
-              <p className="text-[10px] text-foreground-muted mt-1.5 text-right">
-                <Link href="/auth/login" className="text-brand hover:underline">Sign in</Link> to vote
-              </p>
+              <Link href="/auth/login" className="text-[11px] text-brand hover:underline ml-1">Sign in to vote</Link>
             )}
           </div>
         )}
