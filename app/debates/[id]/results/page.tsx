@@ -246,15 +246,14 @@ export default async function ResultsPage({ params }: Props) {
         </CardBody>
       </Card>
 
-      <div className="flex flex-col gap-6 mb-8">
-        {/* Official result */}
+      <div className="mb-8">
+        <h2 className="text-lg font-bold text-foreground mb-3 flex items-center gap-2">
+          <Gavel size={16} className="text-brand" />
+          Official Result
+          <Badge variant="info" size="sm">AI Judges</Badge>
+        </h2>
         <Card>
           <CardBody>
-            <div className="flex items-center gap-2 mb-3">
-              <Gavel size={16} className="text-brand" />
-              <span className="font-semibold text-foreground text-sm">Official Result</span>
-              <Badge variant="info" size="sm">AI Judges</Badge>
-            </div>
 
             {judgeResult ? (
               judgeResult.winnerId ? (
@@ -327,59 +326,56 @@ export default async function ResultsPage({ params }: Props) {
                 </p>
               </div>
             )}
+            {individualJudgeResults.length > 0 && (
+              <div className="mt-4 pt-4 border-t border-border">
+                <h3 className="text-sm font-bold text-foreground mb-3 flex items-center gap-2">
+                  <Users size={16} className="text-brand" />
+                  Judge Panel
+                </h3>
+                <div className="flex flex-col gap-2">
+                  {individualJudgeResults.map((jr, i) => {
+                    const panelWinner =
+                      jr.winnerId === debate.debaterAId
+                        ? debate.debaterA
+                        : jr.winnerId === debate.debaterBId
+                          ? debate.debaterB
+                          : null;
+                    const display = JUDGE_DISPLAY[jr.judgeId] ?? { label: `Judge ${i + 1}`, accent: "text-foreground-muted" };
+                    return (
+                      <details key={jr.id} className="group rounded-[--radius] border border-border bg-surface overflow-hidden">
+                        <summary className="flex items-center gap-3 px-4 py-3 cursor-pointer list-none select-none hover:bg-surface-raised transition-colors">
+                          <span className={`text-xs font-bold uppercase tracking-wide w-20 shrink-0 ${display.accent}`}>
+                            {display.label}
+                          </span>
+                          {panelWinner ? (
+                            <span className="flex items-center gap-1.5 text-sm font-semibold text-foreground">
+                              <Trophy size={13} className="text-accent shrink-0" />
+                              {panelWinner.username} wins
+                            </span>
+                          ) : (
+                            <span className="text-sm font-semibold text-foreground-muted">No verdict</span>
+                          )}
+                          <span className="ml-auto text-xs text-foreground-subtle group-open:rotate-180 transition-transform">▼</span>
+                        </summary>
+                        <div className="px-4 pb-4 pt-3 border-t border-border bg-surface-raised">
+                          {jr.explanation ? (
+                            <div className="space-y-2">
+                              {jr.explanation.split(/\n\n+/).map((para, pi) => (
+                                <p key={pi} className="text-sm text-foreground-muted leading-relaxed">{para}</p>
+                              ))}
+                            </div>
+                          ) : (
+                            <p className="text-sm text-foreground-muted italic">No detailed analysis available.</p>
+                          )}
+                        </div>
+                      </details>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
           </CardBody>
         </Card>
-
-
-        {/* Judge Panel — below official result */}
-        {individualJudgeResults.length > 0 && (
-          <div>
-            <h2 className="text-base font-bold text-foreground mb-3 flex items-center gap-2">
-              <Users size={16} className="text-brand" />
-              Judge Panel
-            </h2>
-            <div className="flex flex-col gap-2">
-              {individualJudgeResults.map((jr, i) => {
-                const panelWinner =
-                  jr.winnerId === debate.debaterAId
-                    ? debate.debaterA
-                    : jr.winnerId === debate.debaterBId
-                      ? debate.debaterB
-                      : null;
-                const display = JUDGE_DISPLAY[jr.judgeId] ?? { label: `Judge ${i + 1}`, accent: "text-foreground-muted" };
-                return (
-                  <details key={jr.id} className="group rounded-[--radius] border border-border bg-surface overflow-hidden">
-                    <summary className="flex items-center gap-3 px-4 py-3 cursor-pointer list-none select-none hover:bg-surface-raised transition-colors">
-                      <span className={`text-xs font-bold uppercase tracking-wide w-20 shrink-0 ${display.accent}`}>
-                        {display.label}
-                      </span>
-                      {panelWinner ? (
-                        <span className="flex items-center gap-1.5 text-sm font-semibold text-foreground">
-                          <Trophy size={13} className="text-accent shrink-0" />
-                          {panelWinner.username} wins
-                        </span>
-                      ) : (
-                        <span className="text-sm font-semibold text-foreground-muted">No verdict</span>
-                      )}
-                      <span className="ml-auto text-xs text-foreground-subtle group-open:rotate-180 transition-transform">▼</span>
-                    </summary>
-                    <div className="px-4 pb-4 pt-3 border-t border-border bg-surface-raised">
-                      {jr.explanation ? (
-                        <div className="space-y-2">
-                          {jr.explanation.split(/\n\n+/).map((para, pi) => (
-                            <p key={pi} className="text-sm text-foreground-muted leading-relaxed">{para}</p>
-                          ))}
-                        </div>
-                      ) : (
-                        <p className="text-sm text-foreground-muted italic">No detailed analysis available.</p>
-                      )}
-                    </div>
-                  </details>
-                );
-              })}
-            </div>
-          </div>
-        )}
       </div>
 
       {/* Private Feedback — visible to each debater (their own) and admins (both) */}

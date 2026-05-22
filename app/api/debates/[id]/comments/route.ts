@@ -129,7 +129,7 @@ export async function POST(req: NextRequest, { params }: RouteParams) {
     where: { debateId: debate.id, userId: { not: session.user.id } },
     select: { userId: true },
   });
-  const commenterName = session.user.name ?? session.user.email ?? "Someone";
+  const commenterName = session.user.username ?? session.user.name ?? "Someone";
   await Promise.all(
     subscribers.map((sub) =>
       createNotification(sub.userId, {

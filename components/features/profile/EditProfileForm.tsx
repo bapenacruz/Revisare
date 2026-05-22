@@ -156,7 +156,7 @@ export function EditProfileForm({ initial, allCategories }: EditProfileFormProps
       </div>
       <Input
         label="Website"
-        type="url"
+        type="text"
         value={form.websiteUrl}
         onChange={(e) => setForm((f) => ({ ...f, websiteUrl: e.target.value }))}
         placeholder="https://yoursite.com"

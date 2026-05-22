@@ -39,7 +39,7 @@ export async function LiveDebates() {
       {debates.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-16 text-center text-foreground-muted">
           <Radio size={32} className="mb-3 opacity-30" />
-          <p className="text-sm">No live debates right now — check back soon.</p>
+          <p className="text-sm">No live debates right now.</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">

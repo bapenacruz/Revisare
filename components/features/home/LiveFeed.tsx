@@ -61,7 +61,7 @@ export function LiveFeed({ initialItems, initialCursor }: LiveFeedProps) {
       <div className="flex flex-col flex-1 items-center justify-center text-center px-6">
         <Radio size={36} className="mb-4 opacity-25 text-foreground-muted" />
         <p className="text-sm text-foreground-muted">
-          No live debates right now — check back soon.
+          No live debates right now.
         </p>
       </div>
     );
