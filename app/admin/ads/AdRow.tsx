@@ -13,8 +13,10 @@ interface AdCategory {
 interface Ad {
   id: string;
   motion: string;
+  businessName: string | null;
   proponentName: string;
   opponentName: string;
+  officialResult: string | null;
   categoryId: string | null;
   linkUrl: string | null;
   isActive: boolean;
@@ -22,19 +24,23 @@ interface Ad {
   category: { label: string; emoji: string } | null;
   targetRegions: unknown;
   targetCompassQuadrants: unknown;
+  targetUsernames: unknown;
 }
 
 export function AdRow({ ad, categories }: { ad: Ad; categories: AdCategory[] }) {
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [motion, setMotion] = useState(ad.motion);
+  const [businessName, setBusinessName] = useState(ad.businessName ?? "");
   const [proponentName, setProponentName] = useState(ad.proponentName);
   const [opponentName, setOpponentName] = useState(ad.opponentName);
+  const [officialResult, setOfficialResult] = useState(ad.officialResult ?? "");
   const [categoryId, setCategoryId] = useState(ad.categoryId ?? "");
   const [linkUrl, setLinkUrl] = useState(ad.linkUrl ?? "");
   const [isActive, setIsActive] = useState(ad.isActive);
   const [targetRegions, setTargetRegions] = useState<string[]>(Array.isArray(ad.targetRegions) ? (ad.targetRegions as string[]) : []);
   const [targetCompassQuadrants, setTargetCompassQuadrants] = useState<string[]>(Array.isArray(ad.targetCompassQuadrants) ? (ad.targetCompassQuadrants as string[]) : []);
+  const [targetUsernames, setTargetUsernames] = useState<string[]>(Array.isArray(ad.targetUsernames) ? (ad.targetUsernames as string[]) : []);
   const [saving, setSaving] = useState(false);
   const [deleting, setDeleting] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState(false);
@@ -47,7 +53,7 @@ export function AdRow({ ad, categories }: { ad: Ad; categories: AdCategory[] }) 
     const res = await fetch(`/api/admin/ads/${ad.id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ motion, proponentName, opponentName, categoryId: categoryId || null, linkUrl: linkUrl || null, isActive, targetRegions, targetCompassQuadrants }),
+      body: JSON.stringify({ motion, businessName: businessName || null, proponentName, opponentName, officialResult: officialResult || null, categoryId: categoryId || null, linkUrl: linkUrl || null, isActive, targetRegions, targetCompassQuadrants, targetUsernames }),
     });
     setSaving(false);
     if (res.ok) { setMsg("Saved ✓"); router.refresh(); }
@@ -71,6 +77,9 @@ export function AdRow({ ad, categories }: { ad: Ad; categories: AdCategory[] }) 
         className={`transition-colors cursor-pointer ${open ? "bg-surface-raised" : "hover:bg-surface-raised/40"}`}
         onClick={() => { setOpen((v) => !v); setMsg(null); }}
       >
+        <td className="px-2 py-2 max-w-[160px] text-xs text-foreground-muted truncate">
+          {ad.businessName ?? <span className="opacity-40">—</span>}
+        </td>
         <td className="px-2 py-2 max-w-[200px] text-xs text-foreground line-clamp-2">{ad.motion}</td>
         <td className="px-2 py-2 text-xs text-foreground">{ad.proponentName}</td>
         <td className="px-2 py-2 text-xs text-foreground-muted">{ad.opponentName}</td>
@@ -95,8 +104,13 @@ export function AdRow({ ad, categories }: { ad: Ad; categories: AdCategory[] }) 
 
       {open && (
         <tr className="bg-surface-raised border-t border-border">
-          <td colSpan={8} className="px-6 py-4">
+          <td colSpan={9} className="px-6 py-4">
             <div className="flex flex-wrap gap-4 items-start">
+              <div className="flex flex-col gap-1 w-40">
+                <label className="text-xs font-medium text-foreground-muted uppercase tracking-wide">Business Name</label>
+                <input className="text-sm rounded border border-border bg-background text-foreground p-2" value={businessName}
+                  onChange={(e) => setBusinessName(e.target.value)} onClick={(e) => e.stopPropagation()} placeholder="Acme Corp" />
+              </div>
               <div className="flex flex-col gap-1 flex-1 min-w-48">
                 <label className="text-xs font-medium text-foreground-muted uppercase tracking-wide">Motion</label>
                 <textarea className="text-sm rounded border border-border bg-background text-foreground p-2 resize-none w-full" rows={3}
@@ -125,6 +139,12 @@ export function AdRow({ ad, categories }: { ad: Ad; categories: AdCategory[] }) 
                 <input className="text-sm rounded border border-border bg-background text-foreground p-2" value={linkUrl} placeholder="https://…"
                   onChange={(e) => setLinkUrl(e.target.value)} onClick={(e) => e.stopPropagation()} />
               </div>
+              <div className="flex flex-col gap-1 w-full">
+                <label className="text-xs font-medium text-foreground-muted uppercase tracking-wide">Official Result</label>
+                <textarea className="text-sm rounded border border-border bg-background text-foreground p-2 resize-none" rows={2}
+                  placeholder="Why the proponent won — makes the advertiser look good…"
+                  value={officialResult} onChange={(e) => setOfficialResult(e.target.value)} onClick={(e) => e.stopPropagation()} />
+              </div>
               <div className="flex flex-col gap-1 w-24">
                 <label className="text-xs font-medium text-foreground-muted uppercase tracking-wide">Active</label>
                 <select className="text-sm rounded border border-border bg-background text-foreground p-2" value={isActive ? "yes" : "no"}
@@ -137,8 +157,10 @@ export function AdRow({ ad, categories }: { ad: Ad; categories: AdCategory[] }) 
                 <TargetingPicker
                   regions={targetRegions}
                   quadrants={targetCompassQuadrants}
+                  usernames={targetUsernames}
                   onRegionsChange={setTargetRegions}
                   onQuadrantsChange={setTargetCompassQuadrants}
+                  onUsernamesChange={setTargetUsernames}
                   onClick={(e) => e.stopPropagation()}
                 />
               </div>

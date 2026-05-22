@@ -67,11 +67,12 @@ export default async function AdminAdsPage({ searchParams }: Props) {
             <table className="w-full text-xs sm:text-sm">
               <thead className="bg-surface border-b border-border">
                 <tr>
-                  {["Motion", "Proponent", "Opponent", "Category", "Link", "Status", "Created", "Actions"].map((h) => (
+                  {["Business", "Motion", "Proponent", "Opponent", "Category", "Link", "Status", "Created", "Actions"].map((h) => (
                     <th key={h} className="px-2 py-2 text-left text-xs font-semibold text-foreground-muted uppercase tracking-wide whitespace-nowrap">{h}</th>
                   ))}
                 </tr>
                 <tr className="border-b border-border bg-surface-raised">
+                  <th className="px-2 py-2 font-normal" />
                   <th className="px-2 py-2 font-normal">
                     <input name="q" defaultValue={q} placeholder="Search motion…" className={thInput} />
                   </th>
@@ -105,7 +106,7 @@ export default async function AdminAdsPage({ searchParams }: Props) {
                   <AdRow key={ad.id} ad={ad} categories={adCategories} />
                 ))}
                 {ads.length === 0 && (
-                  <tr><td colSpan={8} className="px-4 py-8 text-center text-sm text-foreground-muted">No ads found</td></tr>
+                  <tr><td colSpan={9} className="px-4 py-8 text-center text-sm text-foreground-muted">No ads found</td></tr>
                 )}
               </tbody>
             </table>
@@ -130,11 +131,22 @@ export default async function AdminAdsPage({ searchParams }: Props) {
 
         <CreateBannerForm />
 
+        <div className="mb-4 p-4 rounded-[--radius] border border-blue-500/20 bg-blue-500/5 text-xs text-foreground-muted space-y-1">
+          <p className="font-semibold text-foreground text-sm">📐 Banner Design Guidelines for Advertisers</p>
+          <p>Banners display full-width across the feed at a <strong>5:1 aspect ratio</strong> (e.g. <strong>1200 × 240 px</strong>). Export as JPEG or PNG under <strong>2 MB</strong>.</p>
+          <ul className="list-disc list-inside space-y-0.5 mt-1">
+            <li>Keep important content (logo, headline, CTA) centred or in the middle third — left/right edges may be cropped on mobile.</li>
+            <li>Use high-contrast text on a solid or lightly blurred background — the banner is small on mobile screens.</li>
+            <li>Minimum font size: <strong>24 px</strong> at 1200 px width (scales to ~10 px on a 300 px phone — avoid dense copy).</li>
+            <li>Safe zone: stay within the inner 80% of the width to avoid crop on narrow viewports.</li>
+          </ul>
+        </div>
+
         <div className="rounded-[--radius] border border-border overflow-x-auto">
           <table className="w-full text-xs sm:text-sm">
             <thead className="bg-surface border-b border-border">
               <tr>
-                {["Image", "Link", "Alt Text", "Status", "Created", "Actions"].map((h) => (
+                {["Business", "Image", "Link", "Alt Text", "Status", "Created", "Actions"].map((h) => (
                   <th key={h} className="px-2 py-2 text-left text-xs font-semibold text-foreground-muted uppercase tracking-wide whitespace-nowrap">{h}</th>
                 ))}
               </tr>
@@ -144,7 +156,7 @@ export default async function AdminAdsPage({ searchParams }: Props) {
                 <BannerRow key={b.id} banner={b} />
               ))}
               {banners.length === 0 && (
-                <tr><td colSpan={6} className="px-4 py-8 text-center text-sm text-foreground-muted">No banners yet</td></tr>
+                  <tr><td colSpan={7} className="px-4 py-8 text-center text-sm text-foreground-muted">No banners yet</td></tr>
               )}
             </tbody>
           </table>

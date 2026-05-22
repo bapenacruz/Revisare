@@ -74,3 +74,10 @@ export function matchesTargeting(targeting: string[], value: string | null): boo
   if (!value) return false;                    // user has no data, ad is restricted
   return targeting.includes(value);
 }
+
+// Check username targeting: empty = all, else the session username must be in the list
+export function matchesUsernameTargeting(targetUsernames: string[], username: string | null): boolean {
+  if (targetUsernames.length === 0) return true;
+  if (!username) return false;
+  return targetUsernames.includes(username);
+}

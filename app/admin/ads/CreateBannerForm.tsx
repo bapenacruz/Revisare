@@ -8,10 +8,12 @@ export function CreateBannerForm() {
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [imageDataUrl, setImageDataUrl] = useState<string | null>(null);
+  const [businessName, setBusinessName] = useState("");
   const [linkUrl, setLinkUrl] = useState("");
   const [altText, setAltText] = useState("");
   const [targetRegions, setTargetRegions] = useState<string[]>([]);
   const [targetCompassQuadrants, setTargetCompassQuadrants] = useState<string[]>([]);
+  const [targetUsernames, setTargetUsernames] = useState<string[]>([]);
   const [saving, setSaving] = useState(false);
   const [msg, setMsg] = useState<string | null>(null);
   const fileRef = useRef<HTMLInputElement>(null);
@@ -35,19 +37,23 @@ export function CreateBannerForm() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         imageDataUrl,
+        businessName: businessName || null,
         linkUrl: linkUrl || null,
         altText: altText || null,
         targetRegions,
         targetCompassQuadrants,
+        targetUsernames,
       }),
     });
     setSaving(false);
     if (res.ok) {
       setImageDataUrl(null);
+      setBusinessName("");
       setLinkUrl("");
       setAltText("");
       setTargetRegions([]);
       setTargetCompassQuadrants([]);
+      setTargetUsernames([]);
       setMsg("Banner created ✓");
       router.refresh();
       setOpen(false);
@@ -92,6 +98,12 @@ export function CreateBannerForm() {
           </div>
 
           <div className="flex flex-col gap-1 w-56">
+            <label className="text-xs font-medium text-foreground-muted uppercase tracking-wide">Business Name</label>
+            <input className="text-sm rounded border border-border bg-background text-foreground p-2" value={businessName}
+              onChange={(e) => setBusinessName(e.target.value)} placeholder="Acme Corp" />
+          </div>
+
+          <div className="flex flex-col gap-1 w-56">
             <label className="text-xs font-medium text-foreground-muted uppercase tracking-wide">Link URL</label>
             <input className="text-sm rounded border border-border bg-background text-foreground p-2" value={linkUrl}
               onChange={(e) => setLinkUrl(e.target.value)} placeholder="https://…" />
@@ -107,8 +119,10 @@ export function CreateBannerForm() {
             <TargetingPicker
               regions={targetRegions}
               quadrants={targetCompassQuadrants}
+              usernames={targetUsernames}
               onRegionsChange={setTargetRegions}
               onQuadrantsChange={setTargetCompassQuadrants}
+              onUsernamesChange={setTargetUsernames}
             />
           </div>
 

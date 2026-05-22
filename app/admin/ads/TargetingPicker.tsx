@@ -5,12 +5,14 @@ import { AD_REGIONS, AD_COMPASS_QUADRANTS } from "@/lib/ad-targeting";
 interface TargetingPickerProps {
   regions: string[];
   quadrants: string[];
+  usernames: string[];
   onRegionsChange: (r: string[]) => void;
   onQuadrantsChange: (q: string[]) => void;
+  onUsernamesChange: (u: string[]) => void;
   onClick?: React.MouseEventHandler<HTMLDivElement>;
 }
 
-export function TargetingPicker({ regions, quadrants, onRegionsChange, onQuadrantsChange, onClick }: TargetingPickerProps) {
+export function TargetingPicker({ regions, quadrants, usernames, onRegionsChange, onQuadrantsChange, onUsernamesChange, onClick }: TargetingPickerProps) {
   function toggleRegion(v: string) {
     onRegionsChange(regions.includes(v) ? regions.filter((r) => r !== v) : [...regions, v]);
   }
@@ -103,6 +105,23 @@ export function TargetingPicker({ regions, quadrants, onRegionsChange, onQuadran
             ))}
           </div>
         </div>
+      </div>
+
+      {/* Specific users */}
+      <div className="flex flex-col gap-1.5">
+        <p className="text-xs font-medium text-foreground-muted uppercase tracking-wide">
+          Target Specific Users <span className="normal-case font-normal opacity-60">(empty = all, one username per line)</span>
+        </p>
+        <textarea
+          rows={4}
+          className="text-sm rounded border border-border bg-background text-foreground p-2 w-48 resize-none font-mono"
+          placeholder={"john_doe\njane_smith"}
+          value={usernames.join("\n")}
+          onChange={(e) => {
+            const lines = e.target.value.split("\n").map((l) => l.trim()).filter(Boolean);
+            onUsernamesChange(lines);
+          }}
+        />
       </div>
     </div>
   );

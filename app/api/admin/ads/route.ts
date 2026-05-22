@@ -43,7 +43,7 @@ export async function POST(req: NextRequest) {
   if (!await requireAdmin()) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
 
   const body = await req.json();
-  const { motion, proponentName, opponentName, categoryId, linkUrl } = body;
+  const { motion, proponentName, opponentName, categoryId, linkUrl, businessName } = body;
 
   if (!motion?.trim() || !proponentName?.trim() || !opponentName?.trim()) {
     return NextResponse.json({ error: "motion, proponentName, opponentName are required" }, { status: 400 });
@@ -56,6 +56,7 @@ export async function POST(req: NextRequest) {
       opponentName: opponentName.trim(),
       categoryId: categoryId || null,
       linkUrl: linkUrl?.trim() || null,
+      businessName: businessName?.trim() || null,
     },
     include: { category: { select: { label: true, emoji: true } } },
   });

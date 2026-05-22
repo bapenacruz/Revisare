@@ -26,6 +26,7 @@ export type AggregateAdBanner = {
 
 export type AdBannerMinAggregateOutputType = {
   id: string | null
+  businessName: string | null
   imageDataUrl: string | null
   linkUrl: string | null
   altText: string | null
@@ -37,6 +38,7 @@ export type AdBannerMinAggregateOutputType = {
 
 export type AdBannerMaxAggregateOutputType = {
   id: string | null
+  businessName: string | null
   imageDataUrl: string | null
   linkUrl: string | null
   altText: string | null
@@ -48,11 +50,13 @@ export type AdBannerMaxAggregateOutputType = {
 
 export type AdBannerCountAggregateOutputType = {
   id: number
+  businessName: number
   imageDataUrl: number
   linkUrl: number
   altText: number
   targetRegions: number
   targetCompassQuadrants: number
+  targetUsernames: number
   isActive: number
   isDeleted: number
   createdAt: number
@@ -63,6 +67,7 @@ export type AdBannerCountAggregateOutputType = {
 
 export type AdBannerMinAggregateInputType = {
   id?: true
+  businessName?: true
   imageDataUrl?: true
   linkUrl?: true
   altText?: true
@@ -74,6 +79,7 @@ export type AdBannerMinAggregateInputType = {
 
 export type AdBannerMaxAggregateInputType = {
   id?: true
+  businessName?: true
   imageDataUrl?: true
   linkUrl?: true
   altText?: true
@@ -85,11 +91,13 @@ export type AdBannerMaxAggregateInputType = {
 
 export type AdBannerCountAggregateInputType = {
   id?: true
+  businessName?: true
   imageDataUrl?: true
   linkUrl?: true
   altText?: true
   targetRegions?: true
   targetCompassQuadrants?: true
+  targetUsernames?: true
   isActive?: true
   isDeleted?: true
   createdAt?: true
@@ -171,11 +179,13 @@ export type AdBannerGroupByArgs<ExtArgs extends runtime.Types.Extensions.Interna
 
 export type AdBannerGroupByOutputType = {
   id: string
+  businessName: string | null
   imageDataUrl: string
   linkUrl: string | null
   altText: string | null
   targetRegions: runtime.JsonValue
   targetCompassQuadrants: runtime.JsonValue
+  targetUsernames: runtime.JsonValue
   isActive: boolean
   isDeleted: boolean
   createdAt: Date
@@ -205,11 +215,13 @@ export type AdBannerWhereInput = {
   OR?: Prisma.AdBannerWhereInput[]
   NOT?: Prisma.AdBannerWhereInput | Prisma.AdBannerWhereInput[]
   id?: Prisma.StringFilter<"AdBanner"> | string
+  businessName?: Prisma.StringNullableFilter<"AdBanner"> | string | null
   imageDataUrl?: Prisma.StringFilter<"AdBanner"> | string
   linkUrl?: Prisma.StringNullableFilter<"AdBanner"> | string | null
   altText?: Prisma.StringNullableFilter<"AdBanner"> | string | null
   targetRegions?: Prisma.JsonFilter<"AdBanner">
   targetCompassQuadrants?: Prisma.JsonFilter<"AdBanner">
+  targetUsernames?: Prisma.JsonFilter<"AdBanner">
   isActive?: Prisma.BoolFilter<"AdBanner"> | boolean
   isDeleted?: Prisma.BoolFilter<"AdBanner"> | boolean
   createdAt?: Prisma.DateTimeFilter<"AdBanner"> | Date | string
@@ -218,11 +230,13 @@ export type AdBannerWhereInput = {
 
 export type AdBannerOrderByWithRelationInput = {
   id?: Prisma.SortOrder
+  businessName?: Prisma.SortOrderInput | Prisma.SortOrder
   imageDataUrl?: Prisma.SortOrder
   linkUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   altText?: Prisma.SortOrderInput | Prisma.SortOrder
   targetRegions?: Prisma.SortOrder
   targetCompassQuadrants?: Prisma.SortOrder
+  targetUsernames?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   isDeleted?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -234,11 +248,13 @@ export type AdBannerWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.AdBannerWhereInput | Prisma.AdBannerWhereInput[]
   OR?: Prisma.AdBannerWhereInput[]
   NOT?: Prisma.AdBannerWhereInput | Prisma.AdBannerWhereInput[]
+  businessName?: Prisma.StringNullableFilter<"AdBanner"> | string | null
   imageDataUrl?: Prisma.StringFilter<"AdBanner"> | string
   linkUrl?: Prisma.StringNullableFilter<"AdBanner"> | string | null
   altText?: Prisma.StringNullableFilter<"AdBanner"> | string | null
   targetRegions?: Prisma.JsonFilter<"AdBanner">
   targetCompassQuadrants?: Prisma.JsonFilter<"AdBanner">
+  targetUsernames?: Prisma.JsonFilter<"AdBanner">
   isActive?: Prisma.BoolFilter<"AdBanner"> | boolean
   isDeleted?: Prisma.BoolFilter<"AdBanner"> | boolean
   createdAt?: Prisma.DateTimeFilter<"AdBanner"> | Date | string
@@ -247,11 +263,13 @@ export type AdBannerWhereUniqueInput = Prisma.AtLeast<{
 
 export type AdBannerOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
+  businessName?: Prisma.SortOrderInput | Prisma.SortOrder
   imageDataUrl?: Prisma.SortOrder
   linkUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   altText?: Prisma.SortOrderInput | Prisma.SortOrder
   targetRegions?: Prisma.SortOrder
   targetCompassQuadrants?: Prisma.SortOrder
+  targetUsernames?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   isDeleted?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -266,11 +284,13 @@ export type AdBannerScalarWhereWithAggregatesInput = {
   OR?: Prisma.AdBannerScalarWhereWithAggregatesInput[]
   NOT?: Prisma.AdBannerScalarWhereWithAggregatesInput | Prisma.AdBannerScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"AdBanner"> | string
+  businessName?: Prisma.StringNullableWithAggregatesFilter<"AdBanner"> | string | null
   imageDataUrl?: Prisma.StringWithAggregatesFilter<"AdBanner"> | string
   linkUrl?: Prisma.StringNullableWithAggregatesFilter<"AdBanner"> | string | null
   altText?: Prisma.StringNullableWithAggregatesFilter<"AdBanner"> | string | null
   targetRegions?: Prisma.JsonWithAggregatesFilter<"AdBanner">
   targetCompassQuadrants?: Prisma.JsonWithAggregatesFilter<"AdBanner">
+  targetUsernames?: Prisma.JsonWithAggregatesFilter<"AdBanner">
   isActive?: Prisma.BoolWithAggregatesFilter<"AdBanner"> | boolean
   isDeleted?: Prisma.BoolWithAggregatesFilter<"AdBanner"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"AdBanner"> | Date | string
@@ -279,11 +299,13 @@ export type AdBannerScalarWhereWithAggregatesInput = {
 
 export type AdBannerCreateInput = {
   id?: string
+  businessName?: string | null
   imageDataUrl: string
   linkUrl?: string | null
   altText?: string | null
   targetRegions?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   targetCompassQuadrants?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  targetUsernames?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isActive?: boolean
   isDeleted?: boolean
   createdAt?: Date | string
@@ -292,11 +314,13 @@ export type AdBannerCreateInput = {
 
 export type AdBannerUncheckedCreateInput = {
   id?: string
+  businessName?: string | null
   imageDataUrl: string
   linkUrl?: string | null
   altText?: string | null
   targetRegions?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   targetCompassQuadrants?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  targetUsernames?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isActive?: boolean
   isDeleted?: boolean
   createdAt?: Date | string
@@ -305,11 +329,13 @@ export type AdBannerUncheckedCreateInput = {
 
 export type AdBannerUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  businessName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageDataUrl?: Prisma.StringFieldUpdateOperationsInput | string
   linkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   targetRegions?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   targetCompassQuadrants?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  targetUsernames?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -318,11 +344,13 @@ export type AdBannerUpdateInput = {
 
 export type AdBannerUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  businessName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageDataUrl?: Prisma.StringFieldUpdateOperationsInput | string
   linkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   targetRegions?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   targetCompassQuadrants?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  targetUsernames?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -331,11 +359,13 @@ export type AdBannerUncheckedUpdateInput = {
 
 export type AdBannerCreateManyInput = {
   id?: string
+  businessName?: string | null
   imageDataUrl: string
   linkUrl?: string | null
   altText?: string | null
   targetRegions?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   targetCompassQuadrants?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  targetUsernames?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isActive?: boolean
   isDeleted?: boolean
   createdAt?: Date | string
@@ -344,11 +374,13 @@ export type AdBannerCreateManyInput = {
 
 export type AdBannerUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  businessName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageDataUrl?: Prisma.StringFieldUpdateOperationsInput | string
   linkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   targetRegions?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   targetCompassQuadrants?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  targetUsernames?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -357,11 +389,13 @@ export type AdBannerUpdateManyMutationInput = {
 
 export type AdBannerUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  businessName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageDataUrl?: Prisma.StringFieldUpdateOperationsInput | string
   linkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   altText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   targetRegions?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   targetCompassQuadrants?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  targetUsernames?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -370,11 +404,13 @@ export type AdBannerUncheckedUpdateManyInput = {
 
 export type AdBannerCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  businessName?: Prisma.SortOrder
   imageDataUrl?: Prisma.SortOrder
   linkUrl?: Prisma.SortOrder
   altText?: Prisma.SortOrder
   targetRegions?: Prisma.SortOrder
   targetCompassQuadrants?: Prisma.SortOrder
+  targetUsernames?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   isDeleted?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -383,6 +419,7 @@ export type AdBannerCountOrderByAggregateInput = {
 
 export type AdBannerMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  businessName?: Prisma.SortOrder
   imageDataUrl?: Prisma.SortOrder
   linkUrl?: Prisma.SortOrder
   altText?: Prisma.SortOrder
@@ -394,6 +431,7 @@ export type AdBannerMaxOrderByAggregateInput = {
 
 export type AdBannerMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  businessName?: Prisma.SortOrder
   imageDataUrl?: Prisma.SortOrder
   linkUrl?: Prisma.SortOrder
   altText?: Prisma.SortOrder
@@ -407,11 +445,13 @@ export type AdBannerMinOrderByAggregateInput = {
 
 export type AdBannerSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  businessName?: boolean
   imageDataUrl?: boolean
   linkUrl?: boolean
   altText?: boolean
   targetRegions?: boolean
   targetCompassQuadrants?: boolean
+  targetUsernames?: boolean
   isActive?: boolean
   isDeleted?: boolean
   createdAt?: boolean
@@ -420,11 +460,13 @@ export type AdBannerSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
 
 export type AdBannerSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  businessName?: boolean
   imageDataUrl?: boolean
   linkUrl?: boolean
   altText?: boolean
   targetRegions?: boolean
   targetCompassQuadrants?: boolean
+  targetUsernames?: boolean
   isActive?: boolean
   isDeleted?: boolean
   createdAt?: boolean
@@ -433,11 +475,13 @@ export type AdBannerSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
 
 export type AdBannerSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  businessName?: boolean
   imageDataUrl?: boolean
   linkUrl?: boolean
   altText?: boolean
   targetRegions?: boolean
   targetCompassQuadrants?: boolean
+  targetUsernames?: boolean
   isActive?: boolean
   isDeleted?: boolean
   createdAt?: boolean
@@ -446,29 +490,33 @@ export type AdBannerSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
 
 export type AdBannerSelectScalar = {
   id?: boolean
+  businessName?: boolean
   imageDataUrl?: boolean
   linkUrl?: boolean
   altText?: boolean
   targetRegions?: boolean
   targetCompassQuadrants?: boolean
+  targetUsernames?: boolean
   isActive?: boolean
   isDeleted?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type AdBannerOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "imageDataUrl" | "linkUrl" | "altText" | "targetRegions" | "targetCompassQuadrants" | "isActive" | "isDeleted" | "createdAt" | "updatedAt", ExtArgs["result"]["adBanner"]>
+export type AdBannerOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "businessName" | "imageDataUrl" | "linkUrl" | "altText" | "targetRegions" | "targetCompassQuadrants" | "targetUsernames" | "isActive" | "isDeleted" | "createdAt" | "updatedAt", ExtArgs["result"]["adBanner"]>
 
 export type $AdBannerPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "AdBanner"
   objects: {}
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
+    businessName: string | null
     imageDataUrl: string
     linkUrl: string | null
     altText: string | null
     targetRegions: runtime.JsonValue
     targetCompassQuadrants: runtime.JsonValue
+    targetUsernames: runtime.JsonValue
     isActive: boolean
     isDeleted: boolean
     createdAt: Date
@@ -897,11 +945,13 @@ export interface Prisma__AdBannerClient<T, Null = never, ExtArgs extends runtime
  */
 export interface AdBannerFieldRefs {
   readonly id: Prisma.FieldRef<"AdBanner", 'String'>
+  readonly businessName: Prisma.FieldRef<"AdBanner", 'String'>
   readonly imageDataUrl: Prisma.FieldRef<"AdBanner", 'String'>
   readonly linkUrl: Prisma.FieldRef<"AdBanner", 'String'>
   readonly altText: Prisma.FieldRef<"AdBanner", 'String'>
   readonly targetRegions: Prisma.FieldRef<"AdBanner", 'Json'>
   readonly targetCompassQuadrants: Prisma.FieldRef<"AdBanner", 'Json'>
+  readonly targetUsernames: Prisma.FieldRef<"AdBanner", 'Json'>
   readonly isActive: Prisma.FieldRef<"AdBanner", 'Boolean'>
   readonly isDeleted: Prisma.FieldRef<"AdBanner", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"AdBanner", 'DateTime'>

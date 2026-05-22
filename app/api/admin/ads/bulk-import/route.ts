@@ -11,8 +11,10 @@ const TurnSchema = z.object({
 
 const AdImportSchema = z.object({
   motion: z.string().min(5).max(500),
+  business_name: z.string().optional().nullable(),
   proponent_name: z.string().min(1).max(100),
   opponent_name: z.string().min(1).max(100),
+  official_result: z.string().optional().nullable(),
   ad_category_slug: z.string().optional().nullable(),
   link_url: z.string().url().optional().nullable(),
   turns: z.array(TurnSchema).min(1),
@@ -90,8 +92,10 @@ export async function POST(request: NextRequest) {
       const ad = await db.ad.create({
         data: {
           motion: data.motion,
+          businessName: data.business_name ?? null,
           proponentName: data.proponent_name,
           opponentName: data.opponent_name,
+          officialResult: data.official_result ?? null,
           categoryId,
           linkUrl: data.link_url ?? null,
           isActive: true,

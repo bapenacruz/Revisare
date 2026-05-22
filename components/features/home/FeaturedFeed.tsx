@@ -198,10 +198,8 @@ export function FeaturedFeed() {
                   </CardBody>
                 </Card>
               );
-              return ad.linkUrl ? (
-                <a key={`ad-${ad.id}-${idx}`} href={ad.linkUrl} target="_blank" rel="noopener noreferrer">{inner}</a>
-              ) : (
-                <div key={`ad-${ad.id}-${idx}`}>{inner}</div>
+              return (
+                <Link key={`ad-${ad.id}-${idx}`} href={`/ads/${ad.id}`}>{inner}</Link>
               );
             }
 

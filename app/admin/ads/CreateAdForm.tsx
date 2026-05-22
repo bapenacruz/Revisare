@@ -13,12 +13,14 @@ interface AdCategory {
 export function CreateAdForm({ categories }: { categories: AdCategory[] }) {
   const router = useRouter();
   const [motion, setMotion] = useState("");
+  const [businessName, setBusinessName] = useState("");
   const [proponentName, setProponentName] = useState("");
   const [opponentName, setOpponentName] = useState("");
   const [categoryId, setCategoryId] = useState("");
   const [linkUrl, setLinkUrl] = useState("");
   const [targetRegions, setTargetRegions] = useState<string[]>([]);
   const [targetCompassQuadrants, setTargetCompassQuadrants] = useState<string[]>([]);
+  const [targetUsernames, setTargetUsernames] = useState<string[]>([]);
   const [saving, setSaving] = useState(false);
   const [msg, setMsg] = useState<string | null>(null);
   const [open, setOpen] = useState(false);
@@ -33,11 +35,11 @@ export function CreateAdForm({ categories }: { categories: AdCategory[] }) {
     const res = await fetch("/api/admin/ads", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ motion, proponentName, opponentName, categoryId: categoryId || null, linkUrl: linkUrl || null, targetRegions, targetCompassQuadrants }),
+      body: JSON.stringify({ motion, businessName: businessName || null, proponentName, opponentName, categoryId: categoryId || null, linkUrl: linkUrl || null, targetRegions, targetCompassQuadrants, targetUsernames }),
     });
     setSaving(false);
     if (res.ok) {
-      setMotion(""); setProponentName(""); setOpponentName(""); setCategoryId(""); setLinkUrl(""); setTargetRegions([]); setTargetCompassQuadrants([]);
+      setMotion(""); setBusinessName(""); setProponentName(""); setOpponentName(""); setCategoryId(""); setLinkUrl(""); setTargetRegions([]); setTargetCompassQuadrants([]); setTargetUsernames([]);
       setMsg("Ad created ✓");
       router.refresh();
       setOpen(false);
@@ -56,6 +58,11 @@ export function CreateAdForm({ categories }: { categories: AdCategory[] }) {
       </button>
       {open && (
         <div className="px-4 py-4 bg-surface border-t border-border flex flex-wrap gap-4 items-end">
+          <div className="flex flex-col gap-1 w-40">
+            <label className="text-xs font-medium text-foreground-muted uppercase tracking-wide">Business Name</label>
+            <input className="text-sm rounded border border-border bg-background text-foreground p-2" value={businessName}
+              onChange={(e) => setBusinessName(e.target.value)} placeholder="Acme Corp" />
+          </div>
           <div className="flex flex-col gap-1 flex-1 min-w-48">
             <label className="text-xs font-medium text-foreground-muted uppercase tracking-wide">Motion *</label>
             <textarea className="text-sm rounded border border-border bg-background text-foreground p-2 resize-none" rows={3}
@@ -88,8 +95,10 @@ export function CreateAdForm({ categories }: { categories: AdCategory[] }) {
             <TargetingPicker
               regions={targetRegions}
               quadrants={targetCompassQuadrants}
+              usernames={targetUsernames}
               onRegionsChange={setTargetRegions}
               onQuadrantsChange={setTargetCompassQuadrants}
+              onUsernamesChange={setTargetUsernames}
             />
           </div>
           <div className="flex flex-col gap-2">

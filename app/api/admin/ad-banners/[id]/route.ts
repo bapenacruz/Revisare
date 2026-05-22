@@ -16,7 +16,7 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id
 
   const { id } = await params;
   const body = await req.json();
-  const { imageDataUrl, linkUrl, altText, targetRegions, targetCompassQuadrants, isActive } = body;
+  const { imageDataUrl, linkUrl, altText, targetRegions, targetCompassQuadrants, targetUsernames, businessName, isActive } = body;
 
   const data: Record<string, unknown> = {};
 
@@ -32,8 +32,10 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id
 
   if (linkUrl !== undefined) data.linkUrl = linkUrl?.trim() || null;
   if (altText !== undefined) data.altText = altText?.trim() || null;
+  if (businessName !== undefined) data.businessName = businessName?.trim() || null;
   if (Array.isArray(targetRegions)) data.targetRegions = targetRegions;
   if (Array.isArray(targetCompassQuadrants)) data.targetCompassQuadrants = targetCompassQuadrants;
+  if (Array.isArray(targetUsernames)) data.targetUsernames = targetUsernames;
   if (isActive !== undefined) data.isActive = isActive;
 
   const banner = await db.adBanner.update({ where: { id }, data });

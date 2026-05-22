@@ -6,6 +6,7 @@ import { TargetingPicker } from "./TargetingPicker";
 
 interface AdBanner {
   id: string;
+  businessName: string | null;
   imageDataUrl: string;
   linkUrl: string | null;
   altText: string | null;
@@ -13,12 +14,14 @@ interface AdBanner {
   createdAt: Date;
   targetRegions: unknown;
   targetCompassQuadrants: unknown;
+  targetUsernames: unknown;
 }
 
 export function BannerRow({ banner }: { banner: AdBanner }) {
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [imageDataUrl, setImageDataUrl] = useState(banner.imageDataUrl);
+  const [businessName, setBusinessName] = useState(banner.businessName ?? "");
   const [linkUrl, setLinkUrl] = useState(banner.linkUrl ?? "");
   const [altText, setAltText] = useState(banner.altText ?? "");
   const [isActive, setIsActive] = useState(banner.isActive);
@@ -27,6 +30,9 @@ export function BannerRow({ banner }: { banner: AdBanner }) {
   );
   const [targetCompassQuadrants, setTargetCompassQuadrants] = useState<string[]>(
     Array.isArray(banner.targetCompassQuadrants) ? (banner.targetCompassQuadrants as string[]) : []
+  );
+  const [targetUsernames, setTargetUsernames] = useState<string[]>(
+    Array.isArray(banner.targetUsernames) ? (banner.targetUsernames as string[]) : []
   );
   const [saving, setSaving] = useState(false);
   const [deleting, setDeleting] = useState(false);
@@ -52,11 +58,13 @@ export function BannerRow({ banner }: { banner: AdBanner }) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         imageDataUrl,
+        businessName: businessName || null,
         linkUrl: linkUrl || null,
         altText: altText || null,
         isActive,
         targetRegions,
         targetCompassQuadrants,
+        targetUsernames,
       }),
     });
     setSaving(false);
@@ -81,6 +89,9 @@ export function BannerRow({ banner }: { banner: AdBanner }) {
         className={`transition-colors cursor-pointer ${open ? "bg-surface-raised" : "hover:bg-surface-raised/40"}`}
         onClick={() => { setOpen((v) => !v); setMsg(null); }}
       >
+        <td className="px-2 py-2 text-xs text-foreground-muted max-w-[120px] truncate">
+          {banner.businessName ?? <span className="opacity-40">—</span>}
+        </td>
         <td className="px-2 py-2">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={imageDataUrl} alt={altText ?? ""} className="h-12 w-20 object-cover rounded border border-border" />
@@ -104,7 +115,7 @@ export function BannerRow({ banner }: { banner: AdBanner }) {
 
       {open && (
         <tr className="bg-surface-raised border-t border-border">
-          <td colSpan={6} className="px-6 py-4">
+          <td colSpan={7} className="px-6 py-4">
             <div className="flex flex-wrap gap-4 items-start">
               {/* Image preview + replace */}
               <div className="flex flex-col gap-2">
@@ -116,6 +127,12 @@ export function BannerRow({ banner }: { banner: AdBanner }) {
                   className="px-3 py-1 text-xs rounded border border-border text-foreground-muted hover:text-foreground">
                   Replace Image
                 </button>
+              </div>
+
+              <div className="flex flex-col gap-1 w-56">
+                <label className="text-xs font-medium text-foreground-muted uppercase tracking-wide">Business Name</label>
+                <input className="text-sm rounded border border-border bg-background text-foreground p-2" value={businessName}
+                  placeholder="Acme Corp" onChange={(e) => setBusinessName(e.target.value)} onClick={(e) => e.stopPropagation()} />
               </div>
 
               <div className="flex flex-col gap-1 w-56">
@@ -143,8 +160,10 @@ export function BannerRow({ banner }: { banner: AdBanner }) {
                 <TargetingPicker
                   regions={targetRegions}
                   quadrants={targetCompassQuadrants}
+                  usernames={targetUsernames}
                   onRegionsChange={setTargetRegions}
                   onQuadrantsChange={setTargetCompassQuadrants}
+                  onUsernamesChange={setTargetUsernames}
                   onClick={(e) => e.stopPropagation()}
                 />
               </div>

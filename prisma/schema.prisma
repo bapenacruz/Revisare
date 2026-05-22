@@ -551,12 +551,15 @@ model AdCategory {
 model Ad {
   id            String      @id @default(cuid())
   motion        String
+  businessName           String?
   proponentName String
   opponentName  String
+  officialResult         String?  @db.Text
   categoryId             String?
   linkUrl                String?
   targetRegions          Json     @default("[]")
   targetCompassQuadrants Json     @default("[]")
+  targetUsernames        Json     @default("[]")
   isActive      Boolean     @default(true)
   isDeleted     Boolean     @default(false)
   createdAt     DateTime    @default(now())
@@ -592,11 +595,13 @@ model AdTurn {
 
 model AdBanner {
   id                     String   @id @default(cuid())
+  businessName           String?
   imageDataUrl           String   @db.Text
   linkUrl                String?
   altText                String?
   targetRegions          Json     @default("[]")
   targetCompassQuadrants Json     @default("[]")
+  targetUsernames        Json     @default("[]")
   isActive               Boolean  @default(true)
   isDeleted              Boolean  @default(false)
   createdAt              DateTime @default(now())
