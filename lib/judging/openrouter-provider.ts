@@ -727,10 +727,14 @@ async function getMasterPrompt(): Promise<string> {
     const record = await db.judgePrompt.findFirst({
       where: { type: "master_judging_prompt", isActive: true },
     });
-    // Stale-record guard: if the stored prompt still contains the old banned
-    // instruction ('use "unsupported" or "disputed"'), it was saved from the
-    // previous default and must be ignored so the new default takes effect.
-    if (record?.prompt && !record.prompt.includes('use "unsupported" or "disputed"')) {
+    // Stale-record guard: if the stored prompt contains either of the two known
+    // problematic instructions that cause all fact-checks to be unsupported_in_round,
+    // ignore the DB record so the new default takes effect.
+    const isStale =
+      record.prompt.includes('use "unsupported" or "disputed"') ||
+      record.prompt.includes("label it \"Unsupported In-Round,\" not \"false\"") ||
+      record.prompt.includes("label it 'Unsupported In-Round,' not 'false'");
+    if (record?.prompt && !isStale) {
       return record.prompt;
     }
   } catch (error) {
@@ -738,6 +742,30 @@ async function getMasterPrompt(): Promise<string> {
   }
   return DEFAULT_MASTER_PROMPT;
 }
+
+// This block is always injected regardless of the DB prompt content.
+// It overrides any conflicting fact-check label instructions from the master prompt.
+const FACT_CHECK_SYSTEM_OVERRIDE = `\
+=== SYSTEM OVERRIDE: FACT-CHECK LABELING RULES ===
+
+These rules take precedence over any instructions above that conflict with them.
+
+RULE: Use your own knowledge to evaluate claims.
+- If a claim is factually accurate based on your training knowledge, label it "correct" or "mostly_correct" — even if the debater gave NO formal citation inside the debate.
+- Lack of an in-round citation is NOT a reason to use "unsupported_in_round".
+- "unsupported_in_round" is only for claims that are genuinely empirically uncertain, unverifiable, or contested AND the debater provided no support for them.
+
+EXAMPLES OF CORRECT APPLICATION:
+- Debater says "The US has over 300 million people" without citing a source → label: "correct" (you know this is true)
+- Debater says "Minimum wage increases reduce employment" without a source → label: "context_dependent" or "mostly_correct" depending on consensus
+- Debater says "This policy will definitely create 2 million jobs" without a source → label: "unsupported_in_round" (specific causal prediction, genuinely uncertain)
+- Debater says "Racial inequality exists in the US" without a source → label: "correct" (well-established fact)
+- Debater says "Immigrants commit more crime than citizens" without a source → label: "misleading" (contradicted by evidence you know)
+
+FORBIDDEN: Do NOT label every uncited claim as "unsupported_in_round". That is the most common mistake. If you know it's true, label it correctly.
+
+FORBIDDEN label values: "unsupported" (bare), "false", "true", "disputed", "incorrect", "unverified"
+ALLOWED label values: correct, mostly_correct, misleading, context_dependent, unsupported_in_round, unsupported_generally`;
 
 function buildSystemPrompt(masterPrompt: string, input: JudgeInput): string {
   const contextBlock =
@@ -748,6 +776,8 @@ function buildSystemPrompt(masterPrompt: string, input: JudgeInput): string {
     `Debater B (Opposition): ${input.debaterB.username}`;
   return (
     masterPrompt +
+    "\n\n" +
+    FACT_CHECK_SYSTEM_OVERRIDE +
     "\n\n" +
     contextBlock +
     "\n\n" +
