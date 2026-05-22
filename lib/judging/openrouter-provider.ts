@@ -727,7 +727,12 @@ async function getMasterPrompt(): Promise<string> {
     const record = await db.judgePrompt.findFirst({
       where: { type: "master_judging_prompt", isActive: true },
     });
-    if (record?.prompt) return record.prompt;
+    // Stale-record guard: if the stored prompt still contains the old banned
+    // instruction ('use "unsupported" or "disputed"'), it was saved from the
+    // previous default and must be ignored so the new default takes effect.
+    if (record?.prompt && !record.prompt.includes('use "unsupported" or "disputed"')) {
+      return record.prompt;
+    }
   } catch (error) {
     console.error("Error fetching master judging prompt:", error);
   }

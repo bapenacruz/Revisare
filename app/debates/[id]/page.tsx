@@ -148,6 +148,7 @@ export default function ArenaPage() {
   const [guestName, setGuestName] = useState("");
   const [sendingSpec, setSendingSpec] = useState(false);
   const specContainerRef = useRef<HTMLDivElement>(null);
+  const inputCardRef = useRef<HTMLDivElement>(null);
 
   // Fetch debate state
   const fetchDebate = useCallback(async () => {
@@ -232,6 +233,14 @@ export default function ArenaPage() {
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [timerLeft, isMyTurn]);
+
+  // Scroll the writing card into view when it becomes the user's turn
+  useEffect(() => {
+    if (isMyTurn && inputCardRef.current) {
+      inputCardRef.current.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isMyTurn]);
 
   // ── Actions ─────────────────────────────────────────────────────────────────
 
@@ -412,6 +421,66 @@ export default function ArenaPage() {
             </CardBody>
           </Card>
 
+          {/* Full Transcript */}
+          {debate.turns.length > 0 && (
+            <div>
+              <h2 className="text-base font-bold text-foreground mb-4">Full Transcript</h2>
+              <div className="flex flex-col gap-6">
+              {(["opening", "crossfire", "rebuttal", "summary", "closing"] as RoundName[]).map((round) => {
+                const turns = roundGroups[round];
+                if (turns.length === 0) return null;
+                return (
+                  <div key={round}>
+                    <div className="flex items-center gap-3 mb-3">
+                      <div className="h-px flex-1 bg-border" />
+                      <span className="text-xs font-semibold text-foreground-muted uppercase tracking-wide px-2">
+                        {ROUND_LABEL[round]}
+                      </span>
+                      <div className="h-px flex-1 bg-border" />
+                    </div>
+                    <div className="flex flex-col gap-3">
+                      {turns.map((turn) => {
+                        const isA = turn.userId === debate.debaterAId;
+                        const speaker = isA ? debate.debaterA : debate.debaterB;
+                        const isProp = speaker.id === propositionUser.id;
+                        return (
+                          <div key={turn.id} className={`flex gap-3 ${isA ? "flex-row" : "flex-row-reverse"}`}>
+                            <Link href={`/users/${speaker.username}`} className="shrink-0 mt-1 hover:opacity-80 transition-opacity">
+                              <Avatar initial={speaker.username[0]} size="sm" />
+                            </Link>
+                            <div
+                              className={`max-w-[85%] rounded-[--radius-lg] px-4 py-3 ${
+                                isA
+                                  ? "bg-surface-raised border border-border rounded-tl-none"
+                                  : "bg-brand-dim border border-brand/20 rounded-tr-none"
+                              }`}
+                            >
+                              <div className="flex items-center gap-2 mb-1.5">
+                                <Link href={`/users/${speaker.username}`} className="text-xs font-semibold text-foreground hover:text-brand transition-colors">{speaker.username}</Link>
+                                <span
+                                  className={`text-[10px] font-bold uppercase tracking-wide ${isProp ? "text-brand" : "text-danger"}`}
+                                >
+                                  {isProp ? "PROP" : "OPP"}
+                                </span>
+                                {turn.isAutoSubmit && (
+                                  <span className="text-[10px] text-foreground-muted italic">auto-submitted</span>
+                                )}
+                              </div>
+                              <p className="text-sm text-foreground leading-relaxed whitespace-pre-wrap">
+                                {turn.content}
+                              </p>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                );
+              })}
+              </div>
+            </div>
+          )}
+
           {/* Prep phase */}
           {debate.phase === "prep" && (
             <Card>
@@ -440,7 +509,7 @@ export default function ArenaPage() {
 
           {/* Typing phase */}
           {debate.phase === "typing" && currentSpec && (
-            <Card>
+            <div ref={inputCardRef}><Card>
               <CardBody className="py-5">
                 <div className="flex items-center justify-between mb-4">
                   <div>
@@ -539,7 +608,7 @@ export default function ArenaPage() {
                   </div>
                 )}
               </CardBody>
-            </Card>
+            </Card></div>
           )}
 
           {/* Second-chance */}
@@ -655,66 +724,6 @@ export default function ArenaPage() {
                 )}
               </CardBody>
             </Card>
-          )}
-
-          {/* Full Transcript */}
-          {debate.turns.length > 0 && (
-            <div>
-              <h2 className="text-base font-bold text-foreground mb-4">Full Transcript</h2>
-              <div className="flex flex-col gap-6">
-              {(["opening", "crossfire", "rebuttal", "summary", "closing"] as RoundName[]).map((round) => {
-                const turns = roundGroups[round];
-                if (turns.length === 0) return null;
-                return (
-                  <div key={round}>
-                    <div className="flex items-center gap-3 mb-3">
-                      <div className="h-px flex-1 bg-border" />
-                      <span className="text-xs font-semibold text-foreground-muted uppercase tracking-wide px-2">
-                        {ROUND_LABEL[round]}
-                      </span>
-                      <div className="h-px flex-1 bg-border" />
-                    </div>
-                    <div className="flex flex-col gap-3">
-                      {turns.map((turn) => {
-                        const isA = turn.userId === debate.debaterAId;
-                        const speaker = isA ? debate.debaterA : debate.debaterB;
-                        const isProp = speaker.id === propositionUser.id;
-                        return (
-                          <div key={turn.id} className={`flex gap-3 ${isA ? "flex-row" : "flex-row-reverse"}`}>
-                            <Link href={`/users/${speaker.username}`} className="shrink-0 mt-1 hover:opacity-80 transition-opacity">
-                              <Avatar initial={speaker.username[0]} size="sm" />
-                            </Link>
-                            <div
-                              className={`max-w-[85%] rounded-[--radius-lg] px-4 py-3 ${
-                                isA
-                                  ? "bg-surface-raised border border-border rounded-tl-none"
-                                  : "bg-brand-dim border border-brand/20 rounded-tr-none"
-                              }`}
-                            >
-                              <div className="flex items-center gap-2 mb-1.5">
-                                <Link href={`/users/${speaker.username}`} className="text-xs font-semibold text-foreground hover:text-brand transition-colors">{speaker.username}</Link>
-                                <span
-                                  className={`text-[10px] font-bold uppercase tracking-wide ${isProp ? "text-brand" : "text-danger"}`}
-                                >
-                                  {isProp ? "PROP" : "OPP"}
-                                </span>
-                                {turn.isAutoSubmit && (
-                                  <span className="text-[10px] text-foreground-muted italic">auto-submitted</span>
-                                )}
-                              </div>
-                              <p className="text-sm text-foreground leading-relaxed whitespace-pre-wrap">
-                                {turn.content}
-                              </p>
-                            </div>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </div>
-                );
-              })}
-              </div>
-            </div>
           )}
 
           {/* Judge Panel (completed only) */}
