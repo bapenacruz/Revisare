@@ -342,10 +342,10 @@ export default function AboutPage() {
               <p>Each debate follows a structured format with timed rounds:</p>
               <ol className="flex flex-col gap-2 pl-5 list-decimal">
                 <li><span className="text-foreground font-medium">Challenge</span> — One user challenges another on a specific motion. The opponent accepts or declines.</li>
-                <li><span className="text-foreground font-medium">Opening Statements</span> — Each side states their position.</li>
-                <li><span className="text-foreground font-medium">Rebuttals</span> — Each side challenges the other&apos;s arguments.</li>
-                <li><span className="text-foreground font-medium">Crossfire</span> — Direct back-and-forth exchange.</li>
-                <li><span className="text-foreground font-medium">Closing Statements</span> — Each side makes their final case.</li>
+                <li><span className="text-foreground font-medium">Opening Statements</span> <span className="text-foreground-subtle text-xs">(3 min)</span> — Each side states their position.</li>
+                <li><span className="text-foreground font-medium">Rebuttals</span> <span className="text-foreground-subtle text-xs">(2 min)</span> — Each side challenges the other&apos;s arguments.</li>
+                <li><span className="text-foreground font-medium">Crossfire</span> <span className="text-foreground-subtle text-xs">(90 sec/message)</span> — Direct back-and-forth exchange.</li>
+                <li><span className="text-foreground font-medium">Closing Statements</span> <span className="text-foreground-subtle text-xs">(2 min)</span> — Each side makes their final case.</li>
               </ol>
               <p>Audience members can watch live, vote for who they think is winning or has won, and leave comments.</p>
             </div>
@@ -385,10 +385,14 @@ export default function AboutPage() {
               <p>After a debate ends, our AI judge panel independently evaluates each transcript and delivers a verdict. Each judge scores on:</p>
               <ul className="flex flex-col gap-1.5 pl-5 list-disc">
                 <li><span className="text-foreground font-medium">Argument quality</span> — logic, structure, and clarity</li>
-                <li><span className="text-foreground font-medium">Evidence</span> — use of facts and reasoning</li>
+                <li><span className="text-foreground font-medium">Evidence &amp; fact-checking</span> — factual accuracy, cited sources, and verifiable claims</li>
                 <li><span className="text-foreground font-medium">Rebuttals</span> — effectiveness of counter-arguments</li>
                 <li><span className="text-foreground font-medium">Overall persuasiveness</span></li>
               </ul>
+              <div className="p-3 rounded-[--radius] bg-surface-raised border border-border text-xs flex flex-col gap-2">
+                <p className="font-semibold text-foreground">Evidence-based vs. Opinion-based debates</p>
+                <p>When a debate involves factual claims (science, history, statistics), judges weigh <span className="text-foreground font-medium">accuracy and sourcing</span> heavily — unsupported claims are penalised. For opinion or values-based debates (ethics, policy, philosophy), judges focus more on <span className="text-foreground font-medium">internal consistency, logic, and persuasiveness</span> rather than demanding citations.</p>
+              </div>
               <div className="mt-1 grid grid-cols-1 sm:grid-cols-3 gap-2">
                 {[
                   { name: "Claude", by: "Anthropic", color: "bg-orange-500/10 border-orange-500/20 text-orange-600 dark:text-orange-400" },
