@@ -727,16 +727,23 @@ async function getMasterPrompt(): Promise<string> {
     const record = await db.judgePrompt.findFirst({
       where: { type: "master_judging_prompt", isActive: true },
     });
-    // Stale-record guard: if the stored prompt contains either of the two known
-    // problematic instructions that cause all fact-checks to be unsupported_in_round,
-    // ignore the DB record so the new default takes effect.
     if (record?.prompt) {
       const p = record.prompt;
-      const isStale =
-        p.includes('use "unsupported" or "disputed"') ||
-        p.includes('label it "Unsupported In-Round," not "false"') ||
-        p.includes("label it 'Unsupported In-Round,' not 'false'");
-      if (!isStale) return p;
+      // Stale-record guard: detect any saved prompt that contains known bad
+      // instructions causing every fact-check to land on unsupported_in_round.
+      // When detected, delete the record so the correct default is used permanently.
+      const STALE_MARKERS = [
+        "plausible but not proven",           // old "label it unsupported in-round not false" logic
+        'use "unsupported" or "disputed"',    // original default prompt phrase
+        "evidence was not presented during the debate, state",  // old evidence-absence rule
+      ];
+      const isStale = STALE_MARKERS.some((m) => p.includes(m));
+      if (isStale) {
+        // Delete so admin panel shows "using default" and future requests use DEFAULT_MASTER_PROMPT
+        await db.judgePrompt.delete({ where: { id: record.id } }).catch(() => {});
+      } else {
+        return p;
+      }
     }
   } catch (error) {
     console.error("Error fetching master judging prompt:", error);
