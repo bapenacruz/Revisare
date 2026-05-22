@@ -730,12 +730,13 @@ async function getMasterPrompt(): Promise<string> {
     // Stale-record guard: if the stored prompt contains either of the two known
     // problematic instructions that cause all fact-checks to be unsupported_in_round,
     // ignore the DB record so the new default takes effect.
-    const isStale =
-      record.prompt.includes('use "unsupported" or "disputed"') ||
-      record.prompt.includes("label it \"Unsupported In-Round,\" not \"false\"") ||
-      record.prompt.includes("label it 'Unsupported In-Round,' not 'false'");
-    if (record?.prompt && !isStale) {
-      return record.prompt;
+    if (record?.prompt) {
+      const p = record.prompt;
+      const isStale =
+        p.includes('use "unsupported" or "disputed"') ||
+        p.includes('label it "Unsupported In-Round," not "false"') ||
+        p.includes("label it 'Unsupported In-Round,' not 'false'");
+      if (!isStale) return p;
     }
   } catch (error) {
     console.error("Error fetching master judging prompt:", error);
