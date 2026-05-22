@@ -1,21 +1,23 @@
 "use client";
 
 import Link from "next/link";
+import { useState } from "react";
 import { useSession } from "@/components/providers/SessionProvider";
 import { useAvatar } from "@/components/providers/AvatarProvider";
 import { Sword, Search, LogIn } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Avatar } from "@/components/ui/Avatar";
 import { NotificationBell } from "@/components/notifications/NotificationBell";
-import { useRouter } from "next/navigation";
+import { SearchModal } from "@/components/layout/SearchModal";
 
 export function Navbar() {
   const { data: session, status } = useSession();
   const { avatarUrl } = useAvatar();
-  const router = useRouter();
   const user = session?.user;
+  const [searchOpen, setSearchOpen] = useState(false);
 
   return (
+    <>
     <header className="sticky top-0 z-40 w-full border-b border-border bg-background/90 backdrop-blur-md">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
         {/* Logo */}
@@ -29,9 +31,9 @@ export function Navbar() {
         {/* Right side */}
         <div className="flex items-center gap-2">
           <button
-            onClick={() => router.push("/debates")}
+            onClick={() => setSearchOpen(true)}
             className="flex items-center justify-center w-9 h-9 rounded-[--radius] hover:bg-surface-raised transition-colors text-foreground-muted hover:text-foreground"
-            aria-label="Search debates"
+            aria-label="Search"
           >
             <Search size={18} />
           </button>
@@ -60,6 +62,8 @@ export function Navbar() {
         </div>
       </div>
     </header>
+    {searchOpen && <SearchModal onClose={() => setSearchOpen(false)} />}
+    </>
   );
 }
 
