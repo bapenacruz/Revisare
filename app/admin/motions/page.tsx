@@ -196,6 +196,26 @@ export default function AdminMotionsPage() {
           <Button
             variant="outline"
             size="sm"
+            onClick={() => {
+              const template = [
+                { text: "Social media does more harm than good.", category: "technology", notes: "Classic tech ethics debate" },
+                { text: "Universal basic income should be implemented globally.", category: "politics", notes: "" },
+                { text: "Artificial intelligence will eliminate more jobs than it creates.", category: "technology", notes: "" },
+              ];
+              const blob = new Blob([JSON.stringify(template, null, 2)], { type: "application/json" });
+              const url = URL.createObjectURL(blob);
+              const a = document.createElement("a");
+              a.href = url;
+              a.download = "motions-template.json";
+              a.click();
+              URL.revokeObjectURL(url);
+            }}
+          >
+            <Download size={14} /> Download JSON
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
             disabled={importing}
             onClick={() => fileRef.current?.click()}
           >
