@@ -5,7 +5,7 @@ import { signOut } from "next-auth/react";
 import { useSession } from "@/components/providers/SessionProvider";
 import { useAvatar } from "@/components/providers/AvatarProvider";
 import { useRouter } from "next/navigation";
-import { User, Swords, ShieldCheck, Info, LogOut, Smartphone, Apple, ChevronDown, Trash2 } from "lucide-react";
+import { User, Swords, ShieldCheck, Info, LogOut, Smartphone, Laptop, ChevronDown, Trash2 } from "lucide-react";
 import { Avatar } from "@/components/ui/Avatar";
 import { useState } from "react";
 
@@ -41,21 +41,21 @@ function InstallSection() {
                 onClick={() => setPlatform("ios")}
                 className="w-full flex items-center gap-3 px-4 py-3 rounded-[--radius] text-sm text-foreground-muted hover:text-foreground hover:bg-surface-raised border border-border transition-colors"
               >
-                <Apple size={16} />
+                <Smartphone size={16} />
                 Safari (iOS)
               </button>
               <button
                 onClick={() => setPlatform("chrome")}
                 className="w-full flex items-center gap-3 px-4 py-3 rounded-[--radius] text-sm text-foreground-muted hover:text-foreground hover:bg-surface-raised border border-border transition-colors"
               >
-                <Smartphone size={16} />
+                <Laptop size={16} />
                 Chrome (Windows &amp; Mac OS)
               </button>
               <button
                 onClick={() => setPlatform("safari-mac")}
                 className="w-full flex items-center gap-3 px-4 py-3 rounded-[--radius] text-sm text-foreground-muted hover:text-foreground hover:bg-surface-raised border border-border transition-colors"
               >
-                <Apple size={16} />
+                <Laptop size={16} />
                 Safari (Mac OS)
               </button>
             </div>
