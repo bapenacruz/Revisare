@@ -132,8 +132,8 @@ export default async function AdminDebatesPage({ searchParams }: Props) {
         isDeleted: true,
         isHidden: true,
         category: { select: { label: true, emoji: true } },
-        debaterA: { select: { username: true } },
-        debaterB: { select: { username: true } },
+        debaterA: { select: { username: true, email: true } },
+        debaterB: { select: { username: true, email: true } },
         winnerId: true,
         createdAt: true,
         _count: { select: { spectatorMessages: true, debateComments: true, audienceVotes: true } },
@@ -175,7 +175,7 @@ export default async function AdminDebatesPage({ searchParams }: Props) {
             <thead className="bg-surface border-b border-border">
               {/* Column labels */}
               <tr>
-                {["Motion", "Category", "Debaters", "Status", "Ranked", "Date", "Views", "Comments", "Votes", "Actions"].map((h) => (
+                {["Motion", "Category", "Debaters", "Type", "Status", "Ranked", "Date", "Views", "Comments", "Votes", "Actions"].map((h) => (
                   <th key={h} className="px-2 py-2 text-left text-xs font-semibold text-foreground-muted uppercase tracking-wide whitespace-nowrap">
                     {h}
                   </th>
@@ -197,6 +197,7 @@ export default async function AdminDebatesPage({ searchParams }: Props) {
                 <th className="px-2 py-2 font-normal">
                   <input name="username" defaultValue={username} placeholder="Username…" className={thInput} />
                 </th>
+                <th className="px-2 py-2 font-normal" />{/* Type — no filter */}
                 <th className="px-2 py-2 font-normal">
                   <select name="status" defaultValue={status} className={thSelect}>
                     {STATUS_OPTIONS.map((s) => (

@@ -21,8 +21,8 @@ interface Debate {
   isHidden: boolean;
   createdAt: Date;
   category: { label: string; emoji: string };
-  debaterA: { username: string } | null;
-  debaterB: { username: string } | null;
+  debaterA: { username: string; email: string } | null;
+  debaterB: { username: string; email: string } | null;
   winnerId: string | null;
   debaterAId: string;
   debaterBId: string;
@@ -165,6 +165,22 @@ export function DebateRow({
           </span>
         </td>
         <td className="px-2 py-2">
+          {(() => {
+            const isSynthetic =
+              (debate.debaterA?.email ?? "").endsWith("@placeholder.com") ||
+              (debate.debaterB?.email ?? "").endsWith("@placeholder.com");
+            return (
+              <span className={`inline-flex px-2 py-0.5 rounded text-xs border ${
+                isSynthetic
+                  ? "bg-surface-overlay text-foreground-muted border-border"
+                  : "bg-blue-500/10 text-blue-400 border-blue-500/20"
+              }`}>
+                {isSynthetic ? "Synthetic" : "Real"}
+              </span>
+            );
+          })()}
+        </td>
+        <td className="px-2 py-2">
           <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs border ${statusBadge(displayDebate)}`}>
             {getDisplayStatus(displayDebate)}
           </span>
@@ -191,7 +207,7 @@ export function DebateRow({
 
       {open && (
         <tr className="bg-surface-raised border-t border-border">
-          <td colSpan={10} className="px-6 py-4">
+          <td colSpan={11} className="px-6 py-4">
             <div className="flex flex-wrap gap-6 items-start">
               {/* Motion */}
               <div className="flex flex-col gap-1 flex-1 min-w-48">

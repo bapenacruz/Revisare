@@ -15,7 +15,7 @@ const DebateSchema = z.object({
   motion: z.string().min(10).max(500),
   category_slug: z.string().min(1),
   format: z.enum(["quick", "standard"]),
-  ranked: z.boolean().optional().default(false),
+  ranked: z.boolean().optional().default(true),
   debaterA: z.object({ username: z.string().min(1), side: z.enum(["proposition", "opposition"]) }),
   debaterB: z.object({ username: z.string().min(1), side: z.enum(["proposition", "opposition"]) }),
   turns: z.array(TurnSchema).min(1),
