@@ -2963,6 +2963,7 @@ export const DebateScalarFieldEnum = {
   forfeitedBy: 'forfeitedBy',
   startedAt: 'startedAt',
   completedAt: 'completedAt',
+  viewCount: 'viewCount',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -3188,6 +3189,8 @@ export const AdScalarFieldEnum = {
   linkUrl: 'linkUrl',
   targetRegions: 'targetRegions',
   targetCompassQuadrants: 'targetCompassQuadrants',
+  targetCountries: 'targetCountries',
+  targetStates: 'targetStates',
   targetUsernames: 'targetUsernames',
   isActive: 'isActive',
   isDeleted: 'isDeleted',
@@ -3219,6 +3222,8 @@ export const AdBannerScalarFieldEnum = {
   altText: 'altText',
   targetRegions: 'targetRegions',
   targetCompassQuadrants: 'targetCompassQuadrants',
+  targetCountries: 'targetCountries',
+  targetStates: 'targetStates',
   targetUsernames: 'targetUsernames',
   isActive: 'isActive',
   isDeleted: 'isDeleted',

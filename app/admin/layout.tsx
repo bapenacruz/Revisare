@@ -18,12 +18,12 @@ export default async function AdminLayout({ children }: { children: ReactNode })
 
   const links = [
     { href: "/admin", label: "Dashboard" },
-    { href: "/admin/flags", label: "Flags", badge: pendingFlags },
     { href: "/admin/users", label: "Users" },
     { href: "/admin/debates", label: "Debates" },
     { href: "/admin/ads", label: "Ads" },
     { href: "/admin/categories", label: "Categories" },
     { href: "/admin/judge-prompts", label: "Prompts" },
+    { href: "/admin/flags", label: "Flags", badge: pendingFlags },
     { href: "/admin/contact", label: "Contact", badge: unreadContact },
   ];
 

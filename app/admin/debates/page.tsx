@@ -164,7 +164,15 @@ export default async function AdminDebatesPage({ searchParams }: Props) {
       </div>
 
       {/* Bulk import */}
-      <div className="mb-4">
+      <div className="mb-4 flex items-center gap-3 flex-wrap">
+        <a
+          href={`/api/admin/debates/export?${new URLSearchParams({ q, username, status, category, ranked, deleted, dateFrom, dateTo, minViewers, maxViewers, minComments, maxComments, minVotes, maxVotes }).toString()}`}
+          download
+          className="flex items-center gap-1.5 px-3 py-1.5 text-sm rounded border border-border bg-surface text-foreground-muted hover:text-foreground hover:border-brand/40 transition-colors"
+        >
+          ↓ Export Filtered Debates JSON
+        </a>
+        <div className="h-4 w-px bg-border" />
         <UploadDebates />
       </div>
 

@@ -29,11 +29,13 @@ export type AggregateDebate = {
 export type DebateAvgAggregateOutputType = {
   timerPreset: number | null
   currentTurnIndex: number | null
+  viewCount: number | null
 }
 
 export type DebateSumAggregateOutputType = {
   timerPreset: number | null
   currentTurnIndex: number | null
+  viewCount: number | null
 }
 
 export type DebateMinAggregateOutputType = {
@@ -64,6 +66,7 @@ export type DebateMinAggregateOutputType = {
   forfeitedBy: string | null
   startedAt: Date | null
   completedAt: Date | null
+  viewCount: number | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -96,6 +99,7 @@ export type DebateMaxAggregateOutputType = {
   forfeitedBy: string | null
   startedAt: Date | null
   completedAt: Date | null
+  viewCount: number | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -128,6 +132,7 @@ export type DebateCountAggregateOutputType = {
   forfeitedBy: number
   startedAt: number
   completedAt: number
+  viewCount: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -137,11 +142,13 @@ export type DebateCountAggregateOutputType = {
 export type DebateAvgAggregateInputType = {
   timerPreset?: true
   currentTurnIndex?: true
+  viewCount?: true
 }
 
 export type DebateSumAggregateInputType = {
   timerPreset?: true
   currentTurnIndex?: true
+  viewCount?: true
 }
 
 export type DebateMinAggregateInputType = {
@@ -172,6 +179,7 @@ export type DebateMinAggregateInputType = {
   forfeitedBy?: true
   startedAt?: true
   completedAt?: true
+  viewCount?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -204,6 +212,7 @@ export type DebateMaxAggregateInputType = {
   forfeitedBy?: true
   startedAt?: true
   completedAt?: true
+  viewCount?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -236,6 +245,7 @@ export type DebateCountAggregateInputType = {
   forfeitedBy?: true
   startedAt?: true
   completedAt?: true
+  viewCount?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -355,6 +365,7 @@ export type DebateGroupByOutputType = {
   forfeitedBy: string | null
   startedAt: Date | null
   completedAt: Date | null
+  viewCount: number
   createdAt: Date
   updatedAt: Date
   _count: DebateCountAggregateOutputType | null
@@ -410,6 +421,7 @@ export type DebateWhereInput = {
   forfeitedBy?: Prisma.StringNullableFilter<"Debate"> | string | null
   startedAt?: Prisma.DateTimeNullableFilter<"Debate"> | Date | string | null
   completedAt?: Prisma.DateTimeNullableFilter<"Debate"> | Date | string | null
+  viewCount?: Prisma.IntFilter<"Debate"> | number
   createdAt?: Prisma.DateTimeFilter<"Debate"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Debate"> | Date | string
   challenge?: Prisma.XOR<Prisma.ChallengeScalarRelationFilter, Prisma.ChallengeWhereInput>
@@ -453,6 +465,7 @@ export type DebateOrderByWithRelationInput = {
   forfeitedBy?: Prisma.SortOrderInput | Prisma.SortOrder
   startedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   completedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  viewCount?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   challenge?: Prisma.ChallengeOrderByWithRelationInput
@@ -499,6 +512,7 @@ export type DebateWhereUniqueInput = Prisma.AtLeast<{
   forfeitedBy?: Prisma.StringNullableFilter<"Debate"> | string | null
   startedAt?: Prisma.DateTimeNullableFilter<"Debate"> | Date | string | null
   completedAt?: Prisma.DateTimeNullableFilter<"Debate"> | Date | string | null
+  viewCount?: Prisma.IntFilter<"Debate"> | number
   createdAt?: Prisma.DateTimeFilter<"Debate"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Debate"> | Date | string
   challenge?: Prisma.XOR<Prisma.ChallengeScalarRelationFilter, Prisma.ChallengeWhereInput>
@@ -542,6 +556,7 @@ export type DebateOrderByWithAggregationInput = {
   forfeitedBy?: Prisma.SortOrderInput | Prisma.SortOrder
   startedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   completedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  viewCount?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.DebateCountOrderByAggregateInput
@@ -582,6 +597,7 @@ export type DebateScalarWhereWithAggregatesInput = {
   forfeitedBy?: Prisma.StringNullableWithAggregatesFilter<"Debate"> | string | null
   startedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Debate"> | Date | string | null
   completedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Debate"> | Date | string | null
+  viewCount?: Prisma.IntWithAggregatesFilter<"Debate"> | number
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Debate"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Debate"> | Date | string
 }
@@ -610,6 +626,7 @@ export type DebateCreateInput = {
   forfeitedBy?: string | null
   startedAt?: Date | string | null
   completedAt?: Date | string | null
+  viewCount?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   challenge: Prisma.ChallengeCreateNestedOneWithoutDebateInput
@@ -653,6 +670,7 @@ export type DebateUncheckedCreateInput = {
   forfeitedBy?: string | null
   startedAt?: Date | string | null
   completedAt?: Date | string | null
+  viewCount?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   turns?: Prisma.DebateTurnUncheckedCreateNestedManyWithoutDebateInput
@@ -688,6 +706,7 @@ export type DebateUpdateInput = {
   forfeitedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   challenge?: Prisma.ChallengeUpdateOneRequiredWithoutDebateNestedInput
@@ -731,6 +750,7 @@ export type DebateUncheckedUpdateInput = {
   forfeitedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   turns?: Prisma.DebateTurnUncheckedUpdateManyWithoutDebateNestedInput
@@ -770,6 +790,7 @@ export type DebateCreateManyInput = {
   forfeitedBy?: string | null
   startedAt?: Date | string | null
   completedAt?: Date | string | null
+  viewCount?: number
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -798,6 +819,7 @@ export type DebateUpdateManyMutationInput = {
   forfeitedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -830,6 +852,7 @@ export type DebateUncheckedUpdateManyInput = {
   forfeitedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -877,6 +900,7 @@ export type DebateCountOrderByAggregateInput = {
   forfeitedBy?: Prisma.SortOrder
   startedAt?: Prisma.SortOrder
   completedAt?: Prisma.SortOrder
+  viewCount?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -884,6 +908,7 @@ export type DebateCountOrderByAggregateInput = {
 export type DebateAvgOrderByAggregateInput = {
   timerPreset?: Prisma.SortOrder
   currentTurnIndex?: Prisma.SortOrder
+  viewCount?: Prisma.SortOrder
 }
 
 export type DebateMaxOrderByAggregateInput = {
@@ -914,6 +939,7 @@ export type DebateMaxOrderByAggregateInput = {
   forfeitedBy?: Prisma.SortOrder
   startedAt?: Prisma.SortOrder
   completedAt?: Prisma.SortOrder
+  viewCount?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -946,6 +972,7 @@ export type DebateMinOrderByAggregateInput = {
   forfeitedBy?: Prisma.SortOrder
   startedAt?: Prisma.SortOrder
   completedAt?: Prisma.SortOrder
+  viewCount?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -953,6 +980,7 @@ export type DebateMinOrderByAggregateInput = {
 export type DebateSumOrderByAggregateInput = {
   timerPreset?: Prisma.SortOrder
   currentTurnIndex?: Prisma.SortOrder
+  viewCount?: Prisma.SortOrder
 }
 
 export type DebateScalarRelationFilter = {
@@ -1240,6 +1268,7 @@ export type DebateCreateWithoutDebaterAInput = {
   forfeitedBy?: string | null
   startedAt?: Date | string | null
   completedAt?: Date | string | null
+  viewCount?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   challenge: Prisma.ChallengeCreateNestedOneWithoutDebateInput
@@ -1281,6 +1310,7 @@ export type DebateUncheckedCreateWithoutDebaterAInput = {
   forfeitedBy?: string | null
   startedAt?: Date | string | null
   completedAt?: Date | string | null
+  viewCount?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   turns?: Prisma.DebateTurnUncheckedCreateNestedManyWithoutDebateInput
@@ -1326,6 +1356,7 @@ export type DebateCreateWithoutDebaterBInput = {
   forfeitedBy?: string | null
   startedAt?: Date | string | null
   completedAt?: Date | string | null
+  viewCount?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   challenge: Prisma.ChallengeCreateNestedOneWithoutDebateInput
@@ -1367,6 +1398,7 @@ export type DebateUncheckedCreateWithoutDebaterBInput = {
   forfeitedBy?: string | null
   startedAt?: Date | string | null
   completedAt?: Date | string | null
+  viewCount?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   turns?: Prisma.DebateTurnUncheckedCreateNestedManyWithoutDebateInput
@@ -1435,6 +1467,7 @@ export type DebateScalarWhereInput = {
   forfeitedBy?: Prisma.StringNullableFilter<"Debate"> | string | null
   startedAt?: Prisma.DateTimeNullableFilter<"Debate"> | Date | string | null
   completedAt?: Prisma.DateTimeNullableFilter<"Debate"> | Date | string | null
+  viewCount?: Prisma.IntFilter<"Debate"> | number
   createdAt?: Prisma.DateTimeFilter<"Debate"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Debate"> | Date | string
 }
@@ -1479,6 +1512,7 @@ export type DebateCreateWithoutCategoryInput = {
   forfeitedBy?: string | null
   startedAt?: Date | string | null
   completedAt?: Date | string | null
+  viewCount?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   challenge: Prisma.ChallengeCreateNestedOneWithoutDebateInput
@@ -1520,6 +1554,7 @@ export type DebateUncheckedCreateWithoutCategoryInput = {
   forfeitedBy?: string | null
   startedAt?: Date | string | null
   completedAt?: Date | string | null
+  viewCount?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   turns?: Prisma.DebateTurnUncheckedCreateNestedManyWithoutDebateInput
@@ -1581,6 +1616,7 @@ export type DebateCreateWithoutChallengeInput = {
   forfeitedBy?: string | null
   startedAt?: Date | string | null
   completedAt?: Date | string | null
+  viewCount?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   category: Prisma.CategoryCreateNestedOneWithoutDebatesInput
@@ -1622,6 +1658,7 @@ export type DebateUncheckedCreateWithoutChallengeInput = {
   forfeitedBy?: string | null
   startedAt?: Date | string | null
   completedAt?: Date | string | null
+  viewCount?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   turns?: Prisma.DebateTurnUncheckedCreateNestedManyWithoutDebateInput
@@ -1673,6 +1710,7 @@ export type DebateUpdateWithoutChallengeInput = {
   forfeitedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   category?: Prisma.CategoryUpdateOneRequiredWithoutDebatesNestedInput
@@ -1714,6 +1752,7 @@ export type DebateUncheckedUpdateWithoutChallengeInput = {
   forfeitedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   turns?: Prisma.DebateTurnUncheckedUpdateManyWithoutDebateNestedInput
@@ -1749,6 +1788,7 @@ export type DebateCreateWithoutAudienceVotesInput = {
   forfeitedBy?: string | null
   startedAt?: Date | string | null
   completedAt?: Date | string | null
+  viewCount?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   challenge: Prisma.ChallengeCreateNestedOneWithoutDebateInput
@@ -1791,6 +1831,7 @@ export type DebateUncheckedCreateWithoutAudienceVotesInput = {
   forfeitedBy?: string | null
   startedAt?: Date | string | null
   completedAt?: Date | string | null
+  viewCount?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   turns?: Prisma.DebateTurnUncheckedCreateNestedManyWithoutDebateInput
@@ -1841,6 +1882,7 @@ export type DebateUpdateWithoutAudienceVotesInput = {
   forfeitedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   challenge?: Prisma.ChallengeUpdateOneRequiredWithoutDebateNestedInput
@@ -1883,6 +1925,7 @@ export type DebateUncheckedUpdateWithoutAudienceVotesInput = {
   forfeitedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   turns?: Prisma.DebateTurnUncheckedUpdateManyWithoutDebateNestedInput
@@ -1917,6 +1960,7 @@ export type DebateCreateWithoutDebateCommentsInput = {
   forfeitedBy?: string | null
   startedAt?: Date | string | null
   completedAt?: Date | string | null
+  viewCount?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   challenge: Prisma.ChallengeCreateNestedOneWithoutDebateInput
@@ -1959,6 +2003,7 @@ export type DebateUncheckedCreateWithoutDebateCommentsInput = {
   forfeitedBy?: string | null
   startedAt?: Date | string | null
   completedAt?: Date | string | null
+  viewCount?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   turns?: Prisma.DebateTurnUncheckedCreateNestedManyWithoutDebateInput
@@ -2009,6 +2054,7 @@ export type DebateUpdateWithoutDebateCommentsInput = {
   forfeitedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   challenge?: Prisma.ChallengeUpdateOneRequiredWithoutDebateNestedInput
@@ -2051,6 +2097,7 @@ export type DebateUncheckedUpdateWithoutDebateCommentsInput = {
   forfeitedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   turns?: Prisma.DebateTurnUncheckedUpdateManyWithoutDebateNestedInput
@@ -2085,6 +2132,7 @@ export type DebateCreateWithoutCommentSubscriptionsInput = {
   forfeitedBy?: string | null
   startedAt?: Date | string | null
   completedAt?: Date | string | null
+  viewCount?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   challenge: Prisma.ChallengeCreateNestedOneWithoutDebateInput
@@ -2127,6 +2175,7 @@ export type DebateUncheckedCreateWithoutCommentSubscriptionsInput = {
   forfeitedBy?: string | null
   startedAt?: Date | string | null
   completedAt?: Date | string | null
+  viewCount?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   turns?: Prisma.DebateTurnUncheckedCreateNestedManyWithoutDebateInput
@@ -2177,6 +2226,7 @@ export type DebateUpdateWithoutCommentSubscriptionsInput = {
   forfeitedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   challenge?: Prisma.ChallengeUpdateOneRequiredWithoutDebateNestedInput
@@ -2219,6 +2269,7 @@ export type DebateUncheckedUpdateWithoutCommentSubscriptionsInput = {
   forfeitedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   turns?: Prisma.DebateTurnUncheckedUpdateManyWithoutDebateNestedInput
@@ -2253,6 +2304,7 @@ export type DebateCreateWithoutTurnsInput = {
   forfeitedBy?: string | null
   startedAt?: Date | string | null
   completedAt?: Date | string | null
+  viewCount?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   challenge: Prisma.ChallengeCreateNestedOneWithoutDebateInput
@@ -2295,6 +2347,7 @@ export type DebateUncheckedCreateWithoutTurnsInput = {
   forfeitedBy?: string | null
   startedAt?: Date | string | null
   completedAt?: Date | string | null
+  viewCount?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   judgeResults?: Prisma.JudgeResultUncheckedCreateNestedManyWithoutDebateInput
@@ -2345,6 +2398,7 @@ export type DebateUpdateWithoutTurnsInput = {
   forfeitedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   challenge?: Prisma.ChallengeUpdateOneRequiredWithoutDebateNestedInput
@@ -2387,6 +2441,7 @@ export type DebateUncheckedUpdateWithoutTurnsInput = {
   forfeitedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   judgeResults?: Prisma.JudgeResultUncheckedUpdateManyWithoutDebateNestedInput
@@ -2421,6 +2476,7 @@ export type DebateCreateWithoutJudgeResultsInput = {
   forfeitedBy?: string | null
   startedAt?: Date | string | null
   completedAt?: Date | string | null
+  viewCount?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   challenge: Prisma.ChallengeCreateNestedOneWithoutDebateInput
@@ -2463,6 +2519,7 @@ export type DebateUncheckedCreateWithoutJudgeResultsInput = {
   forfeitedBy?: string | null
   startedAt?: Date | string | null
   completedAt?: Date | string | null
+  viewCount?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   turns?: Prisma.DebateTurnUncheckedCreateNestedManyWithoutDebateInput
@@ -2513,6 +2570,7 @@ export type DebateUpdateWithoutJudgeResultsInput = {
   forfeitedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   challenge?: Prisma.ChallengeUpdateOneRequiredWithoutDebateNestedInput
@@ -2555,6 +2613,7 @@ export type DebateUncheckedUpdateWithoutJudgeResultsInput = {
   forfeitedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   turns?: Prisma.DebateTurnUncheckedUpdateManyWithoutDebateNestedInput
@@ -2589,6 +2648,7 @@ export type DebateCreateWithoutSpectatorMessagesInput = {
   forfeitedBy?: string | null
   startedAt?: Date | string | null
   completedAt?: Date | string | null
+  viewCount?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   challenge: Prisma.ChallengeCreateNestedOneWithoutDebateInput
@@ -2631,6 +2691,7 @@ export type DebateUncheckedCreateWithoutSpectatorMessagesInput = {
   forfeitedBy?: string | null
   startedAt?: Date | string | null
   completedAt?: Date | string | null
+  viewCount?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   turns?: Prisma.DebateTurnUncheckedCreateNestedManyWithoutDebateInput
@@ -2681,6 +2742,7 @@ export type DebateUpdateWithoutSpectatorMessagesInput = {
   forfeitedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   challenge?: Prisma.ChallengeUpdateOneRequiredWithoutDebateNestedInput
@@ -2723,6 +2785,7 @@ export type DebateUncheckedUpdateWithoutSpectatorMessagesInput = {
   forfeitedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   turns?: Prisma.DebateTurnUncheckedUpdateManyWithoutDebateNestedInput
@@ -2757,6 +2820,7 @@ export type DebateCreateWithoutResultInput = {
   forfeitedBy?: string | null
   startedAt?: Date | string | null
   completedAt?: Date | string | null
+  viewCount?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   challenge: Prisma.ChallengeCreateNestedOneWithoutDebateInput
@@ -2799,6 +2863,7 @@ export type DebateUncheckedCreateWithoutResultInput = {
   forfeitedBy?: string | null
   startedAt?: Date | string | null
   completedAt?: Date | string | null
+  viewCount?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   turns?: Prisma.DebateTurnUncheckedCreateNestedManyWithoutDebateInput
@@ -2849,6 +2914,7 @@ export type DebateUpdateWithoutResultInput = {
   forfeitedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   challenge?: Prisma.ChallengeUpdateOneRequiredWithoutDebateNestedInput
@@ -2891,6 +2957,7 @@ export type DebateUncheckedUpdateWithoutResultInput = {
   forfeitedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   turns?: Prisma.DebateTurnUncheckedUpdateManyWithoutDebateNestedInput
@@ -2928,6 +2995,7 @@ export type DebateCreateManyDebaterAInput = {
   forfeitedBy?: string | null
   startedAt?: Date | string | null
   completedAt?: Date | string | null
+  viewCount?: number
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -2959,6 +3027,7 @@ export type DebateCreateManyDebaterBInput = {
   forfeitedBy?: string | null
   startedAt?: Date | string | null
   completedAt?: Date | string | null
+  viewCount?: number
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -2987,6 +3056,7 @@ export type DebateUpdateWithoutDebaterAInput = {
   forfeitedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   challenge?: Prisma.ChallengeUpdateOneRequiredWithoutDebateNestedInput
@@ -3028,6 +3098,7 @@ export type DebateUncheckedUpdateWithoutDebaterAInput = {
   forfeitedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   turns?: Prisma.DebateTurnUncheckedUpdateManyWithoutDebateNestedInput
@@ -3066,6 +3137,7 @@ export type DebateUncheckedUpdateManyWithoutDebaterAInput = {
   forfeitedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -3094,6 +3166,7 @@ export type DebateUpdateWithoutDebaterBInput = {
   forfeitedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   challenge?: Prisma.ChallengeUpdateOneRequiredWithoutDebateNestedInput
@@ -3135,6 +3208,7 @@ export type DebateUncheckedUpdateWithoutDebaterBInput = {
   forfeitedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   turns?: Prisma.DebateTurnUncheckedUpdateManyWithoutDebateNestedInput
@@ -3173,6 +3247,7 @@ export type DebateUncheckedUpdateManyWithoutDebaterBInput = {
   forfeitedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -3204,6 +3279,7 @@ export type DebateCreateManyCategoryInput = {
   forfeitedBy?: string | null
   startedAt?: Date | string | null
   completedAt?: Date | string | null
+  viewCount?: number
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -3232,6 +3308,7 @@ export type DebateUpdateWithoutCategoryInput = {
   forfeitedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   challenge?: Prisma.ChallengeUpdateOneRequiredWithoutDebateNestedInput
@@ -3273,6 +3350,7 @@ export type DebateUncheckedUpdateWithoutCategoryInput = {
   forfeitedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   turns?: Prisma.DebateTurnUncheckedUpdateManyWithoutDebateNestedInput
@@ -3311,6 +3389,7 @@ export type DebateUncheckedUpdateManyWithoutCategoryInput = {
   forfeitedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -3419,6 +3498,7 @@ export type DebateSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   forfeitedBy?: boolean
   startedAt?: boolean
   completedAt?: boolean
+  viewCount?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   challenge?: boolean | Prisma.ChallengeDefaultArgs<ExtArgs>
@@ -3463,6 +3543,7 @@ export type DebateSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   forfeitedBy?: boolean
   startedAt?: boolean
   completedAt?: boolean
+  viewCount?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   challenge?: boolean | Prisma.ChallengeDefaultArgs<ExtArgs>
@@ -3499,6 +3580,7 @@ export type DebateSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   forfeitedBy?: boolean
   startedAt?: boolean
   completedAt?: boolean
+  viewCount?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   challenge?: boolean | Prisma.ChallengeDefaultArgs<ExtArgs>
@@ -3535,11 +3617,12 @@ export type DebateSelectScalar = {
   forfeitedBy?: boolean
   startedAt?: boolean
   completedAt?: boolean
+  viewCount?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type DebateOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "challengeId" | "categoryId" | "motion" | "format" | "ranked" | "isPublic" | "isDeleted" | "isHidden" | "timerPreset" | "status" | "phase" | "debaterAId" | "debaterBId" | "winnerId" | "coinFlipWinnerId" | "currentTurnIndex" | "currentUserId" | "timerStartedAt" | "prepEndsAt" | "secondChancePending" | "secondChanceRequesterId" | "secondChanceUserId" | "secondChanceExpiresAt" | "forfeitedBy" | "startedAt" | "completedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["debate"]>
+export type DebateOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "challengeId" | "categoryId" | "motion" | "format" | "ranked" | "isPublic" | "isDeleted" | "isHidden" | "timerPreset" | "status" | "phase" | "debaterAId" | "debaterBId" | "winnerId" | "coinFlipWinnerId" | "currentTurnIndex" | "currentUserId" | "timerStartedAt" | "prepEndsAt" | "secondChancePending" | "secondChanceRequesterId" | "secondChanceUserId" | "secondChanceExpiresAt" | "forfeitedBy" | "startedAt" | "completedAt" | "viewCount" | "createdAt" | "updatedAt", ExtArgs["result"]["debate"]>
 export type DebateInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   challenge?: boolean | Prisma.ChallengeDefaultArgs<ExtArgs>
   category?: boolean | Prisma.CategoryDefaultArgs<ExtArgs>
@@ -3610,6 +3693,7 @@ export type $DebatePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     forfeitedBy: string | null
     startedAt: Date | null
     completedAt: Date | null
+    viewCount: number
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["debate"]>
@@ -4073,6 +4157,7 @@ export interface DebateFieldRefs {
   readonly forfeitedBy: Prisma.FieldRef<"Debate", 'String'>
   readonly startedAt: Prisma.FieldRef<"Debate", 'DateTime'>
   readonly completedAt: Prisma.FieldRef<"Debate", 'DateTime'>
+  readonly viewCount: Prisma.FieldRef<"Debate", 'Int'>
   readonly createdAt: Prisma.FieldRef<"Debate", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Debate", 'DateTime'>
 }

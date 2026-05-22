@@ -84,6 +84,13 @@ export function CreateBannerForm() {
           {/* Image upload */}
           <div className="flex flex-col gap-2">
             <label className="text-xs font-medium text-foreground-muted uppercase tracking-wide">Image *</label>
+            <div className="mb-1 p-2 rounded border border-amber-500/30 bg-amber-500/5 text-[11px] text-amber-700 dark:text-amber-400 leading-snug space-y-0.5">
+              <p className="font-semibold">📐 Banner guidelines</p>
+              <p>• Recommended: <strong>1200 × 300 px</strong> (4:1 ratio) or <strong>1200 × 400 px</strong> (3:1)</p>
+              <p>• Minimum width: <strong>600 px</strong> — narrower images will look blurry</p>
+              <p>• File size: <strong>under 2 MB</strong> (JPG or PNG preferred)</p>
+              <p>• Text should be large and centered — banner will be cropped on small screens</p>
+            </div>
             {imageDataUrl ? (
               <>
                 {/* eslint-disable-next-line @next/next/no-img-element */}

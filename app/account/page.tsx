@@ -35,14 +35,14 @@ function InstallSection() {
                 className="w-full flex items-center gap-3 px-4 py-3 rounded-[--radius] text-sm text-foreground-muted hover:text-foreground hover:bg-surface-raised border border-border transition-colors"
               >
                 <Smartphone size={16} />
-                Android (Chrome)
+                Chrome (Android)
               </button>
               <button
                 onClick={() => setPlatform("ios")}
                 className="w-full flex items-center gap-3 px-4 py-3 rounded-[--radius] text-sm text-foreground-muted hover:text-foreground hover:bg-surface-raised border border-border transition-colors"
               >
                 <Apple size={16} />
-                iOS (Safari)
+                Safari (iOS)
               </button>
               <button
                 onClick={() => setPlatform("chrome")}
@@ -66,7 +66,7 @@ function InstallSection() {
               </button>
               {platform === "android" && (
                 <>
-                  <p className="font-semibold text-foreground">Install on Android (Chrome)</p>
+                  <p className="font-semibold text-foreground">Install on Chrome (Android)</p>
                   <ol className="list-decimal list-inside space-y-1.5 leading-relaxed">
                     <li>Open Revisare in <strong>Chrome</strong></li>
                     <li>Tap the <strong>⋮ menu</strong> (top-right)</li>
@@ -77,7 +77,7 @@ function InstallSection() {
               )}
               {platform === "ios" && (
                 <>
-                  <p className="font-semibold text-foreground">Install on iOS (Safari)</p>
+                  <p className="font-semibold text-foreground">Install on Safari (iOS)</p>
                   <ol className="list-decimal list-inside space-y-1.5 leading-relaxed">
                     <li>Open Revisare in <strong>Safari</strong></li>
                     <li>Tap the <strong>Share</strong> button (bottom bar)</li>

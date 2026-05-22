@@ -42,6 +42,12 @@ type FeedItem =
   | { type: "ad"; data: AdItem }
   | { type: "banner"; data: BannerItem };
 
+// Ensure a URL is absolute (has http/https scheme)
+function ensureAbsoluteUrl(url: string): string {
+  if (url.startsWith("http://") || url.startsWith("https://")) return url;
+  return `https://${url}`;
+}
+
 // Inject one ad every 5 debate cards, cycling through available ads
 // Also inject one banner at position 2 if available
 function buildFeed(debates: FeaturedDebateItem[], ads: AdItem[], banners: BannerItem[]): FeedItem[] {
@@ -162,7 +168,7 @@ export function FeaturedFeed() {
                 <img src={b.imageDataUrl} alt={b.altText ?? ""} className="w-full h-full object-cover rounded-[--radius-lg]" style={{ minHeight: "8rem", maxHeight: "12rem" }} />
               );
               return b.linkUrl ? (
-                <a key={`banner-${b.id}-${idx}`} href={b.linkUrl} target="_blank" rel="noopener noreferrer"
+                <a key={`banner-${b.id}-${idx}`} href={ensureAbsoluteUrl(b.linkUrl)} target="_blank" rel="noopener noreferrer"
                   className="block overflow-hidden rounded-[--radius-lg] border border-border">
                   {inner}
                 </a>
@@ -200,8 +206,10 @@ export function FeaturedFeed() {
                   </CardBody>
                 </Card>
               );
-              return (
-                <Link key={`ad-${ad.id}-${idx}`} href={`/ads/${ad.id}`}>{inner}</Link>
+              return ad.linkUrl ? (
+                <a key={`ad-${ad.id}-${idx}`} href={ensureAbsoluteUrl(ad.linkUrl)} target="_blank" rel="noopener noreferrer">{inner}</a>
+              ) : (
+                <div key={`ad-${ad.id}-${idx}`}>{inner}</div>
               );
             }
 

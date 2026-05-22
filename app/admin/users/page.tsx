@@ -148,11 +148,11 @@ export default async function AdminUsersPage({ searchParams }: Props) {
 
       <div className="flex items-center gap-3 mb-4 flex-wrap">
         <a
-          href="/api/admin/users/export"
+          href={`/api/admin/users/export?${new URLSearchParams({ q, type, status, role, joinedFrom, joinedTo, minElo, maxElo, minWins, maxWins, minLosses, maxLosses }).toString()}`}
           download
           className="flex items-center gap-1.5 px-3 py-1.5 text-sm rounded border border-border bg-surface text-foreground-muted hover:text-foreground hover:border-brand/40 transition-colors"
         >
-          ↓ Export All Users JSON
+          ↓ Export Filtered Users JSON
         </a>
         <div className="h-4 w-px bg-border" />
         <UploadUsers />

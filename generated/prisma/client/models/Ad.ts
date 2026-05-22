@@ -65,6 +65,8 @@ export type AdCountAggregateOutputType = {
   linkUrl: number
   targetRegions: number
   targetCompassQuadrants: number
+  targetCountries: number
+  targetStates: number
   targetUsernames: number
   isActive: number
   isDeleted: number
@@ -115,6 +117,8 @@ export type AdCountAggregateInputType = {
   linkUrl?: true
   targetRegions?: true
   targetCompassQuadrants?: true
+  targetCountries?: true
+  targetStates?: true
   targetUsernames?: true
   isActive?: true
   isDeleted?: true
@@ -206,6 +210,8 @@ export type AdGroupByOutputType = {
   linkUrl: string | null
   targetRegions: runtime.JsonValue
   targetCompassQuadrants: runtime.JsonValue
+  targetCountries: runtime.JsonValue
+  targetStates: runtime.JsonValue
   targetUsernames: runtime.JsonValue
   isActive: boolean
   isDeleted: boolean
@@ -245,6 +251,8 @@ export type AdWhereInput = {
   linkUrl?: Prisma.StringNullableFilter<"Ad"> | string | null
   targetRegions?: Prisma.JsonFilter<"Ad">
   targetCompassQuadrants?: Prisma.JsonFilter<"Ad">
+  targetCountries?: Prisma.JsonFilter<"Ad">
+  targetStates?: Prisma.JsonFilter<"Ad">
   targetUsernames?: Prisma.JsonFilter<"Ad">
   isActive?: Prisma.BoolFilter<"Ad"> | boolean
   isDeleted?: Prisma.BoolFilter<"Ad"> | boolean
@@ -265,6 +273,8 @@ export type AdOrderByWithRelationInput = {
   linkUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   targetRegions?: Prisma.SortOrder
   targetCompassQuadrants?: Prisma.SortOrder
+  targetCountries?: Prisma.SortOrder
+  targetStates?: Prisma.SortOrder
   targetUsernames?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   isDeleted?: Prisma.SortOrder
@@ -288,6 +298,8 @@ export type AdWhereUniqueInput = Prisma.AtLeast<{
   linkUrl?: Prisma.StringNullableFilter<"Ad"> | string | null
   targetRegions?: Prisma.JsonFilter<"Ad">
   targetCompassQuadrants?: Prisma.JsonFilter<"Ad">
+  targetCountries?: Prisma.JsonFilter<"Ad">
+  targetStates?: Prisma.JsonFilter<"Ad">
   targetUsernames?: Prisma.JsonFilter<"Ad">
   isActive?: Prisma.BoolFilter<"Ad"> | boolean
   isDeleted?: Prisma.BoolFilter<"Ad"> | boolean
@@ -308,6 +320,8 @@ export type AdOrderByWithAggregationInput = {
   linkUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   targetRegions?: Prisma.SortOrder
   targetCompassQuadrants?: Prisma.SortOrder
+  targetCountries?: Prisma.SortOrder
+  targetStates?: Prisma.SortOrder
   targetUsernames?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   isDeleted?: Prisma.SortOrder
@@ -332,6 +346,8 @@ export type AdScalarWhereWithAggregatesInput = {
   linkUrl?: Prisma.StringNullableWithAggregatesFilter<"Ad"> | string | null
   targetRegions?: Prisma.JsonWithAggregatesFilter<"Ad">
   targetCompassQuadrants?: Prisma.JsonWithAggregatesFilter<"Ad">
+  targetCountries?: Prisma.JsonWithAggregatesFilter<"Ad">
+  targetStates?: Prisma.JsonWithAggregatesFilter<"Ad">
   targetUsernames?: Prisma.JsonWithAggregatesFilter<"Ad">
   isActive?: Prisma.BoolWithAggregatesFilter<"Ad"> | boolean
   isDeleted?: Prisma.BoolWithAggregatesFilter<"Ad"> | boolean
@@ -349,6 +365,8 @@ export type AdCreateInput = {
   linkUrl?: string | null
   targetRegions?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   targetCompassQuadrants?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  targetCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  targetStates?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   targetUsernames?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isActive?: boolean
   isDeleted?: boolean
@@ -369,6 +387,8 @@ export type AdUncheckedCreateInput = {
   linkUrl?: string | null
   targetRegions?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   targetCompassQuadrants?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  targetCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  targetStates?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   targetUsernames?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isActive?: boolean
   isDeleted?: boolean
@@ -387,6 +407,8 @@ export type AdUpdateInput = {
   linkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   targetRegions?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   targetCompassQuadrants?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  targetCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  targetStates?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   targetUsernames?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -407,6 +429,8 @@ export type AdUncheckedUpdateInput = {
   linkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   targetRegions?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   targetCompassQuadrants?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  targetCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  targetStates?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   targetUsernames?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -426,6 +450,8 @@ export type AdCreateManyInput = {
   linkUrl?: string | null
   targetRegions?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   targetCompassQuadrants?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  targetCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  targetStates?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   targetUsernames?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isActive?: boolean
   isDeleted?: boolean
@@ -443,6 +469,8 @@ export type AdUpdateManyMutationInput = {
   linkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   targetRegions?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   targetCompassQuadrants?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  targetCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  targetStates?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   targetUsernames?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -461,6 +489,8 @@ export type AdUncheckedUpdateManyInput = {
   linkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   targetRegions?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   targetCompassQuadrants?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  targetCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  targetStates?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   targetUsernames?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -489,6 +519,8 @@ export type AdCountOrderByAggregateInput = {
   linkUrl?: Prisma.SortOrder
   targetRegions?: Prisma.SortOrder
   targetCompassQuadrants?: Prisma.SortOrder
+  targetCountries?: Prisma.SortOrder
+  targetStates?: Prisma.SortOrder
   targetUsernames?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   isDeleted?: Prisma.SortOrder
@@ -597,6 +629,8 @@ export type AdCreateWithoutCategoryInput = {
   linkUrl?: string | null
   targetRegions?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   targetCompassQuadrants?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  targetCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  targetStates?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   targetUsernames?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isActive?: boolean
   isDeleted?: boolean
@@ -615,6 +649,8 @@ export type AdUncheckedCreateWithoutCategoryInput = {
   linkUrl?: string | null
   targetRegions?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   targetCompassQuadrants?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  targetCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  targetStates?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   targetUsernames?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isActive?: boolean
   isDeleted?: boolean
@@ -663,6 +699,8 @@ export type AdScalarWhereInput = {
   linkUrl?: Prisma.StringNullableFilter<"Ad"> | string | null
   targetRegions?: Prisma.JsonFilter<"Ad">
   targetCompassQuadrants?: Prisma.JsonFilter<"Ad">
+  targetCountries?: Prisma.JsonFilter<"Ad">
+  targetStates?: Prisma.JsonFilter<"Ad">
   targetUsernames?: Prisma.JsonFilter<"Ad">
   isActive?: Prisma.BoolFilter<"Ad"> | boolean
   isDeleted?: Prisma.BoolFilter<"Ad"> | boolean
@@ -680,6 +718,8 @@ export type AdCreateWithoutTurnsInput = {
   linkUrl?: string | null
   targetRegions?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   targetCompassQuadrants?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  targetCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  targetStates?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   targetUsernames?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isActive?: boolean
   isDeleted?: boolean
@@ -699,6 +739,8 @@ export type AdUncheckedCreateWithoutTurnsInput = {
   linkUrl?: string | null
   targetRegions?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   targetCompassQuadrants?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  targetCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  targetStates?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   targetUsernames?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isActive?: boolean
   isDeleted?: boolean
@@ -732,6 +774,8 @@ export type AdUpdateWithoutTurnsInput = {
   linkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   targetRegions?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   targetCompassQuadrants?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  targetCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  targetStates?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   targetUsernames?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -751,6 +795,8 @@ export type AdUncheckedUpdateWithoutTurnsInput = {
   linkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   targetRegions?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   targetCompassQuadrants?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  targetCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  targetStates?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   targetUsernames?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -768,6 +814,8 @@ export type AdCreateManyCategoryInput = {
   linkUrl?: string | null
   targetRegions?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   targetCompassQuadrants?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  targetCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  targetStates?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   targetUsernames?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isActive?: boolean
   isDeleted?: boolean
@@ -785,6 +833,8 @@ export type AdUpdateWithoutCategoryInput = {
   linkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   targetRegions?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   targetCompassQuadrants?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  targetCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  targetStates?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   targetUsernames?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -803,6 +853,8 @@ export type AdUncheckedUpdateWithoutCategoryInput = {
   linkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   targetRegions?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   targetCompassQuadrants?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  targetCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  targetStates?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   targetUsernames?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -821,6 +873,8 @@ export type AdUncheckedUpdateManyWithoutCategoryInput = {
   linkUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   targetRegions?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   targetCompassQuadrants?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  targetCountries?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  targetStates?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   targetUsernames?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -870,6 +924,8 @@ export type AdSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = run
   linkUrl?: boolean
   targetRegions?: boolean
   targetCompassQuadrants?: boolean
+  targetCountries?: boolean
+  targetStates?: boolean
   targetUsernames?: boolean
   isActive?: boolean
   isDeleted?: boolean
@@ -891,6 +947,8 @@ export type AdSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions
   linkUrl?: boolean
   targetRegions?: boolean
   targetCompassQuadrants?: boolean
+  targetCountries?: boolean
+  targetStates?: boolean
   targetUsernames?: boolean
   isActive?: boolean
   isDeleted?: boolean
@@ -910,6 +968,8 @@ export type AdSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions
   linkUrl?: boolean
   targetRegions?: boolean
   targetCompassQuadrants?: boolean
+  targetCountries?: boolean
+  targetStates?: boolean
   targetUsernames?: boolean
   isActive?: boolean
   isDeleted?: boolean
@@ -929,6 +989,8 @@ export type AdSelectScalar = {
   linkUrl?: boolean
   targetRegions?: boolean
   targetCompassQuadrants?: boolean
+  targetCountries?: boolean
+  targetStates?: boolean
   targetUsernames?: boolean
   isActive?: boolean
   isDeleted?: boolean
@@ -936,7 +998,7 @@ export type AdSelectScalar = {
   updatedAt?: boolean
 }
 
-export type AdOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "motion" | "businessName" | "proponentName" | "opponentName" | "officialResult" | "categoryId" | "linkUrl" | "targetRegions" | "targetCompassQuadrants" | "targetUsernames" | "isActive" | "isDeleted" | "createdAt" | "updatedAt", ExtArgs["result"]["ad"]>
+export type AdOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "motion" | "businessName" | "proponentName" | "opponentName" | "officialResult" | "categoryId" | "linkUrl" | "targetRegions" | "targetCompassQuadrants" | "targetCountries" | "targetStates" | "targetUsernames" | "isActive" | "isDeleted" | "createdAt" | "updatedAt", ExtArgs["result"]["ad"]>
 export type AdInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   category?: boolean | Prisma.Ad$categoryArgs<ExtArgs>
   turns?: boolean | Prisma.Ad$turnsArgs<ExtArgs>
@@ -966,6 +1028,8 @@ export type $AdPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
     linkUrl: string | null
     targetRegions: runtime.JsonValue
     targetCompassQuadrants: runtime.JsonValue
+    targetCountries: runtime.JsonValue
+    targetStates: runtime.JsonValue
     targetUsernames: runtime.JsonValue
     isActive: boolean
     isDeleted: boolean
@@ -1406,6 +1470,8 @@ export interface AdFieldRefs {
   readonly linkUrl: Prisma.FieldRef<"Ad", 'String'>
   readonly targetRegions: Prisma.FieldRef<"Ad", 'Json'>
   readonly targetCompassQuadrants: Prisma.FieldRef<"Ad", 'Json'>
+  readonly targetCountries: Prisma.FieldRef<"Ad", 'Json'>
+  readonly targetStates: Prisma.FieldRef<"Ad", 'Json'>
   readonly targetUsernames: Prisma.FieldRef<"Ad", 'Json'>
   readonly isActive: Prisma.FieldRef<"Ad", 'Boolean'>
   readonly isDeleted: Prisma.FieldRef<"Ad", 'Boolean'>
