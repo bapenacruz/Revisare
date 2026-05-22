@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import { useSession } from "@/components/providers/SessionProvider";
-import { Bell, CheckCheck, UserCheck, UserX } from "lucide-react";
+import { Bell, CheckCheck, UserCheck, UserX, X } from "lucide-react";
 
 interface NotifPayload {
   title: string;
@@ -91,6 +91,12 @@ export default function NotificationsPage() {
     setUnreadCount(0);
   }
 
+  async function dismissNotification(id: string) {
+    setNotifs((prev) => prev.filter((n) => n.id !== id));
+    setUnreadCount((c) => Math.max(0, c - 1));
+    await fetch(`/api/notifications?id=${id}`, { method: "DELETE" });
+  }
+
   async function handleFollowRequest(notifId: string, requestId: string, action: "accept" | "reject") {
     if (processingRequest) return;
     setProcessingRequest(requestId);
@@ -101,9 +107,10 @@ export default function NotificationsPage() {
         body: JSON.stringify({ action }),
       });
       if (res.ok) {
-        // Remove the notification from the list
         setNotifs((prev) => prev.filter((n) => n.id !== notifId));
         setUnreadCount((c) => Math.max(0, c - 1));
+        // Remove from DB so polling doesn't bring it back
+        await fetch(`/api/notifications?id=${notifId}`, { method: "DELETE" });
       }
     } finally {
       setProcessingRequest(null);
@@ -201,7 +208,16 @@ export default function NotificationsPage() {
                       </button>
                     </div>
                   </div>
-                  {!n.read && <span className="shrink-0 mt-1 w-2 h-2 rounded-full bg-brand" />}
+                  <div className="flex flex-col items-end gap-1 shrink-0">
+                    {!n.read && <span className="w-2 h-2 rounded-full bg-brand" />}
+                    <button
+                      onClick={(e) => { e.stopPropagation(); dismissNotification(n.id); }}
+                      className="text-foreground-subtle hover:text-foreground transition-colors p-0.5 rounded"
+                      aria-label="Dismiss"
+                    >
+                      <X size={13} />
+                    </button>
+                  </div>
                 </div>
               );
             }
@@ -214,7 +230,13 @@ export default function NotificationsPage() {
                   <p className="text-sm text-foreground-muted mt-0.5 leading-snug">{n.payload.body}</p>
                   <p className="text-xs text-foreground-subtle mt-1.5">{new Date(n.createdAt).toLocaleString()}</p>
                 </div>
-                {!n.read && <span className="shrink-0 mt-1 w-2 h-2 rounded-full bg-brand" />}
+                <button
+                  onClick={(e) => { e.stopPropagation(); dismissNotification(n.id); }}
+                  className="shrink-0 self-start mt-0.5 text-foreground-subtle hover:text-foreground transition-colors p-0.5 rounded"
+                  aria-label="Dismiss"
+                >
+                  <X size={13} />
+                </button>
               </div>
             );
             return n.payload.href ? (

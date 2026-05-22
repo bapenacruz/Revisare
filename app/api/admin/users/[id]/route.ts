@@ -17,7 +17,7 @@ export async function PATCH(req: NextRequest, { params }: RouteParams) {
   }
 
   const { id: targetId } = await params;
-  const body = await req.json() as { hideFromLeaderboard?: boolean; username?: string };
+  const body = await req.json() as { hideFromLeaderboard?: boolean; username?: string; planType?: string };
 
   const target = await db.user.findUnique({ where: { id: targetId } });
   if (!target) return NextResponse.json({ error: "User not found" }, { status: 404 });
@@ -26,6 +26,14 @@ export async function PATCH(req: NextRequest, { params }: RouteParams) {
 
   if (typeof body.hideFromLeaderboard === "boolean") {
     data.hideFromLeaderboard = body.hideFromLeaderboard;
+  }
+
+  if (typeof body.planType === "string") {
+    const pt = body.planType;
+    if (pt !== "free" && pt !== "paid") {
+      return NextResponse.json({ error: "planType must be free or paid" }, { status: 400 });
+    }
+    data.planType = pt;
   }
 
   if (typeof body.username === "string") {

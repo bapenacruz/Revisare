@@ -4,6 +4,7 @@ import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
 import { MobileNav } from "@/components/layout/MobileNav";
 import { SessionProvider } from "@/components/providers/SessionProvider";
+import { AvatarProvider } from "@/components/providers/AvatarProvider";
 import { PushSetup } from "@/components/providers/PushSetup";
 
 const geistSans = Geist({
@@ -49,10 +50,12 @@ export default function RootLayout({
       </head>
       <body className="min-h-full flex flex-col bg-background text-foreground">
         <SessionProvider>
-          <PushSetup />
-          <Navbar />
-          <main className="flex-1 pb-16 overflow-x-clip">{children}</main>
-          <MobileNav />
+          <AvatarProvider>
+            <PushSetup />
+            <Navbar />
+            <main className="flex-1 pb-16 overflow-x-clip">{children}</main>
+            <MobileNav />
+          </AvatarProvider>
         </SessionProvider>
       </body>
     </html>

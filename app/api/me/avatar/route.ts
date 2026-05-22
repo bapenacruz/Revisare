@@ -4,6 +4,18 @@ import { db } from "@/lib/db";
 
 const MAX_BYTES = 1.5 * 1024 * 1024; // 1.5 MB ceiling for base64 data URL
 
+export async function GET() {
+  const session = await auth();
+  if (!session?.user?.id) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+  const user = await db.user.findUnique({
+    where: { id: session.user.id },
+    select: { avatarUrl: true },
+  });
+  return NextResponse.json({ avatarUrl: user?.avatarUrl ?? null });
+}
+
 export async function POST(req: NextRequest) {
   const session = await auth();
   if (!session?.user?.id) {

@@ -51,7 +51,7 @@ export async function DELETE() {
   }
   try {
     await db.judgePrompt.deleteMany({ where: { type: TYPE } });
-    return NextResponse.json({ success: true });
+    return NextResponse.json({ success: true, prompt: DEFAULT_MASTER_PROMPT });
   } catch (error) {
     console.error("Error resetting judge prompt:", error);
     return new NextResponse("Internal Server Error", { status: 500 });

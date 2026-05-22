@@ -74,6 +74,7 @@ model User {
   isPrivate          Boolean   @default(false)
   followApproval     Boolean   @default(false)
   role               String    @default("user")
+  planType           String    @default("free")
   isExhibition         Boolean   @default(false)
   hideFromLeaderboard  Boolean   @default(false)
   isDeleted            Boolean   @default(false)

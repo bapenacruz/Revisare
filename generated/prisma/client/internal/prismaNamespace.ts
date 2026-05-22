@@ -2528,6 +2528,7 @@ export const UserScalarFieldEnum = {
   isPrivate: 'isPrivate',
   followApproval: 'followApproval',
   role: 'role',
+  planType: 'planType',
   isExhibition: 'isExhibition',
   hideFromLeaderboard: 'hideFromLeaderboard',
   isDeleted: 'isDeleted',

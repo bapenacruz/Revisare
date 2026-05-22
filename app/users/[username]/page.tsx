@@ -31,6 +31,7 @@ export default async function PublicProfilePage({ params }: Props) {
       avatarUrl: true,
       bio: true,
       country: true,
+      websiteUrl: true,
       region: true,
       elo: true,
       wins: true,
@@ -98,6 +99,7 @@ export default async function PublicProfilePage({ params }: Props) {
 
   const total = user.wins + user.losses;
   const winRate = total > 0 ? Math.round((user.wins / total) * 100) : null;
+  const canView = isSelf || !user.isPrivate || isFollowing;
 
   return (
     <div className="mx-auto max-w-3xl px-4 sm:px-6 py-8">
@@ -116,8 +118,15 @@ export default async function PublicProfilePage({ params }: Props) {
                     {[user.region, user.country].filter(Boolean).join(", ")}
                   </p>
                 )}
-                {user.email && (isSelf || !user.isPrivate || isFollowing) && (
-                  <p className="text-xs text-foreground-muted mt-0.5">{user.email}</p>
+                {user.websiteUrl && canView && (
+                  <a
+                    href={user.websiteUrl.startsWith("http") ? user.websiteUrl : `https://${user.websiteUrl}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs text-brand hover:underline mt-0.5 block truncate"
+                  >
+                    {user.websiteUrl}
+                  </a>
                 )}
               </div>
               {!isSelf && session?.user && (
@@ -133,7 +142,7 @@ export default async function PublicProfilePage({ params }: Props) {
               )}
             </div>
 
-            {user.bio && (
+            {user.bio && canView && (
               <p className="text-sm text-foreground-muted leading-relaxed mb-3">{user.bio}</p>
             )}
 

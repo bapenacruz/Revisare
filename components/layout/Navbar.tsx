@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useSession } from "@/components/providers/SessionProvider";
+import { useAvatar } from "@/components/providers/AvatarProvider";
 import { Sword, Search, LogIn } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Avatar } from "@/components/ui/Avatar";
@@ -10,6 +11,7 @@ import { useRouter } from "next/navigation";
 
 export function Navbar() {
   const { data: session, status } = useSession();
+  const { avatarUrl } = useAvatar();
   const router = useRouter();
   const user = session?.user;
 
@@ -42,7 +44,7 @@ export function Navbar() {
               <Link href="/account" className="flex items-center h-9 px-2 rounded-[--radius] hover:bg-surface-raised transition-colors">
                 <Avatar
                   initial={(user as { username?: string }).username?.[0]?.toUpperCase() ?? user.name?.[0]?.toUpperCase() ?? "U"}
-                  src={user.avatarUrl ?? undefined}
+                  src={avatarUrl ?? undefined}
                   size="sm"
                 />
               </Link>

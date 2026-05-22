@@ -119,6 +119,7 @@ export default async function AdminUsersPage({ searchParams }: Props) {
         elo: true,
         wins: true,
         losses: true,
+        planType: true,
         createdAt: true,
         _count: { select: { debaterA: true, debaterB: true } },
       },

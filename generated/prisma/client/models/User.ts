@@ -64,6 +64,7 @@ export type UserMinAggregateOutputType = {
   isPrivate: boolean | null
   followApproval: boolean | null
   role: string | null
+  planType: string | null
   isExhibition: boolean | null
   hideFromLeaderboard: boolean | null
   isDeleted: boolean | null
@@ -105,6 +106,7 @@ export type UserMaxAggregateOutputType = {
   isPrivate: boolean | null
   followApproval: boolean | null
   role: string | null
+  planType: string | null
   isExhibition: boolean | null
   hideFromLeaderboard: boolean | null
   isDeleted: boolean | null
@@ -146,6 +148,7 @@ export type UserCountAggregateOutputType = {
   isPrivate: number
   followApproval: number
   role: number
+  planType: number
   isExhibition: number
   hideFromLeaderboard: number
   isDeleted: number
@@ -203,6 +206,7 @@ export type UserMinAggregateInputType = {
   isPrivate?: true
   followApproval?: true
   role?: true
+  planType?: true
   isExhibition?: true
   hideFromLeaderboard?: true
   isDeleted?: true
@@ -244,6 +248,7 @@ export type UserMaxAggregateInputType = {
   isPrivate?: true
   followApproval?: true
   role?: true
+  planType?: true
   isExhibition?: true
   hideFromLeaderboard?: true
   isDeleted?: true
@@ -285,6 +290,7 @@ export type UserCountAggregateInputType = {
   isPrivate?: true
   followApproval?: true
   role?: true
+  planType?: true
   isExhibition?: true
   hideFromLeaderboard?: true
   isDeleted?: true
@@ -413,6 +419,7 @@ export type UserGroupByOutputType = {
   isPrivate: boolean
   followApproval: boolean
   role: string
+  planType: string
   isExhibition: boolean
   hideFromLeaderboard: boolean
   isDeleted: boolean
@@ -477,6 +484,7 @@ export type UserWhereInput = {
   isPrivate?: Prisma.BoolFilter<"User"> | boolean
   followApproval?: Prisma.BoolFilter<"User"> | boolean
   role?: Prisma.StringFilter<"User"> | string
+  planType?: Prisma.StringFilter<"User"> | string
   isExhibition?: Prisma.BoolFilter<"User"> | boolean
   hideFromLeaderboard?: Prisma.BoolFilter<"User"> | boolean
   isDeleted?: Prisma.BoolFilter<"User"> | boolean
@@ -536,6 +544,7 @@ export type UserOrderByWithRelationInput = {
   isPrivate?: Prisma.SortOrder
   followApproval?: Prisma.SortOrder
   role?: Prisma.SortOrder
+  planType?: Prisma.SortOrder
   isExhibition?: Prisma.SortOrder
   hideFromLeaderboard?: Prisma.SortOrder
   isDeleted?: Prisma.SortOrder
@@ -598,6 +607,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   isPrivate?: Prisma.BoolFilter<"User"> | boolean
   followApproval?: Prisma.BoolFilter<"User"> | boolean
   role?: Prisma.StringFilter<"User"> | string
+  planType?: Prisma.StringFilter<"User"> | string
   isExhibition?: Prisma.BoolFilter<"User"> | boolean
   hideFromLeaderboard?: Prisma.BoolFilter<"User"> | boolean
   isDeleted?: Prisma.BoolFilter<"User"> | boolean
@@ -657,6 +667,7 @@ export type UserOrderByWithAggregationInput = {
   isPrivate?: Prisma.SortOrder
   followApproval?: Prisma.SortOrder
   role?: Prisma.SortOrder
+  planType?: Prisma.SortOrder
   isExhibition?: Prisma.SortOrder
   hideFromLeaderboard?: Prisma.SortOrder
   isDeleted?: Prisma.SortOrder
@@ -706,6 +717,7 @@ export type UserScalarWhereWithAggregatesInput = {
   isPrivate?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   followApproval?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   role?: Prisma.StringWithAggregatesFilter<"User"> | string
+  planType?: Prisma.StringWithAggregatesFilter<"User"> | string
   isExhibition?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   hideFromLeaderboard?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   isDeleted?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
@@ -747,6 +759,7 @@ export type UserCreateInput = {
   isPrivate?: boolean
   followApproval?: boolean
   role?: string
+  planType?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
   isDeleted?: boolean
@@ -806,6 +819,7 @@ export type UserUncheckedCreateInput = {
   isPrivate?: boolean
   followApproval?: boolean
   role?: string
+  planType?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
   isDeleted?: boolean
@@ -865,6 +879,7 @@ export type UserUpdateInput = {
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   followApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
+  planType?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -924,6 +939,7 @@ export type UserUncheckedUpdateInput = {
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   followApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
+  planType?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -983,6 +999,7 @@ export type UserCreateManyInput = {
   isPrivate?: boolean
   followApproval?: boolean
   role?: string
+  planType?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
   isDeleted?: boolean
@@ -1024,6 +1041,7 @@ export type UserUpdateManyMutationInput = {
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   followApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
+  planType?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1065,6 +1083,7 @@ export type UserUncheckedUpdateManyInput = {
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   followApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
+  planType?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1111,6 +1130,7 @@ export type UserCountOrderByAggregateInput = {
   isPrivate?: Prisma.SortOrder
   followApproval?: Prisma.SortOrder
   role?: Prisma.SortOrder
+  planType?: Prisma.SortOrder
   isExhibition?: Prisma.SortOrder
   hideFromLeaderboard?: Prisma.SortOrder
   isDeleted?: Prisma.SortOrder
@@ -1159,6 +1179,7 @@ export type UserMaxOrderByAggregateInput = {
   isPrivate?: Prisma.SortOrder
   followApproval?: Prisma.SortOrder
   role?: Prisma.SortOrder
+  planType?: Prisma.SortOrder
   isExhibition?: Prisma.SortOrder
   hideFromLeaderboard?: Prisma.SortOrder
   isDeleted?: Prisma.SortOrder
@@ -1200,6 +1221,7 @@ export type UserMinOrderByAggregateInput = {
   isPrivate?: Prisma.SortOrder
   followApproval?: Prisma.SortOrder
   role?: Prisma.SortOrder
+  planType?: Prisma.SortOrder
   isExhibition?: Prisma.SortOrder
   hideFromLeaderboard?: Prisma.SortOrder
   isDeleted?: Prisma.SortOrder
@@ -1525,6 +1547,7 @@ export type UserCreateWithoutAccountsInput = {
   isPrivate?: boolean
   followApproval?: boolean
   role?: string
+  planType?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
   isDeleted?: boolean
@@ -1583,6 +1606,7 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   isPrivate?: boolean
   followApproval?: boolean
   role?: string
+  planType?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
   isDeleted?: boolean
@@ -1657,6 +1681,7 @@ export type UserUpdateWithoutAccountsInput = {
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   followApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
+  planType?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1715,6 +1740,7 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   followApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
+  planType?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1773,6 +1799,7 @@ export type UserCreateWithoutSessionsInput = {
   isPrivate?: boolean
   followApproval?: boolean
   role?: string
+  planType?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
   isDeleted?: boolean
@@ -1831,6 +1858,7 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   isPrivate?: boolean
   followApproval?: boolean
   role?: string
+  planType?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
   isDeleted?: boolean
@@ -1905,6 +1933,7 @@ export type UserUpdateWithoutSessionsInput = {
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   followApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
+  planType?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1963,6 +1992,7 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   followApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
+  planType?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -2021,6 +2051,7 @@ export type UserCreateWithoutFollowingInput = {
   isPrivate?: boolean
   followApproval?: boolean
   role?: string
+  planType?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
   isDeleted?: boolean
@@ -2079,6 +2110,7 @@ export type UserUncheckedCreateWithoutFollowingInput = {
   isPrivate?: boolean
   followApproval?: boolean
   role?: string
+  planType?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
   isDeleted?: boolean
@@ -2142,6 +2174,7 @@ export type UserCreateWithoutFollowersInput = {
   isPrivate?: boolean
   followApproval?: boolean
   role?: string
+  planType?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
   isDeleted?: boolean
@@ -2200,6 +2233,7 @@ export type UserUncheckedCreateWithoutFollowersInput = {
   isPrivate?: boolean
   followApproval?: boolean
   role?: string
+  planType?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
   isDeleted?: boolean
@@ -2274,6 +2308,7 @@ export type UserUpdateWithoutFollowingInput = {
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   followApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
+  planType?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -2332,6 +2367,7 @@ export type UserUncheckedUpdateWithoutFollowingInput = {
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   followApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
+  planType?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -2401,6 +2437,7 @@ export type UserUpdateWithoutFollowersInput = {
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   followApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
+  planType?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -2459,6 +2496,7 @@ export type UserUncheckedUpdateWithoutFollowersInput = {
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   followApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
+  planType?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -2517,6 +2555,7 @@ export type UserCreateWithoutFollowRequestsSentInput = {
   isPrivate?: boolean
   followApproval?: boolean
   role?: string
+  planType?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
   isDeleted?: boolean
@@ -2575,6 +2614,7 @@ export type UserUncheckedCreateWithoutFollowRequestsSentInput = {
   isPrivate?: boolean
   followApproval?: boolean
   role?: string
+  planType?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
   isDeleted?: boolean
@@ -2638,6 +2678,7 @@ export type UserCreateWithoutFollowRequestsReceivedInput = {
   isPrivate?: boolean
   followApproval?: boolean
   role?: string
+  planType?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
   isDeleted?: boolean
@@ -2696,6 +2737,7 @@ export type UserUncheckedCreateWithoutFollowRequestsReceivedInput = {
   isPrivate?: boolean
   followApproval?: boolean
   role?: string
+  planType?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
   isDeleted?: boolean
@@ -2770,6 +2812,7 @@ export type UserUpdateWithoutFollowRequestsSentInput = {
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   followApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
+  planType?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -2828,6 +2871,7 @@ export type UserUncheckedUpdateWithoutFollowRequestsSentInput = {
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   followApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
+  planType?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -2897,6 +2941,7 @@ export type UserUpdateWithoutFollowRequestsReceivedInput = {
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   followApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
+  planType?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -2955,6 +3000,7 @@ export type UserUncheckedUpdateWithoutFollowRequestsReceivedInput = {
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   followApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
+  planType?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -3013,6 +3059,7 @@ export type UserCreateWithoutFavCategoriesInput = {
   isPrivate?: boolean
   followApproval?: boolean
   role?: string
+  planType?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
   isDeleted?: boolean
@@ -3071,6 +3118,7 @@ export type UserUncheckedCreateWithoutFavCategoriesInput = {
   isPrivate?: boolean
   followApproval?: boolean
   role?: string
+  planType?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
   isDeleted?: boolean
@@ -3145,6 +3193,7 @@ export type UserUpdateWithoutFavCategoriesInput = {
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   followApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
+  planType?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -3203,6 +3252,7 @@ export type UserUncheckedUpdateWithoutFavCategoriesInput = {
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   followApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
+  planType?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -3261,6 +3311,7 @@ export type UserCreateWithoutChallengesSentInput = {
   isPrivate?: boolean
   followApproval?: boolean
   role?: string
+  planType?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
   isDeleted?: boolean
@@ -3319,6 +3370,7 @@ export type UserUncheckedCreateWithoutChallengesSentInput = {
   isPrivate?: boolean
   followApproval?: boolean
   role?: string
+  planType?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
   isDeleted?: boolean
@@ -3382,6 +3434,7 @@ export type UserCreateWithoutChallengesReceivedInput = {
   isPrivate?: boolean
   followApproval?: boolean
   role?: string
+  planType?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
   isDeleted?: boolean
@@ -3440,6 +3493,7 @@ export type UserUncheckedCreateWithoutChallengesReceivedInput = {
   isPrivate?: boolean
   followApproval?: boolean
   role?: string
+  planType?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
   isDeleted?: boolean
@@ -3514,6 +3568,7 @@ export type UserUpdateWithoutChallengesSentInput = {
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   followApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
+  planType?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -3572,6 +3627,7 @@ export type UserUncheckedUpdateWithoutChallengesSentInput = {
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   followApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
+  planType?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -3641,6 +3697,7 @@ export type UserUpdateWithoutChallengesReceivedInput = {
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   followApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
+  planType?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -3699,6 +3756,7 @@ export type UserUncheckedUpdateWithoutChallengesReceivedInput = {
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   followApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
+  planType?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -3757,6 +3815,7 @@ export type UserCreateWithoutJoinRequestsInput = {
   isPrivate?: boolean
   followApproval?: boolean
   role?: string
+  planType?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
   isDeleted?: boolean
@@ -3815,6 +3874,7 @@ export type UserUncheckedCreateWithoutJoinRequestsInput = {
   isPrivate?: boolean
   followApproval?: boolean
   role?: string
+  planType?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
   isDeleted?: boolean
@@ -3889,6 +3949,7 @@ export type UserUpdateWithoutJoinRequestsInput = {
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   followApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
+  planType?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -3947,6 +4008,7 @@ export type UserUncheckedUpdateWithoutJoinRequestsInput = {
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   followApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
+  planType?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -4005,6 +4067,7 @@ export type UserCreateWithoutDebaterAInput = {
   isPrivate?: boolean
   followApproval?: boolean
   role?: string
+  planType?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
   isDeleted?: boolean
@@ -4063,6 +4126,7 @@ export type UserUncheckedCreateWithoutDebaterAInput = {
   isPrivate?: boolean
   followApproval?: boolean
   role?: string
+  planType?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
   isDeleted?: boolean
@@ -4126,6 +4190,7 @@ export type UserCreateWithoutDebaterBInput = {
   isPrivate?: boolean
   followApproval?: boolean
   role?: string
+  planType?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
   isDeleted?: boolean
@@ -4184,6 +4249,7 @@ export type UserUncheckedCreateWithoutDebaterBInput = {
   isPrivate?: boolean
   followApproval?: boolean
   role?: string
+  planType?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
   isDeleted?: boolean
@@ -4258,6 +4324,7 @@ export type UserUpdateWithoutDebaterAInput = {
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   followApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
+  planType?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -4316,6 +4383,7 @@ export type UserUncheckedUpdateWithoutDebaterAInput = {
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   followApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
+  planType?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -4385,6 +4453,7 @@ export type UserUpdateWithoutDebaterBInput = {
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   followApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
+  planType?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -4443,6 +4512,7 @@ export type UserUncheckedUpdateWithoutDebaterBInput = {
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   followApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
+  planType?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -4501,6 +4571,7 @@ export type UserCreateWithoutDebateCommentsInput = {
   isPrivate?: boolean
   followApproval?: boolean
   role?: string
+  planType?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
   isDeleted?: boolean
@@ -4559,6 +4630,7 @@ export type UserUncheckedCreateWithoutDebateCommentsInput = {
   isPrivate?: boolean
   followApproval?: boolean
   role?: string
+  planType?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
   isDeleted?: boolean
@@ -4633,6 +4705,7 @@ export type UserUpdateWithoutDebateCommentsInput = {
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   followApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
+  planType?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -4691,6 +4764,7 @@ export type UserUncheckedUpdateWithoutDebateCommentsInput = {
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   followApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
+  planType?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -4749,6 +4823,7 @@ export type UserCreateWithoutCommentSubscriptionsInput = {
   isPrivate?: boolean
   followApproval?: boolean
   role?: string
+  planType?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
   isDeleted?: boolean
@@ -4807,6 +4882,7 @@ export type UserUncheckedCreateWithoutCommentSubscriptionsInput = {
   isPrivate?: boolean
   followApproval?: boolean
   role?: string
+  planType?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
   isDeleted?: boolean
@@ -4881,6 +4957,7 @@ export type UserUpdateWithoutCommentSubscriptionsInput = {
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   followApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
+  planType?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -4939,6 +5016,7 @@ export type UserUncheckedUpdateWithoutCommentSubscriptionsInput = {
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   followApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
+  planType?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -4997,6 +5075,7 @@ export type UserCreateWithoutNotificationsInput = {
   isPrivate?: boolean
   followApproval?: boolean
   role?: string
+  planType?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
   isDeleted?: boolean
@@ -5055,6 +5134,7 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   isPrivate?: boolean
   followApproval?: boolean
   role?: string
+  planType?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
   isDeleted?: boolean
@@ -5129,6 +5209,7 @@ export type UserUpdateWithoutNotificationsInput = {
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   followApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
+  planType?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -5187,6 +5268,7 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   followApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
+  planType?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -5245,6 +5327,7 @@ export type UserCreateWithoutPushSubscriptionsInput = {
   isPrivate?: boolean
   followApproval?: boolean
   role?: string
+  planType?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
   isDeleted?: boolean
@@ -5303,6 +5386,7 @@ export type UserUncheckedCreateWithoutPushSubscriptionsInput = {
   isPrivate?: boolean
   followApproval?: boolean
   role?: string
+  planType?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
   isDeleted?: boolean
@@ -5377,6 +5461,7 @@ export type UserUpdateWithoutPushSubscriptionsInput = {
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   followApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
+  planType?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -5435,6 +5520,7 @@ export type UserUncheckedUpdateWithoutPushSubscriptionsInput = {
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   followApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
+  planType?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -5493,6 +5579,7 @@ export type UserCreateWithoutPasswordResetTokensInput = {
   isPrivate?: boolean
   followApproval?: boolean
   role?: string
+  planType?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
   isDeleted?: boolean
@@ -5551,6 +5638,7 @@ export type UserUncheckedCreateWithoutPasswordResetTokensInput = {
   isPrivate?: boolean
   followApproval?: boolean
   role?: string
+  planType?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
   isDeleted?: boolean
@@ -5625,6 +5713,7 @@ export type UserUpdateWithoutPasswordResetTokensInput = {
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   followApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
+  planType?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -5683,6 +5772,7 @@ export type UserUncheckedUpdateWithoutPasswordResetTokensInput = {
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   followApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
+  planType?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -5741,6 +5831,7 @@ export type UserCreateWithoutDebateWinsInput = {
   isPrivate?: boolean
   followApproval?: boolean
   role?: string
+  planType?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
   isDeleted?: boolean
@@ -5799,6 +5890,7 @@ export type UserUncheckedCreateWithoutDebateWinsInput = {
   isPrivate?: boolean
   followApproval?: boolean
   role?: string
+  planType?: string
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
   isDeleted?: boolean
@@ -5873,6 +5965,7 @@ export type UserUpdateWithoutDebateWinsInput = {
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   followApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
+  planType?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -5931,6 +6024,7 @@ export type UserUncheckedUpdateWithoutDebateWinsInput = {
   isPrivate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   followApproval?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.StringFieldUpdateOperationsInput | string
+  planType?: Prisma.StringFieldUpdateOperationsInput | string
   isExhibition?: Prisma.BoolFieldUpdateOperationsInput | boolean
   hideFromLeaderboard?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -6173,6 +6267,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   isPrivate?: boolean
   followApproval?: boolean
   role?: boolean
+  planType?: boolean
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
   isDeleted?: boolean
@@ -6233,6 +6328,7 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   isPrivate?: boolean
   followApproval?: boolean
   role?: boolean
+  planType?: boolean
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
   isDeleted?: boolean
@@ -6274,6 +6370,7 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   isPrivate?: boolean
   followApproval?: boolean
   role?: boolean
+  planType?: boolean
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
   isDeleted?: boolean
@@ -6315,6 +6412,7 @@ export type UserSelectScalar = {
   isPrivate?: boolean
   followApproval?: boolean
   role?: boolean
+  planType?: boolean
   isExhibition?: boolean
   hideFromLeaderboard?: boolean
   isDeleted?: boolean
@@ -6332,7 +6430,7 @@ export type UserSelectScalar = {
   updatedAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "emailVerified" | "username" | "hashedPassword" | "bio" | "avatarUrl" | "country" | "twitterHandle" | "threadsHandle" | "truthSocialHandle" | "blueskyHandle" | "mastodonHandle" | "websiteUrl" | "lastUsernameChange" | "aiAssessment" | "aiAssessmentUpdatedAt" | "showLocation" | "showFollowers" | "showComments" | "isPrivate" | "followApproval" | "role" | "isExhibition" | "hideFromLeaderboard" | "isDeleted" | "deletedAt" | "onboardingComplete" | "suspendedUntil" | "dob" | "gender" | "region" | "elo" | "rankedDebatesPlayed" | "wins" | "losses" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "emailVerified" | "username" | "hashedPassword" | "bio" | "avatarUrl" | "country" | "twitterHandle" | "threadsHandle" | "truthSocialHandle" | "blueskyHandle" | "mastodonHandle" | "websiteUrl" | "lastUsernameChange" | "aiAssessment" | "aiAssessmentUpdatedAt" | "showLocation" | "showFollowers" | "showComments" | "isPrivate" | "followApproval" | "role" | "planType" | "isExhibition" | "hideFromLeaderboard" | "isDeleted" | "deletedAt" | "onboardingComplete" | "suspendedUntil" | "dob" | "gender" | "region" | "elo" | "rankedDebatesPlayed" | "wins" | "losses" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
@@ -6403,6 +6501,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     isPrivate: boolean
     followApproval: boolean
     role: string
+    planType: string
     isExhibition: boolean
     hideFromLeaderboard: boolean
     isDeleted: boolean
@@ -6882,6 +6981,7 @@ export interface UserFieldRefs {
   readonly isPrivate: Prisma.FieldRef<"User", 'Boolean'>
   readonly followApproval: Prisma.FieldRef<"User", 'Boolean'>
   readonly role: Prisma.FieldRef<"User", 'String'>
+  readonly planType: Prisma.FieldRef<"User", 'String'>
   readonly isExhibition: Prisma.FieldRef<"User", 'Boolean'>
   readonly hideFromLeaderboard: Prisma.FieldRef<"User", 'Boolean'>
   readonly isDeleted: Prisma.FieldRef<"User", 'Boolean'>

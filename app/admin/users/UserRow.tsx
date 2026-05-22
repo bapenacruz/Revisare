@@ -9,6 +9,7 @@ interface User {
   username: string;
   email: string;
   role: string;
+  planType: string;
   isExhibition: boolean;
   isDeleted: boolean;
   hideFromLeaderboard: boolean;
@@ -48,6 +49,7 @@ export function UserRow({ user }: { user: User }) {
   const [newUsername, setNewUsername] = useState(user.username);
   const [hideFromLeaderboard, setHideFromLeaderboard] = useState(user.hideFromLeaderboard);
   const [localDeleted, setLocalDeleted] = useState(user.isDeleted);
+  const [planType, setPlanType] = useState(user.planType);
 
   const isBanned = user.role === "banned";
   const isSuspended = user.role === "suspended" && !!user.suspendedUntil && new Date(user.suspendedUntil) > new Date();
@@ -113,6 +115,21 @@ export function UserRow({ user }: { user: User }) {
     }
   }
 
+  async function togglePlanType() {
+    const next = planType === "free" ? "paid" : "free";
+    setLoading(true);
+    const res = await fetch(`/api/admin/users/${user.id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ planType: next }),
+    });
+    setLoading(false);
+    if (res.ok) {
+      setPlanType(next);
+      setMsg(`Plan set to ${next} ✓`);
+    }
+  }
+
   async function toggleHideFromLeaderboard() {
     const next = !hideFromLeaderboard;
     setLoading(true);
@@ -141,11 +158,20 @@ export function UserRow({ user }: { user: User }) {
           </Link>
         </td>
 
-        {/* Type */}
+        {/* Plan (free / paid) */}
         <td className="px-4 py-3">
-          <span className={`inline-flex px-2 py-0.5 rounded text-xs border ${isSynthetic ? "bg-surface-overlay text-foreground-muted border-border" : "bg-blue-500/10 text-blue-400 border-blue-500/20"}`}>
-            {isSynthetic ? "Synthetic" : "Real"}
-          </span>
+          <button
+            onClick={(e) => { e.stopPropagation(); togglePlanType(); }}
+            disabled={loading}
+            title="Click to toggle plan"
+            className={`inline-flex px-2 py-0.5 rounded text-xs border transition-colors disabled:opacity-50 ${
+              planType === "paid"
+                ? "bg-brand/10 text-brand border-brand/30 hover:bg-brand/20"
+                : "bg-surface-overlay text-foreground-muted border-border hover:bg-surface-raised"
+            }`}
+          >
+            {planType === "paid" ? "Paid" : "Free"}
+          </button>
         </td>
 
         {/* Email */}
@@ -188,6 +214,16 @@ export function UserRow({ user }: { user: User }) {
         <tr className="bg-surface-raised border-t border-border">
           <td colSpan={11} className="px-6 py-4">
             <div className="flex flex-wrap gap-6 items-start">
+              {/* Real / Synthetic indicator */}
+              <div className="flex flex-col gap-1">
+                <label className="text-xs font-medium text-foreground-muted uppercase tracking-wide">Account</label>
+                <span className={`inline-flex px-2 py-0.5 rounded text-xs border ${
+                  isSynthetic ? "bg-surface-overlay text-foreground-muted border-border" : "bg-blue-500/10 text-blue-400 border-blue-500/20"
+                }`}>
+                  {isSynthetic ? "Synthetic" : "Real"}
+                </span>
+              </div>
+
               {/* Username editing (if synthetic) */}
               {isPlaceholder && !localDeleted && (
                 <div className="flex flex-col gap-1">

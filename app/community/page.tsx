@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useSession } from "@/components/providers/SessionProvider";
+import { useAvatar } from "@/components/providers/AvatarProvider";
 import Link from "next/link";
 import { Card, CardBody } from "@/components/ui/Card";
 import { Avatar } from "@/components/ui/Avatar";
@@ -86,6 +87,7 @@ function FAQItem({ q, a }: { q: string; a: string }) {
 
 export default function CommunityPage() {
   const { data: session } = useSession();
+  const { avatarUrl: myAvatarUrl } = useAvatar();
   const user = session?.user as { username?: string; email?: string; elo?: number; wins?: number; losses?: number } | null | undefined;
   const [assessment, setAssessment] = useState<string | null>(null);
 
@@ -113,7 +115,7 @@ export default function CommunityPage() {
           <Card className="mb-6">
           <CardBody className="flex items-center gap-4 p-5">
             <Link href="/profile" className="hover:opacity-80 transition-opacity shrink-0">
-              <Avatar initial={user.username[0].toUpperCase()} src={session?.user?.avatarUrl ?? undefined} size="lg" />
+              <Avatar initial={user.username[0].toUpperCase()} src={myAvatarUrl ?? undefined} size="lg" />
             </Link>
             <div className="flex-1 min-w-0">
               <Link href="/profile" className="font-bold text-foreground truncate hover:text-brand transition-colors block">{user.username}</Link>
