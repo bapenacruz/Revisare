@@ -220,7 +220,7 @@ export function CommentsSection({ challengeId, debateId, debaterA, debaterB, ini
         {/* ── Audience Pick Vote (compact) ───────────────────────────── */}
         {debaterA && debaterB && (
           <div className="mb-3 pb-3 border-b border-border flex items-center gap-2 flex-wrap">
-            <span className="text-[11px] text-foreground-subtle">Who won?</span>
+            <span className="text-[11px] text-foreground-subtle">Audience Pick</span>
             <div className="flex gap-1 ml-auto">
               {[debaterA, debaterB].map((d) => {
                 const p = pct(d.id);
