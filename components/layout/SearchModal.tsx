@@ -56,7 +56,7 @@ export function SearchModal({ onClose }: { onClose: () => void }) {
   }
 
   const hasResults = results && (results.users.length > 0 || results.debates.length > 0 || results.categories.length > 0);
-  const empty = results && !hasResults && query.length >= 2;
+  const empty = results && !hasResults && query.length >= 3;
 
   return (
     <div
@@ -157,9 +157,9 @@ export function SearchModal({ onClose }: { onClose: () => void }) {
           </div>
         )}
 
-        {!results && query.length < 2 && (
+        {!results && query.length < 3 && (
           <div className="px-4 py-6 text-center text-xs text-foreground-subtle">
-            Type at least 2 characters to search
+            Type at least 3 characters to search
           </div>
         )}
       </div>

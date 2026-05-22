@@ -3,7 +3,7 @@ import { db } from "@/lib/db";
 
 export async function GET(req: NextRequest) {
   const q = req.nextUrl.searchParams.get("q")?.trim() ?? "";
-  if (q.length < 2) {
+  if (q.length < 3) {
     return NextResponse.json({ users: [], debates: [], categories: [] });
   }
 
