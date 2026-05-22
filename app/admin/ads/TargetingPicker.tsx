@@ -20,11 +20,11 @@ interface TargetingPickerProps {
 
 export function TargetingPicker({ regions, quadrants, countries, states, usernames, onRegionsChange, onQuadrantsChange, onCountriesChange, onStatesChange, onUsernamesChange, onClick }: TargetingPickerProps) {
   const [countrySearch, setCountrySearch] = useState("");
-  const [rawUsernames, setRawUsernames] = useState(() => usernames.join("\n"));
+  const [rawUsernames, setRawUsernames] = useState(() => usernames.join(";"));
 
   // Keep rawUsernames in sync if usernames are reset externally (e.g. form reset)
   useEffect(() => {
-    setRawUsernames(usernames.join("\n"));
+    setRawUsernames(usernames.join(";"));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [usernames.length === 0 ? 0 : null]);
 
@@ -206,17 +206,17 @@ export function TargetingPicker({ regions, quadrants, countries, states, usernam
       {/* Specific users */}
       <div className="flex flex-col gap-1.5">
         <p className="text-xs font-medium text-foreground-muted uppercase tracking-wide">
-          Target Specific Users <span className="normal-case font-normal opacity-60">(empty = all, one username per line)</span>
+          Target Specific Users <span className="normal-case font-normal opacity-60">(empty = all, separate with ;)</span>
         </p>
         <textarea
           rows={4}
           className="text-sm rounded border border-border bg-background text-foreground p-2 w-48 resize-none font-mono"
-          placeholder={"john_doe\njane_smith"}
+          placeholder={"john_doe;jane_smith"}
           value={rawUsernames}
           onChange={(e) => {
             setRawUsernames(e.target.value);
-            const lines = e.target.value.split("\n").map((l) => l.trim()).filter(Boolean);
-            onUsernamesChange(lines);
+            const parts = e.target.value.split(";").map((l) => l.trim()).filter(Boolean);
+            onUsernamesChange(parts);
           }}
         />
       </div>
