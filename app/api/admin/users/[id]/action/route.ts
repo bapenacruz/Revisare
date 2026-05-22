@@ -29,7 +29,7 @@ export async function POST(req: NextRequest, { params }: RouteParams) {
 
   const { id: targetId } = await params;
   const body = await req.json() as {
-    action: "warn" | "suspend" | "ban" | "unban" | "reset-password";
+    action: "warn" | "suspend" | "ban" | "unban" | "reset-password" | "reset-stats";
     reason?: string;
     suspendDays?: number;
   };
