@@ -44,7 +44,7 @@ export async function GET(_req: NextRequest, { params }: RouteParams) {
   return NextResponse.json(user);
 }
 
-(req: NextRequest, { params }: RouteParams) {
+export async function PATCH(req: NextRequest, { params }: RouteParams) {
   const session = await auth();
   if (!isAdmin((session?.user as { role?: string })?.role)) {
     return NextResponse.json({ error: "Forbidden" }, { status: 403 });
