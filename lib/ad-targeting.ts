@@ -81,3 +81,17 @@ export function matchesUsernameTargeting(targetUsernames: string[], username: st
   if (!username) return false;
   return targetUsernames.includes(username);
 }
+
+// Check country targeting: empty = all
+export function matchesCountryTargeting(targetCountries: string[], country: string | null): boolean {
+  if (targetCountries.length === 0) return true;
+  if (!country) return false;
+  return targetCountries.includes(country);
+}
+
+// Check state/region targeting: empty = all
+export function matchesStateTargeting(targetStates: string[], state: string | null): boolean {
+  if (targetStates.length === 0) return true;
+  if (!state) return false;
+  return targetStates.includes(state);
+}

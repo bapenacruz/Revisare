@@ -559,6 +559,8 @@ model Ad {
   linkUrl                String?
   targetRegions          Json     @default("[]")
   targetCompassQuadrants Json     @default("[]")
+  targetCountries        Json     @default("[]")
+  targetStates           Json     @default("[]")
   targetUsernames        Json     @default("[]")
   isActive      Boolean     @default(true)
   isDeleted     Boolean     @default(false)
@@ -601,6 +603,8 @@ model AdBanner {
   altText                String?
   targetRegions          Json     @default("[]")
   targetCompassQuadrants Json     @default("[]")
+  targetCountries        Json     @default("[]")
+  targetStates           Json     @default("[]")
   targetUsernames        Json     @default("[]")
   isActive               Boolean  @default(true)
   isDeleted              Boolean  @default(false)

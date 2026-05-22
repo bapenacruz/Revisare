@@ -14,6 +14,8 @@ interface AdBanner {
   createdAt: Date;
   targetRegions: unknown;
   targetCompassQuadrants: unknown;
+  targetCountries: unknown;
+  targetStates: unknown;
   targetUsernames: unknown;
 }
 
@@ -30,6 +32,12 @@ export function BannerRow({ banner }: { banner: AdBanner }) {
   );
   const [targetCompassQuadrants, setTargetCompassQuadrants] = useState<string[]>(
     Array.isArray(banner.targetCompassQuadrants) ? (banner.targetCompassQuadrants as string[]) : []
+  );
+  const [targetCountries, setTargetCountries] = useState<string[]>(
+    Array.isArray(banner.targetCountries) ? (banner.targetCountries as string[]) : []
+  );
+  const [targetStates, setTargetStates] = useState<string[]>(
+    Array.isArray(banner.targetStates) ? (banner.targetStates as string[]) : []
   );
   const [targetUsernames, setTargetUsernames] = useState<string[]>(
     Array.isArray(banner.targetUsernames) ? (banner.targetUsernames as string[]) : []
@@ -64,6 +72,8 @@ export function BannerRow({ banner }: { banner: AdBanner }) {
         isActive,
         targetRegions,
         targetCompassQuadrants,
+        targetCountries,
+        targetStates,
         targetUsernames,
       }),
     });
@@ -160,9 +170,13 @@ export function BannerRow({ banner }: { banner: AdBanner }) {
                 <TargetingPicker
                   regions={targetRegions}
                   quadrants={targetCompassQuadrants}
+                  countries={targetCountries}
+                  states={targetStates}
                   usernames={targetUsernames}
                   onRegionsChange={setTargetRegions}
                   onQuadrantsChange={setTargetCompassQuadrants}
+                  onCountriesChange={setTargetCountries}
+                  onStatesChange={setTargetStates}
                   onUsernamesChange={setTargetUsernames}
                   onClick={(e) => e.stopPropagation()}
                 />

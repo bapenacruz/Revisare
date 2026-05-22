@@ -14,7 +14,7 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id
 
   const { id } = await params;
   const body = await req.json();
-  const { motion, proponentName, opponentName, categoryId, linkUrl, isActive, targetRegions, targetCompassQuadrants, businessName, officialResult, targetUsernames } = body;
+  const { motion, proponentName, opponentName, categoryId, linkUrl, isActive, targetRegions, targetCompassQuadrants, targetCountries, targetStates, businessName, officialResult, targetUsernames } = body;
 
   const data: Record<string, unknown> = {};
   if (motion !== undefined) data.motion = motion.trim();
@@ -25,6 +25,8 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id
   if (isActive !== undefined) data.isActive = isActive;
   if (Array.isArray(targetRegions)) data.targetRegions = targetRegions;
   if (Array.isArray(targetCompassQuadrants)) data.targetCompassQuadrants = targetCompassQuadrants;
+  if (Array.isArray(targetCountries)) data.targetCountries = targetCountries;
+  if (Array.isArray(targetStates)) data.targetStates = targetStates;
   if (Array.isArray(targetUsernames)) data.targetUsernames = targetUsernames;
   if (businessName !== undefined) data.businessName = businessName?.trim() || null;
   if (officialResult !== undefined) data.officialResult = officialResult?.trim() || null;

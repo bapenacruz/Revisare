@@ -24,6 +24,8 @@ interface Ad {
   category: { label: string; emoji: string } | null;
   targetRegions: unknown;
   targetCompassQuadrants: unknown;
+  targetCountries: unknown;
+  targetStates: unknown;
   targetUsernames: unknown;
 }
 
@@ -40,6 +42,8 @@ export function AdRow({ ad, categories }: { ad: Ad; categories: AdCategory[] }) 
   const [isActive, setIsActive] = useState(ad.isActive);
   const [targetRegions, setTargetRegions] = useState<string[]>(Array.isArray(ad.targetRegions) ? (ad.targetRegions as string[]) : []);
   const [targetCompassQuadrants, setTargetCompassQuadrants] = useState<string[]>(Array.isArray(ad.targetCompassQuadrants) ? (ad.targetCompassQuadrants as string[]) : []);
+  const [targetCountries, setTargetCountries] = useState<string[]>(Array.isArray(ad.targetCountries) ? (ad.targetCountries as string[]) : []);
+  const [targetStates, setTargetStates] = useState<string[]>(Array.isArray(ad.targetStates) ? (ad.targetStates as string[]) : []);
   const [targetUsernames, setTargetUsernames] = useState<string[]>(Array.isArray(ad.targetUsernames) ? (ad.targetUsernames as string[]) : []);
   const [saving, setSaving] = useState(false);
   const [deleting, setDeleting] = useState(false);
@@ -53,7 +57,7 @@ export function AdRow({ ad, categories }: { ad: Ad; categories: AdCategory[] }) 
     const res = await fetch(`/api/admin/ads/${ad.id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ motion, businessName: businessName || null, proponentName, opponentName, officialResult: officialResult || null, categoryId: categoryId || null, linkUrl: linkUrl || null, isActive, targetRegions, targetCompassQuadrants, targetUsernames }),
+      body: JSON.stringify({ motion, businessName: businessName || null, proponentName, opponentName, officialResult: officialResult || null, categoryId: categoryId || null, linkUrl: linkUrl || null, isActive, targetRegions, targetCompassQuadrants, targetCountries, targetStates, targetUsernames }),
     });
     setSaving(false);
     if (res.ok) { setMsg("Saved ✓"); router.refresh(); }
@@ -157,9 +161,13 @@ export function AdRow({ ad, categories }: { ad: Ad; categories: AdCategory[] }) 
                 <TargetingPicker
                   regions={targetRegions}
                   quadrants={targetCompassQuadrants}
+                  countries={targetCountries}
+                  states={targetStates}
                   usernames={targetUsernames}
                   onRegionsChange={setTargetRegions}
                   onQuadrantsChange={setTargetCompassQuadrants}
+                  onCountriesChange={setTargetCountries}
+                  onStatesChange={setTargetStates}
                   onUsernamesChange={setTargetUsernames}
                   onClick={(e) => e.stopPropagation()}
                 />

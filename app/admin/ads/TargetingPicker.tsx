@@ -1,24 +1,56 @@
 "use client";
 
+import { useState } from "react";
 import { AD_REGIONS, AD_COMPASS_QUADRANTS } from "@/lib/ad-targeting";
+import { COUNTRIES } from "@/lib/data/countries";
 
 interface TargetingPickerProps {
   regions: string[];
   quadrants: string[];
+  countries: string[];
+  states: string[];
   usernames: string[];
   onRegionsChange: (r: string[]) => void;
   onQuadrantsChange: (q: string[]) => void;
+  onCountriesChange: (c: string[]) => void;
+  onStatesChange: (s: string[]) => void;
   onUsernamesChange: (u: string[]) => void;
   onClick?: React.MouseEventHandler<HTMLDivElement>;
 }
 
-export function TargetingPicker({ regions, quadrants, usernames, onRegionsChange, onQuadrantsChange, onUsernamesChange, onClick }: TargetingPickerProps) {
+export function TargetingPicker({ regions, quadrants, countries, states, usernames, onRegionsChange, onQuadrantsChange, onCountriesChange, onStatesChange, onUsernamesChange, onClick }: TargetingPickerProps) {
+  const [countrySearch, setCountrySearch] = useState("");
+
   function toggleRegion(v: string) {
     onRegionsChange(regions.includes(v) ? regions.filter((r) => r !== v) : [...regions, v]);
   }
   function toggleQuadrant(v: string) {
     onQuadrantsChange(quadrants.includes(v) ? quadrants.filter((q) => q !== v) : [...quadrants, v]);
   }
+  function toggleCountry(name: string) {
+    const next = countries.includes(name) ? countries.filter((c) => c !== name) : [...countries, name];
+    onCountriesChange(next);
+    // Remove states that belong to deselected countries
+    if (!next.includes(name)) {
+      const countryData = COUNTRIES.find((c) => c.name === name);
+      if (countryData) {
+        onStatesChange(states.filter((s) => !countryData.regions.includes(s)));
+      }
+    }
+  }
+  function toggleState(s: string) {
+    onStatesChange(states.includes(s) ? states.filter((x) => x !== s) : [...states, s]);
+  }
+
+  // Only show states for selected countries that have regions
+  const availableStates = countries.flatMap((cName) => {
+    const c = COUNTRIES.find((x) => x.name === cName);
+    return c?.regions ?? [];
+  });
+
+  const filteredCountries = countrySearch.trim()
+    ? COUNTRIES.filter((c) => c.name.toLowerCase().includes(countrySearch.toLowerCase()))
+    : COUNTRIES;
 
   const SIZE = 84;
   const HALF = SIZE / 2;
@@ -44,6 +76,61 @@ export function TargetingPicker({ regions, quadrants, usernames, onRegionsChange
           ))}
         </div>
       </div>
+
+      {/* Country picker */}
+      <div className="flex flex-col gap-1.5">
+        <p className="text-xs font-medium text-foreground-muted uppercase tracking-wide">
+          Target Countries <span className="normal-case font-normal opacity-60">(empty = all)</span>
+        </p>
+        <input
+          type="text"
+          placeholder="Search countries…"
+          value={countrySearch}
+          onChange={(e) => setCountrySearch(e.target.value)}
+          className="text-xs rounded border border-border bg-background text-foreground px-2 py-1 w-48 mb-1"
+        />
+        <div className="h-32 overflow-y-auto flex flex-col gap-0.5 pr-1 w-48 border border-border rounded p-1.5 bg-background">
+          {filteredCountries.map((c) => (
+            <label key={c.code} className="flex items-center gap-1.5 cursor-pointer select-none">
+              <input
+                type="checkbox"
+                checked={countries.includes(c.name)}
+                onChange={() => toggleCountry(c.name)}
+                className="accent-brand w-3 h-3 shrink-0"
+              />
+              <span className="text-xs text-foreground truncate">{c.name}</span>
+            </label>
+          ))}
+        </div>
+        {countries.length > 0 && (
+          <p className="text-xs text-foreground-muted">{countries.length} selected</p>
+        )}
+      </div>
+
+      {/* State/region picker (shown only when countries with states are selected) */}
+      {availableStates.length > 0 && (
+        <div className="flex flex-col gap-1.5">
+          <p className="text-xs font-medium text-foreground-muted uppercase tracking-wide">
+            Target States/Regions <span className="normal-case font-normal opacity-60">(empty = all)</span>
+          </p>
+          <div className="h-40 overflow-y-auto flex flex-col gap-0.5 pr-1 w-56 border border-border rounded p-1.5 bg-background">
+            {availableStates.map((s) => (
+              <label key={s} className="flex items-center gap-1.5 cursor-pointer select-none">
+                <input
+                  type="checkbox"
+                  checked={states.includes(s)}
+                  onChange={() => toggleState(s)}
+                  className="accent-brand w-3 h-3 shrink-0"
+                />
+                <span className="text-xs text-foreground truncate">{s}</span>
+              </label>
+            ))}
+          </div>
+          {states.length > 0 && (
+            <p className="text-xs text-foreground-muted">{states.length} selected</p>
+          )}
+        </div>
+      )}
 
       {/* Political compass selector */}
       <div className="flex flex-col gap-1.5">

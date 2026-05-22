@@ -11,7 +11,7 @@ import { useState } from "react";
 
 function InstallSection() {
   const [open, setOpen] = useState(false);
-  const [platform, setPlatform] = useState<"android" | "ios" | null>(null);
+  const [platform, setPlatform] = useState<"android" | "ios" | "chrome" | "safari-mac" | null>(null);
 
   return (
     <div className="border-t border-border">
@@ -35,14 +35,28 @@ function InstallSection() {
                 className="w-full flex items-center gap-3 px-4 py-3 rounded-[--radius] text-sm text-foreground-muted hover:text-foreground hover:bg-surface-raised border border-border transition-colors"
               >
                 <Smartphone size={16} />
-                Android
+                Android (Chrome)
               </button>
               <button
                 onClick={() => setPlatform("ios")}
                 className="w-full flex items-center gap-3 px-4 py-3 rounded-[--radius] text-sm text-foreground-muted hover:text-foreground hover:bg-surface-raised border border-border transition-colors"
               >
                 <Apple size={16} />
-                iOS
+                iOS (Safari)
+              </button>
+              <button
+                onClick={() => setPlatform("chrome")}
+                className="w-full flex items-center gap-3 px-4 py-3 rounded-[--radius] text-sm text-foreground-muted hover:text-foreground hover:bg-surface-raised border border-border transition-colors"
+              >
+                <Smartphone size={16} />
+                Chrome (Windows &amp; Mac OS)
+              </button>
+              <button
+                onClick={() => setPlatform("safari-mac")}
+                className="w-full flex items-center gap-3 px-4 py-3 rounded-[--radius] text-sm text-foreground-muted hover:text-foreground hover:bg-surface-raised border border-border transition-colors"
+              >
+                <Apple size={16} />
+                Safari (Mac OS)
               </button>
             </div>
           ) : (
@@ -50,9 +64,9 @@ function InstallSection() {
               <button onClick={() => setPlatform(null)} className="text-brand hover:underline flex items-center gap-1 mb-2">
                 <ChevronDown size={12} className="rotate-90" /> Back
               </button>
-              {platform === "android" ? (
+              {platform === "android" && (
                 <>
-                  <p className="font-semibold text-foreground">Install on Android</p>
+                  <p className="font-semibold text-foreground">Install on Android (Chrome)</p>
                   <ol className="list-decimal list-inside space-y-1.5 leading-relaxed">
                     <li>Open Revisare in <strong>Chrome</strong></li>
                     <li>Tap the <strong>⋮ menu</strong> (top-right)</li>
@@ -60,14 +74,37 @@ function InstallSection() {
                     <li>Tap <strong>Add</strong> to confirm</li>
                   </ol>
                 </>
-              ) : (
+              )}
+              {platform === "ios" && (
                 <>
-                  <p className="font-semibold text-foreground">Install on iOS</p>
+                  <p className="font-semibold text-foreground">Install on iOS (Safari)</p>
                   <ol className="list-decimal list-inside space-y-1.5 leading-relaxed">
                     <li>Open Revisare in <strong>Safari</strong></li>
                     <li>Tap the <strong>Share</strong> button (bottom bar)</li>
                     <li>Scroll down and tap <strong>"Add to Home Screen"</strong> — if you don&apos;t see it, tap <strong>"More"</strong> first</li>
                     <li>Tap <strong>Add</strong> to confirm</li>
+                  </ol>
+                </>
+              )}
+              {platform === "chrome" && (
+                <>
+                  <p className="font-semibold text-foreground">Install via Chrome (Windows &amp; Mac OS)</p>
+                  <ol className="list-decimal list-inside space-y-1.5 leading-relaxed">
+                    <li>Open Revisare in <strong>Chrome</strong></li>
+                    <li>Click the <strong>install icon</strong> (⊕) in the address bar on the right — or click the <strong>⋮ menu</strong> (top-right)</li>
+                    <li>Select <strong>"Install Revisare…"</strong> or <strong>"Save and share → Install page as app"</strong></li>
+                    <li>Click <strong>Install</strong> to confirm</li>
+                  </ol>
+                </>
+              )}
+              {platform === "safari-mac" && (
+                <>
+                  <p className="font-semibold text-foreground">Install via Safari (Mac OS)</p>
+                  <ol className="list-decimal list-inside space-y-1.5 leading-relaxed">
+                    <li>Open Revisare in <strong>Safari</strong></li>
+                    <li>Click <strong>File</strong> in the menu bar</li>
+                    <li>Select <strong>"Add to Dock…"</strong></li>
+                    <li>Click <strong>Add</strong> to confirm — the app will appear in your Dock</li>
                   </ol>
                 </>
               )}

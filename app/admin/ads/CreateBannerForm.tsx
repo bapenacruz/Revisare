@@ -13,6 +13,8 @@ export function CreateBannerForm() {
   const [altText, setAltText] = useState("");
   const [targetRegions, setTargetRegions] = useState<string[]>([]);
   const [targetCompassQuadrants, setTargetCompassQuadrants] = useState<string[]>([]);
+  const [targetCountries, setTargetCountries] = useState<string[]>([]);
+  const [targetStates, setTargetStates] = useState<string[]>([]);
   const [targetUsernames, setTargetUsernames] = useState<string[]>([]);
   const [saving, setSaving] = useState(false);
   const [msg, setMsg] = useState<string | null>(null);
@@ -42,6 +44,8 @@ export function CreateBannerForm() {
         altText: altText || null,
         targetRegions,
         targetCompassQuadrants,
+        targetCountries,
+        targetStates,
         targetUsernames,
       }),
     });
@@ -53,6 +57,8 @@ export function CreateBannerForm() {
       setAltText("");
       setTargetRegions([]);
       setTargetCompassQuadrants([]);
+      setTargetCountries([]);
+      setTargetStates([]);
       setTargetUsernames([]);
       setMsg("Banner created ✓");
       router.refresh();
@@ -119,9 +125,13 @@ export function CreateBannerForm() {
             <TargetingPicker
               regions={targetRegions}
               quadrants={targetCompassQuadrants}
+              countries={targetCountries}
+              states={targetStates}
               usernames={targetUsernames}
               onRegionsChange={setTargetRegions}
               onQuadrantsChange={setTargetCompassQuadrants}
+              onCountriesChange={setTargetCountries}
+              onStatesChange={setTargetStates}
               onUsernamesChange={setTargetUsernames}
             />
           </div>

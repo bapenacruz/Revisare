@@ -25,7 +25,7 @@ export async function POST(req: NextRequest) {
   if (!await requireAdmin()) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
 
   const body = await req.json();
-  const { imageDataUrl, linkUrl, altText, targetRegions, targetCompassQuadrants, targetUsernames, businessName } = body;
+  const { imageDataUrl, linkUrl, altText, targetRegions, targetCompassQuadrants, targetCountries, targetStates, targetUsernames, businessName } = body;
 
   if (!imageDataUrl || typeof imageDataUrl !== "string" || !imageDataUrl.startsWith("data:image/")) {
     return NextResponse.json({ error: "Invalid or missing image data URL" }, { status: 400 });
@@ -43,6 +43,8 @@ export async function POST(req: NextRequest) {
       businessName: businessName?.trim() || null,
       targetRegions: Array.isArray(targetRegions) ? targetRegions : [],
       targetCompassQuadrants: Array.isArray(targetCompassQuadrants) ? targetCompassQuadrants : [],
+      targetCountries: Array.isArray(targetCountries) ? targetCountries : [],
+      targetStates: Array.isArray(targetStates) ? targetStates : [],
       targetUsernames: Array.isArray(targetUsernames) ? targetUsernames : [],
     },
   });
