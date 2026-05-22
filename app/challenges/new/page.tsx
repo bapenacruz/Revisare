@@ -9,7 +9,7 @@ import { Card, CardBody } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
 import { Avatar } from "@/components/ui/Avatar";
 import { motionTip } from "@/lib/topic-validator";
-import { Sword, Lock, Globe, Trophy, Users, Copy, Check, Search, ChevronDown } from "lucide-react";
+import { Sword, Lock, Globe, Trophy, Users, Copy, Check, Search, ChevronDown, Wand2, Loader2 } from "lucide-react";
 import Link from "next/link";
 
 interface Category {
@@ -41,6 +41,8 @@ function NewChallengeForm() {
   const [createdId, setCreatedId] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
   const originRef = useRef("");
+  const [polishing, setPolishing] = useState(false);
+  const [categoryChangedMsg, setCategoryChangedMsg] = useState<string | null>(null);
 
   useEffect(() => {
     originRef.current = window.location.origin;
@@ -308,20 +310,53 @@ function NewChallengeForm() {
 
         {/* Motion */}
         <div className="flex flex-col gap-1.5">
-          <label className="text-sm font-medium text-foreground">
-            Motion / Topic
-          </label>
+          <div className="flex items-center justify-between gap-2">
+            <label className="text-sm font-medium text-foreground">Motion / Topic</label>
+            <button
+              type="button"
+              disabled={polishing || !motion.trim()}
+              onClick={async () => {
+                if (!motion.trim()) return;
+                setCategoryChangedMsg(null);
+                setPolishing(true);
+                try {
+                  const res = await fetch("/api/challenges/refine-motion", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ motion, categoryId }),
+                  });
+                  const json = await res.json();
+                  if (!res.ok) { setError(json.error ?? "AI polish failed. Please try again."); return; }
+                  setMotion(json.motion);
+                  if (json.categoryId) setCategoryId(json.categoryId);
+                  if (json.categoryChanged && json.categoryLabel) {
+                    setCategoryChangedMsg(`Category updated to "${json.categoryLabel}" — a better fit for this motion.`);
+                  }
+                } catch {
+                  setError("Network error. Please try again.");
+                } finally {
+                  setPolishing(false);
+                }
+              }}
+              className="flex items-center gap-1.5 px-2.5 py-1 rounded-[--radius] text-xs font-medium border border-brand/40 text-brand bg-brand/5 hover:bg-brand/10 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+            >
+              {polishing ? <Loader2 size={12} className="animate-spin" /> : <Wand2 size={12} />}
+              {polishing ? "Polishing…" : "Polish with AI"}
+            </button>
+          </div>
           <textarea
             value={motion}
-            onChange={(e) => setMotion(e.target.value)}
-            placeholder='e.g. "This house believes social media does more harm than good."'
+            onChange={(e) => { setMotion(e.target.value); setCategoryChangedMsg(null); }}
+            placeholder='Describe what you want to debate, or write your motion directly…'
             rows={3}
             maxLength={280}
             required
             className="w-full rounded-[--radius] bg-surface border border-border px-3 py-2.5 text-sm text-foreground placeholder:text-foreground-subtle resize-none focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand transition-colors"
           />
           <div className="flex items-start justify-between gap-2">
-            {tip ? (
+            {categoryChangedMsg ? (
+              <p className="text-xs text-brand flex items-center gap-1"><Wand2 size={11} />{categoryChangedMsg}</p>
+            ) : tip ? (
               <p className="text-xs text-foreground-subtle">{tip}</p>
             ) : <span />}
             <span className="text-xs text-foreground-subtle shrink-0">{motion.length}/280</span>

@@ -32,16 +32,9 @@ export function validateMotion(motion: string): string | null {
 export function motionTip(motion: string): string | null {
   const t = motion.trim();
   if (t.length < MIN_LENGTH) return null;
-  const strong = [
-    /^this house (believes?|would|supports?|opposes?)/i,
-    /\bshould\b/i,
-    /\bought to\b/i,
-    /\bdoes more harm than good\b/i,
-    /\bhas failed\b/i,
-  ];
-  const hasStrong = strong.some((p) => p.test(t));
-  if (!hasStrong) {
-    return "Tip: Strong motions often start with \"This house believes\u2026\" or \"should\u2026\"";
+  // If it looks like a vague single word or very short phrase, nudge the user
+  if (t.split(/\s+/).length < 3) {
+    return "Tip: Write a clear, arguable statement — e.g. \"Social media does more harm than good.\"";
   }
   return null;
 }
