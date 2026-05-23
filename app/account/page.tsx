@@ -179,7 +179,7 @@ export default function AccountPage() {
         <InstallSection />
         <div className="my-2 border-t border-border" />
         <button
-          onClick={() => signOut({ callbackUrl: "/" })}
+          onClick={() => signOut({ callbackUrl: `${window.location.origin}/` })}
           className="w-full flex items-center gap-3 px-6 py-4 text-base text-danger hover:bg-surface-raised transition-colors"
         >
           <LogOut size={18} />
@@ -205,7 +205,7 @@ export default function AccountPage() {
                 onClick={async () => {
                   setDeleting(true);
                   await fetch("/api/me/delete", { method: "DELETE" });
-                  await signOut({ callbackUrl: "/" });
+                  await signOut({ callbackUrl: `${window.location.origin}/` });
                 }}
                 className="px-4 py-2 text-sm rounded bg-danger text-white disabled:opacity-50"
               >

@@ -47,7 +47,7 @@ export default auth(async (req) => {
 
   // Signed in but hasn't completed onboarding → redirect to /onboarding
   if (session && session.user?.onboardingComplete === false) {
-    return NextResponse.redirect(new URL("/onboarding", req.url));
+    return NextResponse.redirect(new URL("/onboarding", req.nextUrl.origin));
   }
 
   // ── Guest debate view limit ────────────────────────────────────────────────
@@ -64,8 +64,11 @@ export default auth(async (req) => {
 
         if (!views.ids.includes(challengeId)) {
           if (views.ids.length >= DAILY_GUEST_LIMIT) {
-            // Limit reached — send to gate page
-            return NextResponse.redirect(new URL("/debates/gate", req.url));
+            // Limit reached — send to gate page.
+            // Use the request's own host so the redirect works on every domain
+            // (production, Railway internal URL, local dev) without hard-coding.
+            const gateUrl = new URL("/debates/gate", req.nextUrl.origin);
+            return NextResponse.redirect(gateUrl);
           }
           // First visit to this debate — register it
           views.ids.push(challengeId);

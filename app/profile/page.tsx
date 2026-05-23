@@ -8,6 +8,7 @@ import { Tabs, TabList, TabTrigger, TabPanel } from "@/components/ui/Tabs";
 import { EditProfileForm } from "@/components/features/profile/EditProfileForm";
 import { AssessmentSection } from "@/components/features/profile/AssessmentSection";
 import { FollowList } from "@/components/features/profile/FollowList";
+import { SessionRefresher } from "@/components/providers/SessionRefresher";
 import { MapPin } from "lucide-react";
 import type { Metadata } from "next";
 
@@ -90,6 +91,7 @@ export default async function ProfilePage({ searchParams }: { searchParams: Prom
 
   return (
     <div className="mx-auto max-w-4xl px-4 sm:px-6 py-10">
+      <SessionRefresher dbUsername={user.username} />
       <div className="flex flex-col md:flex-row gap-6">
         {/* Sidebar */}
         <aside className="md:w-64 shrink-0">

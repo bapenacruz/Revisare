@@ -87,8 +87,7 @@ export function EditProfileForm({ initial, allCategories }: EditProfileFormProps
   const handleDeleteAccount = async () => {
     setDeleting(true);
     await fetch("/api/profile", { method: "DELETE" });
-    await signOut({ redirect: false });
-    router.push("/");
+    await signOut({ callbackUrl: `${window.location.origin}/` });
   };
 
   return (
