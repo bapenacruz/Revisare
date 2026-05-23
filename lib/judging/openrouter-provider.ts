@@ -802,6 +802,7 @@ function buildVerdictSchema(input: JudgeInput, summaryInstruction?: string): str
     ? `\nMANDATORY RULE FOR public_result.summary — you MUST follow this exactly:\n${summaryInstruction}\n`
     : "";
   return `${summaryRule}{
+  "judge_persona": "<1-2 sentences describing the unique evaluative lens you chose for this session — what you weighted most and what you were most sceptical of>",
   "winner_username": "<${a} or ${b}>",
   "public_result": {
     "winner_username": "<${a} or ${b}>",
@@ -1103,36 +1104,27 @@ async function withRetry<T>(
 
 // ─── Judge A: Grok ─────────────────────────────────────────────────────────────
 
-// Grok's persona: hard-nosed empiricist. Prioritises factual accuracy and
-// evidence quality above rhetorical polish. Sceptical of policy detail
-// substituting for genuine justification. Quick to flag unsupported statistics.
-const GROK_PERSONA = `
+const SELF_DEFINE_PERSONA = `
 ==================================================
-YOUR JUDGING PERSONA (GROK — EMPIRICIST)
+YOUR JUDGING PERSONA (SELF-DEFINED)
 ==================================================
 
-You are the panel's fact-focused empiricist.
+You are one judge on a three-judge panel. Each judge independently brings a distinct evaluative lens to the same debate.
 
-Your primary lens:
-- Factual accuracy and evidence quality carry the greatest weight for you.
-- You are sceptical of rhetorical flourish unsupported by real data.
-- You notice when a debater asserts a statistic, causal claim, or policy outcome without proper support, and you penalise it.
-- You are NOT swayed by implementation detail or technocratic framing unless the underlying facts hold up.
-- You reward debaters who acknowledge uncertainty honestly over those who overstate confidence.
-- You are especially alert to cherry-picked data, misleading statistics, and false analogies.
+Before you begin scoring, establish your own unique judging persona for this session. Decide:
+- What you weight most heavily among the six scoring dimensions
+- What you are most sceptical of (e.g. unverified statistics, rhetorical polish, moralising without argument, technocratic detail, etc.)
+- One area where you apply a notably stricter standard than a generic judge would
 
-Your secondary lens:
-- After factual rigor, you weigh argument strength and rebuttal quality.
-- You give moderate weight to clarity and very little to pure persuasiveness.
+Apply this self-defined lens consistently throughout your analysis. Your persona should produce evaluations that are meaningfully distinct from a judge with a different emphasis.
 
-Important:
 You still apply ALL rules in the master judging prompt — ideological neutrality, comparative judging, burden symmetry, etc.
 Your persona only shifts your EMPHASIS within those rules, not the rules themselves.
 `;
 
 async function buildGrokSystem(input: JudgeInput): Promise<string> {
   const master = await getMasterPrompt();
-  return buildSystemPrompt(master + GROK_PERSONA, input);
+  return buildSystemPrompt(master + SELF_DEFINE_PERSONA, input);
 }
 
 export class GrokJudgingProvider implements IJudgingProvider {
@@ -1180,36 +1172,9 @@ export class GrokJudgingProvider implements IJudgingProvider {
 
 // ─── Judge B: Claude ───────────────────────────────────────────────────────────
 
-// Claude's persona: structural logician. Prioritises internal consistency,
-// framework defence, and rebuttal quality over raw empirical claims.
-// Rewards debaters who directly engage the opponent's strongest argument.
-const CLAUDE_PERSONA = `
-==================================================
-YOUR JUDGING PERSONA (CLAUDE — LOGICIAN)
-==================================================
-
-You are the panel's argument-structure and reasoning specialist.
-
-Your primary lens:
-- Internal logical consistency and framework defence matter most to you.
-- You reward debaters who directly engage and dismantle the opponent's strongest argument.
-- You are especially sensitive to ignored rebuttals, strawman attacks, and unanswered harms.
-- You value a tight, coherent argument over a sprawling one full of assertions.
-- A debater who clearly identifies the central clash and wins it persuades you more than one who wins peripheral points.
-- You notice burden asymmetry: if one side is being held to a higher standard, you correct for it.
-
-Your secondary lens:
-- After reasoning quality, you weigh rebuttal effectiveness and evidence quality.
-- You give moderate weight to factual accuracy but less weight than your Grok peer.
-
-Important:
-You still apply ALL rules in the master judging prompt — ideological neutrality, comparative judging, burden symmetry, etc.
-Your persona only shifts your EMPHASIS within those rules, not the rules themselves.
-`;
-
 async function buildClaudeSystem(input: JudgeInput): Promise<string> {
   const master = await getMasterPrompt();
-  return buildSystemPrompt(master + CLAUDE_PERSONA, input);
+  return buildSystemPrompt(master + SELF_DEFINE_PERSONA, input);
 }
 
 export class ClaudeJudgingProvider implements IJudgingProvider {
