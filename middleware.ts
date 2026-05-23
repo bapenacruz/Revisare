@@ -1,5 +1,5 @@
-import { getToken } from "next-auth/jwt";
-import { NextRequest, NextResponse } from "next/server";
+import { auth } from "@/lib/auth";
+import { NextResponse } from "next/server";
 
 const PUBLIC_PATHS = ["/auth", "/api", "/_next", "/onboarding", "/favicon.ico"];
 
@@ -30,7 +30,9 @@ function parseGuestViews(raw: string | undefined): GuestViews {
   return { d: todayUTC(), ids: [] };
 }
 
-export async function middleware(req: NextRequest) {
+// Use NextAuth v5's auth() as the middleware wrapper so req.auth is reliably
+// populated from the JWT without manual cookie-name wrangling.
+export default auth(async (req) => {
   const { pathname } = req.nextUrl;
 
   // Allow public paths through without checks
@@ -38,29 +40,22 @@ export async function middleware(req: NextRequest) {
     return NextResponse.next();
   }
 
-  // NextAuth v5 uses "authjs.session-token" (vs v4's "next-auth.session-token")
-  const secureCookies = req.nextUrl.protocol === "https:";
-  const cookieName = secureCookies ? "__Secure-authjs.session-token" : "authjs.session-token";
-  const token = await getToken({ req, secret: process.env.AUTH_SECRET, cookieName });
+  const session = req.auth;
 
   // Signed in but hasn't completed onboarding → redirect to /onboarding
-  if (token && token.onboardingComplete === false) {
+  if (session && session.user?.onboardingComplete === false) {
     return NextResponse.redirect(new URL("/onboarding", req.url));
   }
 
   // ── Guest debate view limit ────────────────────────────────────────────────
-  if (!token) {
+  // Prefetch requests are already excluded by the config matcher below —
+  // this Next.js version strips RSC Flight headers from req.headers in the
+  // handler, making in-code detection impossible; use the matcher config instead.
+  if (!session) {
     const match = DEBATE_DETAIL.exec(pathname);
     if (match) {
       const challengeId = match[1];
       if (!STATIC_SEGMENTS.has(challengeId)) {
-        // Skip for Next.js prefetch requests only — these fire in the background
-        // and must not consume a slot. Actual link-click navigations (RSC: 1
-        // without the prefetch header) and direct browser loads should be counted.
-        const isPrefetch =
-          req.headers.get("Next-Router-Prefetch") === "1" ||
-          req.headers.get("Purpose") === "prefetch";
-        if (isPrefetch) return NextResponse.next();
         const raw = req.cookies.get(GUEST_VIEW_COOKIE)?.value;
         const views = parseGuestViews(raw);
 
@@ -86,8 +81,19 @@ export async function middleware(req: NextRequest) {
   }
 
   return NextResponse.next();
-}
+});
 
 export const config = {
-  matcher: ["/((?!_next/static|_next/image|favicon.ico|public/).*)"],
+  // Run on all non-static paths, BUT skip prefetch requests.
+  // next-router-prefetch and purpose:prefetch are checked in the routing phase
+  // (before this Next.js version strips them from req.headers in the handler).
+  matcher: [
+    {
+      source: "/((?!_next/static|_next/image|favicon.ico|public/).*)",
+      missing: [
+        { type: "header", key: "next-router-prefetch" },
+        { type: "header", key: "purpose", value: "prefetch" },
+      ],
+    },
+  ],
 };
