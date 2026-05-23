@@ -126,6 +126,7 @@ export async function GET() {
       bio: true,
       avatarUrl: true,
       country: true,
+      region: true,
       websiteUrl: true,
       lastUsernameChange: true,
       createdAt: true,

@@ -657,3 +657,16 @@ model AdBanner {
 
   @@map("ad_banners")
 }
+
+// ============================================================
+// Site-wide settings (singleton row with id = "singleton")
+// ============================================================
+
+model SiteSettings {
+  id                String   @id @default("singleton")
+  supportEmail      String   @default("support@arguably.app")
+  contactMailtoBody String   @default("[Your message here]\n\n--- Do not modify below ---\nUsername: [username]\nCountry: [country]\nRegion: [region]\n---") @db.Text
+  updatedAt         DateTime @updatedAt
+
+  @@map("site_settings")
+}

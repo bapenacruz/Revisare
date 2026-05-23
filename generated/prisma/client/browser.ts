@@ -187,3 +187,8 @@ export type MotionLibrary = Prisma.MotionLibraryModel
  * 
  */
 export type AdBanner = Prisma.AdBannerModel
+/**
+ * Model SiteSettings
+ * 
+ */
+export type SiteSettings = Prisma.SiteSettingsModel

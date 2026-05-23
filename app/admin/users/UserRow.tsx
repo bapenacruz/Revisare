@@ -38,7 +38,7 @@ const SUSPEND_OPTIONS = [
   { label: "90 days", value: 90 },
 ];
 
-export function UserRow({ user }: { user: User }) {
+export function UserRow({ user, isSelected, onToggle }: { user: User; isSelected?: boolean; onToggle?: (id: string) => void }) {
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -184,6 +184,17 @@ export function UserRow({ user }: { user: User }) {
         className={`transition-colors cursor-pointer ${open ? "bg-surface-raised" : "hover:bg-surface-raised/40"}`}
         onClick={() => { setOpen((v) => !v); setMsg(null); }}
       >
+        {/* Checkbox (bulk select) */}
+        {onToggle && (
+          <td className="px-3 py-3 w-8" onClick={(e) => e.stopPropagation()}>
+            <input
+              type="checkbox"
+              checked={isSelected ?? false}
+              onChange={() => onToggle(user.id)}
+              className="rounded cursor-pointer accent-brand"
+            />
+          </td>
+        )}
         {/* Username */}
         <td className="px-4 py-3 font-medium text-foreground">
           <Link href={`/profile/${user.username}`} target="_blank" className="hover:text-brand" onClick={(e) => e.stopPropagation()}>
@@ -256,7 +267,7 @@ export function UserRow({ user }: { user: User }) {
 
       {open && (
         <tr className="bg-surface-raised border-t border-border">
-          <td colSpan={12} className="px-6 py-4">
+          <td colSpan={onToggle ? 13 : 12} className="px-6 py-4">
             <div className="flex flex-wrap gap-6 items-start">
               {/* Real / Synthetic indicator */}
               <div className="flex flex-col gap-1">

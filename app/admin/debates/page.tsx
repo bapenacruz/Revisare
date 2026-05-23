@@ -2,7 +2,7 @@ export const dynamic = "force-dynamic";
 
 import { db } from "@/lib/db";
 import Link from "next/link";
-import { DebateRow } from "./DebateRow";
+import { DebatesTableClient } from "./DebatesTableClient";
 import { UploadDebates } from "./UploadDebates";
 
 export const metadata = { title: "Debates — Admin" };
@@ -184,6 +184,7 @@ export default async function AdminDebatesPage({ searchParams }: Props) {
             <thead className="bg-surface border-b border-border">
               {/* Column labels */}
               <tr>
+                <th className="px-2 py-2 w-8" />{/* checkbox col */}
                 {["Motion", "Category", "Debaters", "Type", "Status", "Ranked", "Date", "Views", "Comments", "Votes", "Actions"].map((h) => (
                   <th key={h} className="px-2 py-2 text-left text-xs font-semibold text-foreground-muted uppercase tracking-wide whitespace-nowrap">
                     {h}
@@ -192,6 +193,7 @@ export default async function AdminDebatesPage({ searchParams }: Props) {
               </tr>
               {/* Filter row */}
               <tr className="border-b border-border bg-surface-raised">
+                <th className="px-2 py-2 font-normal" />{/* checkbox col */}
                 <th className="px-2 py-2 font-normal">
                   <input name="q" defaultValue={q} placeholder="Search motion…" className={thInput} />
                 </th>
@@ -254,18 +256,7 @@ export default async function AdminDebatesPage({ searchParams }: Props) {
                 </th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-border">
-              {debates.map((d) => (
-                <DebateRow key={d.id} debate={d} categories={categories} />
-              ))}
-              {debates.length === 0 && (
-                <tr>
-                  <td colSpan={10} className="px-4 py-8 text-center text-sm text-foreground-muted">
-                    No debates found
-                  </td>
-                </tr>
-              )}
-            </tbody>
+            <DebatesTableClient debates={debates} categories={categories} />
           </table>
         </div>
       </form>

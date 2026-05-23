@@ -50,3 +50,26 @@ export async function GET(req: NextRequest) {
 
   return NextResponse.json({ users, total, page, pages: Math.ceil(total / limit) });
 }
+
+export async function DELETE(req: NextRequest) {
+  const session = await auth();
+  if (!isAdmin((session?.user as { role?: string })?.role)) {
+    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+  }
+
+  const body = await req.json() as { ids?: unknown };
+  if (!Array.isArray(body.ids) || body.ids.length === 0) {
+    return NextResponse.json({ error: "ids must be a non-empty array" }, { status: 400 });
+  }
+  const ids: string[] = body.ids.filter((id): id is string => typeof id === "string");
+  if (ids.length === 0) {
+    return NextResponse.json({ error: "No valid ids provided" }, { status: 400 });
+  }
+
+  await db.user.updateMany({
+    where: { id: { in: ids } },
+    data: { isDeleted: true },
+  });
+
+  return NextResponse.json({ ok: true, deleted: ids.length });
+}

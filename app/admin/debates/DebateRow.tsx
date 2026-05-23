@@ -48,9 +48,13 @@ function getDisplayStatus(debate: Debate) {
 export function DebateRow({
   debate,
   categories,
+  isSelected,
+  onToggle,
 }: {
   debate: Debate;
   categories: Category[];
+  isSelected?: boolean;
+  onToggle?: (id: string) => void;
 }) {
   const router = useRouter();
   const [open, setOpen] = useState(false);
@@ -166,6 +170,17 @@ export function DebateRow({
         className={`transition-colors cursor-pointer ${open ? "bg-surface-raised" : "hover:bg-surface-raised/40"}`}
         onClick={() => { setOpen((v) => !v); setMsg(null); }}
       >
+        {/* Checkbox (bulk select) */}
+        {onToggle && (
+          <td className="px-2 py-2 w-8" onClick={(e) => e.stopPropagation()}>
+            <input
+              type="checkbox"
+              checked={isSelected ?? false}
+              onChange={() => onToggle(debate.id)}
+              className="rounded cursor-pointer accent-brand"
+            />
+          </td>
+        )}
         <td className="px-2 py-2 max-w-[180px]">
           <Link
             href={`/debates/${debate.challengeId}`}
@@ -231,7 +246,7 @@ export function DebateRow({
 
       {open && (
         <tr className="bg-surface-raised border-t border-border">
-          <td colSpan={11} className="px-6 py-4">
+          <td colSpan={onToggle ? 12 : 11} className="px-6 py-4">
             <div className="flex flex-wrap gap-6 items-start">
               {/* Motion */}
               <div className="flex flex-col gap-1 flex-1 min-w-48">

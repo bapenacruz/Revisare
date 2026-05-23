@@ -1,11 +1,29 @@
 ﻿"use client";
 
 import { useState, useRef, useEffect } from "react";
+import { useSession } from "next-auth/react";
 import { Paperclip, X, Send, CheckCircle2, Users, MessageSquare, BarChart3, Zap, Scale, Brain, Trophy, Eye, ThumbsUp } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const VERSION = "0.1.0";
-const SUPPORT_EMAIL = "bapenacruz@gmail.com";
+
+const DEFAULT_SUPPORT_EMAIL = "support@arguably.app";
+const DEFAULT_MAILTO_BODY =
+  "[Your message here]\n\n--- Do not modify below ---\nUsername: [username]\nCountry: [country]\nRegion: [region]\n---";
+
+function buildMailtoHref(
+  email: string,
+  bodyTemplate: string,
+  username: string,
+  country: string,
+  region: string,
+) {
+  const body = bodyTemplate
+    .replace(/\[username\]/gi, username)
+    .replace(/\[country\]/gi, country)
+    .replace(/\[region\]/gi, region);
+  return `mailto:${email}?body=${encodeURIComponent(body)}`;
+}
 
 const CATEGORIES_CONTACT = [
   "General Inquiry",
@@ -19,7 +37,7 @@ const CATEGORIES_CONTACT = [
 
 // ─── Contact Form ─────────────────────────────────────────────────────────────
 
-function ContactForm() {
+function ContactForm({ supportEmail, mailtoHref }: { supportEmail: string; mailtoHref: string }) {
   const [sent, setSent] = useState(false);
   const [sending, setSending] = useState(false);
   const [form, setForm] = useState({ category: "", email: "", subject: "", message: "" });
@@ -104,7 +122,7 @@ function ContactForm() {
     <form onSubmit={handleSubmit} className="flex flex-col gap-4">
       <p className="text-sm text-foreground-muted">
         Fill in the form below or email us at{" "}
-        <a href={`mailto:${SUPPORT_EMAIL}`} className="text-brand font-medium hover:underline">{SUPPORT_EMAIL}</a>.
+        <a href={mailtoHref} className="text-brand font-medium hover:underline">{supportEmail}</a>.
       </p>
       <div className="flex flex-col gap-1">
         <label className="text-xs font-medium text-foreground">Category <span className="text-danger">*</span></label>
@@ -247,12 +265,54 @@ interface TeamMemberPublic {
   imageDataUrl: string | null;
 }
 
+interface SiteSettings {
+  supportEmail: string;
+  contactMailtoBody: string;
+}
+
+interface UserProfile {
+  country: string | null;
+  region: string | null;
+}
+
 export default function AboutPage() {
+  const { data: session } = useSession();
   const [activeTab, setActiveTab] = useState<TabId>("about");
   const [stats, setStats] = useState<Stats | null>(null);
   const [statsLoading, setStatsLoading] = useState(false);
   const [teamData, setTeamData] = useState<{ introText: string; members: TeamMemberPublic[] } | null>(null);
   const [teamLoading, setTeamLoading] = useState(false);
+  const [siteSettings, setSiteSettings] = useState<SiteSettings>({
+    supportEmail: DEFAULT_SUPPORT_EMAIL,
+    contactMailtoBody: DEFAULT_MAILTO_BODY,
+  });
+  const [userProfile, setUserProfile] = useState<UserProfile>({ country: null, region: null });
+
+  // Fetch site settings once on mount
+  useEffect(() => {
+    fetch("/api/settings")
+      .then((r) => r.json())
+      .then((data: SiteSettings) => setSiteSettings(data))
+      .catch(() => {});
+  }, []);
+
+  // Fetch profile for logged-in users to populate mailto body
+  useEffect(() => {
+    if (session?.user?.id) {
+      fetch("/api/profile")
+        .then((r) => r.json())
+        .then((data: { user?: UserProfile }) => {
+          if (data.user) setUserProfile({ country: data.user.country, region: data.user.region });
+        })
+        .catch(() => {});
+    }
+  }, [session?.user?.id]);
+
+  const username = session?.user?.username ?? "Guest";
+  const country = userProfile.country ?? "";
+  const region = userProfile.region ?? "";
+  const mailtoHref = buildMailtoHref(siteSettings.supportEmail, siteSettings.contactMailtoBody, username, country, region);
+  const supportEmail = siteSettings.supportEmail;
 
   useEffect(() => {
     if (activeTab === "stats" && !stats && !statsLoading) {
@@ -374,7 +434,7 @@ export default function AboutPage() {
 
           <div className="p-5 rounded-[--radius-lg] bg-surface border border-border">
             <h2 className="text-base font-semibold text-foreground mb-3">Contact Us</h2>
-            <ContactForm />
+            <ContactForm supportEmail={supportEmail} mailtoHref={mailtoHref} />
           </div>
         </div>
       )}
@@ -440,7 +500,7 @@ export default function AboutPage() {
                 <p>We do not sell your personal data to third parties. Debate transcripts and results are public. We may share data with service providers (hosting, email) strictly for Platform operations.</p>
 
                 <p className="font-medium text-foreground">Data Retention &amp; Deletion</p>
-                <p>You may request deletion of your account and associated personal data at any time by contacting us at <a href={`mailto:${SUPPORT_EMAIL}`} className="text-brand hover:underline">{SUPPORT_EMAIL}</a>. Anonymised debate transcripts may be retained for platform integrity.</p>
+                <p>You may request deletion of your account and associated personal data at any time by contacting us at <a href={mailtoHref} className="text-brand hover:underline">{supportEmail}</a>. Anonymised debate transcripts may be retained for platform integrity.</p>
 
                 <p className="font-medium text-foreground">Cookies</p>
                 <p>We use session cookies strictly for authentication purposes. We do not use tracking or advertising cookies.</p>
@@ -482,7 +542,7 @@ export default function AboutPage() {
             <Collapsible title="Contact for Legal Requests">
               <div className="flex flex-col gap-3 text-sm text-foreground-muted leading-relaxed">
                 <p>For legal inquiries, DMCA notices, data deletion requests, or privacy concerns, please contact us at:</p>
-                <p><a href={`mailto:${SUPPORT_EMAIL}`} className="text-brand font-medium hover:underline">{SUPPORT_EMAIL}</a></p>
+                <p><a href={mailtoHref} className="text-brand font-medium hover:underline">{supportEmail}</a></p>
                 <p>We aim to respond to legal requests within 5 business days.</p>
               </div>
             </Collapsible>
