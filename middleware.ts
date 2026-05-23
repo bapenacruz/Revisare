@@ -51,6 +51,13 @@ export async function middleware(req: NextRequest) {
     if (match) {
       const challengeId = match[1];
       if (!STATIC_SEGMENTS.has(challengeId)) {
+        // Skip for Next.js prefetch / RSC background requests — these are not
+        // real page navigations and must not consume a slot.
+        const isPrefetch =
+          req.headers.get("Next-Router-Prefetch") === "1" ||
+          req.headers.get("RSC") === "1" ||
+          req.headers.get("Purpose") === "prefetch";
+        if (isPrefetch) return NextResponse.next();
         const raw = req.cookies.get(GUEST_VIEW_COOKIE)?.value;
         const views = parseGuestViews(raw);
 
