@@ -179,10 +179,30 @@ async function main() {
     // ── Duplicate detection ──────────────────────────────────────────────────
     const existingDebate = await db.debate.findFirst({
       where: { motion: def.motion, debaterAId: userA.id, debaterBId: userB.id },
-      select: { id: true, winnerId: true },
+      select: { id: true, winnerId: true, ranked: true },
     });
 
     if (existingDebate) {
+      // If ranked flag changed (e.g. false → true), update debate + challenge and re-run ELO
+      if (existingDebate.winnerId && existingDebate.ranked !== def.ranked) {
+        console.log(yellow(`  ↩ Already judged but ranked flag changed (${existingDebate.ranked} → ${def.ranked}) — updating & re-running ELO`));
+        await db.debate.update({ where: { id: existingDebate.id }, data: { ranked: def.ranked } });
+        await db.challenge.updateMany({ where: { debates: { some: { id: existingDebate.id } } }, data: { ranked: def.ranked } });
+        process.stdout.write(dim("  Re-running judge panel for ELO... "));
+        try {
+          await judgeDebate(existingDebate.id);
+          const updated = await db.debate.findUnique({ where: { id: existingDebate.id }, select: { winnerId: true } });
+          const winnerUsername = updated?.winnerId === userA.id ? userA.username : updated?.winnerId === userB.id ? userB.username : "Tie";
+          console.log(green(`done`));
+          console.log(green(`  ✓ Winner: ${winnerUsername} · ELO updated`));
+        } catch (err) {
+          console.log(yellow(`(judge failed: ${(err as Error).message})`));
+        }
+        created++;
+        hr();
+        continue;
+      }
+
       if (existingDebate.winnerId) {
         console.log(yellow(`  ↩ Already imported and judged — skipping`));
         skipped++;

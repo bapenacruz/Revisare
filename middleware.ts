@@ -38,7 +38,10 @@ export async function middleware(req: NextRequest) {
     return NextResponse.next();
   }
 
-  const token = await getToken({ req, secret: process.env.AUTH_SECRET });
+  // NextAuth v5 uses "authjs.session-token" (vs v4's "next-auth.session-token")
+  const secureCookies = req.nextUrl.protocol === "https:";
+  const cookieName = secureCookies ? "__Secure-authjs.session-token" : "authjs.session-token";
+  const token = await getToken({ req, secret: process.env.AUTH_SECRET, cookieName });
 
   // Signed in but hasn't completed onboarding → redirect to /onboarding
   if (token && token.onboardingComplete === false) {
