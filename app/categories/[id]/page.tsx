@@ -42,7 +42,7 @@ export default async function CategoryDetailPage({ params }: Props) {
         take: 20,
       },
       debates: {
-        where: { status: "active", isPublic: true },
+        where: { status: "active", isPublic: true, isDeleted: false },
         select: {
           id: true,
           challengeId: true,
@@ -60,7 +60,7 @@ export default async function CategoryDetailPage({ params }: Props) {
   if (!category) notFound();
 
   const pastDebates = await db.debate.findMany({
-    where: { categoryId: category.id, status: "completed", isPublic: true },
+    where: { categoryId: category.id, status: "completed", isPublic: true, isDeleted: false },
     select: {
       id: true,
       challengeId: true,
