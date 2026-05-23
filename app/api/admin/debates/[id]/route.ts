@@ -13,7 +13,18 @@ export async function PATCH(
   }
 
   const { id } = await params;
-  const body = await req.json() as { motion?: string; categoryId?: string; isHidden?: boolean };
+  const body = await req.json() as { motion?: string; categoryId?: string; isHidden?: boolean; resetStats?: boolean };
+
+  // Reset stats: wipe viewCount, comments, votes
+  if (body.resetStats === true) {
+    await db.$transaction([
+      db.debateCommentSubscription.deleteMany({ where: { debateId: id } }),
+      db.debateComment.deleteMany({ where: { debateId: id } }),
+      db.audienceVote.deleteMany({ where: { debateId: id } }),
+      db.debate.update({ where: { id }, data: { viewCount: 0 } }),
+    ]);
+    return NextResponse.json({ ok: true });
+  }
 
   const data: { motion?: string; categoryId?: string; isHidden?: boolean } = {};
   if (typeof body.motion === "string" && body.motion.trim()) {

@@ -26,7 +26,8 @@ interface Debate {
   winnerId: string | null;
   debaterAId: string;
   debaterBId: string;
-  _count: { spectatorMessages: number; debateComments: number; audienceVotes: number };
+  viewCount: number;
+  _count: { debateComments: number; audienceVotes: number };
 }
 
 function statusBadge(debate: Debate) {
@@ -59,9 +60,12 @@ export function DebateRow({
   const [rejudging, setRejudging] = useState(false);
   const [deleting, setDeleting] = useState(false);
   const [hiding, setHiding] = useState(false);
+  const [resetting, setResetting] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState(false);
+  const [confirmReset, setConfirmReset] = useState(false);
   const [localDeleted, setLocalDeleted] = useState(debate.isDeleted);
   const [localHidden, setLocalHidden] = useState(debate.isHidden);
+  const [localViewCount, setLocalViewCount] = useState(debate.viewCount);
   const [msg, setMsg] = useState<string | null>(null);
 
   const displayDebate = { ...debate, isDeleted: localDeleted, isHidden: localHidden };
@@ -116,6 +120,26 @@ export function DebateRow({
     } else {
       const j = await res.json();
       setMsg(j.error ?? "Hide/unhide failed");
+    }
+  }
+
+  async function resetStats() {
+    setResetting(true);
+    setMsg(null);
+    const res = await fetch(`/api/admin/debates/${debate.id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ resetStats: true }),
+    });
+    setResetting(false);
+    setConfirmReset(false);
+    if (res.ok) {
+      setLocalViewCount(0);
+      setMsg("Stats reset ✓");
+      router.refresh();
+    } else {
+      const j = await res.json();
+      setMsg(j.error ?? "Reset failed");
     }
   }
 
@@ -192,7 +216,7 @@ export function DebateRow({
           {new Date(debate.createdAt).toLocaleDateString()}
         </td>
         <td className="px-2 py-2 text-xs text-foreground-muted text-center">
-          {debate._count.spectatorMessages}
+          {localViewCount}
         </td>
         <td className="px-2 py-2 text-xs text-foreground-muted text-center">
           {debate._count.debateComments}
@@ -294,6 +318,34 @@ export function DebateRow({
                       </button>
                       <button
                         onClick={(e) => { e.stopPropagation(); setConfirmDelete(false); }}
+                        className="px-4 py-1.5 text-sm rounded bg-surface border border-border text-foreground-muted hover:text-foreground"
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  )
+                )}
+
+                {/* Reset Stats button */}
+                {!localDeleted && (
+                  !confirmReset ? (
+                    <button
+                      onClick={(e) => { e.stopPropagation(); setConfirmReset(true); }}
+                      className="px-4 py-1.5 text-sm rounded bg-surface border border-border text-foreground-muted hover:text-foreground whitespace-nowrap"
+                    >
+                      Reset Stats
+                    </button>
+                  ) : (
+                    <div className="flex items-center gap-2">
+                      <button
+                        onClick={(e) => { e.stopPropagation(); resetStats(); }}
+                        disabled={resetting}
+                        className="px-4 py-1.5 text-sm rounded bg-orange-500/80 text-white disabled:opacity-50 whitespace-nowrap"
+                      >
+                        {resetting ? "Resetting..." : "Confirm Reset"}
+                      </button>
+                      <button
+                        onClick={(e) => { e.stopPropagation(); setConfirmReset(false); }}
                         className="px-4 py-1.5 text-sm rounded bg-surface border border-border text-foreground-muted hover:text-foreground"
                       >
                         Cancel
