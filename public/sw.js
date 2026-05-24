@@ -6,8 +6,8 @@ self.addEventListener("push", (event) => {
   event.waitUntil(
     self.registration.showNotification(data.title ?? "Revisare", {
       body: data.body ?? "",
-      icon: "/api/icon",
-      badge: "/api/icon",
+      icon: "/icon-512.png",
+      badge: "/icon-180.png",
       data: { href: data.href ?? "/" },
     })
   );
