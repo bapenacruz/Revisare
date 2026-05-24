@@ -9,7 +9,7 @@ async function requireAdmin() {
   return session;
 }
 
-// GET /api/admin/motions/export — download all motions as CSV
+// GET /api/admin/motions/export — download all motions as plain text (one per line)
 export async function GET() {
   if (!(await requireAdmin())) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
@@ -18,24 +18,12 @@ export async function GET() {
     include: { category: { select: { label: true, slug: true } } },
   });
 
-  const escape = (s: string) => `"${s.replace(/"/g, '""')}"`;
+  const lines = motions.map((m) => m.text).join("\n");
 
-  const header = ["text", "category", "notes", "created_at"].join(",");
-  const rows = motions.map((m) =>
-    [
-      escape(m.text),
-      escape(m.category?.label ?? ""),
-      escape(m.notes ?? ""),
-      escape(new Date(m.createdAt).toISOString()),
-    ].join(","),
-  );
-
-  const csv = [header, ...rows].join("\n");
-
-  return new NextResponse(csv, {
+  return new NextResponse(lines, {
     headers: {
-      "Content-Type": "text/csv",
-      "Content-Disposition": `attachment; filename="motions-${new Date().toISOString().slice(0, 10)}.csv"`,
+      "Content-Type": "text/plain; charset=utf-8",
+      "Content-Disposition": `attachment; filename="motions-${new Date().toISOString().slice(0, 10)}.txt"`,
     },
   });
 }

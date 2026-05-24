@@ -7,6 +7,7 @@ import {
   getMinChars,
   getMaxChars,
   SECOND_CHANCE_WINDOW_SECONDS,
+  THINKING_SECONDS,
   getRoundTimer,
   type RoundName,
 } from "@/lib/debate-state";
@@ -200,6 +201,31 @@ export async function POST(req: NextRequest, { params }: RouteParams) {
 
   // Advance to next turn
   const nextSpec = sequence[nextIndex];
+
+  // After proposition's opening (turn 0 → turn 1), give opposition 1 min to think
+  if (debate.currentTurnIndex === 0) {
+    const thinkingEndsAt = new Date(now.getTime() + THINKING_SECONDS * 1000);
+    await db.debate.update({
+      where: { challengeId },
+      data: {
+        phase: "thinking",
+        currentTurnIndex: nextIndex,
+        currentUserId: nextSpec.userId,
+        prepEndsAt: thinkingEndsAt,
+        timerStartedAt: null,
+        timerPreset: getRoundTimer(debate.format, nextSpec.roundName),
+      },
+    });
+    await pusherTrigger(CHANNELS.debate(challengeId), EVENTS.DEBATE_TURN_SUBMITTED, {
+      turnIndex: debate.currentTurnIndex,
+      nextUserId: nextSpec.userId,
+    });
+    await pusherTrigger(CHANNELS.debate(challengeId), EVENTS.DEBATE_STATE_CHANGED, {
+      phase: "thinking",
+    });
+    return NextResponse.json({ phase: "thinking", thinkingEndsAt });
+  }
+
   await db.debate.update({
     where: { challengeId },
     data: {

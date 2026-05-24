@@ -11,7 +11,7 @@
  * stored in the database before the format change.
  */
 export type RoundName = "opening" | "crossfire" | "rebuttal" | "summary" | "closing";
-export type DebatePhase = "prep" | "typing" | "second_chance" | "completed";
+export type DebatePhase = "prep" | "thinking" | "typing" | "second_chance" | "completed";
 
 export interface TurnSpec {
   userId: string;
@@ -66,6 +66,9 @@ export const MAX_CHARS = 4000;
 
 /** Preparation phase duration in seconds. */
 export const PREP_SECONDS = 30;
+
+/** Thinking-time duration after the proposition opening (before opposition opening), in seconds. */
+export const THINKING_SECONDS = 60;
 
 /** Window in seconds after an expired turn in which a second chance can be invoked. */
 export const SECOND_CHANCE_WINDOW_SECONDS = 30;

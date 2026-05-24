@@ -220,6 +220,11 @@ export default function ArenaPage() {
     : null;
   const prepLeft = useCountdown(prepEndMs);
 
+  const thinkingEndMs = debate?.phase === "thinking" && debate.prepEndsAt
+    ? new Date(debate.prepEndsAt).getTime()
+    : null;
+  const thinkingLeft = useCountdown(thinkingEndMs);
+
   const scEndMs = debate?.phase === "second_chance" && debate.secondChanceExpiresAt
     ? new Date(debate.secondChanceExpiresAt).getTime()
     : null;
@@ -487,6 +492,24 @@ export default function ArenaPage() {
               })}
               </div>
             </div>
+          )}
+
+          {/* Thinking-time phase — 1 min for opposition to read prop's opening */}
+          {debate.phase === "thinking" && (
+            <Card>
+              <CardBody className="text-center py-8">
+                <div className="w-12 h-12 rounded-full bg-accent/15 flex items-center justify-center mx-auto mb-4">
+                  <Clock size={22} className="text-accent" />
+                </div>
+                <h2 className="text-lg font-bold text-foreground mb-1">Thinking Time</h2>
+                <p className="text-foreground-muted text-sm mb-4">
+                  {me === debate.currentUserId
+                    ? "Read the Proposition's opening carefully. You'll begin your opening statement shortly."
+                    : `${debate.currentUserId === debate.debaterAId ? debate.debaterA.username : debate.debaterB.username} is reviewing your opening statement.`}
+                </p>
+                <p className="text-3xl font-mono font-bold text-accent">{formatTimer(thinkingLeft)}</p>
+              </CardBody>
+            </Card>
           )}
 
           {/* Prep phase */}

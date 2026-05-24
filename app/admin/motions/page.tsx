@@ -141,9 +141,12 @@ export default function AdminMotionsPage() {
     const text = await file.text();
     let rows: { text: string; category?: string; notes?: string }[] = [];
 
-    // Try JSON first, then CSV
+    // Try JSON first, then plain text / CSV
     if (file.name.endsWith(".json")) {
       try { rows = JSON.parse(text); } catch { setImportResult("Invalid JSON file."); setImporting(false); return; }
+    } else if (file.name.endsWith(".txt")) {
+      // Plain text: one motion per line
+      rows = text.split(/\r?\n/).filter(Boolean).map((line) => ({ text: line.trim() }));
     } else {
       // CSV: first row is headers
       const lines = text.split(/\r?\n/).filter(Boolean);
@@ -191,7 +194,7 @@ export default function AdminMotionsPage() {
         </h1>
         <div className="flex items-center gap-2">
           <Button variant="outline" size="sm" onClick={handleExport}>
-            <Download size={14} /> Download CSV
+            <Download size={14} /> Download TXT
           </Button>
           <Button
             variant="outline"

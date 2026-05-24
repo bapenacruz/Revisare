@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { pusherTrigger, CHANNELS, EVENTS } from "@/lib/pusher";
-import { getTurnSequence, PREP_SECONDS } from "@/lib/debate-state";
+import { getTurnSequence, PREP_SECONDS, THINKING_SECONDS, getRoundTimer } from "@/lib/debate-state";
 
 interface RouteParams {
   params: Promise<{ id: string }>;
@@ -22,6 +22,35 @@ async function maybeAdvancePhase(debate: Awaited<ReturnType<typeof fetchDebate>>
     const updated = await db.debate.update({
       where: { challengeId: debate.challengeId },
       data: { phase: "typing", timerStartedAt: now },
+    });
+    await pusherTrigger(
+      CHANNELS.debate(debate.challengeId),
+      EVENTS.DEBATE_STATE_CHANGED,
+      { phase: "typing" },
+    );
+    return { ...debate, ...updated };
+  }
+
+  // thinking → typing (after opposition thinking time expires)
+  if (
+    debate.phase === "thinking" &&
+    debate.prepEndsAt &&
+    debate.prepEndsAt < now
+  ) {
+    const sequence = getTurnSequence(
+      debate.format,
+      debate.coinFlipWinnerId!,
+      debate.debaterAId,
+      debate.debaterBId,
+    );
+    const nextSpec = sequence[debate.currentTurnIndex];
+    const updated = await db.debate.update({
+      where: { challengeId: debate.challengeId },
+      data: {
+        phase: "typing",
+        timerStartedAt: now,
+        timerPreset: getRoundTimer(debate.format, nextSpec.roundName),
+      },
     });
     await pusherTrigger(
       CHANNELS.debate(debate.challengeId),
