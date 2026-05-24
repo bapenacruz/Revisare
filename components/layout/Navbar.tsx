@@ -4,7 +4,8 @@ import Link from "next/link";
 import { useState } from "react";
 import { useSession } from "@/components/providers/SessionProvider";
 import { useAvatar } from "@/components/providers/AvatarProvider";
-import { Sword, Search, LogIn } from "lucide-react";
+import { Search, LogIn } from "lucide-react";
+import Image from "next/image";
 import { Button } from "@/components/ui/Button";
 import { Avatar } from "@/components/ui/Avatar";
 import { NotificationBell } from "@/components/notifications/NotificationBell";
@@ -22,9 +23,7 @@ export function Navbar() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2.5 shrink-0">
-          <div className="w-8 h-8 rounded-lg bg-brand flex items-center justify-center shadow-lg shadow-brand/30">
-            <Sword size={16} className="text-white" />
-          </div>
+          <Image src="/icon-180.png" alt="Revisare" width={32} height={32} className="rounded-lg" />
           <span className="text-lg font-bold tracking-tight text-foreground">Revisare</span>
         </Link>
 
