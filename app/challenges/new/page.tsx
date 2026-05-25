@@ -511,18 +511,6 @@ export default function NewChallengePage() {
 }
 
 
-interface Category {
-  id: string;
-  slug: string;
-  label: string;
-  emoji: string;
-}
-
-function NewChallengeForm() {
-  const { data: session, status } = useSession();
-  const searchParams = useSearchParams();
-  const categorySlug = searchParams.get("category");
-
   const [categories, setCategories] = useState<Category[]>([]);
   const [type, setType] = useState<"open" | "direct">("open");
   const [motion, setMotion] = useState("");
