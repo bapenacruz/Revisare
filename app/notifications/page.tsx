@@ -211,7 +211,7 @@ export default function NotificationsPage() {
                   <div className="flex flex-col items-end gap-1 shrink-0">
                     {!n.read && <span className="w-2 h-2 rounded-full bg-brand" />}
                     <button
-                      onClick={(e) => { e.stopPropagation(); dismissNotification(n.id); }}
+                      onClick={(e) => { e.preventDefault(); e.stopPropagation(); dismissNotification(n.id); }}
                       className="text-foreground-subtle hover:text-foreground transition-colors p-0.5 rounded"
                       aria-label="Dismiss"
                     >
@@ -231,7 +231,7 @@ export default function NotificationsPage() {
                   <p className="text-xs text-foreground-subtle mt-1.5">{new Date(n.createdAt).toLocaleString()}</p>
                 </div>
                 <button
-                  onClick={(e) => { e.stopPropagation(); dismissNotification(n.id); }}
+                  onClick={(e) => { e.preventDefault(); e.stopPropagation(); dismissNotification(n.id); }}
                   className="shrink-0 self-start mt-0.5 text-foreground-subtle hover:text-foreground transition-colors p-0.5 rounded"
                   aria-label="Dismiss"
                 >
