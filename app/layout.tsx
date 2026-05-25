@@ -6,6 +6,7 @@ import { MobileNav } from "@/components/layout/MobileNav";
 import { SessionProvider } from "@/components/providers/SessionProvider";
 import { AvatarProvider } from "@/components/providers/AvatarProvider";
 import { PushSetup } from "@/components/providers/PushSetup";
+import { PwaInstallPrompt } from "@/components/providers/PwaInstallPrompt";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -67,6 +68,7 @@ export default function RootLayout({
         <SessionProvider>
           <AvatarProvider>
             <PushSetup />
+            <PwaInstallPrompt />
             <Navbar />
             <main className="flex-1 pb-16 overflow-x-clip">{children}</main>
             <MobileNav />
