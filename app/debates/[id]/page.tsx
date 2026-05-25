@@ -334,7 +334,7 @@ export default function ArenaPage() {
     return (
       <div className="mx-auto max-w-lg px-4 py-20 text-center">
         <p className="text-foreground-muted mb-4">Debate not found.</p>
-        <Link href="/debates"><Button variant="outline">Browse Debates</Button></Link>
+        <Link href="/"><Button variant="outline">Browse Debates</Button></Link>
       </div>
     );
   }

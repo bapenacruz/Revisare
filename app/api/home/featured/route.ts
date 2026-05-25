@@ -20,7 +20,7 @@ export async function GET(req: NextRequest) {
     }
   }
 
-  const baseWhere = { status: "completed", isDeleted: false, isHidden: false };
+  const baseWhere = { status: "completed", isDeleted: false, isHidden: false, isAiOpponent: false };
 
   if (!cursor && favCategoryIds.length > 0) {
     // First page with fav categories: fetch larger batch, sort fav categories first

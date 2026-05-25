@@ -78,6 +78,7 @@ export async function GET(request: NextRequest) {
       challengeId: true,
       motion: true,
       ranked: true,
+      isAiOpponent: true,
       winnerId: true,
       completedAt: true,
       debaterA: { select: { id: true, username: true } },

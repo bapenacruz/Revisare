@@ -14,6 +14,7 @@ type YourDebateItem = {
   challengeId: string;
   motion: string;
   ranked: boolean;
+  isAiOpponent: boolean;
   status: string;
   winnerId: string | null;
   audienceLeaderId: string | null;
@@ -151,7 +152,7 @@ export function YourDebatesFeed() {
                       <Badge variant={statusInfo.variant} size="sm">
                         {statusInfo.label}
                       </Badge>
-                      {debate.ranked && <Badge variant="brand" size="sm">Ranked</Badge>}
+                      {debate.isAiOpponent && <Badge variant="default" size="sm">Practice</Badge>}
                     </div>
 
                     {/* Motion */}

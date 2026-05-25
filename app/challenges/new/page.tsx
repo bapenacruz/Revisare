@@ -485,7 +485,7 @@ function NewChallengeForm() {
         )}
 
         <div className="flex gap-3 justify-end">
-          <Link href="/debates">
+          <Link href="/">
             <Button type="button" variant="ghost">Cancel</Button>
           </Link>
           <Button type="submit" isLoading={submitting} disabled={submitting}>

@@ -33,6 +33,7 @@ interface DebateItem {
   challengeId: string;
   motion: string;
   ranked: boolean;
+  isAiOpponent: boolean;
   winnerId: string | null;
   completedAt: string | null;
   debaterA: { id: string; username: string };
@@ -362,7 +363,7 @@ export default function MyDebatesPage() {
                           <CardBody className="flex flex-col gap-2 p-4">
                             <div className="flex flex-wrap items-center gap-1.5">
                               <Badge variant="default" size="sm">{debate.category.emoji} {debate.category.label}</Badge>
-                              {debate.ranked && <Badge variant="brand" size="sm">Ranked</Badge>}
+                              {debate.isAiOpponent && <Badge variant="default" size="sm">Practice</Badge>}
                               {isWinner && <Badge variant="success" size="sm">Won</Badge>}
                               {isLoss && <Badge variant="danger" size="sm">Lost</Badge>}
                               {debate.winnerId === null && <Badge variant="default" size="sm">No result</Badge>}

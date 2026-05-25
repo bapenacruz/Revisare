@@ -79,7 +79,6 @@ export function LiveFeed({ initialItems, initialCursor }: LiveFeedProps) {
                     {debate.category.emoji} {debate.category.label}
                   </Badge>
                   <Badge variant="live" size="sm">LIVE</Badge>
-                  {debate.ranked && <Badge variant="brand" size="sm">Ranked</Badge>}
                 </div>
 
                 <p className="text-sm font-medium text-foreground leading-snug line-clamp-3 flex-1">

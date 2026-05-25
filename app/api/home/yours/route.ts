@@ -26,6 +26,7 @@ export async function GET(req: NextRequest) {
       challengeId: true,
       motion: true,
       ranked: true,
+      isAiOpponent: true,
       status: true,
       winnerId: true,
       completedAt: true,

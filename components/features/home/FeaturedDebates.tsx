@@ -12,7 +12,7 @@ export function FeaturedDebates() {
       <div className="flex items-center justify-between mb-5">
         <h2 className="text-xl font-bold text-foreground">Featured Debates</h2>
         <Link
-          href="/debates"
+          href="/"
           className="text-sm text-brand hover:text-brand-hover transition-colors"
         >
           Browse all →

@@ -10,7 +10,8 @@ export async function GET(req: NextRequest) {
     where: { 
       status: "active",
       isDeleted: false,
-      isHidden: false
+      isHidden: false,
+      isAiOpponent: false,
     },
     orderBy: { startedAt: "desc" },
     take: PAGE_SIZE + 1,

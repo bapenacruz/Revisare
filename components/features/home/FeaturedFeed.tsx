@@ -221,7 +221,7 @@ export function FeaturedFeed() {
                       <Badge variant="default" size="sm">
                         {debate.category.emoji} {debate.category.label}
                       </Badge>
-                      {debate.ranked && <Badge variant="brand" size="sm">Ranked</Badge>}
+
                     </div>
 
                     <p className="text-sm font-medium text-foreground leading-snug line-clamp-3 flex-1">

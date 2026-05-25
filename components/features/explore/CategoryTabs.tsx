@@ -119,7 +119,6 @@ export function CategoryTabs({ live, open, recent, categoryLabel }: CategoryTabs
                       <CardBody className="flex flex-col gap-3 p-4">
                         <div className="flex items-center gap-1.5">
                           <Badge variant="live" size="sm">LIVE</Badge>
-                          {d.ranked && <Badge variant="brand" size="sm">Ranked</Badge>}
                         </div>
                         <p className="text-sm font-medium text-foreground leading-snug line-clamp-3 flex-1">
                           {d.motion}
@@ -184,7 +183,6 @@ export function CategoryTabs({ live, open, recent, categoryLabel }: CategoryTabs
                     <Card interactive className="h-full">
                       <CardBody className="flex flex-col gap-3 p-4">
                         <div className="flex items-center gap-1.5">
-                          {c.ranked && <Badge variant="brand" size="sm">Ranked</Badge>}
                           <Badge variant="default" size="sm" className="capitalize">{c.format}</Badge>
                         </div>
                         <p className="text-sm font-medium text-foreground leading-snug line-clamp-3 flex-1">

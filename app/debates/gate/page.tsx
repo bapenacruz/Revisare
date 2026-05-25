@@ -36,7 +36,7 @@ export default function DebateGatePage() {
 
         <p className="text-xs text-foreground-subtle">
           Your limit resets at midnight.{" "}
-          <Link href="/debates" className="text-brand hover:underline">
+          <Link href="/" className="text-brand hover:underline">
             Browse debates
           </Link>{" "}
           in the meantime.

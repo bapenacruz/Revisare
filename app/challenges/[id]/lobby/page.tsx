@@ -238,7 +238,7 @@ export default function LobbyPage() {
     return (
       <div className="mx-auto max-w-lg py-20 text-center">
         <p className="text-foreground-muted mb-4">Challenge not found or you&apos;re not a participant.</p>
-        <Link href="/debates"><Button variant="secondary">Browse Debates</Button></Link>
+        <Link href="/"><Button variant="secondary">Browse Debates</Button></Link>
       </div>
     );
   }

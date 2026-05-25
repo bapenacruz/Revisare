@@ -63,7 +63,6 @@ function ChallengeCard({ challenge, invite = false }: { challenge: ChallengeItem
               {challenge.category.emoji} {challenge.category.label}
             </Badge>
             <div className="flex items-center gap-1.5">
-              {challenge.ranked && <Badge variant="brand" size="sm">Ranked</Badge>}
               <Badge variant="default" size="sm" className="capitalize">
                 {challenge.format}
               </Badge>

@@ -7,7 +7,7 @@ import { Avatar } from "@/components/ui/Avatar";
 
 export async function LiveDebates() {
   const debates = await db.debate.findMany({
-    where: { status: "active" },
+    where: { status: "active", isAiOpponent: false },
     orderBy: { startedAt: "desc" },
     take: 6,
     select: {
@@ -29,7 +29,7 @@ export async function LiveDebates() {
           <Badge variant="live">LIVE</Badge>
         </div>
         <Link
-          href="/debates"
+          href="/"
           className="text-sm text-brand hover:text-brand-hover transition-colors"
         >
           View all →
@@ -54,9 +54,6 @@ export async function LiveDebates() {
                     </Badge>
                     <div className="flex items-center gap-1.5">
                       <Badge variant="live" size="sm">LIVE</Badge>
-                      {debate.ranked && (
-                        <Badge variant="brand" size="sm">Ranked</Badge>
-                      )}
                     </div>
                   </div>
 
