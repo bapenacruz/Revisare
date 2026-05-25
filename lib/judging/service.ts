@@ -68,7 +68,7 @@ export const JUDGE_CONFIGS: JudgeConfig[] = [
     label: "Grok",
     apiKeyEnv: "JUDGE_A_API_KEY",
     modelEnv: "JUDGE_A_MODEL",
-    defaultModel: "x-ai/grok-4.1-fast",
+    defaultModel: "x-ai/grok-4.20",
   },
   {
     id: "judge-claude",

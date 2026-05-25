@@ -1138,7 +1138,7 @@ export class GrokJudgingProvider implements IJudgingProvider {
       httpReferer: "https://arguably.app",
       appTitle: "Arguably Debate Platform",
     });
-    this.model = options.model ?? "x-ai/grok-4.1-fast";
+    this.model = options.model ?? "x-ai/grok-4.20";
   }
 
   async judge(input: JudgeInput): Promise<SingleJudgeVerdict> {
