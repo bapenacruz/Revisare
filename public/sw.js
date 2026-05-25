@@ -3,13 +3,20 @@
 
 self.addEventListener("push", (event) => {
   const data = event.data?.json() ?? {};
+  const options = {
+    body: data.body ?? "",
+    icon: "/icon-512.png",
+    badge: "/icon-180.png",
+    vibrate: [200, 100, 200],
+    data: { href: data.href ?? "/" },
+  };
+  // Only add tag/renotify when explicitly provided (prevents collapse without intent)
+  if (data.tag) {
+    options.tag = data.tag;
+    options.renotify = true;
+  }
   event.waitUntil(
-    self.registration.showNotification(data.title ?? "Revisare", {
-      body: data.body ?? "",
-      icon: "/icon-512.png",
-      badge: "/icon-180.png",
-      data: { href: data.href ?? "/" },
-    })
+    self.registration.showNotification(data.title ?? "Revisare", options)
   );
 });
 

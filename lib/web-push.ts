@@ -17,6 +17,8 @@ export interface PushPayload {
   title: string;
   body: string;
   href?: string;
+  /** Optional deduplication key — notifications with the same tag replace each other */
+  tag?: string;
 }
 
 /**

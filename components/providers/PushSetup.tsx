@@ -20,7 +20,8 @@ async function subscribeAndSave(): Promise<void> {
     existing ??
     (await reg.pushManager.subscribe({
       userVisibleOnly: true,
-      applicationServerKey: urlBase64ToUint8Array(vapidKey).buffer as ArrayBuffer,
+      // Pass Uint8Array directly — passing .buffer (ArrayBuffer) breaks on some Android Chrome versions
+      applicationServerKey: urlBase64ToUint8Array(vapidKey),
     }));
   const json = sub.toJSON() as { endpoint: string; keys: { p256dh: string; auth: string } };
   await fetch("/api/push/subscribe", {
@@ -53,15 +54,19 @@ export function PushSetup() {
     }
     if (Notification.permission === "denied") return;
 
-    // iOS requires user gesture — show prompt banner instead of auto-requesting
+    // iOS and Android both require a user gesture for permission to work reliably.
+    // Android Chrome also requires the PWA to be installed for background push delivery.
+    // Show a prompt banner in both cases; only subscribe when user taps Enable.
     const isIos = /iphone|ipad|ipod/i.test(navigator.userAgent);
-    if (isIos) {
-      // Only show in PWA mode on iOS; in browser tab push isn't supported anyway
+    const isAndroid = /android/i.test(navigator.userAgent);
+
+    if (isIos || isAndroid) {
+      // Push only works reliably when installed as a PWA on both platforms
       if (isPwa()) setUiState("prompt");
       return;
     }
 
-    // Non-iOS: request immediately (Chrome/Android/desktop)
+    // Desktop: request immediately (Chrome/Firefox/etc.)
     Notification.requestPermission()
       .then((p) => { if (p === "granted") return subscribeAndSave(); })
       .catch(() => undefined)
