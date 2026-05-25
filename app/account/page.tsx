@@ -4,13 +4,13 @@ import Link from "next/link";
 import { signOut } from "next-auth/react";
 import { useSession } from "@/components/providers/SessionProvider";
 import { useAvatar } from "@/components/providers/AvatarProvider";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { User, Swords, ShieldCheck, Info, LogOut, Smartphone, Laptop, ChevronDown, Trash2 } from "lucide-react";
 import { Avatar } from "@/components/ui/Avatar";
-import { useState } from "react";
+import { useState, Suspense } from "react";
 
-function InstallSection() {
-  const [open, setOpen] = useState(false);
+function InstallSection({ defaultOpen }: { defaultOpen?: boolean }) {
+  const [open, setOpen] = useState(defaultOpen ?? false);
   const [platform, setPlatform] = useState<"android" | "ios" | "chrome" | "safari-mac" | null>(null);
 
   return (
@@ -117,9 +117,19 @@ function InstallSection() {
 }
 
 export default function AccountPage() {
+  return (
+    <Suspense>
+      <AccountPageInner />
+    </Suspense>
+  );
+}
+
+function AccountPageInner() {
   const { data: session, status } = useSession();
   const { avatarUrl } = useAvatar();
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const openInstall = searchParams.get("install") === "1";
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [deleting, setDeleting] = useState(false);
   const user = session?.user;
@@ -176,7 +186,7 @@ export default function AccountPage() {
           <Info size={18} />
           About
         </Link>
-        <InstallSection />
+        <InstallSection defaultOpen={openInstall} />
         <div className="my-2 border-t border-border" />
         <button
           onClick={() => signOut({ callbackUrl: `${window.location.origin}/` })}

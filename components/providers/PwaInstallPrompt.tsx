@@ -110,7 +110,7 @@ export function PwaInstallPrompt() {
           Don&apos;t show again
         </button>
         <Link
-          href="/account"
+          href="/account?install=1"
           onClick={dismiss}
           style={{
             background: "var(--color-primary, #6366f1)",
