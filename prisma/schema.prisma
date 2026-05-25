@@ -191,6 +191,7 @@ model Challenge {
   timerPreset      Int       @default(300)
   creatorId        String
   targetId         String?
+  isPractice       Boolean   @default(false)
   creatorAccepted  Boolean   @default(false)
   targetAccepted   Boolean   @default(false)
   lockedAt         DateTime?
@@ -247,6 +248,8 @@ model Debate {
   format           String
   ranked           Boolean   @default(true)
   isPublic         Boolean   @default(true)
+  isPractice       Boolean   @default(false)
+  isAiOpponent     Boolean   @default(false)
   isDeleted        Boolean   @default(false)
   isHidden         Boolean   @default(false)
   timerPreset      Int       @default(300)

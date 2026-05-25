@@ -3,17 +3,37 @@ import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { validateMotion } from "@/lib/topic-validator";
 import { createNotification } from "@/lib/notifications";
+import { PREP_SECONDS, getRoundTimer } from "@/lib/debate-state";
+import { AI_OPPONENT_USER_ID, AI_OPPONENT_USERNAME } from "@/lib/ai-opponent";
 import { z } from "zod";
 
 const schema = z.object({
-  type: z.enum(["open", "direct"]),
+  type: z.enum(["open", "direct", "ai"]),
   motion: z.string().min(10).max(280),
   categoryId: z.string().min(1),
   format: z.enum(["quick", "standard"]),
   ranked: z.boolean(),
   isPublic: z.boolean(),
+  isPractice: z.boolean().optional(),
   targetUsername: z.string().optional(), // for direct challenges
 });
+
+/** Look up or lazily create the AI opponent system account. */
+async function getOrCreateAiUser() {
+  const existing = await db.user.findUnique({ where: { id: AI_OPPONENT_USER_ID } });
+  if (existing) return existing;
+  return db.user.create({
+    data: {
+      id: AI_OPPONENT_USER_ID,
+      username: AI_OPPONENT_USERNAME,
+      email: "ai@system.revisare.internal",
+      role: "system",
+      onboardingComplete: true,
+      isExhibition: true,
+      hideFromLeaderboard: true,
+    },
+  });
+}
 
 export async function POST(request: NextRequest) {
   const session = await auth();
@@ -35,13 +55,10 @@ export async function POST(request: NextRequest) {
 
   const data = parsed.data;
 
-  // Enforce: ranked => must be public
-  if (data.ranked && !data.isPublic) {
-    return NextResponse.json(
-      { error: "Ranked challenges must be public." },
-      { status: 400 }
-    );
-  }
+  // Practice mode: always unranked + private
+  const isPractice = data.isPractice === true || data.type === "ai";
+  const ranked = isPractice ? false : true;   // normal = always ranked
+  const isPublic = isPractice ? false : true; // normal = always public
 
   // Validate motion
   const motionError = validateMotion(data.motion);
@@ -71,7 +88,61 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  // Resolve target user for direct challenges
+  const now = new Date();
+
+  // ── AI Practice Opponent ──────────────────────────────────────────────────
+  if (data.type === "ai") {
+    const aiUser = await getOrCreateAiUser();
+
+    const challenge = await db.challenge.create({
+      data: {
+        type: "ai",
+        status: "active",
+        motion: data.motion.trim(),
+        categoryId: data.categoryId,
+        format: data.format,
+        ranked: false,
+        isPublic: false,
+        isPractice: true,
+        timerPreset: 0,
+        creatorId: session.user.id,
+        targetId: aiUser.id,
+        creatorAccepted: true,
+        targetAccepted: true,
+        lockedAt: now,
+        expiresAt: null,
+      },
+    });
+
+    // User is always proposition (coin flip winner = user), AI is opposition
+    const prepEndsAt = new Date(now.getTime() + PREP_SECONDS * 1000);
+    await db.debate.create({
+      data: {
+        challengeId: challenge.id,
+        categoryId: data.categoryId,
+        motion: data.motion.trim(),
+        format: data.format,
+        ranked: false,
+        isPublic: false,
+        isPractice: true,
+        isAiOpponent: true,
+        timerPreset: getRoundTimer(data.format, "opening"),
+        debaterAId: session.user.id,  // user = debaterA = proposition
+        debaterBId: aiUser.id,        // AI = debaterB = opposition
+        status: "active",
+        phase: "prep",
+        coinFlipWinnerId: session.user.id,
+        currentUserId: session.user.id,
+        currentTurnIndex: 0,
+        prepEndsAt,
+        startedAt: now,
+      },
+    });
+
+    return NextResponse.json({ id: challenge.id, aiDebate: true }, { status: 201 });
+  }
+
+  // ── Resolve target user for direct challenges ─────────────────────────────
   let targetId: string | undefined;
   if (data.type === "direct") {
     if (!data.targetUsername) {
@@ -87,8 +158,7 @@ export async function POST(request: NextRequest) {
     targetId = target.id;
   }
 
-  // Expiry: open = 15 min inactivity (stored as absolute from now), direct = 24h
-  const now = new Date();
+  // Expiry: open = 15 min, direct = 24h
   const expiresAt =
     data.type === "open"
       ? new Date(now.getTime() + 15 * 60 * 1000)
@@ -101,12 +171,13 @@ export async function POST(request: NextRequest) {
       motion: data.motion.trim(),
       categoryId: data.categoryId,
       format: data.format,
-      ranked: data.ranked,
-      isPublic: data.isPublic,
+      ranked,
+      isPublic,
+      isPractice,
       timerPreset: 0,
       creatorId: session.user.id,
       targetId: targetId ?? null,
-      creatorAccepted: true,   // initiator implicitly accepts by creating
+      creatorAccepted: true,
       expiresAt,
     },
   });

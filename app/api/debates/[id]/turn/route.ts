@@ -12,6 +12,7 @@ import {
   type RoundName,
 } from "@/lib/debate-state";
 import { judgeDebate } from "@/lib/judging";
+import { AI_OPPONENT_USER_ID, generateAiOpponentTurn } from "@/lib/ai-opponent";
 
 interface RouteParams {
   params: Promise<{ id: string }>;
@@ -201,9 +202,11 @@ export async function POST(req: NextRequest, { params }: RouteParams) {
 
   // Advance to next turn
   const nextSpec = sequence[nextIndex];
+  const isNextAi = debate.isAiOpponent && nextSpec.userId === AI_OPPONENT_USER_ID;
 
   // After proposition's opening (turn 0 → turn 1), give opposition 1 min to think
-  if (debate.currentTurnIndex === 0) {
+  // Skip thinking phase if opponent is AI (instant)
+  if (debate.currentTurnIndex === 0 && !isNextAi) {
     const thinkingEndsAt = new Date(now.getTime() + THINKING_SECONDS * 1000);
     await db.debate.update({
       where: { challengeId },
@@ -242,5 +245,143 @@ export async function POST(req: NextRequest, { params }: RouteParams) {
     nextUserId: nextSpec.userId,
   });
 
+  // If next player is the AI, schedule AI turn generation in the background
+  if (isNextAi) {
+    Promise.resolve()
+      .then(() => executeAiTurn({ challengeId, debateId: debate.id, nextIndex, nextSpec, sequence, debate }))
+      .catch((err) => console.error("[AI Turn] Background execution failed:", err));
+  }
+
   return NextResponse.json({ phase: "typing", nextUserId: nextSpec.userId });
+}
+
+// ── AI Turn Execution ────────────────────────────────────────────────────────
+
+interface TurnSpec {
+  userId: string;
+  roundName: RoundName;
+  side: "proposition" | "opposition";
+}
+
+interface AiTurnOptions {
+  challengeId: string;
+  debateId: string;
+  nextIndex: number;
+  nextSpec: TurnSpec;
+  sequence: TurnSpec[];
+  debate: {
+    debaterAId: string;
+    debaterBId: string;
+    motion: string;
+    format: string;
+    ranked: boolean;
+    isAiOpponent: boolean;
+    coinFlipWinnerId: string | null;
+  };
+}
+
+async function executeAiTurn({ challengeId, debateId, nextIndex, nextSpec, sequence, debate }: AiTurnOptions) {
+  // Load all turns so far + user info
+  const previousTurns = await db.debateTurn.findMany({
+    where: { debateId },
+    orderBy: { createdAt: "asc" },
+    include: { user: { select: { username: true } } },
+  });
+
+  const userDebaterId = debate.debaterAId === AI_OPPONENT_USER_ID ? debate.debaterBId : debate.debaterAId;
+  const userRecord = await db.user.findUnique({ where: { id: userDebaterId }, select: { username: true } });
+
+  // Determine sides
+  const propId = debate.coinFlipWinnerId ?? debate.debaterAId;
+  const aiSide: "proposition" | "opposition" = debate.debaterAId === AI_OPPONENT_USER_ID ? "proposition" : "opposition";
+  const userSide: "proposition" | "opposition" = aiSide === "proposition" ? "opposition" : "proposition";
+
+  const turnContexts = previousTurns.map((t) => ({
+    userId: t.userId,
+    username: t.user.username,
+    roundName: t.roundName,
+    content: t.content,
+  }));
+
+  const category = await db.debate.findUnique({
+    where: { id: debateId },
+    include: { category: { select: { label: true } } },
+  });
+
+  const aiText = await generateAiOpponentTurn({
+    motion: debate.motion,
+    categoryLabel: category?.category?.label ?? "General",
+    aiSide,
+    userSide,
+    roundName: nextSpec.roundName,
+    previousTurns: turnContexts,
+    userUsername: userRecord?.username ?? "Opponent",
+  });
+
+  if (!aiText) {
+    console.error("[AI Turn] Failed to generate response, AI will auto-submit empty");
+    // Trigger forfeit-style handling: just skip this turn (mark as auto-submit)
+  }
+
+  const content = aiText ?? "I concede this point and yield my time.";
+  const now = new Date();
+
+  await db.debateTurn.create({
+    data: {
+      debateId,
+      userId: AI_OPPONENT_USER_ID,
+      roundName: nextSpec.roundName,
+      content,
+      isAutoSubmit: !aiText,
+    },
+  });
+
+  const afterAiIndex = nextIndex + 1;
+
+  if (afterAiIndex >= sequence.length) {
+    // Debate complete after AI turn
+    await db.debate.update({
+      where: { challengeId },
+      data: {
+        phase: "completed",
+        status: "completed",
+        currentTurnIndex: afterAiIndex,
+        currentUserId: null,
+        completedAt: now,
+      },
+    });
+    await pusherTrigger(CHANNELS.debate(challengeId), EVENTS.DEBATE_TURN_SUBMITTED, {
+      turnIndex: nextIndex,
+      nextUserId: null,
+    });
+    await pusherTrigger(CHANNELS.debate(challengeId), EVENTS.DEBATE_STATE_CHANGED, { phase: "completed" });
+
+    try {
+      await judgeDebate(debateId);
+    } catch (err) {
+      console.error("[AI Debate Judging] Failed:", err);
+      const fallbackWinner = userDebaterId;
+      await db.debate.update({ where: { id: debateId }, data: { winnerId: fallbackWinner } });
+    }
+    return;
+  }
+
+  // Advance to user's next turn
+  const afterAiSpec = sequence[afterAiIndex];
+  await db.debate.update({
+    where: { challengeId },
+    data: {
+      phase: "typing",
+      currentTurnIndex: afterAiIndex,
+      currentUserId: afterAiSpec.userId,
+      timerStartedAt: now,
+      timerPreset: getRoundTimer(debate.format, afterAiSpec.roundName),
+    },
+  });
+  await pusherTrigger(CHANNELS.debate(challengeId), EVENTS.DEBATE_TURN_SUBMITTED, {
+    turnIndex: nextIndex,
+    nextUserId: afterAiSpec.userId,
+  });
+  await pusherTrigger(CHANNELS.debate(challengeId), EVENTS.DEBATE_STATE_CHANGED, { phase: "typing" });
+  void propId; // used for reference, suppress lint
 }
