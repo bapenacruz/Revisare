@@ -28,7 +28,8 @@ function avgScores(a: DebaterScores | undefined, b: DebaterScores | undefined): 
 function syntheticArbiter(
   a: SingleJudgeVerdict, b: SingleJudgeVerdict, input: JudgeInput,
 ): SingleJudgeVerdict {
-  const winnerId = a.winnerId === b.winnerId ? a.winnerId : a.winnerId; // Grok casts deciding vote
+  // If both agree, use that; otherwise no clear synthetic winner (let majority vote decide)
+  const winnerId = a.winnerId === b.winnerId ? a.winnerId : null;
   const evidenceChecks = [
     ...a.evidenceChecks,
     ...b.evidenceChecks.filter((ec) => !a.evidenceChecks.some((x) => x.claim === ec.claim)),
@@ -192,7 +193,7 @@ export async function runJudgePanel(input: JudgeInput): Promise<ConsensusResult>
   const voteA = voteCount[input.debaterA.id] ?? 0;
   const voteB = voteCount[input.debaterB.id] ?? 0;
 
-  let majorityWinnerId: string;
+  let majorityWinnerId: string | null;
   let voteScore: string;
 
   if (voteA !== voteB) {
@@ -201,17 +202,22 @@ export async function runJudgePanel(input: JudgeInput): Promise<ConsensusResult>
     const loserVotes = Math.min(voteA, voteB);
     voteScore = `${winnerVotes}\u2013${loserVotes}`;
   } else {
-    majorityWinnerId = arbiterVerdict.winnerId ?? input.debaterA.id;
+    // Tie by vote count — Arbiter casts deciding vote, but only if it voted for someone.
+    // If Arbiter also abstained, result is a genuine tie (null).
+    majorityWinnerId = arbiterVerdict.winnerId ?? null;
     voteScore = "tiebreak";
   }
 
-  const majorityWinnerName =
-    majorityWinnerId === input.debaterA.id ? input.debaterA.username : input.debaterB.username;
+  const majorityWinnerName = majorityWinnerId
+    ? majorityWinnerId === input.debaterA.id ? input.debaterA.username : input.debaterB.username
+    : null;
 
   const majorityExplanation =
-    voteScore === "tiebreak"
-      ? `Judges split 1\u20131; ChatGPT cast the deciding vote for ${majorityWinnerName}. ${arbiterVerdict.explanation}`
-      : `${majorityWinnerName} wins by ${voteScore} judge vote.\n\n${arbiterVerdict.explanation}`;
+    voteScore === "tiebreak" && majorityWinnerName
+      ? `Judges split 1–1; ChatGPT cast the deciding vote for ${majorityWinnerName}. ${arbiterVerdict.explanation}`
+      : voteScore === "tiebreak"
+        ? `Judges were evenly split and no clear winner emerged. ${arbiterVerdict.explanation}`
+        : `${majorityWinnerName} wins by ${voteScore} judge vote.\n\n${arbiterVerdict.explanation}`;
 
   return {
     winnerId: majorityWinnerId ?? null,
