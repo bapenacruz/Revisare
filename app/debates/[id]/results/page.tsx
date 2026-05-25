@@ -74,8 +74,12 @@ export default async function ResultsPage({ params }: Props) {
 
   if (!debate || debate.status !== "completed") notFound();
 
-  // Increment view count (fire-and-forget)
-  void db.debate.update({ where: { challengeId }, data: { viewCount: { increment: 1 } } }).catch(() => {});
+  // Increment view count only for non-participants (debaters viewing their own debate
+  // would inflate the count, especially due to polling while waiting for AI judging)
+  const isParticipant = sessionUserId === debate.debaterAId || sessionUserId === debate.debaterBId;
+  if (!isParticipant) {
+    void db.debate.update({ where: { challengeId }, data: { viewCount: { increment: 1 } } }).catch(() => {});
+  }
 
   // Audience vote tally — passed to client AudienceVotePanel
   const voteTally: Record<string, number> = {};

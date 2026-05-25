@@ -25,6 +25,7 @@ export async function GET(req: NextRequest) {
         isDeleted: false,
         isHidden: false,
         status: "completed",
+        isAiOpponent: false,
         motion: { contains: q, mode: "insensitive" },
       },
       select: {
