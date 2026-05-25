@@ -12,6 +12,7 @@ import { RetriggerJudgingButton } from "./RetriggerJudgingButton";
 import { Trophy, Gavel, Users, CheckCircle2, XCircle, AlertCircle, HelpCircle, Scale } from "lucide-react";
 import { PrivateFeedbackView } from "@/components/debate/PrivateFeedbackView";
 import { PrivateFeedbackSection } from "./PrivateFeedbackSection";
+import { ShareButton } from "./ShareButton";
 import type { DebaterScores, EvidenceCheck } from "@/lib/judging/types";
 import type { Metadata } from "next";
 
@@ -567,10 +568,13 @@ export default async function ResultsPage({ params }: Props) {
       </div>
 
       {/* Footer nav */}
-      <div className="pt-4 border-t border-border">
+      <div className="pt-4 border-t border-border flex items-center justify-between gap-4">
         <Link href="/" className="text-sm text-foreground-muted hover:text-foreground transition-colors">
           ← Back to feed
         </Link>
+        {debate.isAiOpponent && (
+          <ShareButton challengeId={challengeId} motion={debate.motion} />
+        )}
       </div>
     </div>
   );

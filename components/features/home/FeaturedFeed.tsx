@@ -2,7 +2,7 @@
 
 import { useState, useRef, useCallback, useEffect } from "react";
 import Link from "next/link";
-import { Sparkles, Megaphone, Eye, MessageSquare, ThumbsUp } from "lucide-react";
+import { Sparkles, Megaphone, Eye, MessageSquare, ThumbsUp, Share2, Check } from "lucide-react";
 import { Card, CardBody } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
 import { Avatar } from "@/components/ui/Avatar";
@@ -80,6 +80,7 @@ export function FeaturedFeed() {
   const [banners, setBanners] = useState<BannerItem[]>([]);
   const [loading, setLoading] = useState(false);
   const [empty, setEmpty] = useState(false);
+  const [copiedId, setCopiedId] = useState<string | null>(null);
   // undefined = first page not yet fetched; null = exhausted; string = next cursor
   const cursorRef = useRef<string | null | undefined>(undefined);
   const loadingRef = useRef(false);
@@ -249,6 +250,24 @@ export function FeaturedFeed() {
                       <span className="flex items-center gap-1"><Eye size={11} />{debate.viewCount.toLocaleString()}</span>
                       <span className="flex items-center gap-1"><MessageSquare size={11} />{debate.commentCount.toLocaleString()}</span>
                       {debate.voteCount > 0 && <span className="flex items-center gap-1"><ThumbsUp size={11} />{debate.voteCount.toLocaleString()}</span>}
+                      <button
+                        className="ml-auto flex items-center gap-1 hover:text-brand transition-colors"
+                        title="Share"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          const url = `${window.location.origin}/debates/${debate.challengeId}/results`;
+                          if (navigator.share) {
+                            navigator.share({ title: debate.motion, url }).catch(() => {});
+                          } else {
+                            navigator.clipboard.writeText(url).catch(() => {});
+                            setCopiedId(debate.challengeId);
+                            setTimeout(() => setCopiedId(null), 2000);
+                          }
+                        }}
+                      >
+                        {copiedId === debate.challengeId ? <Check size={11} className="text-green-500" /> : <Share2 size={11} />}
+                      </button>
                     </div>
                   </CardBody>
                 </Card>
