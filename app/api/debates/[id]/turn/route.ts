@@ -179,10 +179,17 @@ export async function POST(req: NextRequest, { params }: RouteParams) {
     // Run AI judging (awaited so ELO + notifications fire before response)
     try {
       await judgeDebate(debate.id);
+      // In practice (AI opponent) debates, always award the human player.
+      // The private feedback is still generated; the "AI wins" result never shows.
+      if (debate.isAiOpponent) {
+        await db.debate.update({ where: { id: debate.id }, data: { winnerId: session.user.id } });
+      }
     } catch (err) {
       console.error("[Judging] Failed, applying fallback:", err);
       // Fallback: random winner so the debate doesn't stay in limbo
-      const fallbackWinner = Math.random() < 0.5 ? debate.debaterAId : debate.debaterBId;
+      const fallbackWinner = debate.isAiOpponent
+        ? session.user.id
+        : Math.random() < 0.5 ? debate.debaterAId : debate.debaterBId;
       await db.debate.update({ where: { id: debate.id }, data: { winnerId: fallbackWinner } });
       await db.judgeResult.create({
         data: {
@@ -351,10 +358,11 @@ async function executeAiTurn({ challengeId, debateId, nextIndex, nextSpec, seque
 
     try {
       await judgeDebate(debateId);
+      // Practice debates: the human always wins — coaching feedback is still generated.
+      await db.debate.update({ where: { id: debateId }, data: { winnerId: userDebaterId } });
     } catch (err) {
       console.error("[AI Debate Judging] Failed:", err);
-      const fallbackWinner = userDebaterId;
-      await db.debate.update({ where: { id: debateId }, data: { winnerId: fallbackWinner } });
+      await db.debate.update({ where: { id: debateId }, data: { winnerId: userDebaterId } });
     }
     return;
   }
