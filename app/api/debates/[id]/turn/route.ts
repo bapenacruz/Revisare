@@ -10,6 +10,7 @@ import {
   THINKING_SECONDS,
   getRoundTimer,
   type RoundName,
+  type TurnSpec,
 } from "@/lib/debate-state";
 import { judgeDebate } from "@/lib/judging";
 import { AI_OPPONENT_USER_ID, generateAiOpponentTurn } from "@/lib/ai-opponent";
@@ -257,12 +258,6 @@ export async function POST(req: NextRequest, { params }: RouteParams) {
 
 // ── AI Turn Execution ────────────────────────────────────────────────────────
 
-interface TurnSpec {
-  userId: string;
-  roundName: RoundName;
-  side: "proposition" | "opposition";
-}
-
 interface AiTurnOptions {
   challengeId: string;
   debateId: string;
@@ -281,24 +276,22 @@ interface AiTurnOptions {
 }
 
 async function executeAiTurn({ challengeId, debateId, nextIndex, nextSpec, sequence, debate }: AiTurnOptions) {
-  // Load all turns so far + user info
+  // Load all turns so far
   const previousTurns = await db.debateTurn.findMany({
     where: { debateId },
-    orderBy: { createdAt: "asc" },
-    include: { user: { select: { username: true } } },
+    orderBy: { submittedAt: "asc" },
   });
 
   const userDebaterId = debate.debaterAId === AI_OPPONENT_USER_ID ? debate.debaterBId : debate.debaterAId;
   const userRecord = await db.user.findUnique({ where: { id: userDebaterId }, select: { username: true } });
 
   // Determine sides
-  const propId = debate.coinFlipWinnerId ?? debate.debaterAId;
   const aiSide: "proposition" | "opposition" = debate.debaterAId === AI_OPPONENT_USER_ID ? "proposition" : "opposition";
   const userSide: "proposition" | "opposition" = aiSide === "proposition" ? "opposition" : "proposition";
 
   const turnContexts = previousTurns.map((t) => ({
     userId: t.userId,
-    username: t.user.username,
+    username: t.userId === AI_OPPONENT_USER_ID ? "AI" : (userRecord?.username ?? "Opponent"),
     roundName: t.roundName,
     content: t.content,
   }));
@@ -383,5 +376,4 @@ async function executeAiTurn({ challengeId, debateId, nextIndex, nextSpec, seque
     nextUserId: afterAiSpec.userId,
   });
   await pusherTrigger(CHANNELS.debate(challengeId), EVENTS.DEBATE_STATE_CHANGED, { phase: "typing" });
-  void propId; // used for reference, suppress lint
 }

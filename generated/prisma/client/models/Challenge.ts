@@ -46,6 +46,7 @@ export type ChallengeMinAggregateOutputType = {
   timerPreset: number | null
   creatorId: string | null
   targetId: string | null
+  isPractice: boolean | null
   creatorAccepted: boolean | null
   targetAccepted: boolean | null
   lockedAt: Date | null
@@ -66,6 +67,7 @@ export type ChallengeMaxAggregateOutputType = {
   timerPreset: number | null
   creatorId: string | null
   targetId: string | null
+  isPractice: boolean | null
   creatorAccepted: boolean | null
   targetAccepted: boolean | null
   lockedAt: Date | null
@@ -86,6 +88,7 @@ export type ChallengeCountAggregateOutputType = {
   timerPreset: number
   creatorId: number
   targetId: number
+  isPractice: number
   creatorAccepted: number
   targetAccepted: number
   lockedAt: number
@@ -116,6 +119,7 @@ export type ChallengeMinAggregateInputType = {
   timerPreset?: true
   creatorId?: true
   targetId?: true
+  isPractice?: true
   creatorAccepted?: true
   targetAccepted?: true
   lockedAt?: true
@@ -136,6 +140,7 @@ export type ChallengeMaxAggregateInputType = {
   timerPreset?: true
   creatorId?: true
   targetId?: true
+  isPractice?: true
   creatorAccepted?: true
   targetAccepted?: true
   lockedAt?: true
@@ -156,6 +161,7 @@ export type ChallengeCountAggregateInputType = {
   timerPreset?: true
   creatorId?: true
   targetId?: true
+  isPractice?: true
   creatorAccepted?: true
   targetAccepted?: true
   lockedAt?: true
@@ -263,6 +269,7 @@ export type ChallengeGroupByOutputType = {
   timerPreset: number
   creatorId: string
   targetId: string | null
+  isPractice: boolean
   creatorAccepted: boolean
   targetAccepted: boolean
   lockedAt: Date | null
@@ -306,6 +313,7 @@ export type ChallengeWhereInput = {
   timerPreset?: Prisma.IntFilter<"Challenge"> | number
   creatorId?: Prisma.StringFilter<"Challenge"> | string
   targetId?: Prisma.StringNullableFilter<"Challenge"> | string | null
+  isPractice?: Prisma.BoolFilter<"Challenge"> | boolean
   creatorAccepted?: Prisma.BoolFilter<"Challenge"> | boolean
   targetAccepted?: Prisma.BoolFilter<"Challenge"> | boolean
   lockedAt?: Prisma.DateTimeNullableFilter<"Challenge"> | Date | string | null
@@ -332,6 +340,7 @@ export type ChallengeOrderByWithRelationInput = {
   timerPreset?: Prisma.SortOrder
   creatorId?: Prisma.SortOrder
   targetId?: Prisma.SortOrderInput | Prisma.SortOrder
+  isPractice?: Prisma.SortOrder
   creatorAccepted?: Prisma.SortOrder
   targetAccepted?: Prisma.SortOrder
   lockedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -361,6 +370,7 @@ export type ChallengeWhereUniqueInput = Prisma.AtLeast<{
   timerPreset?: Prisma.IntFilter<"Challenge"> | number
   creatorId?: Prisma.StringFilter<"Challenge"> | string
   targetId?: Prisma.StringNullableFilter<"Challenge"> | string | null
+  isPractice?: Prisma.BoolFilter<"Challenge"> | boolean
   creatorAccepted?: Prisma.BoolFilter<"Challenge"> | boolean
   targetAccepted?: Prisma.BoolFilter<"Challenge"> | boolean
   lockedAt?: Prisma.DateTimeNullableFilter<"Challenge"> | Date | string | null
@@ -387,6 +397,7 @@ export type ChallengeOrderByWithAggregationInput = {
   timerPreset?: Prisma.SortOrder
   creatorId?: Prisma.SortOrder
   targetId?: Prisma.SortOrderInput | Prisma.SortOrder
+  isPractice?: Prisma.SortOrder
   creatorAccepted?: Prisma.SortOrder
   targetAccepted?: Prisma.SortOrder
   lockedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -415,6 +426,7 @@ export type ChallengeScalarWhereWithAggregatesInput = {
   timerPreset?: Prisma.IntWithAggregatesFilter<"Challenge"> | number
   creatorId?: Prisma.StringWithAggregatesFilter<"Challenge"> | string
   targetId?: Prisma.StringNullableWithAggregatesFilter<"Challenge"> | string | null
+  isPractice?: Prisma.BoolWithAggregatesFilter<"Challenge"> | boolean
   creatorAccepted?: Prisma.BoolWithAggregatesFilter<"Challenge"> | boolean
   targetAccepted?: Prisma.BoolWithAggregatesFilter<"Challenge"> | boolean
   lockedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Challenge"> | Date | string | null
@@ -432,6 +444,7 @@ export type ChallengeCreateInput = {
   ranked?: boolean
   isPublic?: boolean
   timerPreset?: number
+  isPractice?: boolean
   creatorAccepted?: boolean
   targetAccepted?: boolean
   lockedAt?: Date | string | null
@@ -458,6 +471,7 @@ export type ChallengeUncheckedCreateInput = {
   timerPreset?: number
   creatorId: string
   targetId?: string | null
+  isPractice?: boolean
   creatorAccepted?: boolean
   targetAccepted?: boolean
   lockedAt?: Date | string | null
@@ -478,6 +492,7 @@ export type ChallengeUpdateInput = {
   ranked?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   timerPreset?: Prisma.IntFieldUpdateOperationsInput | number
+  isPractice?: Prisma.BoolFieldUpdateOperationsInput | boolean
   creatorAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   targetAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lockedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -504,6 +519,7 @@ export type ChallengeUncheckedUpdateInput = {
   timerPreset?: Prisma.IntFieldUpdateOperationsInput | number
   creatorId?: Prisma.StringFieldUpdateOperationsInput | string
   targetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPractice?: Prisma.BoolFieldUpdateOperationsInput | boolean
   creatorAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   targetAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lockedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -527,6 +543,7 @@ export type ChallengeCreateManyInput = {
   timerPreset?: number
   creatorId: string
   targetId?: string | null
+  isPractice?: boolean
   creatorAccepted?: boolean
   targetAccepted?: boolean
   lockedAt?: Date | string | null
@@ -544,6 +561,7 @@ export type ChallengeUpdateManyMutationInput = {
   ranked?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   timerPreset?: Prisma.IntFieldUpdateOperationsInput | number
+  isPractice?: Prisma.BoolFieldUpdateOperationsInput | boolean
   creatorAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   targetAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lockedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -564,6 +582,7 @@ export type ChallengeUncheckedUpdateManyInput = {
   timerPreset?: Prisma.IntFieldUpdateOperationsInput | number
   creatorId?: Prisma.StringFieldUpdateOperationsInput | string
   targetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPractice?: Prisma.BoolFieldUpdateOperationsInput | boolean
   creatorAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   targetAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lockedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -594,6 +613,7 @@ export type ChallengeCountOrderByAggregateInput = {
   timerPreset?: Prisma.SortOrder
   creatorId?: Prisma.SortOrder
   targetId?: Prisma.SortOrder
+  isPractice?: Prisma.SortOrder
   creatorAccepted?: Prisma.SortOrder
   targetAccepted?: Prisma.SortOrder
   lockedAt?: Prisma.SortOrder
@@ -618,6 +638,7 @@ export type ChallengeMaxOrderByAggregateInput = {
   timerPreset?: Prisma.SortOrder
   creatorId?: Prisma.SortOrder
   targetId?: Prisma.SortOrder
+  isPractice?: Prisma.SortOrder
   creatorAccepted?: Prisma.SortOrder
   targetAccepted?: Prisma.SortOrder
   lockedAt?: Prisma.SortOrder
@@ -638,6 +659,7 @@ export type ChallengeMinOrderByAggregateInput = {
   timerPreset?: Prisma.SortOrder
   creatorId?: Prisma.SortOrder
   targetId?: Prisma.SortOrder
+  isPractice?: Prisma.SortOrder
   creatorAccepted?: Prisma.SortOrder
   targetAccepted?: Prisma.SortOrder
   lockedAt?: Prisma.SortOrder
@@ -832,6 +854,7 @@ export type ChallengeCreateWithoutCreatorInput = {
   ranked?: boolean
   isPublic?: boolean
   timerPreset?: number
+  isPractice?: boolean
   creatorAccepted?: boolean
   targetAccepted?: boolean
   lockedAt?: Date | string | null
@@ -856,6 +879,7 @@ export type ChallengeUncheckedCreateWithoutCreatorInput = {
   isPublic?: boolean
   timerPreset?: number
   targetId?: string | null
+  isPractice?: boolean
   creatorAccepted?: boolean
   targetAccepted?: boolean
   lockedAt?: Date | string | null
@@ -886,6 +910,7 @@ export type ChallengeCreateWithoutTargetInput = {
   ranked?: boolean
   isPublic?: boolean
   timerPreset?: number
+  isPractice?: boolean
   creatorAccepted?: boolean
   targetAccepted?: boolean
   lockedAt?: Date | string | null
@@ -910,6 +935,7 @@ export type ChallengeUncheckedCreateWithoutTargetInput = {
   isPublic?: boolean
   timerPreset?: number
   creatorId: string
+  isPractice?: boolean
   creatorAccepted?: boolean
   targetAccepted?: boolean
   lockedAt?: Date | string | null
@@ -962,6 +988,7 @@ export type ChallengeScalarWhereInput = {
   timerPreset?: Prisma.IntFilter<"Challenge"> | number
   creatorId?: Prisma.StringFilter<"Challenge"> | string
   targetId?: Prisma.StringNullableFilter<"Challenge"> | string | null
+  isPractice?: Prisma.BoolFilter<"Challenge"> | boolean
   creatorAccepted?: Prisma.BoolFilter<"Challenge"> | boolean
   targetAccepted?: Prisma.BoolFilter<"Challenge"> | boolean
   lockedAt?: Prisma.DateTimeNullableFilter<"Challenge"> | Date | string | null
@@ -995,6 +1022,7 @@ export type ChallengeCreateWithoutCategoryInput = {
   ranked?: boolean
   isPublic?: boolean
   timerPreset?: number
+  isPractice?: boolean
   creatorAccepted?: boolean
   targetAccepted?: boolean
   lockedAt?: Date | string | null
@@ -1019,6 +1047,7 @@ export type ChallengeUncheckedCreateWithoutCategoryInput = {
   timerPreset?: number
   creatorId: string
   targetId?: string | null
+  isPractice?: boolean
   creatorAccepted?: boolean
   targetAccepted?: boolean
   lockedAt?: Date | string | null
@@ -1065,6 +1094,7 @@ export type ChallengeCreateWithoutJoinRequestsInput = {
   ranked?: boolean
   isPublic?: boolean
   timerPreset?: number
+  isPractice?: boolean
   creatorAccepted?: boolean
   targetAccepted?: boolean
   lockedAt?: Date | string | null
@@ -1090,6 +1120,7 @@ export type ChallengeUncheckedCreateWithoutJoinRequestsInput = {
   timerPreset?: number
   creatorId: string
   targetId?: string | null
+  isPractice?: boolean
   creatorAccepted?: boolean
   targetAccepted?: boolean
   lockedAt?: Date | string | null
@@ -1125,6 +1156,7 @@ export type ChallengeUpdateWithoutJoinRequestsInput = {
   ranked?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   timerPreset?: Prisma.IntFieldUpdateOperationsInput | number
+  isPractice?: Prisma.BoolFieldUpdateOperationsInput | boolean
   creatorAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   targetAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lockedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1150,6 +1182,7 @@ export type ChallengeUncheckedUpdateWithoutJoinRequestsInput = {
   timerPreset?: Prisma.IntFieldUpdateOperationsInput | number
   creatorId?: Prisma.StringFieldUpdateOperationsInput | string
   targetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPractice?: Prisma.BoolFieldUpdateOperationsInput | boolean
   creatorAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   targetAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lockedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1169,6 +1202,7 @@ export type ChallengeCreateWithoutLobbyChatMessagesInput = {
   ranked?: boolean
   isPublic?: boolean
   timerPreset?: number
+  isPractice?: boolean
   creatorAccepted?: boolean
   targetAccepted?: boolean
   lockedAt?: Date | string | null
@@ -1194,6 +1228,7 @@ export type ChallengeUncheckedCreateWithoutLobbyChatMessagesInput = {
   timerPreset?: number
   creatorId: string
   targetId?: string | null
+  isPractice?: boolean
   creatorAccepted?: boolean
   targetAccepted?: boolean
   lockedAt?: Date | string | null
@@ -1229,6 +1264,7 @@ export type ChallengeUpdateWithoutLobbyChatMessagesInput = {
   ranked?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   timerPreset?: Prisma.IntFieldUpdateOperationsInput | number
+  isPractice?: Prisma.BoolFieldUpdateOperationsInput | boolean
   creatorAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   targetAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lockedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1254,6 +1290,7 @@ export type ChallengeUncheckedUpdateWithoutLobbyChatMessagesInput = {
   timerPreset?: Prisma.IntFieldUpdateOperationsInput | number
   creatorId?: Prisma.StringFieldUpdateOperationsInput | string
   targetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPractice?: Prisma.BoolFieldUpdateOperationsInput | boolean
   creatorAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   targetAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lockedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1273,6 +1310,7 @@ export type ChallengeCreateWithoutDebateInput = {
   ranked?: boolean
   isPublic?: boolean
   timerPreset?: number
+  isPractice?: boolean
   creatorAccepted?: boolean
   targetAccepted?: boolean
   lockedAt?: Date | string | null
@@ -1298,6 +1336,7 @@ export type ChallengeUncheckedCreateWithoutDebateInput = {
   timerPreset?: number
   creatorId: string
   targetId?: string | null
+  isPractice?: boolean
   creatorAccepted?: boolean
   targetAccepted?: boolean
   lockedAt?: Date | string | null
@@ -1333,6 +1372,7 @@ export type ChallengeUpdateWithoutDebateInput = {
   ranked?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   timerPreset?: Prisma.IntFieldUpdateOperationsInput | number
+  isPractice?: Prisma.BoolFieldUpdateOperationsInput | boolean
   creatorAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   targetAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lockedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1358,6 +1398,7 @@ export type ChallengeUncheckedUpdateWithoutDebateInput = {
   timerPreset?: Prisma.IntFieldUpdateOperationsInput | number
   creatorId?: Prisma.StringFieldUpdateOperationsInput | string
   targetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPractice?: Prisma.BoolFieldUpdateOperationsInput | boolean
   creatorAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   targetAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lockedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1379,6 +1420,7 @@ export type ChallengeCreateManyCreatorInput = {
   isPublic?: boolean
   timerPreset?: number
   targetId?: string | null
+  isPractice?: boolean
   creatorAccepted?: boolean
   targetAccepted?: boolean
   lockedAt?: Date | string | null
@@ -1398,6 +1440,7 @@ export type ChallengeCreateManyTargetInput = {
   isPublic?: boolean
   timerPreset?: number
   creatorId: string
+  isPractice?: boolean
   creatorAccepted?: boolean
   targetAccepted?: boolean
   lockedAt?: Date | string | null
@@ -1415,6 +1458,7 @@ export type ChallengeUpdateWithoutCreatorInput = {
   ranked?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   timerPreset?: Prisma.IntFieldUpdateOperationsInput | number
+  isPractice?: Prisma.BoolFieldUpdateOperationsInput | boolean
   creatorAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   targetAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lockedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1439,6 +1483,7 @@ export type ChallengeUncheckedUpdateWithoutCreatorInput = {
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   timerPreset?: Prisma.IntFieldUpdateOperationsInput | number
   targetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPractice?: Prisma.BoolFieldUpdateOperationsInput | boolean
   creatorAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   targetAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lockedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1461,6 +1506,7 @@ export type ChallengeUncheckedUpdateManyWithoutCreatorInput = {
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   timerPreset?: Prisma.IntFieldUpdateOperationsInput | number
   targetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPractice?: Prisma.BoolFieldUpdateOperationsInput | boolean
   creatorAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   targetAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lockedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1478,6 +1524,7 @@ export type ChallengeUpdateWithoutTargetInput = {
   ranked?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   timerPreset?: Prisma.IntFieldUpdateOperationsInput | number
+  isPractice?: Prisma.BoolFieldUpdateOperationsInput | boolean
   creatorAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   targetAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lockedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1502,6 +1549,7 @@ export type ChallengeUncheckedUpdateWithoutTargetInput = {
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   timerPreset?: Prisma.IntFieldUpdateOperationsInput | number
   creatorId?: Prisma.StringFieldUpdateOperationsInput | string
+  isPractice?: Prisma.BoolFieldUpdateOperationsInput | boolean
   creatorAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   targetAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lockedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1524,6 +1572,7 @@ export type ChallengeUncheckedUpdateManyWithoutTargetInput = {
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   timerPreset?: Prisma.IntFieldUpdateOperationsInput | number
   creatorId?: Prisma.StringFieldUpdateOperationsInput | string
+  isPractice?: Prisma.BoolFieldUpdateOperationsInput | boolean
   creatorAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   targetAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lockedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1543,6 +1592,7 @@ export type ChallengeCreateManyCategoryInput = {
   timerPreset?: number
   creatorId: string
   targetId?: string | null
+  isPractice?: boolean
   creatorAccepted?: boolean
   targetAccepted?: boolean
   lockedAt?: Date | string | null
@@ -1560,6 +1610,7 @@ export type ChallengeUpdateWithoutCategoryInput = {
   ranked?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   timerPreset?: Prisma.IntFieldUpdateOperationsInput | number
+  isPractice?: Prisma.BoolFieldUpdateOperationsInput | boolean
   creatorAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   targetAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lockedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1584,6 +1635,7 @@ export type ChallengeUncheckedUpdateWithoutCategoryInput = {
   timerPreset?: Prisma.IntFieldUpdateOperationsInput | number
   creatorId?: Prisma.StringFieldUpdateOperationsInput | string
   targetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPractice?: Prisma.BoolFieldUpdateOperationsInput | boolean
   creatorAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   targetAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lockedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1606,6 +1658,7 @@ export type ChallengeUncheckedUpdateManyWithoutCategoryInput = {
   timerPreset?: Prisma.IntFieldUpdateOperationsInput | number
   creatorId?: Prisma.StringFieldUpdateOperationsInput | string
   targetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPractice?: Prisma.BoolFieldUpdateOperationsInput | boolean
   creatorAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   targetAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   lockedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1666,6 +1719,7 @@ export type ChallengeSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   timerPreset?: boolean
   creatorId?: boolean
   targetId?: boolean
+  isPractice?: boolean
   creatorAccepted?: boolean
   targetAccepted?: boolean
   lockedAt?: boolean
@@ -1693,6 +1747,7 @@ export type ChallengeSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ext
   timerPreset?: boolean
   creatorId?: boolean
   targetId?: boolean
+  isPractice?: boolean
   creatorAccepted?: boolean
   targetAccepted?: boolean
   lockedAt?: boolean
@@ -1716,6 +1771,7 @@ export type ChallengeSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ext
   timerPreset?: boolean
   creatorId?: boolean
   targetId?: boolean
+  isPractice?: boolean
   creatorAccepted?: boolean
   targetAccepted?: boolean
   lockedAt?: boolean
@@ -1739,6 +1795,7 @@ export type ChallengeSelectScalar = {
   timerPreset?: boolean
   creatorId?: boolean
   targetId?: boolean
+  isPractice?: boolean
   creatorAccepted?: boolean
   targetAccepted?: boolean
   lockedAt?: boolean
@@ -1747,7 +1804,7 @@ export type ChallengeSelectScalar = {
   updatedAt?: boolean
 }
 
-export type ChallengeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "type" | "status" | "motion" | "categoryId" | "format" | "ranked" | "isPublic" | "timerPreset" | "creatorId" | "targetId" | "creatorAccepted" | "targetAccepted" | "lockedAt" | "expiresAt" | "createdAt" | "updatedAt", ExtArgs["result"]["challenge"]>
+export type ChallengeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "type" | "status" | "motion" | "categoryId" | "format" | "ranked" | "isPublic" | "timerPreset" | "creatorId" | "targetId" | "isPractice" | "creatorAccepted" | "targetAccepted" | "lockedAt" | "expiresAt" | "createdAt" | "updatedAt", ExtArgs["result"]["challenge"]>
 export type ChallengeInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   category?: boolean | Prisma.CategoryDefaultArgs<ExtArgs>
   creator?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -1790,6 +1847,7 @@ export type $ChallengePayload<ExtArgs extends runtime.Types.Extensions.InternalA
     timerPreset: number
     creatorId: string
     targetId: string | null
+    isPractice: boolean
     creatorAccepted: boolean
     targetAccepted: boolean
     lockedAt: Date | null
@@ -2236,6 +2294,7 @@ export interface ChallengeFieldRefs {
   readonly timerPreset: Prisma.FieldRef<"Challenge", 'Int'>
   readonly creatorId: Prisma.FieldRef<"Challenge", 'String'>
   readonly targetId: Prisma.FieldRef<"Challenge", 'String'>
+  readonly isPractice: Prisma.FieldRef<"Challenge", 'Boolean'>
   readonly creatorAccepted: Prisma.FieldRef<"Challenge", 'Boolean'>
   readonly targetAccepted: Prisma.FieldRef<"Challenge", 'Boolean'>
   readonly lockedAt: Prisma.FieldRef<"Challenge", 'DateTime'>

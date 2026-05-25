@@ -46,6 +46,8 @@ export type DebateMinAggregateOutputType = {
   format: string | null
   ranked: boolean | null
   isPublic: boolean | null
+  isPractice: boolean | null
+  isAiOpponent: boolean | null
   isDeleted: boolean | null
   isHidden: boolean | null
   timerPreset: number | null
@@ -79,6 +81,8 @@ export type DebateMaxAggregateOutputType = {
   format: string | null
   ranked: boolean | null
   isPublic: boolean | null
+  isPractice: boolean | null
+  isAiOpponent: boolean | null
   isDeleted: boolean | null
   isHidden: boolean | null
   timerPreset: number | null
@@ -112,6 +116,8 @@ export type DebateCountAggregateOutputType = {
   format: number
   ranked: number
   isPublic: number
+  isPractice: number
+  isAiOpponent: number
   isDeleted: number
   isHidden: number
   timerPreset: number
@@ -159,6 +165,8 @@ export type DebateMinAggregateInputType = {
   format?: true
   ranked?: true
   isPublic?: true
+  isPractice?: true
+  isAiOpponent?: true
   isDeleted?: true
   isHidden?: true
   timerPreset?: true
@@ -192,6 +200,8 @@ export type DebateMaxAggregateInputType = {
   format?: true
   ranked?: true
   isPublic?: true
+  isPractice?: true
+  isAiOpponent?: true
   isDeleted?: true
   isHidden?: true
   timerPreset?: true
@@ -225,6 +235,8 @@ export type DebateCountAggregateInputType = {
   format?: true
   ranked?: true
   isPublic?: true
+  isPractice?: true
+  isAiOpponent?: true
   isDeleted?: true
   isHidden?: true
   timerPreset?: true
@@ -345,6 +357,8 @@ export type DebateGroupByOutputType = {
   format: string
   ranked: boolean
   isPublic: boolean
+  isPractice: boolean
+  isAiOpponent: boolean
   isDeleted: boolean
   isHidden: boolean
   timerPreset: number
@@ -401,6 +415,8 @@ export type DebateWhereInput = {
   format?: Prisma.StringFilter<"Debate"> | string
   ranked?: Prisma.BoolFilter<"Debate"> | boolean
   isPublic?: Prisma.BoolFilter<"Debate"> | boolean
+  isPractice?: Prisma.BoolFilter<"Debate"> | boolean
+  isAiOpponent?: Prisma.BoolFilter<"Debate"> | boolean
   isDeleted?: Prisma.BoolFilter<"Debate"> | boolean
   isHidden?: Prisma.BoolFilter<"Debate"> | boolean
   timerPreset?: Prisma.IntFilter<"Debate"> | number
@@ -445,6 +461,8 @@ export type DebateOrderByWithRelationInput = {
   format?: Prisma.SortOrder
   ranked?: Prisma.SortOrder
   isPublic?: Prisma.SortOrder
+  isPractice?: Prisma.SortOrder
+  isAiOpponent?: Prisma.SortOrder
   isDeleted?: Prisma.SortOrder
   isHidden?: Prisma.SortOrder
   timerPreset?: Prisma.SortOrder
@@ -492,6 +510,8 @@ export type DebateWhereUniqueInput = Prisma.AtLeast<{
   format?: Prisma.StringFilter<"Debate"> | string
   ranked?: Prisma.BoolFilter<"Debate"> | boolean
   isPublic?: Prisma.BoolFilter<"Debate"> | boolean
+  isPractice?: Prisma.BoolFilter<"Debate"> | boolean
+  isAiOpponent?: Prisma.BoolFilter<"Debate"> | boolean
   isDeleted?: Prisma.BoolFilter<"Debate"> | boolean
   isHidden?: Prisma.BoolFilter<"Debate"> | boolean
   timerPreset?: Prisma.IntFilter<"Debate"> | number
@@ -536,6 +556,8 @@ export type DebateOrderByWithAggregationInput = {
   format?: Prisma.SortOrder
   ranked?: Prisma.SortOrder
   isPublic?: Prisma.SortOrder
+  isPractice?: Prisma.SortOrder
+  isAiOpponent?: Prisma.SortOrder
   isDeleted?: Prisma.SortOrder
   isHidden?: Prisma.SortOrder
   timerPreset?: Prisma.SortOrder
@@ -577,6 +599,8 @@ export type DebateScalarWhereWithAggregatesInput = {
   format?: Prisma.StringWithAggregatesFilter<"Debate"> | string
   ranked?: Prisma.BoolWithAggregatesFilter<"Debate"> | boolean
   isPublic?: Prisma.BoolWithAggregatesFilter<"Debate"> | boolean
+  isPractice?: Prisma.BoolWithAggregatesFilter<"Debate"> | boolean
+  isAiOpponent?: Prisma.BoolWithAggregatesFilter<"Debate"> | boolean
   isDeleted?: Prisma.BoolWithAggregatesFilter<"Debate"> | boolean
   isHidden?: Prisma.BoolWithAggregatesFilter<"Debate"> | boolean
   timerPreset?: Prisma.IntWithAggregatesFilter<"Debate"> | number
@@ -608,6 +632,8 @@ export type DebateCreateInput = {
   format: string
   ranked?: boolean
   isPublic?: boolean
+  isPractice?: boolean
+  isAiOpponent?: boolean
   isDeleted?: boolean
   isHidden?: boolean
   timerPreset?: number
@@ -650,6 +676,8 @@ export type DebateUncheckedCreateInput = {
   format: string
   ranked?: boolean
   isPublic?: boolean
+  isPractice?: boolean
+  isAiOpponent?: boolean
   isDeleted?: boolean
   isHidden?: boolean
   timerPreset?: number
@@ -688,6 +716,8 @@ export type DebateUpdateInput = {
   format?: Prisma.StringFieldUpdateOperationsInput | string
   ranked?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPractice?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isAiOpponent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   timerPreset?: Prisma.IntFieldUpdateOperationsInput | number
@@ -730,6 +760,8 @@ export type DebateUncheckedUpdateInput = {
   format?: Prisma.StringFieldUpdateOperationsInput | string
   ranked?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPractice?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isAiOpponent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   timerPreset?: Prisma.IntFieldUpdateOperationsInput | number
@@ -770,6 +802,8 @@ export type DebateCreateManyInput = {
   format: string
   ranked?: boolean
   isPublic?: boolean
+  isPractice?: boolean
+  isAiOpponent?: boolean
   isDeleted?: boolean
   isHidden?: boolean
   timerPreset?: number
@@ -801,6 +835,8 @@ export type DebateUpdateManyMutationInput = {
   format?: Prisma.StringFieldUpdateOperationsInput | string
   ranked?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPractice?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isAiOpponent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   timerPreset?: Prisma.IntFieldUpdateOperationsInput | number
@@ -832,6 +868,8 @@ export type DebateUncheckedUpdateManyInput = {
   format?: Prisma.StringFieldUpdateOperationsInput | string
   ranked?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPractice?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isAiOpponent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   timerPreset?: Prisma.IntFieldUpdateOperationsInput | number
@@ -880,6 +918,8 @@ export type DebateCountOrderByAggregateInput = {
   format?: Prisma.SortOrder
   ranked?: Prisma.SortOrder
   isPublic?: Prisma.SortOrder
+  isPractice?: Prisma.SortOrder
+  isAiOpponent?: Prisma.SortOrder
   isDeleted?: Prisma.SortOrder
   isHidden?: Prisma.SortOrder
   timerPreset?: Prisma.SortOrder
@@ -919,6 +959,8 @@ export type DebateMaxOrderByAggregateInput = {
   format?: Prisma.SortOrder
   ranked?: Prisma.SortOrder
   isPublic?: Prisma.SortOrder
+  isPractice?: Prisma.SortOrder
+  isAiOpponent?: Prisma.SortOrder
   isDeleted?: Prisma.SortOrder
   isHidden?: Prisma.SortOrder
   timerPreset?: Prisma.SortOrder
@@ -952,6 +994,8 @@ export type DebateMinOrderByAggregateInput = {
   format?: Prisma.SortOrder
   ranked?: Prisma.SortOrder
   isPublic?: Prisma.SortOrder
+  isPractice?: Prisma.SortOrder
+  isAiOpponent?: Prisma.SortOrder
   isDeleted?: Prisma.SortOrder
   isHidden?: Prisma.SortOrder
   timerPreset?: Prisma.SortOrder
@@ -1250,6 +1294,8 @@ export type DebateCreateWithoutDebaterAInput = {
   format: string
   ranked?: boolean
   isPublic?: boolean
+  isPractice?: boolean
+  isAiOpponent?: boolean
   isDeleted?: boolean
   isHidden?: boolean
   timerPreset?: number
@@ -1291,6 +1337,8 @@ export type DebateUncheckedCreateWithoutDebaterAInput = {
   format: string
   ranked?: boolean
   isPublic?: boolean
+  isPractice?: boolean
+  isAiOpponent?: boolean
   isDeleted?: boolean
   isHidden?: boolean
   timerPreset?: number
@@ -1338,6 +1386,8 @@ export type DebateCreateWithoutDebaterBInput = {
   format: string
   ranked?: boolean
   isPublic?: boolean
+  isPractice?: boolean
+  isAiOpponent?: boolean
   isDeleted?: boolean
   isHidden?: boolean
   timerPreset?: number
@@ -1379,6 +1429,8 @@ export type DebateUncheckedCreateWithoutDebaterBInput = {
   format: string
   ranked?: boolean
   isPublic?: boolean
+  isPractice?: boolean
+  isAiOpponent?: boolean
   isDeleted?: boolean
   isHidden?: boolean
   timerPreset?: number
@@ -1447,6 +1499,8 @@ export type DebateScalarWhereInput = {
   format?: Prisma.StringFilter<"Debate"> | string
   ranked?: Prisma.BoolFilter<"Debate"> | boolean
   isPublic?: Prisma.BoolFilter<"Debate"> | boolean
+  isPractice?: Prisma.BoolFilter<"Debate"> | boolean
+  isAiOpponent?: Prisma.BoolFilter<"Debate"> | boolean
   isDeleted?: Prisma.BoolFilter<"Debate"> | boolean
   isHidden?: Prisma.BoolFilter<"Debate"> | boolean
   timerPreset?: Prisma.IntFilter<"Debate"> | number
@@ -1494,6 +1548,8 @@ export type DebateCreateWithoutCategoryInput = {
   format: string
   ranked?: boolean
   isPublic?: boolean
+  isPractice?: boolean
+  isAiOpponent?: boolean
   isDeleted?: boolean
   isHidden?: boolean
   timerPreset?: number
@@ -1534,6 +1590,8 @@ export type DebateUncheckedCreateWithoutCategoryInput = {
   format: string
   ranked?: boolean
   isPublic?: boolean
+  isPractice?: boolean
+  isAiOpponent?: boolean
   isDeleted?: boolean
   isHidden?: boolean
   timerPreset?: number
@@ -1598,6 +1656,8 @@ export type DebateCreateWithoutChallengeInput = {
   format: string
   ranked?: boolean
   isPublic?: boolean
+  isPractice?: boolean
+  isAiOpponent?: boolean
   isDeleted?: boolean
   isHidden?: boolean
   timerPreset?: number
@@ -1638,6 +1698,8 @@ export type DebateUncheckedCreateWithoutChallengeInput = {
   format: string
   ranked?: boolean
   isPublic?: boolean
+  isPractice?: boolean
+  isAiOpponent?: boolean
   isDeleted?: boolean
   isHidden?: boolean
   timerPreset?: number
@@ -1692,6 +1754,8 @@ export type DebateUpdateWithoutChallengeInput = {
   format?: Prisma.StringFieldUpdateOperationsInput | string
   ranked?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPractice?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isAiOpponent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   timerPreset?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1732,6 +1796,8 @@ export type DebateUncheckedUpdateWithoutChallengeInput = {
   format?: Prisma.StringFieldUpdateOperationsInput | string
   ranked?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPractice?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isAiOpponent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   timerPreset?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1770,6 +1836,8 @@ export type DebateCreateWithoutAudienceVotesInput = {
   format: string
   ranked?: boolean
   isPublic?: boolean
+  isPractice?: boolean
+  isAiOpponent?: boolean
   isDeleted?: boolean
   isHidden?: boolean
   timerPreset?: number
@@ -1811,6 +1879,8 @@ export type DebateUncheckedCreateWithoutAudienceVotesInput = {
   format: string
   ranked?: boolean
   isPublic?: boolean
+  isPractice?: boolean
+  isAiOpponent?: boolean
   isDeleted?: boolean
   isHidden?: boolean
   timerPreset?: number
@@ -1864,6 +1934,8 @@ export type DebateUpdateWithoutAudienceVotesInput = {
   format?: Prisma.StringFieldUpdateOperationsInput | string
   ranked?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPractice?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isAiOpponent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   timerPreset?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1905,6 +1977,8 @@ export type DebateUncheckedUpdateWithoutAudienceVotesInput = {
   format?: Prisma.StringFieldUpdateOperationsInput | string
   ranked?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPractice?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isAiOpponent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   timerPreset?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1942,6 +2016,8 @@ export type DebateCreateWithoutDebateCommentsInput = {
   format: string
   ranked?: boolean
   isPublic?: boolean
+  isPractice?: boolean
+  isAiOpponent?: boolean
   isDeleted?: boolean
   isHidden?: boolean
   timerPreset?: number
@@ -1983,6 +2059,8 @@ export type DebateUncheckedCreateWithoutDebateCommentsInput = {
   format: string
   ranked?: boolean
   isPublic?: boolean
+  isPractice?: boolean
+  isAiOpponent?: boolean
   isDeleted?: boolean
   isHidden?: boolean
   timerPreset?: number
@@ -2036,6 +2114,8 @@ export type DebateUpdateWithoutDebateCommentsInput = {
   format?: Prisma.StringFieldUpdateOperationsInput | string
   ranked?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPractice?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isAiOpponent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   timerPreset?: Prisma.IntFieldUpdateOperationsInput | number
@@ -2077,6 +2157,8 @@ export type DebateUncheckedUpdateWithoutDebateCommentsInput = {
   format?: Prisma.StringFieldUpdateOperationsInput | string
   ranked?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPractice?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isAiOpponent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   timerPreset?: Prisma.IntFieldUpdateOperationsInput | number
@@ -2114,6 +2196,8 @@ export type DebateCreateWithoutCommentSubscriptionsInput = {
   format: string
   ranked?: boolean
   isPublic?: boolean
+  isPractice?: boolean
+  isAiOpponent?: boolean
   isDeleted?: boolean
   isHidden?: boolean
   timerPreset?: number
@@ -2155,6 +2239,8 @@ export type DebateUncheckedCreateWithoutCommentSubscriptionsInput = {
   format: string
   ranked?: boolean
   isPublic?: boolean
+  isPractice?: boolean
+  isAiOpponent?: boolean
   isDeleted?: boolean
   isHidden?: boolean
   timerPreset?: number
@@ -2208,6 +2294,8 @@ export type DebateUpdateWithoutCommentSubscriptionsInput = {
   format?: Prisma.StringFieldUpdateOperationsInput | string
   ranked?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPractice?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isAiOpponent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   timerPreset?: Prisma.IntFieldUpdateOperationsInput | number
@@ -2249,6 +2337,8 @@ export type DebateUncheckedUpdateWithoutCommentSubscriptionsInput = {
   format?: Prisma.StringFieldUpdateOperationsInput | string
   ranked?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPractice?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isAiOpponent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   timerPreset?: Prisma.IntFieldUpdateOperationsInput | number
@@ -2286,6 +2376,8 @@ export type DebateCreateWithoutTurnsInput = {
   format: string
   ranked?: boolean
   isPublic?: boolean
+  isPractice?: boolean
+  isAiOpponent?: boolean
   isDeleted?: boolean
   isHidden?: boolean
   timerPreset?: number
@@ -2327,6 +2419,8 @@ export type DebateUncheckedCreateWithoutTurnsInput = {
   format: string
   ranked?: boolean
   isPublic?: boolean
+  isPractice?: boolean
+  isAiOpponent?: boolean
   isDeleted?: boolean
   isHidden?: boolean
   timerPreset?: number
@@ -2380,6 +2474,8 @@ export type DebateUpdateWithoutTurnsInput = {
   format?: Prisma.StringFieldUpdateOperationsInput | string
   ranked?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPractice?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isAiOpponent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   timerPreset?: Prisma.IntFieldUpdateOperationsInput | number
@@ -2421,6 +2517,8 @@ export type DebateUncheckedUpdateWithoutTurnsInput = {
   format?: Prisma.StringFieldUpdateOperationsInput | string
   ranked?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPractice?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isAiOpponent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   timerPreset?: Prisma.IntFieldUpdateOperationsInput | number
@@ -2458,6 +2556,8 @@ export type DebateCreateWithoutJudgeResultsInput = {
   format: string
   ranked?: boolean
   isPublic?: boolean
+  isPractice?: boolean
+  isAiOpponent?: boolean
   isDeleted?: boolean
   isHidden?: boolean
   timerPreset?: number
@@ -2499,6 +2599,8 @@ export type DebateUncheckedCreateWithoutJudgeResultsInput = {
   format: string
   ranked?: boolean
   isPublic?: boolean
+  isPractice?: boolean
+  isAiOpponent?: boolean
   isDeleted?: boolean
   isHidden?: boolean
   timerPreset?: number
@@ -2552,6 +2654,8 @@ export type DebateUpdateWithoutJudgeResultsInput = {
   format?: Prisma.StringFieldUpdateOperationsInput | string
   ranked?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPractice?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isAiOpponent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   timerPreset?: Prisma.IntFieldUpdateOperationsInput | number
@@ -2593,6 +2697,8 @@ export type DebateUncheckedUpdateWithoutJudgeResultsInput = {
   format?: Prisma.StringFieldUpdateOperationsInput | string
   ranked?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPractice?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isAiOpponent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   timerPreset?: Prisma.IntFieldUpdateOperationsInput | number
@@ -2630,6 +2736,8 @@ export type DebateCreateWithoutSpectatorMessagesInput = {
   format: string
   ranked?: boolean
   isPublic?: boolean
+  isPractice?: boolean
+  isAiOpponent?: boolean
   isDeleted?: boolean
   isHidden?: boolean
   timerPreset?: number
@@ -2671,6 +2779,8 @@ export type DebateUncheckedCreateWithoutSpectatorMessagesInput = {
   format: string
   ranked?: boolean
   isPublic?: boolean
+  isPractice?: boolean
+  isAiOpponent?: boolean
   isDeleted?: boolean
   isHidden?: boolean
   timerPreset?: number
@@ -2724,6 +2834,8 @@ export type DebateUpdateWithoutSpectatorMessagesInput = {
   format?: Prisma.StringFieldUpdateOperationsInput | string
   ranked?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPractice?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isAiOpponent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   timerPreset?: Prisma.IntFieldUpdateOperationsInput | number
@@ -2765,6 +2877,8 @@ export type DebateUncheckedUpdateWithoutSpectatorMessagesInput = {
   format?: Prisma.StringFieldUpdateOperationsInput | string
   ranked?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPractice?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isAiOpponent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   timerPreset?: Prisma.IntFieldUpdateOperationsInput | number
@@ -2802,6 +2916,8 @@ export type DebateCreateWithoutResultInput = {
   format: string
   ranked?: boolean
   isPublic?: boolean
+  isPractice?: boolean
+  isAiOpponent?: boolean
   isDeleted?: boolean
   isHidden?: boolean
   timerPreset?: number
@@ -2843,6 +2959,8 @@ export type DebateUncheckedCreateWithoutResultInput = {
   format: string
   ranked?: boolean
   isPublic?: boolean
+  isPractice?: boolean
+  isAiOpponent?: boolean
   isDeleted?: boolean
   isHidden?: boolean
   timerPreset?: number
@@ -2896,6 +3014,8 @@ export type DebateUpdateWithoutResultInput = {
   format?: Prisma.StringFieldUpdateOperationsInput | string
   ranked?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPractice?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isAiOpponent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   timerPreset?: Prisma.IntFieldUpdateOperationsInput | number
@@ -2937,6 +3057,8 @@ export type DebateUncheckedUpdateWithoutResultInput = {
   format?: Prisma.StringFieldUpdateOperationsInput | string
   ranked?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPractice?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isAiOpponent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   timerPreset?: Prisma.IntFieldUpdateOperationsInput | number
@@ -2976,6 +3098,8 @@ export type DebateCreateManyDebaterAInput = {
   format: string
   ranked?: boolean
   isPublic?: boolean
+  isPractice?: boolean
+  isAiOpponent?: boolean
   isDeleted?: boolean
   isHidden?: boolean
   timerPreset?: number
@@ -3008,6 +3132,8 @@ export type DebateCreateManyDebaterBInput = {
   format: string
   ranked?: boolean
   isPublic?: boolean
+  isPractice?: boolean
+  isAiOpponent?: boolean
   isDeleted?: boolean
   isHidden?: boolean
   timerPreset?: number
@@ -3038,6 +3164,8 @@ export type DebateUpdateWithoutDebaterAInput = {
   format?: Prisma.StringFieldUpdateOperationsInput | string
   ranked?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPractice?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isAiOpponent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   timerPreset?: Prisma.IntFieldUpdateOperationsInput | number
@@ -3079,6 +3207,8 @@ export type DebateUncheckedUpdateWithoutDebaterAInput = {
   format?: Prisma.StringFieldUpdateOperationsInput | string
   ranked?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPractice?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isAiOpponent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   timerPreset?: Prisma.IntFieldUpdateOperationsInput | number
@@ -3118,6 +3248,8 @@ export type DebateUncheckedUpdateManyWithoutDebaterAInput = {
   format?: Prisma.StringFieldUpdateOperationsInput | string
   ranked?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPractice?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isAiOpponent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   timerPreset?: Prisma.IntFieldUpdateOperationsInput | number
@@ -3148,6 +3280,8 @@ export type DebateUpdateWithoutDebaterBInput = {
   format?: Prisma.StringFieldUpdateOperationsInput | string
   ranked?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPractice?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isAiOpponent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   timerPreset?: Prisma.IntFieldUpdateOperationsInput | number
@@ -3189,6 +3323,8 @@ export type DebateUncheckedUpdateWithoutDebaterBInput = {
   format?: Prisma.StringFieldUpdateOperationsInput | string
   ranked?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPractice?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isAiOpponent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   timerPreset?: Prisma.IntFieldUpdateOperationsInput | number
@@ -3228,6 +3364,8 @@ export type DebateUncheckedUpdateManyWithoutDebaterBInput = {
   format?: Prisma.StringFieldUpdateOperationsInput | string
   ranked?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPractice?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isAiOpponent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   timerPreset?: Prisma.IntFieldUpdateOperationsInput | number
@@ -3259,6 +3397,8 @@ export type DebateCreateManyCategoryInput = {
   format: string
   ranked?: boolean
   isPublic?: boolean
+  isPractice?: boolean
+  isAiOpponent?: boolean
   isDeleted?: boolean
   isHidden?: boolean
   timerPreset?: number
@@ -3290,6 +3430,8 @@ export type DebateUpdateWithoutCategoryInput = {
   format?: Prisma.StringFieldUpdateOperationsInput | string
   ranked?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPractice?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isAiOpponent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   timerPreset?: Prisma.IntFieldUpdateOperationsInput | number
@@ -3330,6 +3472,8 @@ export type DebateUncheckedUpdateWithoutCategoryInput = {
   format?: Prisma.StringFieldUpdateOperationsInput | string
   ranked?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPractice?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isAiOpponent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   timerPreset?: Prisma.IntFieldUpdateOperationsInput | number
@@ -3369,6 +3513,8 @@ export type DebateUncheckedUpdateManyWithoutCategoryInput = {
   format?: Prisma.StringFieldUpdateOperationsInput | string
   ranked?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isPractice?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isAiOpponent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
   timerPreset?: Prisma.IntFieldUpdateOperationsInput | number
@@ -3478,6 +3624,8 @@ export type DebateSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   format?: boolean
   ranked?: boolean
   isPublic?: boolean
+  isPractice?: boolean
+  isAiOpponent?: boolean
   isDeleted?: boolean
   isHidden?: boolean
   timerPreset?: boolean
@@ -3523,6 +3671,8 @@ export type DebateSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   format?: boolean
   ranked?: boolean
   isPublic?: boolean
+  isPractice?: boolean
+  isAiOpponent?: boolean
   isDeleted?: boolean
   isHidden?: boolean
   timerPreset?: boolean
@@ -3560,6 +3710,8 @@ export type DebateSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   format?: boolean
   ranked?: boolean
   isPublic?: boolean
+  isPractice?: boolean
+  isAiOpponent?: boolean
   isDeleted?: boolean
   isHidden?: boolean
   timerPreset?: boolean
@@ -3597,6 +3749,8 @@ export type DebateSelectScalar = {
   format?: boolean
   ranked?: boolean
   isPublic?: boolean
+  isPractice?: boolean
+  isAiOpponent?: boolean
   isDeleted?: boolean
   isHidden?: boolean
   timerPreset?: boolean
@@ -3622,7 +3776,7 @@ export type DebateSelectScalar = {
   updatedAt?: boolean
 }
 
-export type DebateOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "challengeId" | "categoryId" | "motion" | "format" | "ranked" | "isPublic" | "isDeleted" | "isHidden" | "timerPreset" | "status" | "phase" | "debaterAId" | "debaterBId" | "winnerId" | "coinFlipWinnerId" | "currentTurnIndex" | "currentUserId" | "timerStartedAt" | "prepEndsAt" | "secondChancePending" | "secondChanceRequesterId" | "secondChanceUserId" | "secondChanceExpiresAt" | "forfeitedBy" | "startedAt" | "completedAt" | "viewCount" | "createdAt" | "updatedAt", ExtArgs["result"]["debate"]>
+export type DebateOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "challengeId" | "categoryId" | "motion" | "format" | "ranked" | "isPublic" | "isPractice" | "isAiOpponent" | "isDeleted" | "isHidden" | "timerPreset" | "status" | "phase" | "debaterAId" | "debaterBId" | "winnerId" | "coinFlipWinnerId" | "currentTurnIndex" | "currentUserId" | "timerStartedAt" | "prepEndsAt" | "secondChancePending" | "secondChanceRequesterId" | "secondChanceUserId" | "secondChanceExpiresAt" | "forfeitedBy" | "startedAt" | "completedAt" | "viewCount" | "createdAt" | "updatedAt", ExtArgs["result"]["debate"]>
 export type DebateInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   challenge?: boolean | Prisma.ChallengeDefaultArgs<ExtArgs>
   category?: boolean | Prisma.CategoryDefaultArgs<ExtArgs>
@@ -3673,6 +3827,8 @@ export type $DebatePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     format: string
     ranked: boolean
     isPublic: boolean
+    isPractice: boolean
+    isAiOpponent: boolean
     isDeleted: boolean
     isHidden: boolean
     timerPreset: number
@@ -4137,6 +4293,8 @@ export interface DebateFieldRefs {
   readonly format: Prisma.FieldRef<"Debate", 'String'>
   readonly ranked: Prisma.FieldRef<"Debate", 'Boolean'>
   readonly isPublic: Prisma.FieldRef<"Debate", 'Boolean'>
+  readonly isPractice: Prisma.FieldRef<"Debate", 'Boolean'>
+  readonly isAiOpponent: Prisma.FieldRef<"Debate", 'Boolean'>
   readonly isDeleted: Prisma.FieldRef<"Debate", 'Boolean'>
   readonly isHidden: Prisma.FieldRef<"Debate", 'Boolean'>
   readonly timerPreset: Prisma.FieldRef<"Debate", 'Int'>
