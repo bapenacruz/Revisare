@@ -135,6 +135,7 @@ export default function ArenaPage() {
   const [submitting, setSubmitting] = useState(false);
   const [turnError, setTurnError] = useState("");
   const autoSubmittedRef = useRef(false);
+  const redirectedRef = useRef(false);
 
   // Second-chance
   const [scLoading, setScLoading] = useState(false);
@@ -152,13 +153,15 @@ export default function ArenaPage() {
 
   // Fetch debate state
   const fetchDebate = useCallback(async () => {
+    if (redirectedRef.current) return;
     const res = await fetch(`/api/debates/${challengeId}`);
     if (res.status === 404) { setNotFound(true); setLoading(false); return; }
     if (!res.ok) return;
     const data: DebateState = await res.json();
     setDebate(data);
     setLoading(false);
-    if (data.status === "completed") {
+    if (data.status === "completed" && !redirectedRef.current) {
+      redirectedRef.current = true;
       router.replace(`/debates/${challengeId}/results`);
     }
   }, [challengeId, router]);
@@ -183,13 +186,6 @@ export default function ArenaPage() {
     };
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fetchDebate, challengeId]);
-
-  // Redirect to results page once debate is completed
-  useEffect(() => {
-    if (debate?.status === "completed") {
-      router.replace(`/debates/${challengeId}/results`);
-    }
-  }, [debate?.status, challengeId, router]);
 
   // Reset draft and auto-submit guard when turn advances
   useEffect(() => {

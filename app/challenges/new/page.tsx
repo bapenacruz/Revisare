@@ -243,39 +243,115 @@ function NewChallengeForm() {
     <div className="mx-auto max-w-2xl px-4 sm:px-6 py-10">
       {/* Header */}
       <div className="mb-8">
-        <div className="flex items-center justify-between gap-3 mb-2">
-          <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-[--radius] bg-brand/15 flex items-center justify-center">
-              <Sword size={18} className="text-brand" />
-            </div>
-            <h1 className="text-2xl font-bold text-foreground">New Challenge</h1>
+        <div className="flex items-center gap-3 mb-2">
+          <div className="w-9 h-9 rounded-[--radius] bg-brand/15 flex items-center justify-center">
+            <Sword size={18} className="text-brand" />
           </div>
-          {/* Practice Mode Toggle */}
-          <button
-            type="button"
-            onClick={() => setPractice((v) => !v)}
-            className={`flex items-center gap-2 px-3 py-1.5 rounded-full border text-sm font-medium transition-all ${
-              practice
-                ? "border-brand/60 bg-brand/10 text-brand"
-                : "border-border bg-surface text-foreground-muted hover:border-brand/40 hover:text-foreground"
-            }`}
-          >
-            <FlaskConical size={14} />
-            Practice Mode
-            <Toggle on={practice} onToggle={() => setPractice((v) => !v)} />
-          </button>
+          <h1 className="text-2xl font-bold text-foreground">New Challenge</h1>
         </div>
-        <p className="text-foreground-muted text-sm">
-          {practice
-            ? "Practice debates are private and unranked — no ELO impact."
-            : "Ranked debates are public and affect your ELO rating."}
-        </p>
       </div>
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+        {/* Motion */}
+        <div className="flex flex-col gap-1.5">
+          <div className="flex items-center justify-between gap-2">
+            <label className="text-sm font-medium text-foreground">Motion / Topic</label>
+            <button
+              type="button"
+              disabled={polishing || !motion.trim()}
+              onClick={async () => {
+                if (!motion.trim()) return;
+                setCategoryChangedMsg(null);
+                setPolishing(true);
+                try {
+                  const res = await fetch("/api/challenges/refine-motion", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ motion, categoryId }),
+                  });
+                  const json = await res.json();
+                  if (!res.ok) { setError(json.error ?? "AI polish failed. Please try again."); return; }
+                  setMotion(json.motion);
+                  if (json.categoryId) setCategoryId(json.categoryId);
+                  if (json.categoryChanged && json.categoryLabel) {
+                    setCategoryChangedMsg(`Category updated to "${json.categoryLabel}" — a better fit for this motion.`);
+                  }
+                } catch {
+                  setError("Network error. Please try again.");
+                } finally {
+                  setPolishing(false);
+                }
+              }}
+              className="flex items-center gap-1.5 px-2.5 py-1 rounded-[--radius] text-xs font-medium border border-brand/40 text-brand bg-brand/5 hover:bg-brand/10 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+            >
+              {polishing ? <Loader2 size={12} className="animate-spin" /> : <Wand2 size={12} />}
+              {polishing ? "Polishing…" : "Polish with AI"}
+            </button>
+          </div>
+          <textarea
+            value={motion}
+            onChange={(e) => { setMotion(e.target.value); setCategoryChangedMsg(null); }}
+            placeholder="Describe what you want to debate, or write your motion directly…"
+            rows={3}
+            maxLength={280}
+            required
+            className="w-full rounded-[--radius] bg-surface border border-border px-3 py-2.5 text-sm text-foreground placeholder:text-foreground-subtle resize-none focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand transition-colors"
+          />
+          <div className="flex items-start justify-between gap-2">
+            {categoryChangedMsg ? (
+              <p className="text-xs text-brand flex items-center gap-1"><Wand2 size={11} />{categoryChangedMsg}</p>
+            ) : tip ? (
+              <p className="text-xs text-foreground-subtle">{tip}</p>
+            ) : <span />}
+            <span className="text-xs text-foreground-subtle shrink-0">{motion.length}/280</span>
+          </div>
+        </div>
+
+        {/* Category */}
+        <div>
+          <p className="text-sm font-medium text-foreground mb-2">Category</p>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+            {categories.map((c) => (
+              <button
+                key={c.id}
+                type="button"
+                onClick={() => setCategoryId(c.id)}
+                className={`flex items-center gap-2 px-3 py-2.5 rounded-[--radius] border text-sm transition-all ${
+                  categoryId === c.id
+                    ? "border-brand bg-brand-dim text-brand"
+                    : "border-border bg-surface text-foreground-muted hover:border-brand/40 hover:text-foreground"
+                }`}
+              >
+                <span>{c.emoji}</span>
+                <span className="font-medium truncate">{c.label}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+
         {/* Challenge type */}
         <div>
-          <p className="text-sm font-medium text-foreground mb-2">Challenge Type</p>
+          <div className="flex items-center justify-between gap-2 mb-1">
+            <p className="text-sm font-medium text-foreground">Challenge Type</p>
+            <button
+              type="button"
+              onClick={() => setPractice((v) => !v)}
+              className={`flex items-center gap-2 px-3 py-1.5 rounded-full border text-sm font-medium transition-all ${
+                practice
+                  ? "border-brand/60 bg-brand/10 text-brand"
+                  : "border-border bg-surface text-foreground-muted hover:border-brand/40 hover:text-foreground"
+              }`}
+            >
+              <FlaskConical size={14} />
+              Practice Mode
+              <Toggle on={practice} onToggle={() => setPractice((v) => !v)} />
+            </button>
+          </div>
+          <p className="text-xs text-foreground-muted mb-3">
+            {practice
+              ? "Practice debates are private and unranked — no ELO impact."
+              : "Ranked debates are public and affect your ELO rating."}
+          </p>
           <div className="grid grid-cols-2 gap-3">
             {typeOptions.map((opt) => (
               <button
@@ -374,101 +450,6 @@ function NewChallengeForm() {
             )}
           </div>
         )}
-
-        {/* Category */}
-        <div>
-          <p className="text-sm font-medium text-foreground mb-2">Category</p>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-            {categories.map((c) => (
-              <button
-                key={c.id}
-                type="button"
-                onClick={() => setCategoryId(c.id)}
-                className={`flex items-center gap-2 px-3 py-2.5 rounded-[--radius] border text-sm transition-all ${
-                  categoryId === c.id
-                    ? "border-brand bg-brand-dim text-brand"
-                    : "border-border bg-surface text-foreground-muted hover:border-brand/40 hover:text-foreground"
-                }`}
-              >
-                <span>{c.emoji}</span>
-                <span className="font-medium truncate">{c.label}</span>
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* Motion */}
-        <div className="flex flex-col gap-1.5">
-          <div className="flex items-center justify-between gap-2">
-            <label className="text-sm font-medium text-foreground">Motion / Topic</label>
-            <button
-              type="button"
-              disabled={polishing || !motion.trim()}
-              onClick={async () => {
-                if (!motion.trim()) return;
-                setCategoryChangedMsg(null);
-                setPolishing(true);
-                try {
-                  const res = await fetch("/api/challenges/refine-motion", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ motion, categoryId }),
-                  });
-                  const json = await res.json();
-                  if (!res.ok) { setError(json.error ?? "AI polish failed. Please try again."); return; }
-                  setMotion(json.motion);
-                  if (json.categoryId) setCategoryId(json.categoryId);
-                  if (json.categoryChanged && json.categoryLabel) {
-                    setCategoryChangedMsg(`Category updated to "${json.categoryLabel}" — a better fit for this motion.`);
-                  }
-                } catch {
-                  setError("Network error. Please try again.");
-                } finally {
-                  setPolishing(false);
-                }
-              }}
-              className="flex items-center gap-1.5 px-2.5 py-1 rounded-[--radius] text-xs font-medium border border-brand/40 text-brand bg-brand/5 hover:bg-brand/10 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
-            >
-              {polishing ? <Loader2 size={12} className="animate-spin" /> : <Wand2 size={12} />}
-              {polishing ? "Polishing…" : "Polish with AI"}
-            </button>
-          </div>
-          <textarea
-            value={motion}
-            onChange={(e) => { setMotion(e.target.value); setCategoryChangedMsg(null); }}
-            placeholder="Describe what you want to debate, or write your motion directly…"
-            rows={3}
-            maxLength={280}
-            required
-            className="w-full rounded-[--radius] bg-surface border border-border px-3 py-2.5 text-sm text-foreground placeholder:text-foreground-subtle resize-none focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand transition-colors"
-          />
-          <div className="flex items-start justify-between gap-2">
-            {categoryChangedMsg ? (
-              <p className="text-xs text-brand flex items-center gap-1"><Wand2 size={11} />{categoryChangedMsg}</p>
-            ) : tip ? (
-              <p className="text-xs text-foreground-subtle">{tip}</p>
-            ) : <span />}
-            <span className="text-xs text-foreground-subtle shrink-0">{motion.length}/280</span>
-          </div>
-        </div>
-
-        {/* Mode summary badges */}
-        <div className="flex flex-wrap gap-2">
-          {practice ? (
-            <>
-              <Badge variant="default" size="sm">Unranked</Badge>
-              <Badge variant="default" size="sm">Private</Badge>
-              <Badge variant="info" size="sm">Practice</Badge>
-            </>
-          ) : (
-            <>
-              <Badge variant="accent" size="sm">Ranked</Badge>
-              <Badge variant="info" size="sm">Public</Badge>
-            </>
-          )}
-          <Badge variant="default" size="sm">Standard</Badge>
-          <Badge variant="default" size="sm">~15 min</Badge>
-        </div>
 
         {openDebateBlock && (
           <div className="flex flex-col gap-2 bg-warning/10 border border-warning/30 rounded-[--radius] px-4 py-3">
