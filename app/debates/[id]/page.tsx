@@ -162,7 +162,9 @@ export default function ArenaPage() {
     setLoading(false);
     if (data.status === "completed" && !redirectedRef.current) {
       redirectedRef.current = true;
-      router.replace(`/debates/${challengeId}/results`);
+      // Use hard navigation — router.replace() can get stuck in a suspended
+      // transition while Pusher/polling events are still firing.
+      window.location.replace(`/debates/${challengeId}/results`);
     }
   }, [challengeId, router]);
 

@@ -333,10 +333,9 @@ function NewChallengeForm() {
         <div>
           <div className="flex items-center justify-between gap-2 mb-1">
             <p className="text-sm font-medium text-foreground">Challenge Type</p>
-            <button
-              type="button"
+            <div
               onClick={() => setPractice((v) => !v)}
-              className={`flex items-center gap-2 px-3 py-1.5 rounded-full border text-sm font-medium transition-all ${
+              className={`flex items-center gap-2 px-3 py-1.5 rounded-full border text-sm font-medium cursor-pointer transition-all ${
                 practice
                   ? "border-brand/60 bg-brand/10 text-brand"
                   : "border-border bg-surface text-foreground-muted hover:border-brand/40 hover:text-foreground"
@@ -344,8 +343,11 @@ function NewChallengeForm() {
             >
               <FlaskConical size={14} />
               Practice Mode
-              <Toggle on={practice} onToggle={() => setPractice((v) => !v)} />
-            </button>
+              {/* Stop propagation so toggle click doesn't double-fire with the parent onClick */}
+              <div onClick={(e) => e.stopPropagation()}>
+                <Toggle on={practice} onToggle={() => setPractice((v) => !v)} />
+              </div>
+            </div>
           </div>
           <p className="text-xs text-foreground-muted mb-3">
             {practice
