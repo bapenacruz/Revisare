@@ -6,6 +6,7 @@ import {
   getTurnSequence,
   getMinChars,
   getMaxChars,
+  PREP_SECONDS,
   SECOND_CHANCE_WINDOW_SECONDS,
   THINKING_SECONDS,
   getRoundTimer,
@@ -230,6 +231,32 @@ export async function POST(req: NextRequest, { params }: RouteParams) {
     return NextResponse.json({ phase: "thinking", thinkingEndsAt });
   }
 
+  // For all other human turns (1→2 through 6→7): 30s digest prep before typing starts.
+  // AI turns skip this — they respond instantly.
+  if (!isNextAi) {
+    const prepEndsAt = new Date(now.getTime() + PREP_SECONDS * 1000);
+    await db.debate.update({
+      where: { challengeId },
+      data: {
+        phase: "prep",
+        currentTurnIndex: nextIndex,
+        currentUserId: nextSpec.userId,
+        prepEndsAt,
+        timerStartedAt: null,
+        timerPreset: getRoundTimer(debate.format, nextSpec.roundName),
+      },
+    });
+    await pusherTrigger(CHANNELS.debate(challengeId), EVENTS.DEBATE_TURN_SUBMITTED, {
+      turnIndex: debate.currentTurnIndex,
+      nextUserId: nextSpec.userId,
+    });
+    await pusherTrigger(CHANNELS.debate(challengeId), EVENTS.DEBATE_STATE_CHANGED, {
+      phase: "prep",
+    });
+    return NextResponse.json({ phase: "prep", prepEndsAt });
+  }
+
+  // AI turn: go directly to typing and spawn AI generation
   await db.debate.update({
     where: { challengeId },
     data: {
@@ -246,12 +273,9 @@ export async function POST(req: NextRequest, { params }: RouteParams) {
     nextUserId: nextSpec.userId,
   });
 
-  // If next player is the AI, schedule AI turn generation in the background
-  if (isNextAi) {
-    Promise.resolve()
-      .then(() => executeAiTurn({ challengeId, debateId: debate.id, nextIndex, nextSpec, sequence, debate }))
-      .catch((err) => console.error("[AI Turn] Background execution failed:", err));
-  }
+  Promise.resolve()
+    .then(() => executeAiTurn({ challengeId, debateId: debate.id, nextIndex, nextSpec, sequence, debate }))
+    .catch((err) => console.error("[AI Turn] Background execution failed:", err));
 
   return NextResponse.json({ phase: "typing", nextUserId: nextSpec.userId });
 }

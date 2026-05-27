@@ -517,12 +517,29 @@ export default function ArenaPage() {
                 <div className="w-12 h-12 rounded-full bg-accent/15 flex items-center justify-center mx-auto mb-4">
                   <Clock size={22} className="text-accent" />
                 </div>
-                <h2 className="text-lg font-bold text-foreground mb-1">Preparation Phase</h2>
-                <p className="text-foreground-muted text-sm mb-4">
-                  Read the motion and collect your thoughts. Debate begins in&hellip;
-                </p>
+                {debate.turns.length > 0 ? (
+                  // Inter-turn digest prep — shown after opponent submits a turn
+                  <>
+                    <h2 className="text-lg font-bold text-foreground mb-1">
+                      {me === debate.currentUserId ? "Digest &amp; Prepare" : "Opponent Preparing"}
+                    </h2>
+                    <p className="text-foreground-muted text-sm mb-4">
+                      {me === debate.currentUserId
+                        ? "Read your opponent\u2019s response carefully. Your typing timer starts in\u2026"
+                        : `${debate.currentUserId === debate.debaterAId ? debate.debaterA.username : debate.debaterB.username} is reading your response before replying.`}
+                    </p>
+                  </>
+                ) : (
+                  // Initial pre-debate prep
+                  <>
+                    <h2 className="text-lg font-bold text-foreground mb-1">Preparation Phase</h2>
+                    <p className="text-foreground-muted text-sm mb-4">
+                      Read the motion and collect your thoughts. Debate begins in&hellip;
+                    </p>
+                  </>
+                )}
                 <p className="text-3xl font-mono font-bold text-accent">{formatTimer(prepLeft)}</p>
-                {isParticipant && (
+                {debate.turns.length === 0 && isParticipant && (
                   <div className="mt-4 p-3 rounded-[--radius] bg-brand/10 border border-brand/20">
                     <p className="text-sm text-brand font-medium">
                       You argue:{" "}
