@@ -61,13 +61,15 @@ function buildFeed(debates: FeaturedDebateItem[], ads: AdItem[], banners: Banner
       result.push({ type: "ad", data: ads[adIdx % ads.length] });
       adIdx++;
     }
-    // Inject banner after debate[5] — 6 debates fills complete rows at 1, 2, and 3 columns
-    if (!bannerInjected && banners.length > 0 && i === 5) {
+    // Inject banner when result length is a multiple of 3 and at least 6 items have been placed.
+    // This guarantees the last row before the banner is always complete at 1, 2, and 3 columns,
+    // regardless of whether an ad was interleaved before this point.
+    if (!bannerInjected && banners.length > 0 && result.length >= 6 && result.length % 3 === 0) {
       result.push({ type: "banner", data: banners[Math.floor(Math.random() * banners.length)] });
       bannerInjected = true;
     }
   }
-  // Fewer than 6 debates — append banner at end
+  // Not enough debates to hit a qualifying position — append banner at end
   if (!bannerInjected && banners.length > 0 && debates.length > 0) {
     result.push({ type: "banner", data: banners[Math.floor(Math.random() * banners.length)] });
   }
