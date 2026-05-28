@@ -13,11 +13,11 @@ export async function GET(req: NextRequest) {
 
   const { searchParams } = new URL(req.url);
   const unreadOnly = searchParams.get("unread") === "true";
-  const typeFilter = searchParams.get("type");
+  const typesParam = searchParams.get("types") ?? searchParams.get("type");
   const page = Math.max(1, parseInt(searchParams.get("page") ?? "1", 10));
 
-  const typeWhere = typeFilter && typeFilter !== "all"
-    ? [typeFilter as (typeof VISIBLE_NOTIFICATION_TYPES)[number]]
+  const typeWhere = typesParam && typesParam !== "all"
+    ? (typesParam.split(",") as (typeof VISIBLE_NOTIFICATION_TYPES)[number][])
     : VISIBLE_NOTIFICATION_TYPES;
 
   const where = {

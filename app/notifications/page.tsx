@@ -31,20 +31,28 @@ const TYPE_ICON: Record<string, string> = {
   follow_request: "🤝",
 };
 
-const TYPE_LABELS: Record<string, string> = {
-  new_follower: "Followers",
-  result_ready: "Results",
-  challenge_received: "Challenges",
-  featured_debate: "Featured",
-  opponent_forfeit: "Forfeits",
-  integrity_action: "Moderation",
-  new_comment: "Comments",
-  follow_request: "Follow Requests",
-};
+// Filter groups: keys are what gets sent to the API (comma-separated for multi-type groups)
+const FILTER_GROUPS: { key: string; icon: string; label: string }[] = [
+  { key: "challenge_received",            icon: "⚔️",  label: "Challenges" },
+  { key: "new_comment",                    icon: "💬",  label: "Comments" },
+  { key: "featured_debate",               icon: "⭐",  label: "Featured" },
+  { key: "new_follower,follow_request",   icon: "👤",  label: "Followers" },
+  { key: "opponent_forfeit",              icon: "🏳️", label: "Forfeits" },
+  { key: "integrity_action",             icon: "🛡️", label: "Moderation" },
+  { key: "result_ready",                  icon: "🏆",  label: "Results" },
+];
 
-const ALL_TYPES = Object.keys(TYPE_LABELS).sort((a, b) =>
-  TYPE_LABELS[a].localeCompare(TYPE_LABELS[b])
-);
+// Legacy map still used for per-notification icon display
+const TYPE_ICON: Record<string, string> = {
+  new_follower: "👤",
+  result_ready: "🏆",
+  challenge_received: "⚔️",
+  featured_debate: "⭐",
+  opponent_forfeit: "🏳️",
+  integrity_action: "🛡️",
+  new_comment: "💬",
+  follow_request: "👤",
+};
 
 export default function NotificationsPage() {
   const { data: session } = useSession();
@@ -60,7 +68,7 @@ export default function NotificationsPage() {
     if (!session) return;
     setLoading(true);
     const params = new URLSearchParams({ page: String(page) });
-    if (typeFilter !== "all") params.set("type", typeFilter);
+    if (typeFilter !== "all") params.set("types", typeFilter);
     fetch(`/api/notifications?${params}`)
       .then((r) => r.json())
       .then((d: { notifications: Notif[]; totalPages: number; unreadCount: number }) => {
@@ -157,13 +165,13 @@ export default function NotificationsPage() {
         >
           All
         </button>
-        {ALL_TYPES.map((t) => (
+        {FILTER_GROUPS.map(({ key, icon, label }) => (
           <button
-            key={t}
-            onClick={() => changeFilter(t)}
-            className={`px-3 py-1 rounded-full text-xs border transition-colors ${typeFilter === t ? "bg-brand text-white border-brand" : "bg-surface border-border text-foreground-muted hover:text-foreground"}`}
+            key={key}
+            onClick={() => changeFilter(key)}
+            className={`px-3 py-1 rounded-full text-xs border transition-colors ${typeFilter === key ? "bg-brand text-white border-brand" : "bg-surface border-border text-foreground-muted hover:text-foreground"}`}
           >
-            {TYPE_ICON[t]} {TYPE_LABELS[t]}
+            {icon} {label}
           </button>
         ))}
       </div>
