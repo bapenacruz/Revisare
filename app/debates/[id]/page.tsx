@@ -936,17 +936,17 @@ export default function ArenaPage() {
                         onChange={(e) => setGuestName(e.target.value.slice(0, 30))}
                       />
                     )}
-                    <div className="flex gap-1.5">
+                    <div className="flex gap-1.5 items-stretch">
                       <input
                         className="flex-1 text-xs px-2 py-1 rounded-md bg-surface-raised border border-border text-foreground placeholder:text-foreground-subtle focus:outline-none min-w-0"
-                        placeholder="Say something\u2026"
+                        placeholder="Say something…"
                         value={specDraft}
                         onChange={(e) => setSpecDraft(e.target.value.slice(0, 500))}
                         disabled={sendingSpec}
                       />
                       <button
                         type="submit"
-                        className="p-1.5 rounded-md bg-brand/20 text-brand hover:bg-brand/30 transition-colors disabled:opacity-40"
+                        className="px-2 rounded-md bg-brand/20 text-brand hover:bg-brand/30 transition-colors disabled:opacity-40 flex items-center justify-center"
                         disabled={sendingSpec || !specDraft.trim()}
                       >
                         <Send size={12} />
