@@ -56,18 +56,18 @@ function buildFeed(debates: FeaturedDebateItem[], ads: AdItem[], banners: Banner
   let adIdx = 0;
   let bannerInjected = false;
   for (let i = 0; i < debates.length; i++) {
-    // Inject banner after 2nd debate card (once)
-    if (!bannerInjected && banners.length > 0 && i === 2) {
-      result.push({ type: "banner", data: banners[Math.floor(Math.random() * banners.length)] });
-      bannerInjected = true;
-    }
     result.push({ type: "debate", data: debates[i] });
     if (ads.length > 0 && (i + 1) % 5 === 0) {
       result.push({ type: "ad", data: ads[adIdx % ads.length] });
       adIdx++;
     }
+    // Inject banner after debate[5] — 6 debates fills complete rows at 1, 2, and 3 columns
+    if (!bannerInjected && banners.length > 0 && i === 5) {
+      result.push({ type: "banner", data: banners[Math.floor(Math.random() * banners.length)] });
+      bannerInjected = true;
+    }
   }
-  // If not enough debates to reach position 2, append banner at end
+  // Fewer than 6 debates — append banner at end
   if (!bannerInjected && banners.length > 0 && debates.length > 0) {
     result.push({ type: "banner", data: banners[Math.floor(Math.random() * banners.length)] });
   }
@@ -160,60 +160,45 @@ export function FeaturedFeed() {
             <div key={i} className="h-32 rounded-[--radius-lg] bg-surface animate-pulse" />
           ))}
         </div>
-      ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" style={{ gridAutoRows: "1fr" }}>
-          {buildFeed(items, ads, banners).map((item, idx) => {
-            if (item.type === "banner") {
-              const b = item.data;
-              const inner = (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img src={b.imageDataUrl} alt={b.altText ?? ""} className="w-full h-auto rounded-[--radius-lg]" />
-              );
-              return b.linkUrl ? (
-                <a key={`banner-${b.id}-${idx}`} href={ensureAbsoluteUrl(b.linkUrl)} target="_blank" rel="noopener noreferrer"
-                  className="block overflow-hidden rounded-[--radius-lg] col-span-1 md:col-span-2 lg:col-span-3">
-                  {inner}
-                </a>
-              ) : (
-                <div key={`banner-${b.id}-${idx}`} className="overflow-hidden rounded-[--radius-lg] col-span-1 md:col-span-2 lg:col-span-3">
-                  {inner}
-                </div>
-              );
-            }
+      ) : (() => {
+          const feed = buildFeed(items, ads, banners);
+          const bannerIdx = feed.findIndex((f) => f.type === "banner");
+          const preBanner = bannerIdx >= 0 ? feed.slice(0, bannerIdx) : feed;
+          const bannerData = bannerIdx >= 0 ? (feed[bannerIdx] as { type: "banner"; data: BannerItem }).data : null;
+          const postBanner = bannerIdx >= 0 ? feed.slice(bannerIdx + 1) : [];
 
+          const renderTile = (item: FeedItem, idx: number) => {
             if (item.type === "ad") {
               const ad = item.data;
-              const inner = (
-                <Card interactive className="h-full border-brand/20 bg-surface">
-                  <CardBody className="flex flex-col gap-3 p-4">
-                    <div className="flex items-center gap-1.5">
-                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-semibold uppercase tracking-wide border bg-brand/10 text-brand border-brand/20">
-                        <Megaphone size={9} /> Sponsored
-                      </span>
-                    </div>
-                    <p className="text-sm font-medium text-foreground leading-snug line-clamp-3 flex-1">
-                      {ad.motion}
-                    </p>
-                    <div className="flex flex-col gap-1">
-                      <div className="flex items-center gap-1.5 text-xs font-semibold text-foreground">
-                        <Avatar initial={ad.proponentName[0].toUpperCase()} size="xs" />
-                        <span className="truncate">{ad.proponentName}</span>
-                        <span title="Winner">🏆</span>
-                      </div>
-                      <div className="flex items-center gap-1.5 text-xs text-foreground-muted opacity-70">
-                        <Avatar initial={ad.opponentName[0].toUpperCase()} size="xs" />
-                        <span className="truncate">{ad.opponentName}</span>
-                      </div>
-                    </div>
-                  </CardBody>
-                </Card>
-              );
               return (
-                <Link key={`ad-${ad.id}-${idx}`} href={`/ads/${ad.id}`}>{inner}</Link>
+                <Link key={`ad-${ad.id}-${idx}`} href={`/ads/${ad.id}`}>
+                  <Card interactive className="h-full border-brand/20 bg-surface">
+                    <CardBody className="flex flex-col gap-3 p-4">
+                      <div className="flex items-center gap-1.5">
+                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-semibold uppercase tracking-wide border bg-brand/10 text-brand border-brand/20">
+                          <Megaphone size={9} /> Sponsored
+                        </span>
+                      </div>
+                      <p className="text-sm font-medium text-foreground leading-snug line-clamp-3 flex-1">
+                        {ad.motion}
+                      </p>
+                      <div className="flex flex-col gap-1">
+                        <div className="flex items-center gap-1.5 text-xs font-semibold text-foreground">
+                          <Avatar initial={ad.proponentName[0].toUpperCase()} size="xs" />
+                          <span className="truncate">{ad.proponentName}</span>
+                          <span title="Winner">🏆</span>
+                        </div>
+                        <div className="flex items-center gap-1.5 text-xs text-foreground-muted opacity-70">
+                          <Avatar initial={ad.opponentName[0].toUpperCase()} size="xs" />
+                          <span className="truncate">{ad.opponentName}</span>
+                        </div>
+                      </div>
+                    </CardBody>
+                  </Card>
+                </Link>
               );
             }
-
-            const debate = item.data;
+            const debate = (item as { type: "debate"; data: FeaturedDebateItem }).data;
             return (
               <Link key={debate.id} href={`/debates/${debate.challengeId}/results`}>
                 <Card interactive className="h-full">
@@ -222,14 +207,10 @@ export function FeaturedFeed() {
                       <Badge variant="default" size="sm">
                         {debate.category.emoji} {debate.category.label}
                       </Badge>
-
                     </div>
-
                     <p className="text-sm font-medium text-foreground leading-snug line-clamp-3 flex-1">
                       {debate.motion}
                     </p>
-
-                    {/* Participants */}
                     <div className="flex flex-col gap-1">
                       {[debate.debaterA, debate.debaterB].map((p) => {
                         const isWinner = debate.winnerId === p.id;
@@ -244,8 +225,6 @@ export function FeaturedFeed() {
                         );
                       })}
                     </div>
-
-                    {/* Stats */}
                     <div className="flex items-center gap-3 mt-1 text-[11px] text-foreground-muted">
                       <span className="flex items-center gap-1"><Eye size={11} />{debate.viewCount.toLocaleString()}</span>
                       <span className="flex items-center gap-1"><MessageSquare size={11} />{debate.commentCount.toLocaleString()}</span>
@@ -273,9 +252,39 @@ export function FeaturedFeed() {
                 </Card>
               </Link>
             );
-          })}
-        </div>
-      )}
+          };
+
+          const gridClass = "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4";
+          const gridStyle = { gridAutoRows: "1fr" as const };
+          return (
+            <div className="flex flex-col gap-4">
+              {preBanner.length > 0 && (
+                <div className={gridClass} style={gridStyle}>
+                  {preBanner.map(renderTile)}
+                </div>
+              )}
+              {bannerData && (
+                bannerData.linkUrl ? (
+                  <a href={ensureAbsoluteUrl(bannerData.linkUrl)} target="_blank" rel="noopener noreferrer"
+                    className="block overflow-hidden rounded-[--radius-lg]">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={bannerData.imageDataUrl} alt={bannerData.altText ?? ""} className="w-full h-auto rounded-[--radius-lg]" />
+                  </a>
+                ) : (
+                  <div className="overflow-hidden rounded-[--radius-lg]">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={bannerData.imageDataUrl} alt={bannerData.altText ?? ""} className="w-full h-auto rounded-[--radius-lg]" />
+                  </div>
+                )
+              )}
+              {postBanner.length > 0 && (
+                <div className={gridClass} style={gridStyle}>
+                  {postBanner.map(renderTile)}
+                </div>
+              )}
+            </div>
+          );
+        })()
 
       <div ref={sentinelRef} className="h-4" />
 
