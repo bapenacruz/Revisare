@@ -205,9 +205,31 @@ export async function POST(req: NextRequest, { params }: RouteParams) {
   const nextSpec = sequence[nextIndex];
   const isNextAi = debate.isAiOpponent && nextSpec.userId === AI_OPPONENT_USER_ID;
 
-  // Universal 30s prep before every turn — all formats, all opponent types.
-  // For AI turns: AI generates in the background during the 30s and waits until
-  // prepEndsAt before committing, so the user always gets the full reading window.
+  // AI turns skip prep — AI responds immediately after the human writes.
+  // Human turns always get 30s to read the previous response before typing starts.
+  if (isNextAi) {
+    await db.debate.update({
+      where: { challengeId },
+      data: {
+        phase: "typing",
+        currentTurnIndex: nextIndex,
+        currentUserId: nextSpec.userId,
+        timerStartedAt: now,
+        timerPreset: getRoundTimer(debate.format, nextSpec.roundName),
+      },
+    });
+    await pusherTrigger(CHANNELS.debate(challengeId), EVENTS.DEBATE_TURN_SUBMITTED, {
+      turnIndex: debate.currentTurnIndex,
+      nextUserId: nextSpec.userId,
+    });
+    await pusherTrigger(CHANNELS.debate(challengeId), EVENTS.DEBATE_STATE_CHANGED, { phase: "typing" });
+    Promise.resolve()
+      .then(() => executeAiTurn({ challengeId, debateId: debate.id, nextIndex, nextSpec, sequence, debate }))
+      .catch((err) => console.error("[AI Turn] Background execution failed:", err));
+    return NextResponse.json({ phase: "typing", nextUserId: nextSpec.userId });
+  }
+
+  // Human turn: 30s prep to read the previous response
   const prepEndsAt = new Date(now.getTime() + PREP_SECONDS * 1000);
   await db.debate.update({
     where: { challengeId },
@@ -226,14 +248,6 @@ export async function POST(req: NextRequest, { params }: RouteParams) {
   });
   await pusherTrigger(CHANNELS.debate(challengeId), EVENTS.DEBATE_STATE_CHANGED, { phase: "prep" });
 
-  if (isNextAi) {
-    // Start generation now so the AI is ready right when prep ends.
-    // executeAiTurn will sleep until prepEndsAt before committing the turn.
-    Promise.resolve()
-      .then(() => executeAiTurn({ challengeId, debateId: debate.id, nextIndex, nextSpec, sequence, debate, prepEndsAt }))
-      .catch((err) => console.error("[AI Turn] Background execution failed:", err));
-  }
-
   return NextResponse.json({ phase: "prep", prepEndsAt });
 }
 
@@ -245,8 +259,6 @@ interface AiTurnOptions {
   nextIndex: number;
   nextSpec: TurnSpec;
   sequence: TurnSpec[];
-  /** Timestamp when the current prep phase ends — AI waits until this before committing. */
-  prepEndsAt: Date;
   debate: {
     debaterAId: string;
     debaterBId: string;
@@ -258,7 +270,7 @@ interface AiTurnOptions {
   };
 }
 
-async function executeAiTurn({ challengeId, debateId, nextIndex, nextSpec, sequence, debate, prepEndsAt }: AiTurnOptions) {
+async function executeAiTurn({ challengeId, debateId, nextIndex, nextSpec, sequence, debate }: AiTurnOptions) {
   // Load all turns so far
   const previousTurns = await db.debateTurn.findMany({
     where: { debateId },
@@ -300,13 +312,6 @@ async function executeAiTurn({ challengeId, debateId, nextIndex, nextSpec, seque
   }
 
   const content = aiText ?? "I concede this point and yield my time.";
-
-  // Wait until the user's reading window is over before committing the AI turn.
-  // This ensures the 30s prep always elapses before the AI's text appears.
-  const waitMs = prepEndsAt.getTime() - Date.now();
-  if (waitMs > 0) {
-    await new Promise<void>((resolve) => setTimeout(resolve, waitMs));
-  }
 
   const now = new Date();
 
