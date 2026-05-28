@@ -13,7 +13,7 @@ import { getMinChars, getMaxChars } from "./debate-state";
 
 // Fixed ID for the AI system bot user — kept here as a constant to use across the app
 export const AI_OPPONENT_USER_ID = "ai_opponent_system_v1";
-export const AI_OPPONENT_USERNAME = "AI";
+export const AI_OPPONENT_USERNAME = "revisare.ai";
 
 const AI_MODEL = "google/gemini-2.5-flash-lite";
 

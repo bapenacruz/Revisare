@@ -7,7 +7,7 @@ import Link from "next/link";
 import { Card, CardBody } from "@/components/ui/Card";
 import { Avatar } from "@/components/ui/Avatar";
 import { Badge } from "@/components/ui/Badge";
-import { ChevronDown, ChevronUp, Users, ShieldCheck, HelpCircle, Sparkles } from "lucide-react";
+import { ChevronDown, ChevronUp, Users, ShieldCheck, HelpCircle, Sparkles, Swords } from "lucide-react";
 
 const RULES = [
   {
@@ -169,6 +169,24 @@ export default function CommunityPage() {
             </p>
           </CardBody>
         </Card>
+      )}
+
+      {/* My Debates */}
+      {user?.username && (
+        <div className="mb-8">
+          <div className="flex items-center gap-2.5 mb-3">
+            <Swords size={18} className="text-brand" />
+            <h2 className="text-lg font-bold text-foreground">My Debates</h2>
+          </div>
+          <Link
+            href="/challenges"
+            className="flex items-center gap-3 px-5 py-4 rounded-[--radius] border border-border bg-surface hover:bg-surface-raised transition-colors text-sm text-foreground-muted hover:text-foreground"
+          >
+            <Swords size={16} className="text-brand shrink-0" />
+            View all your past and ongoing debates
+            <span className="ml-auto text-xs text-brand">→</span>
+          </Link>
+        </div>
       )}
 
       {/* Rules & Integrity */}

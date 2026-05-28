@@ -5,7 +5,7 @@ import { signOut } from "next-auth/react";
 import { useSession } from "@/components/providers/SessionProvider";
 import { useAvatar } from "@/components/providers/AvatarProvider";
 import { useRouter, useSearchParams } from "next/navigation";
-import { User, Swords, ShieldCheck, Info, LogOut, Smartphone, Laptop, ChevronDown, Trash2 } from "lucide-react";
+import { User, ShieldCheck, Info, LogOut, Smartphone, Laptop, ChevronDown, Trash2 } from "lucide-react";
 import { Avatar } from "@/components/ui/Avatar";
 import { useState, Suspense } from "react";
 
@@ -170,10 +170,6 @@ function AccountPageInner() {
         <Link href="/profile?tab=edit" className="flex items-center gap-3 px-6 py-4 text-base text-foreground-muted hover:text-foreground hover:bg-surface-raised transition-colors">
           <User size={18} />
           My Profile
-        </Link>
-        <Link href="/challenges" className="flex items-center gap-3 px-6 py-4 text-base text-foreground-muted hover:text-foreground hover:bg-surface-raised transition-colors">
-          <Swords size={18} />
-          My Debates
         </Link>
         {isAdmin && (
           <Link href="/admin" className="flex items-center gap-3 px-6 py-4 text-base text-brand hover:bg-surface-raised transition-colors">

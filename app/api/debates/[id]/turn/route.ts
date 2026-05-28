@@ -13,7 +13,7 @@ import {
   type TurnSpec,
 } from "@/lib/debate-state";
 import { judgeDebate } from "@/lib/judging";
-import { AI_OPPONENT_USER_ID, generateAiOpponentTurn } from "@/lib/ai-opponent";
+import { AI_OPPONENT_USER_ID, AI_OPPONENT_USERNAME, generateAiOpponentTurn } from "@/lib/ai-opponent";
 
 interface RouteParams {
   params: Promise<{ id: string }>;
@@ -286,7 +286,7 @@ async function executeAiTurn({ challengeId, debateId, nextIndex, nextSpec, seque
 
   const turnContexts = previousTurns.map((t) => ({
     userId: t.userId,
-    username: t.userId === AI_OPPONENT_USER_ID ? "AI" : (userRecord?.username ?? "Opponent"),
+    username: t.userId === AI_OPPONENT_USER_ID ? AI_OPPONENT_USERNAME : (userRecord?.username ?? "Opponent"),
     roundName: t.roundName,
     content: t.content,
   }));

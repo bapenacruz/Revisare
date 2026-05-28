@@ -20,7 +20,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "Revisare — Structured Debate Platform",
+    default: "Revisare",
     template: "%s | Revisare",
   },
   description:
