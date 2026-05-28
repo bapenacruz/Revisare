@@ -161,7 +161,7 @@ export function FeaturedFeed() {
           ))}
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" style={{ gridAutoRows: "1fr" }}>
           {buildFeed(items, ads, banners).map((item, idx) => {
             if (item.type === "banner") {
               const b = item.data;
@@ -171,11 +171,11 @@ export function FeaturedFeed() {
               );
               return b.linkUrl ? (
                 <a key={`banner-${b.id}-${idx}`} href={ensureAbsoluteUrl(b.linkUrl)} target="_blank" rel="noopener noreferrer"
-                  className="block overflow-hidden rounded-[--radius-lg] self-center">
+                  className="block overflow-hidden rounded-[--radius-lg] col-span-1 md:col-span-2 lg:col-span-3">
                   {inner}
                 </a>
               ) : (
-                <div key={`banner-${b.id}-${idx}`} className="overflow-hidden rounded-[--radius-lg] self-center">
+                <div key={`banner-${b.id}-${idx}`} className="overflow-hidden rounded-[--radius-lg] col-span-1 md:col-span-2 lg:col-span-3">
                   {inner}
                 </div>
               );
