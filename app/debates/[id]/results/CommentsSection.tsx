@@ -6,7 +6,7 @@ import Link from "next/link";
 import { Card, CardBody } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { Avatar } from "@/components/ui/Avatar";
-import { Bell, BellOff, MessageSquare, Send, ThumbsUp, Trash2, Users } from "lucide-react";
+import { Bell, BellOff, MessageSquare, Send, ThumbsUp, Users, X } from "lucide-react";
 
 interface Comment {
   id: string;
@@ -264,7 +264,7 @@ export function CommentsSection({ challengeId, debateId, debaterA, debaterB, ini
         ) : (
           <div className="flex flex-col gap-4 mb-4">
             {comments.map((c) => (
-              <div key={c.id} id={`comment-${c.id}`} className="flex gap-3 group scroll-mt-20 target:bg-brand-dim/30 rounded-lg -mx-2 px-2 py-1 transition-colors">
+              <div key={c.id} id={`comment-${c.id}`} className="flex gap-3 scroll-mt-20 target:bg-brand-dim/30 rounded-lg -mx-2 px-2 py-1 transition-colors">
                 <Avatar initial={c.username[0]} src={c.avatarUrl ?? undefined} size="sm" />
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-0.5">
@@ -283,9 +283,9 @@ export function CommentsSection({ challengeId, debateId, debaterA, debaterB, ini
                         onClick={() => deleteComment(c.id)}
                         disabled={deletingId === c.id}
                         title="Delete comment"
-                        className="ml-auto opacity-0 group-hover:opacity-100 transition-opacity p-1 rounded hover:bg-danger/10 text-foreground-subtle hover:text-danger disabled:opacity-40"
+                        className="ml-auto p-1 rounded text-foreground-subtle hover:bg-danger/10 hover:text-danger transition-colors disabled:opacity-40"
                       >
-                        <Trash2 size={12} />
+                        <X size={12} />
                       </button>
                     )}
                   </div>

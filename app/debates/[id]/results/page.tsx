@@ -13,6 +13,7 @@ import { Trophy, Gavel, Users, CheckCircle2, XCircle, AlertCircle, HelpCircle, S
 import { PrivateFeedbackView } from "@/components/debate/PrivateFeedbackView";
 import { PrivateFeedbackSection } from "./PrivateFeedbackSection";
 import { ShareButton } from "./ShareButton";
+import { ReportButton } from "./ReportButton";
 import type { DebaterScores, EvidenceCheck } from "@/lib/judging/types";
 import type { Metadata } from "next";
 
@@ -572,9 +573,14 @@ export default async function ResultsPage({ params }: Props) {
         <Link href="/" className="text-sm text-foreground-muted hover:text-foreground transition-colors">
           ← Back to feed
         </Link>
-        {debate.isAiOpponent && (
-          <ShareButton challengeId={challengeId} motion={debate.motion} />
-        )}
+        <div className="flex items-center gap-4">
+          {debate.isAiOpponent && (
+            <ShareButton challengeId={challengeId} motion={debate.motion} />
+          )}
+          {sessionUserId && (
+            <ReportButton challengeId={challengeId} />
+          )}
+        </div>
       </div>
     </div>
   );
