@@ -41,18 +41,6 @@ const FILTER_GROUPS: { key: string; icon: string; label: string }[] = [
   { key: "result_ready,opponent_forfeit", icon: "🏆",  label: "Results" },
 ];
 
-// Legacy map still used for per-notification icon display
-const TYPE_ICON: Record<string, string> = {
-  new_follower: "👤",
-  result_ready: "🏆",
-  challenge_received: "⚔️",
-  featured_debate: "⭐",
-  opponent_forfeit: "🏳️",
-  integrity_action: "🛡️",
-  new_comment: "💬",
-  follow_request: "👤",
-};
-
 export default function NotificationsPage() {
   const { data: session } = useSession();
   const [notifs, setNotifs] = useState<Notif[]>([]);
