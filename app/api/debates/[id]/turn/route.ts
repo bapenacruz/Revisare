@@ -8,7 +8,6 @@ import {
   getMaxChars,
   PREP_SECONDS,
   SECOND_CHANCE_WINDOW_SECONDS,
-  THINKING_SECONDS,
   getRoundTimer,
   type RoundName,
   type TurnSpec,
@@ -206,78 +205,36 @@ export async function POST(req: NextRequest, { params }: RouteParams) {
   const nextSpec = sequence[nextIndex];
   const isNextAi = debate.isAiOpponent && nextSpec.userId === AI_OPPONENT_USER_ID;
 
-  // After proposition's opening (turn 0 → turn 1), give opposition 1 min to think
-  // Skip thinking phase if opponent is AI (instant)
-  if (debate.currentTurnIndex === 0 && !isNextAi) {
-    const thinkingEndsAt = new Date(now.getTime() + THINKING_SECONDS * 1000);
-    await db.debate.update({
-      where: { challengeId },
-      data: {
-        phase: "thinking",
-        currentTurnIndex: nextIndex,
-        currentUserId: nextSpec.userId,
-        prepEndsAt: thinkingEndsAt,
-        timerStartedAt: null,
-        timerPreset: getRoundTimer(debate.format, nextSpec.roundName),
-      },
-    });
-    await pusherTrigger(CHANNELS.debate(challengeId), EVENTS.DEBATE_TURN_SUBMITTED, {
-      turnIndex: debate.currentTurnIndex,
-      nextUserId: nextSpec.userId,
-    });
-    await pusherTrigger(CHANNELS.debate(challengeId), EVENTS.DEBATE_STATE_CHANGED, {
-      phase: "thinking",
-    });
-    return NextResponse.json({ phase: "thinking", thinkingEndsAt });
-  }
-
-  // For all other human turns (1→2 through 6→7): 30s digest prep before typing starts.
-  // AI turns skip this — they respond instantly.
-  if (!isNextAi) {
-    const prepEndsAt = new Date(now.getTime() + PREP_SECONDS * 1000);
-    await db.debate.update({
-      where: { challengeId },
-      data: {
-        phase: "prep",
-        currentTurnIndex: nextIndex,
-        currentUserId: nextSpec.userId,
-        prepEndsAt,
-        timerStartedAt: null,
-        timerPreset: getRoundTimer(debate.format, nextSpec.roundName),
-      },
-    });
-    await pusherTrigger(CHANNELS.debate(challengeId), EVENTS.DEBATE_TURN_SUBMITTED, {
-      turnIndex: debate.currentTurnIndex,
-      nextUserId: nextSpec.userId,
-    });
-    await pusherTrigger(CHANNELS.debate(challengeId), EVENTS.DEBATE_STATE_CHANGED, {
-      phase: "prep",
-    });
-    return NextResponse.json({ phase: "prep", prepEndsAt });
-  }
-
-  // AI turn: go directly to typing and spawn AI generation
+  // Universal 30s prep before every turn — all formats, all opponent types.
+  // For AI turns: AI generates in the background during the 30s and waits until
+  // prepEndsAt before committing, so the user always gets the full reading window.
+  const prepEndsAt = new Date(now.getTime() + PREP_SECONDS * 1000);
   await db.debate.update({
     where: { challengeId },
     data: {
-      phase: "typing",
+      phase: "prep",
       currentTurnIndex: nextIndex,
       currentUserId: nextSpec.userId,
-      timerStartedAt: now,
+      prepEndsAt,
+      timerStartedAt: null,
       timerPreset: getRoundTimer(debate.format, nextSpec.roundName),
     },
   });
-
   await pusherTrigger(CHANNELS.debate(challengeId), EVENTS.DEBATE_TURN_SUBMITTED, {
     turnIndex: debate.currentTurnIndex,
     nextUserId: nextSpec.userId,
   });
+  await pusherTrigger(CHANNELS.debate(challengeId), EVENTS.DEBATE_STATE_CHANGED, { phase: "prep" });
 
-  Promise.resolve()
-    .then(() => executeAiTurn({ challengeId, debateId: debate.id, nextIndex, nextSpec, sequence, debate }))
-    .catch((err) => console.error("[AI Turn] Background execution failed:", err));
+  if (isNextAi) {
+    // Start generation now so the AI is ready right when prep ends.
+    // executeAiTurn will sleep until prepEndsAt before committing the turn.
+    Promise.resolve()
+      .then(() => executeAiTurn({ challengeId, debateId: debate.id, nextIndex, nextSpec, sequence, debate, prepEndsAt }))
+      .catch((err) => console.error("[AI Turn] Background execution failed:", err));
+  }
 
-  return NextResponse.json({ phase: "typing", nextUserId: nextSpec.userId });
+  return NextResponse.json({ phase: "prep", prepEndsAt });
 }
 
 // ── AI Turn Execution ────────────────────────────────────────────────────────
@@ -288,6 +245,8 @@ interface AiTurnOptions {
   nextIndex: number;
   nextSpec: TurnSpec;
   sequence: TurnSpec[];
+  /** Timestamp when the current prep phase ends — AI waits until this before committing. */
+  prepEndsAt: Date;
   debate: {
     debaterAId: string;
     debaterBId: string;
@@ -299,7 +258,7 @@ interface AiTurnOptions {
   };
 }
 
-async function executeAiTurn({ challengeId, debateId, nextIndex, nextSpec, sequence, debate }: AiTurnOptions) {
+async function executeAiTurn({ challengeId, debateId, nextIndex, nextSpec, sequence, debate, prepEndsAt }: AiTurnOptions) {
   // Load all turns so far
   const previousTurns = await db.debateTurn.findMany({
     where: { debateId },
@@ -341,6 +300,14 @@ async function executeAiTurn({ challengeId, debateId, nextIndex, nextSpec, seque
   }
 
   const content = aiText ?? "I concede this point and yield my time.";
+
+  // Wait until the user's reading window is over before committing the AI turn.
+  // This ensures the 30s prep always elapses before the AI's text appears.
+  const waitMs = prepEndsAt.getTime() - Date.now();
+  if (waitMs > 0) {
+    await new Promise<void>((resolve) => setTimeout(resolve, waitMs));
+  }
+
   const now = new Date();
 
   await db.debateTurn.create({
@@ -383,15 +350,17 @@ async function executeAiTurn({ challengeId, debateId, nextIndex, nextSpec, seque
     return;
   }
 
-  // Advance to user's next turn
+  // Advance to user's next turn — 30s prep so they can read the AI's response
   const afterAiSpec = sequence[afterAiIndex];
+  const humanPrepEndsAt = new Date(now.getTime() + PREP_SECONDS * 1000);
   await db.debate.update({
     where: { challengeId },
     data: {
-      phase: "typing",
+      phase: "prep",
       currentTurnIndex: afterAiIndex,
       currentUserId: afterAiSpec.userId,
-      timerStartedAt: now,
+      prepEndsAt: humanPrepEndsAt,
+      timerStartedAt: null,
       timerPreset: getRoundTimer(debate.format, afterAiSpec.roundName),
     },
   });
@@ -399,5 +368,5 @@ async function executeAiTurn({ challengeId, debateId, nextIndex, nextSpec, seque
     turnIndex: nextIndex,
     nextUserId: afterAiSpec.userId,
   });
-  await pusherTrigger(CHANNELS.debate(challengeId), EVENTS.DEBATE_STATE_CHANGED, { phase: "typing" });
+  await pusherTrigger(CHANNELS.debate(challengeId), EVENTS.DEBATE_STATE_CHANGED, { phase: "prep" });
 }

@@ -521,12 +521,14 @@ export default function ArenaPage() {
                   // Inter-turn digest prep — shown after opponent submits a turn
                   <>
                     <h2 className="text-lg font-bold text-foreground mb-1">
-                      {me === debate.currentUserId ? "Digest &amp; Prepare" : "Opponent Preparing"}
+                      {me === debate.currentUserId ? "Digest & Prepare" : "Opponent Preparing"}
                     </h2>
                     <p className="text-foreground-muted text-sm mb-4">
                       {me === debate.currentUserId
                         ? "Read your opponent\u2019s response carefully. Your typing timer starts in\u2026"
-                        : `${debate.currentUserId === debate.debaterAId ? debate.debaterA.username : debate.debaterB.username} is reading your response before replying.`}
+                        : debate.currentUserId === "ai_opponent_system_v1"
+                          ? "AI is preparing its response\u2026 your turn starts shortly."
+                          : `${debate.currentUserId === debate.debaterAId ? debate.debaterA.username : debate.debaterB.username} is reading your response. Their turn starts shortly.`}
                     </p>
                   </>
                 ) : (
