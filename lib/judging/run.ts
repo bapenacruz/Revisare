@@ -153,9 +153,9 @@ async function _judgeDebate(debateId: string): Promise<void> {
       title: "Your debate result is in",
       body:
         consensus.winnerId === debate.debaterAId
-          ? "You won! The AI judges ruled in your favour."
+          ? `You won against ${debate.debaterB.username}! Check the full breakdown.`
           : consensus.winnerId === debate.debaterBId
-            ? `${debate.debaterB.username} won this one. Check the full breakdown.`
+            ? `You lost against ${debate.debaterB.username}. Check the full breakdown.`
             : "It's a tie! The panel was evenly split.",
       href: resultHref,
       challengeId,
@@ -165,9 +165,9 @@ async function _judgeDebate(debateId: string): Promise<void> {
       title: "Your debate result is in",
       body:
         consensus.winnerId === debate.debaterBId
-          ? "You won! The AI judges ruled in your favour."
+          ? `You won against ${debate.debaterA.username}! Check the full breakdown.`
           : consensus.winnerId === debate.debaterAId
-            ? `${debate.debaterA.username} won this one. Check the full breakdown.`
+            ? `You lost against ${debate.debaterA.username}. Check the full breakdown.`
             : "It's a tie! The panel was evenly split.",
       href: resultHref,
       challengeId,

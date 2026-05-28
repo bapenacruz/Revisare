@@ -79,8 +79,8 @@ export async function POST(req: NextRequest, { params }: RouteParams) {
   if (opponentId) {
     await createNotification(opponentId, {
       type: "opponent_forfeit",
-      title: "Your opponent forfeited",
-      body: `${forfeiter?.username ?? "Your opponent"} forfeited the debate. You win!`,
+      title: "Your debate result is in",
+      body: `You won against ${forfeiter?.username ?? "your opponent"} by forfeit! Check the full breakdown.`,
       href: `/debates/${challengeId}/results`,
     });
   }

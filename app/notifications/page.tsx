@@ -37,9 +37,8 @@ const FILTER_GROUPS: { key: string; icon: string; label: string }[] = [
   { key: "new_comment",                    icon: "💬",  label: "Comments" },
   { key: "featured_debate",               icon: "⭐",  label: "Featured" },
   { key: "new_follower,follow_request",   icon: "👤",  label: "Followers" },
-  { key: "opponent_forfeit",              icon: "🏳️", label: "Forfeits" },
   { key: "integrity_action",             icon: "🛡️", label: "Moderation" },
-  { key: "result_ready",                  icon: "🏆",  label: "Results" },
+  { key: "result_ready,opponent_forfeit", icon: "🏆",  label: "Results" },
 ];
 
 // Legacy map still used for per-notification icon display
