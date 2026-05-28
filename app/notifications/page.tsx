@@ -42,7 +42,9 @@ const TYPE_LABELS: Record<string, string> = {
   follow_request: "Follow Requests",
 };
 
-const ALL_TYPES = Object.keys(TYPE_LABELS);
+const ALL_TYPES = Object.keys(TYPE_LABELS).sort((a, b) =>
+  TYPE_LABELS[a].localeCompare(TYPE_LABELS[b])
+);
 
 export default function NotificationsPage() {
   const { data: session } = useSession();
